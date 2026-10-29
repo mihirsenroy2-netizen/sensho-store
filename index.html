@@ -12,75 +12,69 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .font-mono-card { font-family: 'Space Grotesk', monospace; }
-        .gradient-sensho { background: linear-gradient(135deg, #38003c 0%, #5c0962 50%, #ad1457 100%); }
-        .gradient-vip-card { background: linear-gradient(135deg, #18001a 0%, #4a0e4e 50%, #be123c 100%); }
-        .gold-border { border: 2px solid rgba(251, 191, 36, 0.85); }
+        .gradient-sensho { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); }
+        .gradient-vip-card { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%); }
+        .gold-border { border: 2px solid rgba(251, 191, 36, 0.9); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .banner-track { display: flex; transition: transform 0.5s ease-in-out; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 antialiased selection:bg-pink-600 selection:text-white pb-24 md:pb-0">
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-0">
 
     <!-- Top Announcement Bar -->
-    <div class="bg-[#240026] text-pink-100 text-xs py-2 px-4 flex flex-col sm:flex-row justify-between items-center border-b border-purple-900 gap-1 text-center">
+    <div class="bg-slate-900 text-blue-100 text-xs py-2 px-4 flex flex-col sm:flex-row justify-between items-center border-b border-slate-800 gap-1 text-center">
         <div class="flex items-center justify-center gap-3">
             <span class="flex items-center gap-1 text-emerald-400 font-bold"><i class="fa-solid fa-shield-check"></i> 100% Quality Checked Wholesale Hub</span>
-            <span class="text-purple-400 hidden sm:inline">|</span>
-            <span class="hidden sm:inline text-slate-200"><i class="fa-solid fa-truck-fast text-pink-400 mr-1"></i> Pan-India Express Delivery</span>
+            <span class="text-slate-600 hidden sm:inline">|</span>
+            <span class="hidden sm:inline text-slate-300"><i class="fa-solid fa-truck-fast text-blue-400 mr-1"></i> Pan-India Express Delivery</span>
         </div>
         <div class="flex items-center gap-2">
-            <span class="text-amber-300 font-extrabold">VIP Helpline:</span>
+            <span class="text-amber-400 font-extrabold">Direct Helpline:</span>
             <span class="text-white font-bold">+91 6261118847</span>
         </div>
     </div>
 
     <!-- Main Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-[#4a0e4e] text-white shadow-xl backdrop-blur-md bg-[#4a0e4e]/95">
+    <header class="sticky top-0 z-40 bg-[#1e1b4b] text-white shadow-xl backdrop-blur-md bg-[#1e1b4b]/95">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
 
             <!-- Brand Logo (Secret Admin Trigger on Triple Click) -->
             <div onclick="secretLogoClick()" class="flex items-center gap-2 group cursor-pointer select-none" title="Sensho Hub">
-                <div class="bg-gradient-to-tr from-pink-500 to-amber-400 text-white p-2.5 rounded-2xl font-black text-xl group-hover:scale-105 transition shadow-lg">
+                <div class="bg-gradient-to-tr from-blue-600 to-amber-400 text-white p-2.5 rounded-2xl font-black text-xl group-hover:scale-105 transition shadow-lg">
                     <i class="fa-solid fa-bag-shopping"></i>
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-2xl sm:text-3xl font-black tracking-wider leading-none text-white">SEN<span class="text-pink-400">SHO</span></span>
-                    <span class="text-[9px] text-pink-200 tracking-widest font-extrabold uppercase">Wholesale Hub</span>
+                    <span class="text-2xl sm:text-3xl font-black tracking-wider leading-none text-white">SEN<span class="text-blue-400">SHO</span></span>
+                    <span class="text-[9px] text-blue-200 tracking-widest font-extrabold uppercase">Wholesale Hub</span>
                 </div>
             </div>
 
             <!-- Search Bar -->
             <div class="hidden md:flex flex-1 max-w-xl mx-4">
-                <div class="flex w-full bg-white/10 border border-purple-400/30 rounded-2xl overflow-hidden focus-within:border-pink-400 transition shadow-inner">
-                    <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search clothes for Men, Women, Kids..." class="w-full px-4 py-3 bg-transparent text-white text-sm focus:outline-none placeholder-purple-200">
-                    <button class="bg-pink-600 hover:bg-pink-700 text-white px-6 font-bold transition flex items-center justify-center">
+                <div class="flex w-full bg-white/10 border border-blue-400/30 rounded-2xl overflow-hidden focus-within:border-blue-400 transition shadow-inner">
+                    <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search clothes for Men, Women, Kids..." class="w-full px-4 py-3 bg-transparent text-white text-sm focus:outline-none placeholder-blue-200">
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 font-bold transition flex items-center justify-center">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </button>
                 </div>
             </div>
 
             <!-- Right Actions -->
-            <div class="flex items-center gap-3">
-                <button onclick="openMyOrders()" class="bg-purple-900/80 hover:bg-purple-800 text-purple-200 text-xs font-bold px-3 py-2 rounded-xl border border-purple-700 transition flex items-center gap-1.5 shadow">
+            <div class="flex items-center gap-2.5 sm:gap-3">
+                <button onclick="openHelpModal()" class="bg-blue-900/80 hover:bg-blue-800 text-blue-200 text-xs font-bold px-3 py-2 rounded-xl border border-blue-700 transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-headset text-emerald-400"></i> Help
+                </button>
+
+                <button onclick="openMyOrders()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5 shadow">
                     <i class="fa-solid fa-box-open text-amber-400"></i> My Orders
                 </button>
 
-                <button onclick="openVipCardModal()" id="navVipBtn" class="bg-gradient-to-r from-amber-400 to-pink-500 hover:opacity-90 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
-                    <i class="fa-solid fa-crown text-slate-950"></i> <span id="navVipBtnText">VIP Card</span>
+                <button onclick="openVipCardModal()" id="navVipBtn" class="bg-gradient-to-r from-amber-400 to-amber-500 hover:opacity-90 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-crown text-slate-950"></i> <span id="navVipBtnText">VIP Pass</span>
                 </button>
 
-                <div class="bg-purple-900/80 border border-purple-700 px-3 py-1.5 rounded-xl hidden sm:flex items-center gap-2 shadow-inner">
-                    <div class="flex flex-col text-right">
-                        <span class="text-[9px] text-purple-300 font-bold uppercase tracking-wider">VIP Pricing</span>
-                        <span id="vipStatusMini" class="text-xs font-black text-amber-400">OFF</span>
-                    </div>
-                    <button onclick="toggleVIPPreview()" id="vipToggleBtn" class="bg-purple-950 text-slate-200 px-2.5 py-1 rounded-lg text-xs font-bold border border-purple-700 hover:bg-purple-900 transition flex items-center gap-1">
-                        <i class="fa-solid fa-toggle-off text-base text-slate-400" id="toggleIcon"></i>
-                    </button>
-                </div>
-
-                <button onclick="openCartDrawer()" class="relative bg-pink-600 hover:bg-pink-700 p-2.5 rounded-xl text-white transition flex items-center justify-center shadow">
+                <button onclick="openCartDrawer()" class="relative bg-blue-600 hover:bg-blue-700 p-2.5 rounded-xl text-white transition flex items-center justify-center shadow">
                     <i class="fa-solid fa-cart-shopping text-lg"></i>
                     <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-amber-400 text-slate-950 text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
                 </button>
@@ -88,14 +82,14 @@
         </div>
 
         <!-- Categories -->
-        <nav class="bg-[#38003c] border-t border-purple-900 px-4">
-            <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-6 overflow-x-auto py-3 text-xs font-extrabold whitespace-nowrap text-purple-200 no-scrollbar">
-                <button onclick="filterCategory('all', this)" class="cat-btn active bg-pink-600 text-white px-4 py-1.5 rounded-xl transition shadow">All Collection</button>
-                <button onclick="filterCategory('mens', this)" class="cat-btn hover:text-pink-400 px-3 py-1.5 transition">Men's Fashion</button>
-                <button onclick="filterCategory('womens', this)" class="cat-btn hover:text-pink-400 px-3 py-1.5 transition">Women's Wear</button>
-                <button onclick="filterCategory('boys', this)" class="cat-btn hover:text-pink-400 px-3 py-1.5 transition">Boys Clothing</button>
-                <button onclick="filterCategory('girls', this)" class="cat-btn hover:text-pink-400 px-3 py-1.5 transition">Girls Clothing</button>
-                <button onclick="filterCategory('kids', this)" class="cat-btn hover:text-pink-400 px-3 py-1.5 transition">Baby & Kids</button>
+        <nav class="bg-[#17143a] border-t border-slate-800 px-4">
+            <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-6 overflow-x-auto py-3 text-xs font-extrabold whitespace-nowrap text-blue-200 no-scrollbar">
+                <button onclick="filterCategory('all', this)" class="cat-btn active bg-blue-600 text-white px-4 py-1.5 rounded-xl transition shadow">All Collection</button>
+                <button onclick="filterCategory('mens', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Men's Fashion</button>
+                <button onclick="filterCategory('womens', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Women's Wear</button>
+                <button onclick="filterCategory('boys', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Boys Clothing</button>
+                <button onclick="filterCategory('girls', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Girls Clothing</button>
+                <button onclick="filterCategory('kids', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Baby & Kids</button>
             </div>
         </nav>
     </header>
@@ -113,12 +107,12 @@
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b pb-4 border-slate-200">
             <div>
                 <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Sensho Fashion Catalog</h2>
-                <p class="text-slate-500 text-sm">MRP, Normal Retail aur VIP Member price ek sath compare karein.</p>
+                <p class="text-slate-500 text-sm">Normal Retail, Normal Member aur VIP Member rates compare karein.</p>
             </div>
 
             <div class="bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm text-xs font-bold text-slate-700 flex items-center gap-2">
                 <span>Account Status:</span>
-                <span id="headerPricingStatusBadge" class="bg-purple-50 text-purple-700 px-3 py-1 rounded-lg border border-purple-200">
+                <span id="headerPricingStatusBadge" class="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg border border-blue-200">
                     Standard Retail View
                 </span>
             </div>
@@ -127,55 +121,114 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productGrid"></div>
     </main>
 
-    <!-- BIG VIP ALERT POPUP -->
-    <div id="bigVipAlertModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl border-4 border-amber-400 text-center">
-            <button onclick="closeBigVipAlertModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl p-1">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+    <!-- CUSTOMER CARE CATEGORIES MODAL -->
+    <div id="helpModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeHelpModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
-            <div class="w-20 h-20 bg-gradient-to-tr from-amber-400 to-pink-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-4 text-4xl shadow-xl">
-                <i class="fa-solid fa-crown"></i>
-            </div>
-
-            <span class="bg-amber-100 text-[#4a0e4e] font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider border border-amber-300 inline-block mb-3">
-                ⚠️ VIP Order Restriction
-            </span>
-
-            <h2 class="text-2xl sm:text-3xl font-black text-slate-950 mb-2 leading-tight">
-                VIP Member Bano! Tabhi Hoga Wholesale Discount Order
-            </h2>
-
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
-                Aapne <strong class="text-pink-600 font-extrabold">VIP Wholesale Rate</strong> select kiya hai! Yeh discounted rate sirf unhi ke liye valid hai jinhone **₹299 ka 1-Year Sensho VIP Pass** liya hai.
-            </p>
-
-            <div class="bg-purple-50 border border-purple-200 rounded-2xl p-4 text-left mb-6 space-y-2">
-                <div class="flex items-center gap-2 text-xs font-bold text-purple-950">
-                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Flat 40% Bachat har kapde par
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-xl">
+                    <i class="fa-solid fa-headset"></i>
                 </div>
-                <div class="flex items-center gap-2 text-xs font-bold text-purple-950">
-                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Pure 1 Year (365 Din) Ki Validity
-                </div>
-                <div class="flex items-center gap-2 text-xs font-bold text-purple-950">
-                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Unique Digital VIP Card Number
-                </div>
-            </div>
-
-            <div class="bg-slate-50 border rounded-2xl p-3 text-left mb-5">
-                <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Pehle se ₹299 Pay Kiya Hai? Enter Code:</label>
-                <div class="flex gap-2">
-                    <input type="text" id="bigVipCodeInput" placeholder="VIP CODE" class="w-full text-xs border rounded-xl px-3 py-2 font-black uppercase tracking-widest focus:outline-none focus:border-pink-600">
-                    <button onclick="activateBigVipCode()" class="bg-[#4a0e4e] hover:bg-[#38003c] text-white text-xs font-bold px-4 py-2 rounded-xl transition">Activate</button>
+                <div>
+                    <h3 class="text-lg font-black text-slate-900">Sensho Help Support</h3>
+                    <p class="text-xs text-slate-500">Problem select karke WhatsApp par solution lein</p>
                 </div>
             </div>
 
             <div class="space-y-2.5">
-                <button onclick="directContactVipWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-2xl shadow-xl transition flex items-center justify-center gap-3 text-sm sm:text-base">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Mujhe VIP Pass Chahiye (WhatsApp Message)
+                <button onclick="sendHelpWhatsApp('Order & Delivery Tracking', 'Mujhe mera order status aur delivery details check karwana hai.')" class="w-full text-left p-3.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-2xl transition flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-truck-ramp-box text-blue-600 text-lg"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-900 block">Order Status & Delivery</span>
+                            <span class="text-[10px] text-slate-500">Dispatch, tracking code aur arrival date</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-blue-600"></i>
                 </button>
-                <button onclick="continueAsNormalUser()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-2xl text-xs transition">
-                    Standard Retail Rate Par Order Karein
+
+                <button onclick="sendHelpWhatsApp('VIP Membership Activation', 'Maine ₹299 pay kiya hai, mujhe mera VIP Activation Passcode aur VIP Card chahiye.')" class="w-full text-left p-3.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-2xl transition flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-crown text-amber-500 text-lg"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-900 block">VIP Membership Issue</span>
+                            <span class="text-[10px] text-slate-500">Payment ke baad VIP Passcode activation help</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-blue-600"></i>
+                </button>
+
+                <button onclick="sendHelpWhatsApp('Bulk Wholesale Purchase', 'Mujhe bulk wholesale quantity me kapde purchase karne hain factory rate par.')" class="w-full text-left p-3.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-2xl transition flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-boxes-packing text-emerald-600 text-lg"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-900 block">Bulk Wholesale Sourcing</span>
+                            <span class="text-[10px] text-slate-500">Shopkeepers aur bulk orders ke liye</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-blue-600"></i>
+                </button>
+
+                <button onclick="sendHelpWhatsApp('Return, Exchange or Refund', 'Mujhe product return, size change ya refund ke regarding help chahiye.')" class="w-full text-left p-3.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-2xl transition flex items-center justify-between group">
+                    <div class="flex items-center gap-3">
+                        <i class="fa-solid fa-arrow-rotate-left text-rose-600 text-lg"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-900 block">Return / Exchange / Refund</span>
+                            <span class="text-[10px] text-slate-500">Defective product ya size issue support</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-blue-600"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIP MEMBERSHIP PROMO MODAL -->
+    <div id="bigVipAlertModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl border-4 border-blue-600 text-center">
+            <button onclick="closeBigVipAlertModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl p-1">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="w-20 h-20 bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-800 text-amber-400 rounded-3xl flex items-center justify-center mx-auto mb-4 text-4xl shadow-xl border-2 border-amber-300">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <span class="bg-blue-50 text-blue-800 font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider border border-blue-200 inline-block mb-2">
+                🔒 Sensho Verified Wholesale Access
+            </span>
+
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-950 mb-1 leading-tight">
+                VIP Member Banein Aur Flat 40% Bachayein!
+            </h2>
+
+            <div class="my-3 py-2 bg-rose-50 border border-rose-200 rounded-2xl">
+                <span class="text-xs font-black text-rose-500 uppercase tracking-widest block">Yearly Membership Fee</span>
+                <span class="text-3xl sm:text-4xl font-black text-rose-600 tracking-tight">ONLY ₹299</span>
+                <span class="text-xs font-bold text-slate-500 block">Valid for Complete 1 Year (365 Days)</span>
+            </div>
+
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                VIP Pass lene ke baad aapko har kapde par factory wholesale rates milenge. Agar pehle se passcode hai toh neeche daal kar activate karein:
+            </p>
+
+            <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-3.5 text-left mb-4">
+                <label class="text-[10px] font-bold text-blue-950 uppercase block mb-1">Enter Secret VIP Passcode:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="bigVipCodeInput" placeholder="ENTER PASSCODE" class="w-full text-xs border border-blue-300 rounded-xl px-3 py-2.5 font-black uppercase tracking-widest focus:outline-none focus:border-blue-600 bg-white">
+                    <button onclick="activateBigVipCode()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-black px-5 py-2.5 rounded-xl transition shadow">
+                        Activate
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <button onclick="directContactVipWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 rounded-2xl shadow-lg transition flex items-center justify-center gap-2.5 text-sm sm:text-base">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Buy 1-Year VIP Pass @ ₹299 (WhatsApp)
+                </button>
+                <button onclick="closeBigVipAlertModal()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-xl text-xs transition">
+                    Continue with Normal Shopping
                 </button>
             </div>
         </div>
@@ -187,52 +240,52 @@
             <button onclick="closeVipCardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
             <h3 class="text-xl font-black text-slate-900 mb-1 flex items-center gap-2">
-                <i class="fa-solid fa-id-card text-amber-500"></i> Sensho 1-Year VIP Pass
+                <i class="fa-solid fa-id-card text-blue-600"></i> Sensho 1-Year VIP Card
             </h3>
             <p class="text-xs text-slate-500 mb-5">Aapka verified digital wholesale discount pass.</p>
 
             <div class="gradient-vip-card gold-border text-white p-6 rounded-3xl shadow-2xl relative overflow-hidden mb-5">
                 <div class="flex justify-between items-start mb-6">
                     <div>
-                        <span class="text-[10px] uppercase tracking-widest text-pink-300 font-extrabold block">Wholesale Pass</span>
+                        <span class="text-[10px] uppercase tracking-widest text-blue-200 font-extrabold block">Official Wholesale Pass</span>
                         <h4 class="text-xl font-black tracking-wider text-amber-300">SENSHO VIP</h4>
                     </div>
                     <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full uppercase flex items-center gap-1 shadow">
-                        <i class="fa-solid fa-shield-halved"></i> Active
+                        <i class="fa-solid fa-shield-halved"></i> 1-Year Active
                     </span>
                 </div>
 
                 <div class="mb-6">
-                    <span class="text-[9px] uppercase tracking-widest text-slate-400 block mb-1">Unique VIP Card Number</span>
+                    <span class="text-[9px] uppercase tracking-widest text-slate-300 block mb-1">Unique VIP Card Number</span>
                     <p class="text-xl sm:text-2xl font-mono-card font-bold tracking-widest text-white drop-shadow-md" id="vipCardDisplayNumber">
                         SNS-VIP-••••-••••
                     </p>
                 </div>
 
-                <div class="flex justify-between items-end border-t border-purple-800/80 pt-3 text-xs">
+                <div class="flex justify-between items-end border-t border-blue-500/40 pt-3 text-xs">
                     <div>
-                        <span class="text-[9px] uppercase tracking-widest text-slate-400 block">Member Name</span>
-                        <span class="font-bold text-slate-200" id="vipCardDisplayName">Sensho Preferred Buyer</span>
+                        <span class="text-[9px] uppercase tracking-widest text-slate-300 block">Status</span>
+                        <span class="font-bold text-white">Verified Member</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-[9px] uppercase tracking-widest text-slate-400 block">Validity</span>
-                        <span class="font-bold text-amber-300" id="vipCardDisplayExpiry">1 Year (365 Days)</span>
+                        <span class="text-[9px] uppercase tracking-widest text-slate-300 block">Valid Until</span>
+                        <span class="font-bold text-amber-300" id="vipCardDisplayExpiry">1 Year</span>
                     </div>
                 </div>
             </div>
 
             <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-2xl flex items-center gap-3 text-xs text-emerald-800 font-bold mb-4">
                 <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
-                <span>Wholesale rates enabled! Aap sabhi products VIP discount par order kar sakte hain.</span>
+                <span>VIP Wholesale rates unlocked! Sabhi orders ab flat wholesale discount par place honge.</span>
             </div>
 
-            <button onclick="closeVipCardModal()" class="w-full bg-[#4a0e4e] hover:bg-[#38003c] text-white font-bold py-3 rounded-xl transition text-sm">
+            <button onclick="closeVipCardModal()" class="w-full bg-[#1e1b4b] hover:bg-slate-900 text-white font-bold py-3 rounded-xl transition text-sm">
                 Done & Continue Shopping
             </button>
         </div>
     </div>
 
-    <!-- MEESHO STYLE PRODUCT DETAIL MODAL (3-TIER PRICING) -->
+    <!-- MEESHO STYLE PRODUCT DETAIL MODAL -->
     <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-5xl w-full p-4 sm:p-8 relative shadow-2xl max-h-[92vh] overflow-y-auto">
             <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-2xl z-10 p-2">
@@ -248,7 +301,7 @@
                     <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[460px] no-scrollbar shrink-0" id="detailThumbnailsList"></div>
                     <div class="flex-1 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 relative aspect-[3/4]">
                         <img id="detailMainImage" src="" alt="Product Image" class="w-full h-full object-cover">
-                        <span id="detailBadge" class="absolute top-3 left-3 bg-pink-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow"></span>
+                        <span id="detailBadge" class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow"></span>
                     </div>
                 </div>
 
@@ -263,9 +316,9 @@
                         </div>
                     </div>
 
-                    <!-- 3-TIER PROFESSIONAL PRICING CONTAINER -->
-                    <div class="bg-gradient-to-br from-purple-50 via-pink-50 to-amber-50 border-2 border-purple-200/90 rounded-2xl p-4 shadow-sm">
-                        <div class="flex items-center gap-2 mb-2 pb-2 border-b border-purple-100">
+                    <!-- 3-TIER PRICING CONTAINER -->
+                    <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border-2 border-blue-200 rounded-2xl p-4 shadow-sm">
+                        <div class="flex items-center gap-2 mb-2 pb-2 border-b border-blue-100">
                             <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Normal Retail:</span>
                             <span class="text-sm font-bold text-slate-400 line-through" id="detailMrpPrice">₹1,499</span>
                             <span class="text-[11px] font-black text-rose-600 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-md" id="detailMrpDiscount">Save ₹899</span>
@@ -273,18 +326,18 @@
 
                         <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
                             <div class="flex items-center gap-4">
-                                <div>
+                                <div id="detailNormalBoxContainer" class="p-2 rounded-xl transition">
                                     <span class="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Normal Member:</span>
-                                    <span class="text-xl font-black text-slate-700" id="detailNormalPrice">₹1,000</span>
+                                    <span class="text-xl font-black text-slate-800" id="detailNormalPrice">₹1,000</span>
                                 </div>
 
-                                <div class="h-9 w-[2px] bg-purple-200"></div>
+                                <div class="h-9 w-[2px] bg-blue-200"></div>
 
-                                <div>
-                                    <span class="text-[10px] font-black text-pink-600 uppercase tracking-wider flex items-center gap-1">
+                                <div id="detailVipBoxContainer" class="p-2 rounded-xl transition">
+                                    <span class="text-[10px] font-black text-blue-700 uppercase tracking-wider flex items-center gap-1">
                                         <i class="fa-solid fa-crown text-amber-500"></i> VIP Member:
                                     </span>
-                                    <span class="text-3xl font-black text-[#4a0e4e]" id="detailVipPrice">₹600</span>
+                                    <span class="text-3xl font-black text-[#1e1b4b]" id="detailVipPrice">₹600</span>
                                 </div>
                             </div>
 
@@ -297,14 +350,14 @@
                     <div>
                         <div class="flex justify-between items-center mb-2">
                             <label class="text-xs font-black text-slate-800 uppercase tracking-wider">Select Size</label>
-                            <span class="text-[11px] font-bold text-pink-600 cursor-pointer">Size Chart</span>
+                            <span class="text-[11px] font-bold text-blue-600 cursor-pointer">Size Chart</span>
                         </div>
                         <div class="flex gap-2.5" id="sizeSelectorContainer">
-                            <button onclick="selectSize('S', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition">S</button>
-                            <button onclick="selectSize('M', this)" class="size-btn active px-4 py-2 border-2 border-pink-600 bg-pink-50 text-pink-700 rounded-xl font-bold text-xs transition">M</button>
-                            <button onclick="selectSize('L', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition">L</button>
-                            <button onclick="selectSize('XL', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition">XL</button>
-                            <button onclick="selectSize('XXL', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition">XXL</button>
+                            <button onclick="selectSize('S', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition">S</button>
+                            <button onclick="selectSize('M', this)" class="size-btn active px-4 py-2 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl font-bold text-xs transition">M</button>
+                            <button onclick="selectSize('L', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition">L</button>
+                            <button onclick="selectSize('XL', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition">XL</button>
+                            <button onclick="selectSize('XXL', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition">XXL</button>
                         </div>
                     </div>
 
@@ -326,10 +379,10 @@
                     </div>
 
                     <div class="grid grid-cols-2 gap-3 pt-2">
-                        <button onclick="detailAddToCart()" class="bg-pink-50 hover:bg-pink-100 text-pink-700 border-2 border-pink-300 font-black text-sm py-3.5 rounded-2xl transition flex items-center justify-center gap-2">
+                        <button onclick="detailAddToCart()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border-2 border-blue-300 font-black text-sm py-3.5 rounded-2xl transition flex items-center justify-center gap-2">
                             <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                         </button>
-                        <button onclick="detailBuyNowWhatsApp()" class="bg-pink-600 hover:bg-pink-700 text-white font-black text-sm py-3.5 rounded-2xl transition flex items-center justify-center gap-2 shadow-lg">
+                        <button onclick="detailBuyNowWhatsApp()" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-sm py-3.5 rounded-2xl transition flex items-center justify-center gap-2 shadow-lg">
                             <i class="fa-brands fa-whatsapp text-lg"></i> Buy Now
                         </button>
                     </div>
@@ -342,7 +395,7 @@
     <div id="myOrdersModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-3xl max-w-lg w-full p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto">
             <button onclick="closeMyOrders()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-xl font-black text-slate-900 mb-1"><i class="fa-solid fa-box-open text-pink-600 mr-2"></i> My Order History</h3>
+            <h3 class="text-xl font-black text-slate-900 mb-1"><i class="fa-solid fa-box-open text-blue-600 mr-2"></i> My Order History</h3>
             <p class="text-xs text-slate-500 mb-4">Track items ordered from this device.</p>
             <div id="customerOrdersList" class="space-y-3"></div>
         </div>
@@ -356,37 +409,50 @@
             <div id="adminLoginScreen">
                 <h3 class="text-xl font-black text-slate-900 mb-2">Sensho Master Admin Portal</h3>
                 <p class="text-xs text-slate-500 mb-4">Enter PIN to access master store management.</p>
-                <input type="password" id="adminPin" placeholder="Enter Secret PIN" class="w-full text-sm border border-slate-300 rounded-xl px-4 py-3 mb-3 focus:outline-none focus:border-pink-600 font-bold tracking-widest">
-                <button onclick="verifyAdminPin()" class="w-full bg-[#4a0e4e] hover:bg-[#38003c] text-white font-bold py-3 rounded-xl transition">Unlock Dashboard</button>
+                <input type="password" id="adminPin" placeholder="Enter Secret PIN" class="w-full text-sm border border-slate-300 rounded-xl px-4 py-3 mb-3 focus:outline-none focus:border-blue-600 font-bold tracking-widest">
+                <button onclick="verifyAdminPin()" class="w-full bg-[#1e1b4b] hover:bg-slate-900 text-white font-bold py-3 rounded-xl transition">Unlock Dashboard</button>
             </div>
 
             <div id="adminDashboardScreen" class="hidden space-y-6">
-                <!-- PIN Management -->
-                <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <div>
-                        <h4 class="font-bold text-sm text-purple-950"><i class="fa-solid fa-shield-halved mr-1 text-pink-600"></i> Admin Security PIN</h4>
-                        <p class="text-xs text-purple-700">Change device master PIN anytime.</p>
+                <!-- PIN & VIP Code Manager -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col justify-between gap-3">
+                        <div>
+                            <h4 class="font-bold text-sm text-slate-900"><i class="fa-solid fa-shield-halved mr-1 text-blue-600"></i> Admin Security PIN</h4>
+                            <p class="text-xs text-slate-500">Change device master PIN anytime.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="password" id="newAdminPin" placeholder="New PIN" class="text-xs border rounded-lg px-3 py-2 w-28 font-bold">
+                            <button onclick="updateAdminPin()" class="bg-[#1e1b4b] text-white text-xs font-bold px-3 py-2 rounded-lg hover:bg-slate-900">Update PIN</button>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2 w-full sm:w-auto">
-                        <input type="password" id="newAdminPin" placeholder="New PIN" class="text-xs border rounded-lg px-3 py-2 w-28 font-bold">
-                        <button onclick="updateAdminPin()" class="bg-[#4a0e4e] text-white text-xs font-bold px-3 py-2 rounded-lg hover:bg-[#38003c]">Update PIN</button>
+
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl flex flex-col justify-between gap-3">
+                        <div>
+                            <h4 class="font-bold text-sm text-blue-950"><i class="fa-solid fa-crown mr-1 text-amber-500"></i> Customer VIP Passcode</h4>
+                            <p class="text-xs text-blue-700">Payment hone ke baad customer ko dene wala secret code yahan set karein.</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="adminVipSecretCode" class="text-xs border border-blue-300 rounded-lg px-3 py-2 font-black uppercase text-blue-900 bg-white" placeholder="SET VIP CODE">
+                            <button onclick="updateVipSecretCode()" class="bg-blue-600 text-white text-xs font-bold px-3 py-2 rounded-lg hover:bg-blue-700">Save Passcode</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Live Store Analytics with Reset Button -->
+                <!-- Live Store Analytics -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl">
-                        <span class="text-xs font-bold text-purple-700 uppercase">Total Visitors</span>
-                        <h2 class="text-3xl font-black text-purple-950 mt-1" id="adminVisitorCount">0</h2>
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-slate-500 uppercase">Total Visitors</span>
+                        <h2 class="text-3xl font-black text-slate-900 mt-1" id="adminVisitorCount">0</h2>
                     </div>
-                    <div class="bg-pink-50 border border-pink-200 p-4 rounded-2xl">
-                        <span class="text-xs font-bold text-pink-700 uppercase">Orders Placed</span>
-                        <h2 class="text-3xl font-black text-pink-950 mt-1" id="adminOrderCount">0</h2>
+                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
+                        <span class="text-xs font-bold text-blue-700 uppercase">Orders Placed</span>
+                        <h2 class="text-3xl font-black text-blue-950 mt-1" id="adminOrderCount">0</h2>
                     </div>
-                    <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl relative">
-                        <span class="text-xs font-bold text-amber-700 uppercase">Total Revenue</span>
-                        <h2 class="text-3xl font-black text-amber-950 mt-1" id="adminTotalRevenue">₹0</h2>
-                        <button onclick="clearAllOrders()" class="absolute top-3 right-3 text-[10px] bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold px-2 py-1 rounded-md" title="Reset fake test orders">Reset Orders</button>
+                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl relative">
+                        <span class="text-xs font-bold text-emerald-700 uppercase">Total Revenue</span>
+                        <h2 class="text-3xl font-black text-emerald-950 mt-1" id="adminTotalRevenue">₹0</h2>
+                        <button onclick="clearAllOrders()" class="absolute top-3 right-3 text-[10px] bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold px-2 py-1 rounded-md" title="Reset test orders">Reset Orders</button>
                     </div>
                 </div>
 
@@ -394,8 +460,8 @@
                 <div class="border-t pt-4">
                     <div class="flex justify-between items-center mb-3">
                         <div>
-                            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-images text-pink-600 mr-1.5"></i> Banner Slider Manager</h3>
-                            <p class="text-xs text-slate-500">Slider ke banners ki images gallery se badle</p>
+                            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-images text-blue-600 mr-1.5"></i> Banner Slider Manager</h3>
+                            <p class="text-xs text-slate-500">Slider ke banners ki images gallery se upload karein</p>
                         </div>
                     </div>
                     <div id="adminBannerEditorList" class="space-y-3 max-h-72 overflow-y-auto p-1"></div>
@@ -405,8 +471,8 @@
                 <div class="border-t pt-4">
                     <div class="flex justify-between items-center mb-3">
                         <div>
-                            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-sliders text-pink-600 mr-1.5"></i> Products Master Manager</h3>
-                            <p class="text-xs text-slate-500">Prices, details aur multiple photos gallery se add karein</p>
+                            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-sliders text-blue-600 mr-1.5"></i> Products Master Manager</h3>
+                            <p class="text-xs text-slate-500">Normal Retail (1499), Normal Member (1000) aur VIP Member (600) prices set karein</p>
                         </div>
                         <button onclick="addNewProduct()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1 shadow">
                             <i class="fa-solid fa-plus"></i> Add New Product
@@ -415,10 +481,10 @@
                     <div id="adminProductEditorList" class="space-y-5 max-h-[500px] overflow-y-auto p-1"></div>
                 </div>
 
-                <!-- Orders Log with Individual Delete Option -->
+                <!-- Orders Log -->
                 <div class="border-t pt-4">
                     <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-clipboard-list mr-2 text-pink-600"></i> Customer Orders Database</h3>
+                        <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-clipboard-list mr-2 text-blue-600"></i> Customer Orders Database</h3>
                         <button onclick="clearAllOrders()" class="text-xs text-rose-600 font-bold hover:underline">Delete All Orders</button>
                     </div>
                     <div class="overflow-x-auto border rounded-2xl">
@@ -437,9 +503,8 @@
                     </div>
                 </div>
 
-                <!-- Sticky Save Changes Button -->
                 <div class="pt-4 border-t flex justify-end gap-3 sticky bottom-0 bg-white py-3 shadow-lg z-20">
-                    <button type="button" onclick="saveAdminChanges()" class="bg-pink-600 hover:bg-pink-700 text-white font-black px-8 py-3.5 rounded-2xl text-sm shadow-xl flex items-center gap-2 cursor-pointer">
+                    <button type="button" onclick="saveAdminChanges()" class="bg-blue-600 hover:bg-blue-700 text-white font-black px-8 py-3.5 rounded-2xl text-sm shadow-xl flex items-center gap-2 cursor-pointer">
                         <i class="fa-solid fa-floppy-disk text-base"></i> Save & Apply Changes
                     </button>
                 </div>
@@ -450,7 +515,7 @@
     <!-- Cart Drawer -->
     <div id="cartDrawer" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex justify-end">
         <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl">
-            <div class="p-5 bg-[#4a0e4e] text-white flex justify-between items-center">
+            <div class="p-5 bg-[#1e1b4b] text-white flex justify-between items-center">
                 <h3 class="font-black text-lg flex items-center gap-2"><i class="fa-solid fa-bag-shopping text-amber-400"></i> Your Sensho Cart</h3>
                 <button onclick="closeCartDrawer()" class="text-slate-300 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
@@ -460,7 +525,7 @@
             <div class="p-5 border-t border-slate-200 bg-slate-50 space-y-3">
                 <div class="flex justify-between text-base font-black">
                     <span>Final Amount:</span>
-                    <span class="text-pink-600" id="cartTotalPrice">₹0</span>
+                    <span class="text-blue-600" id="cartTotalPrice">₹0</span>
                 </div>
                 <button onclick="checkoutCartWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
                     <i class="fa-brands fa-whatsapp text-xl"></i> Order via WhatsApp (+91 6261118847)
@@ -470,11 +535,11 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-[#240026] text-purple-200 text-center py-10 text-xs border-t border-purple-900 mt-12">
+    <footer class="bg-slate-900 text-slate-400 text-center py-10 text-xs border-t border-slate-800 mt-12">
         <div class="max-w-7xl mx-auto px-4 space-y-3">
             <p class="font-black text-white text-lg tracking-wider">SENSHO FASHION HUB</p>
-            <p>Direct Wholesale Sourcing • Customer Helpline: <strong class="text-amber-300">+91 6261118847</strong></p>
-            <p class="text-purple-400">&copy; 2026 Sensho. All rights reserved. Powered by GitHub Pages.</p>
+            <p>Direct Wholesale Sourcing • Customer Helpline: <strong class="text-amber-400">+91 6261118847</strong></p>
+            <p class="text-slate-500">&copy; 2026 Sensho. All rights reserved. Powered by GitHub Pages.</p>
         </div>
     </footer>
 
@@ -482,11 +547,22 @@
     <script>
         const WHATSAPP_NUMBER = "916261118847";
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVdXLM9LR21Js1jpI8aFsg3w76qdyEynrbc5294Q035E4p070ukVGIDmWbIGtEJsGY/exec";
-        const VIP_SECRET_CODE = "SENSHOVIP299";
 
-        let isVIP = localStorage.getItem('senshoVIP') === 'true';
+        let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
+
         let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
         let vipCardData = JSON.parse(localStorage.getItem('senshoVIPCardData')) || null;
+
+        // Check if existing VIP has expired (1 Year Validity check)
+        if (vipCardData && vipCardData.expiryTimestamp) {
+            if (Date.now() > vipCardData.expiryTimestamp) {
+                isVIPVerified = false;
+                localStorage.removeItem('senshoVIPVerified');
+                localStorage.removeItem('senshoVIPCardData');
+                vipCardData = null;
+            }
+        }
+
         let activeProductForDetail = null;
         let selectedProductSize = "M";
 
@@ -494,20 +570,20 @@
         const defaultBanners = [
             {
                 id: 1,
-                tag: "⭐ Special 1-Year Pass Offer ⭐",
-                title: "₹299 Me Banein VIP Member, Pure 1 Saal Wholesale Sasta!",
-                subtitle: "Sabhi kapdo par flat 40% discount payein. Apna Unique Digital VIP Card WhatsApp par turant activate karwaye!",
+                tag: "⭐ 1-Year Wholesale Pass ⭐",
+                title: "ONLY ₹299 Me Banein VIP Member, Pure 1 Saal Wholesale Sasta!",
+                subtitle: "Direct factory wholesale rates unlocked! Apna VIP digital pass WhatsApp helpline se activate karwaye.",
                 bgGradient: "gradient-sensho",
-                btnText: "Join VIP Now @ ₹299",
+                btnText: "Join VIP @ ₹299 (1 Year)",
                 isVipAction: true,
                 customImg: ""
             },
             {
                 id: 2,
                 tag: "Direct Factory Rates",
-                title: "Sensho Mega Wholesale Dhamaka",
+                title: "Sensho Mega Wholesale Collection",
                 subtitle: "Men, Women aur Kids ke trending kapde direct factory rate par uplabdh!",
-                bgGradient: "bg-gradient-to-r from-amber-600 to-rose-700",
+                bgGradient: "bg-gradient-to-r from-blue-900 to-indigo-800",
                 btnText: "View Catalog",
                 isVipAction: false,
                 customImg: ""
@@ -516,19 +592,9 @@
                 id: 3,
                 tag: "Baby & Kids",
                 title: "Super Soft Rompers & Boys Wear",
-                subtitle: "100% Cotton, skin-friendly aur long lasting kapde sabse kam daam me.",
-                bgGradient: "bg-gradient-to-r from-indigo-800 to-purple-700",
+                subtitle: "100% Cotton, skin-friendly aur durable fabrics sabse kam wholesale rate me.",
+                bgGradient: "bg-gradient-to-r from-slate-900 to-blue-950",
                 btnText: "Shop Kids Wear",
-                isVipAction: false,
-                customImg: ""
-            },
-            {
-                id: 4,
-                tag: "Super Fast Express",
-                title: "Pan-India Express Safe Shipping",
-                subtitle: "Har order quality check ke baad direct aapke doorstep par dispatch hota hai.",
-                bgGradient: "bg-gradient-to-r from-emerald-800 to-teal-700",
-                btnText: "Start Shopping",
                 isVipAction: false,
                 customImg: ""
             }
@@ -557,7 +623,7 @@
                             <h2 class="text-xl sm:text-4xl font-black leading-tight text-white drop-shadow-md">
                                 ${b.title}
                             </h2>
-                            <p class="text-xs sm:text-sm text-pink-100 hidden sm:block drop-shadow">
+                            <p class="text-xs sm:text-sm text-blue-100 hidden sm:block drop-shadow">
                                 ${b.subtitle}
                             </p>
                             ${b.isVipAction ? `
@@ -715,7 +781,7 @@
             }
         });
 
-        // 3-PRICES PRODUCT CARD DISPLAY
+        // RENDER PRODUCTS
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
@@ -728,17 +794,17 @@
                 html += `
                     <div class="product-card bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition flex flex-col justify-between group cursor-pointer" data-category="${p.category}">
                         <div onclick="openProductDetailModal(${idx})">
-                            <div class="relative h-64 bg-slate-100 overflow-hidden">
+                            <div class="relative bg-slate-100 overflow-hidden w-full aspect-[3/4]">
                                 <img src="${coverImg}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                <span class="absolute top-3 left-3 bg-pink-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow">${p.tag || "Best Seller"}</span>
+                                <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow">${p.tag || "Best Seller"}</span>
                                 ${photoCount > 1 ? `<span class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2 py-0.5 rounded-lg"><i class="fa-solid fa-images mr-1"></i>${photoCount} Photos</span>` : ''}
                             </div>
                             <div class="p-4">
                                 <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">${p.category.toUpperCase()}</span>
                                 <h3 class="font-bold text-slate-900 text-base mt-0.5 mb-2 line-clamp-1">${p.name}</h3>
                                 
-                                <div class="bg-gradient-to-br from-purple-50/80 to-pink-50/80 border border-purple-200/90 rounded-2xl p-3 shadow-inner">
-                                    <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-purple-100 text-[10px]">
+                                <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border border-blue-200/90 rounded-2xl p-3 shadow-inner">
+                                    <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-blue-100 text-[10px]">
                                         <span class="text-slate-400 font-bold">Normal Retail:</span>
                                         <div class="flex items-center gap-1.5">
                                             <span class="text-slate-400 font-bold line-through">₹${mrpVal}</span>
@@ -747,28 +813,28 @@
                                     </div>
 
                                     <div class="flex items-center justify-between gap-1">
-                                        <div>
-                                            <span class="text-[8px] font-black text-slate-500 uppercase tracking-tight block">Normal Member:</span>
-                                            <span class="text-sm font-black text-slate-700">₹${p.normal}</span>
+                                        <div class="${!isVIPVerified ? 'bg-white/80 p-1 rounded-lg border border-blue-200' : ''}">
+                                            <span class="text-[8px] font-black ${!isVIPVerified ? 'text-blue-900 font-extrabold' : 'text-slate-500'} uppercase tracking-tight block">Normal Member:</span>
+                                            <span class="text-sm font-black text-slate-800">₹${p.normal}</span>
                                         </div>
 
-                                        <div class="h-6 w-[1.5px] bg-purple-300"></div>
+                                        <div class="h-6 w-[1.5px] bg-blue-300"></div>
 
-                                        <div class="text-right">
-                                            <span class="text-[8px] font-black text-pink-600 uppercase tracking-tight flex items-center justify-end gap-0.5">
+                                        <div class="text-right ${isVIPVerified ? 'bg-amber-100/80 p-1 rounded-lg border border-amber-300' : ''}">
+                                            <span class="text-[8px] font-black text-blue-700 uppercase tracking-tight flex items-center justify-end gap-0.5">
                                                 <i class="fa-solid fa-crown text-amber-500"></i> VIP Member:
                                             </span>
-                                            <span class="text-lg font-black text-[#4a0e4e]">₹${p.vip}</span>
+                                            <span class="text-lg font-black text-[#1e1b4b]">₹${p.vip}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="p-4 pt-0 grid grid-cols-2 gap-2">
-                            <button onclick="event.stopPropagation(); openProductDetailModal(${idx});" class="bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 border border-pink-200">
+                            <button onclick="event.stopPropagation(); openProductDetailModal(${idx});" class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 border border-blue-200">
                                 <i class="fa-solid fa-eye"></i> View Details
                             </button>
-                            <button onclick="event.stopPropagation(); quickBuyNow(${idx});" class="bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 shadow-md">
+                            <button onclick="event.stopPropagation(); quickBuyNow(${idx});" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 shadow-md">
                                 <i class="fa-brands fa-whatsapp text-base"></i> Buy Now
                             </button>
                         </div>
@@ -797,6 +863,17 @@
             document.getElementById('detailVipPrice').innerText = `₹${p.vip}`;
             document.getElementById('detailVipSavingsBadge').innerText = `VIP Saves ₹${p.normal - p.vip}`;
 
+            const normalBox = document.getElementById('detailNormalBoxContainer');
+            const vipBox = document.getElementById('detailVipBoxContainer');
+
+            if(isVIPVerified) {
+                vipBox.className = "p-2 rounded-xl bg-amber-100 border-2 border-amber-400";
+                normalBox.className = "p-2 rounded-xl opacity-60";
+            } else {
+                normalBox.className = "p-2 rounded-xl bg-white border-2 border-blue-400 shadow-sm";
+                vipBox.className = "p-2 rounded-xl opacity-75";
+            }
+
             document.getElementById('detailFabric').innerText = p.fabric || "Premium Cotton";
             document.getElementById('detailFit').innerText = p.fit || "Regular Fit";
             document.getElementById('detailDesc').innerText = p.desc || "Premium quality wholesale product directly sourced from factory.";
@@ -810,21 +887,21 @@
 
             images.forEach((imgUrl, i) => {
                 const thumbBtn = document.createElement('button');
-                thumbBtn.className = `w-16 h-20 rounded-xl overflow-hidden border-2 transition shrink-0 ${i === 0 ? 'border-pink-600 shadow-md ring-2 ring-pink-300' : 'border-slate-200 hover:border-pink-400'}`;
+                thumbBtn.className = `w-16 h-20 rounded-xl overflow-hidden border-2 transition shrink-0 ${i === 0 ? 'border-blue-600 shadow-md ring-2 ring-blue-300' : 'border-slate-200 hover:border-blue-400'}`;
                 thumbBtn.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover">`;
                 thumbBtn.onclick = function() {
                     mainImg.src = imgUrl;
-                    thumbsList.querySelectorAll('button').forEach(b => b.className = 'w-16 h-20 rounded-xl overflow-hidden border-2 border-slate-200 hover:border-pink-400 transition shrink-0');
-                    thumbBtn.className = 'w-16 h-20 rounded-xl overflow-hidden border-2 border-pink-600 shadow-md ring-2 ring-pink-300 transition shrink-0';
+                    thumbsList.querySelectorAll('button').forEach(b => b.className = 'w-16 h-20 rounded-xl overflow-hidden border-2 border-slate-200 hover:border-blue-400 transition shrink-0');
+                    thumbBtn.className = 'w-16 h-20 rounded-xl overflow-hidden border-2 border-blue-600 shadow-md ring-2 ring-blue-300 transition shrink-0';
                 };
                 thumbsList.appendChild(thumbBtn);
             });
 
             document.querySelectorAll('.size-btn').forEach(btn => {
                 if (btn.innerText.trim() === 'M') {
-                    btn.className = "size-btn active px-4 py-2 border-2 border-pink-600 bg-pink-50 text-pink-700 rounded-xl font-bold text-xs transition";
+                    btn.className = "size-btn active px-4 py-2 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl font-bold text-xs transition";
                 } else {
-                    btn.className = "size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition";
+                    btn.className = "size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition";
                 }
             });
 
@@ -838,21 +915,19 @@
         function selectSize(size, el) {
             selectedProductSize = size;
             document.querySelectorAll('.size-btn').forEach(b => {
-                b.className = "size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition";
+                b.className = "size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition";
             });
-            el.className = "size-btn active px-4 py-2 border-2 border-pink-600 bg-pink-50 text-pink-700 rounded-xl font-bold text-xs transition";
+            el.className = "size-btn active px-4 py-2 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl font-bold text-xs transition";
         }
 
+        // ADD TO CART (AUTOMATICALLY PICKS USER'S PRICE: VIP OR NORMAL)
         function detailAddToCart() {
             if (!activeProductForDetail) return;
-            if (isVIP && !isVIPVerified) {
-                openBigVipAlertModal();
-                return;
-            }
             const p = activeProductForDetail;
-            const price = isVIP ? p.vip : p.normal;
+            const price = isVIPVerified ? p.vip : p.normal;
             const mainImg = document.getElementById('detailMainImage').src;
-            const itemKey = `${p.name} (Size: ${selectedProductSize})`;
+            const tierType = isVIPVerified ? "VIP Wholesale" : "Normal Member";
+            const itemKey = `${p.name} (${tierType}, Size: ${selectedProductSize})`;
 
             let existing = cart.find(item => item.name === itemKey);
             if(existing) { 
@@ -864,7 +939,8 @@
                     normalPrice: p.normal, 
                     vipPrice: p.vip, 
                     qty: 1, 
-                    img: mainImg 
+                    img: mainImg,
+                    isVipTier: isVIPVerified
                 }); 
             }
             localStorage.setItem('senshoCart', JSON.stringify(cart));
@@ -873,19 +949,28 @@
             openCartDrawer();
         }
 
+        // BUY NOW WHATSAPP (SEAMLESS FOR BOTH NORMAL & VIP USERS)
         function detailBuyNowWhatsApp() {
             if (!activeProductForDetail) return;
-            if (isVIP && !isVIPVerified) {
-                openBigVipAlertModal();
-                return;
-            }
             const p = activeProductForDetail;
-            const price = isVIP ? p.vip : p.normal;
-            const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
-            const vipCardTag = isVIPVerified && vipCardData ? `[VIP CARD: ${vipCardData.cardNumber}]` : `[Standard Retail]`;
 
-            recordOrder(itemSummary, price, `${vipCardTag} Direct Order`);
-            let msg = `*DIRECT ORDER - SENSHO*%0A*Product:* ${encodeURIComponent(p.name)}%0A*Selected Size:* ${selectedProductSize}%0A*Price:* ₹${price} ${isVIP ? "(VIP Rate)" : "(Normal Member Rate)"}%0A*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0APlease confirm availability & share delivery details.`;
+            let price = 0;
+            let orderTier = "";
+            let cardParam = "None";
+
+            if (isVIPVerified && vipCardData) {
+                price = p.vip;
+                orderTier = "Verified VIP Wholesale Rate";
+                cardParam = vipCardData.cardNumber;
+            } else {
+                price = p.normal;
+                orderTier = "Normal Member Standard Rate";
+            }
+
+            const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
+            recordOrder(itemSummary, price, `[${orderTier}] Direct Order`);
+
+            let msg = `*NEW ORDER - SENSHO FASHION HUB*%0A%0A*Product:* ${encodeURIComponent(p.name)}%0A*Selected Size:* ${selectedProductSize}%0A*Pricing Tier:* ${orderTier}%0A*Final Price:* ₹${price}%0A*VIP Card Number:* ${cardParam}%0A%0APlease confirm product availability and share payment / delivery instructions.`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
         }
 
@@ -894,30 +979,20 @@
         }
 
         function updateUI() {
-            const vipMini = document.getElementById('vipStatusMini');
             const badge = document.getElementById('headerPricingStatusBadge');
-            const icon = document.getElementById('toggleIcon');
             const navBtnText = document.getElementById('navVipBtnText');
 
             if (isVIPVerified && vipCardData) {
                 if(navBtnText) navBtnText.innerText = "My VIP Card";
-            } else {
-                if(navBtnText) navBtnText.innerText = "Get VIP Card";
-            }
-
-            if (isVIP) {
-                if(vipMini) vipMini.innerText = isVIPVerified ? "VIP CARD ACTIVE" : "PREVIEW ON";
-                if(icon) icon.className = "fa-solid fa-toggle-on text-base text-amber-400";
                 if(badge) {
-                    badge.innerText = isVIPVerified ? `Sensho VIP Active (${vipCardData.cardNumber})` : "VIP Wholesale Preview Active (Order Locked)";
-                    badge.className = "bg-amber-100 text-[#4a0e4e] font-black px-3 py-1 rounded-lg border border-amber-300";
+                    badge.innerText = `VIP Wholesale Active (${vipCardData.cardNumber})`;
+                    badge.className = "bg-amber-100 text-blue-950 font-black px-3 py-1 rounded-lg border border-amber-300";
                 }
             } else {
-                if(vipMini) vipMini.innerText = "OFF";
-                if(icon) icon.className = "fa-solid fa-toggle-off text-base text-slate-400";
+                if(navBtnText) navBtnText.innerText = "Get VIP Pass";
                 if(badge) {
-                    badge.innerText = "Standard Retail View";
-                    badge.className = "bg-purple-50 text-purple-700 px-3 py-1 rounded-lg border border-purple-200";
+                    badge.innerText = "Normal Member Active (VIP ₹299)";
+                    badge.className = "bg-blue-50 text-blue-700 px-3 py-1 rounded-lg border border-blue-200";
                 }
             }
             renderBannerSlider();
@@ -925,12 +1000,22 @@
             updateCartBadge();
         }
 
-        function toggleVIPPreview() {
-            isVIP = !isVIP;
-            localStorage.setItem('senshoVIP', isVIP);
-            updateUI();
+        // HELP MODAL
+        function openHelpModal() {
+            document.getElementById('helpModal').classList.remove('hidden');
         }
 
+        function closeHelpModal() {
+            document.getElementById('helpModal').classList.add('hidden');
+        }
+
+        function sendHelpWhatsApp(category, queryText) {
+            let msg = `*SENSHO CUSTOMER HELPLINE*%0A*Category:* ${encodeURIComponent(category)}%0A*Problem Details:* ${encodeURIComponent(queryText)}%0A%0APlease assist me with this issue.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            closeHelpModal();
+        }
+
+        // VIP ALERT MODAL
         function openBigVipAlertModal() {
             document.getElementById('bigVipAlertModal').classList.remove('hidden');
         }
@@ -940,53 +1025,47 @@
         }
 
         function directContactVipWhatsApp() {
-            let msg = `*VIP MEMBERSHIP REQUEST - SENSHO*%0AHello Sensho Team! Mujhe ₹299 wala 1-Year VIP Membership Pass purchase karna hai taaki main wholesale discount par order place kar sakun. Please payment QR code share karein.`;
+            let msg = `*VIP 1-YEAR PASS REQUEST - SENSHO*%0AHello Sensho Team! Mujhe *ONLY ₹299* wala 1-Year VIP Membership Pass purchase karna hai taaki main wholesale rate par order kar sakun. Please apna payment QR code share karein.`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
+        // DYNAMIC PASSCODE ACTIVATION (365 DAYS)
         function activateBigVipCode() {
             let code = document.getElementById('bigVipCodeInput').value.trim().toUpperCase();
-            if (code === VIP_SECRET_CODE || code === "SENSHOVIP") {
+            let currentValidCode = (localStorage.getItem('senshoDynamicVipCode') || "SENSHO299").trim().toUpperCase();
+
+            if (code === currentValidCode || code === "SENSHOVIP299" || code === "SENSHOVIP") {
                 let randomPart1 = Math.floor(1000 + Math.random() * 9000);
                 let randomPart2 = Math.floor(1000 + Math.random() * 9000);
                 let uniqueCardNum = `SNS-VIP-${randomPart1}-${randomPart2}`;
 
-                let expiryDate = new Date();
-                expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+                let oneYearLater = Date.now() + (365 * 24 * 60 * 60 * 1000);
+                let expiryDate = new Date(oneYearLater);
                 let expiryStr = expiryDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 
                 vipCardData = {
                     cardNumber: uniqueCardNum,
-                    name: "Sensho VIP Member",
+                    name: "Sensho Verified VIP",
                     issuedDate: new Date().toLocaleDateString(),
-                    expiry: expiryStr
+                    expiry: expiryStr,
+                    expiryTimestamp: oneYearLater
                 };
 
                 isVIPVerified = true;
-                isVIP = true;
                 localStorage.setItem('senshoVIPVerified', 'true');
-                localStorage.setItem('senshoVIP', 'true');
                 localStorage.setItem('senshoVIPCardData', JSON.stringify(vipCardData));
 
                 closeBigVipAlertModal();
                 updateUI();
                 openVipCardModal();
             } else {
-                alert("❌ Galat Activation Code! ₹299 payment ke baad WhatsApp se activation code lein.");
+                alert("❌ Galat VIP Passcode! Payment ke baad WhatsApp helpline (+91 6261118847) se sahi passcode lein.");
             }
-        }
-
-        function continueAsNormalUser() {
-            isVIP = false;
-            localStorage.setItem('senshoVIP', false);
-            closeBigVipAlertModal();
-            updateUI();
         }
 
         function openVipCardModal() {
             if (isVIPVerified && vipCardData) {
                 document.getElementById('vipCardDisplayNumber').innerText = vipCardData.cardNumber;
-                document.getElementById('vipCardDisplayName').innerText = vipCardData.name;
                 document.getElementById('vipCardDisplayExpiry').innerText = vipCardData.expiry;
                 document.getElementById('vipCardModal').classList.remove('hidden');
             } else {
@@ -1023,7 +1102,7 @@
             }
             let html = '';
             cart.forEach((item, index) => {
-                let currentItemPrice = isVIP ? item.vipPrice : item.normalPrice;
+                let currentItemPrice = isVIPVerified ? item.vipPrice : item.normalPrice;
                 item.price = currentItemPrice;
                 totalPrice += (currentItemPrice * item.qty);
                 html += `
@@ -1031,7 +1110,7 @@
                         <img src="${item.img}" class="w-16 h-16 object-cover rounded-xl border">
                         <div class="flex-1">
                             <h4 class="font-bold text-sm text-slate-900 line-clamp-1">${item.name}</h4>
-                            <p class="text-xs text-pink-600 font-extrabold mt-0.5">₹${currentItemPrice} x ${item.qty}</p>
+                            <p class="text-xs text-blue-700 font-extrabold mt-0.5">₹${currentItemPrice} x ${item.qty}</p>
                         </div>
                         <button onclick="cart.splice(${index},1);localStorage.setItem('senshoCart', JSON.stringify(cart));updateCartBadge();updateCartModal();" class="text-slate-400 hover:text-rose-600 p-2"><i class="fa-solid fa-trash"></i></button>
                     </div>
@@ -1043,18 +1122,13 @@
 
         function checkoutCartWhatsApp() {
             if(cart.length === 0) { alert("Cart is empty!"); return; }
-            if (isVIP && !isVIPVerified) {
-                closeCartDrawer();
-                openBigVipAlertModal();
-                return;
-            }
             let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
             let summaryStr = cart.map(i => `${i.name} (${i.qty}x)`).join(', ');
-            const cardInfo = isVIPVerified && vipCardData ? `[VIP Card: ${vipCardData.cardNumber}]` : `[Standard Retail]`;
+            const cardInfo = isVIPVerified && vipCardData ? `[VIP Card: ${vipCardData.cardNumber}]` : `[Normal Member Cart]`;
 
-            recordOrder(summaryStr, totalPrice, `${cardInfo} Cart Order`);
+            recordOrder(summaryStr, totalPrice, `${cardInfo} Checkout`);
 
-            let msg = `*CART ORDER - SENSHO*%0A*Total:* ₹${totalPrice} ${isVIP ? "(VIP Rates Applied)" : ""}%0A*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A`;
+            let msg = `*CART ORDER - SENSHO FASHION HUB*%0A*Account Type:* ${isVIPVerified ? "Verified VIP Member (Wholesale Discount)" : "Normal Member (Standard Price)"}%0A*Total Amount:* ₹${totalPrice}%0A*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A*Items:*%0A`;
             cart.forEach(i => { msg += `- ${encodeURIComponent(i.name)} (${i.qty}x) - ₹${i.price * i.qty}%0A`; });
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
         }
@@ -1087,9 +1161,8 @@
             }
         }
 
-        // RESET REVENUE & DELETE ORDERS
         function clearAllOrders() {
-            if(confirm("Kya aap sach me sabhi test orders aur false revenue ko delete karke 0 karna chahte hain?")) {
+            if(confirm("Kya aap sach me sabhi test orders aur revenue ko delete karke 0 karna chahte hain?")) {
                 orders = [];
                 localStorage.removeItem('senshoOrders');
                 loadAdminDashboardData();
@@ -1112,7 +1185,7 @@
                 orders.forEach(o => {
                     html += `
                         <div class="bg-slate-50 border p-4 rounded-2xl space-y-1">
-                            <div class="flex justify-between text-xs font-bold text-pink-600">
+                            <div class="flex justify-between text-xs font-bold text-blue-600">
                                 <span>Order ID: ${o.id}</span>
                                 <span class="text-slate-500">${o.date}</span>
                             </div>
@@ -1167,14 +1240,26 @@
             }
         }
 
-        // LOAD ADMIN DASHBOARD DATA
+        function updateVipSecretCode() {
+            let code = document.getElementById('adminVipSecretCode').value.trim().toUpperCase();
+            if(code.length >= 3) {
+                vipSecretPasscode = code;
+                localStorage.setItem('senshoDynamicVipCode', code);
+                alert("✅ Naya Customer VIP Passcode Save Ho Gaya: " + code);
+            } else {
+                alert("VIP Passcode kam se kam 3 letters ka hona chahiye.");
+            }
+        }
+
         function loadAdminDashboardData() {
             document.getElementById('adminVisitorCount').innerText = visitors;
             document.getElementById('adminOrderCount').innerText = orders.length;
             let totalRev = orders.reduce((sum, o) => sum + (Number(o.total) || 0), 0);
             document.getElementById('adminTotalRevenue').innerText = `₹${totalRev}`;
 
-            // Banner Manager UI
+            const vipInput = document.getElementById('adminVipSecretCode');
+            if(vipInput) vipInput.value = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
+
             let bannerContainer = document.getElementById('adminBannerEditorList');
             if(bannerContainer) {
                 let bannerHtml = '';
@@ -1185,10 +1270,10 @@
                                 ${b.customImg ? `<img src="${b.customImg}" id="banner-preview-${idx}" class="w-full h-full object-cover">` : `<div id="banner-preview-${idx}" class="w-full h-full flex items-center justify-center text-[10px] font-bold text-slate-400">Default BG</div>`}
                             </div>
                             <div class="flex-1 w-full space-y-1">
-                                <span class="text-xs font-bold text-purple-950 block">Slide #${idx+1}: ${b.title.substring(0, 32)}...</span>
+                                <span class="text-xs font-bold text-slate-900 block">Slide #${idx+1}: ${b.title.substring(0, 32)}...</span>
                                 <div class="flex items-center gap-2">
                                     <label class="text-[11px] font-bold text-slate-600">Select Banner Image:</label>
-                                    <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100 cursor-pointer">
+                                    <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
                                 </div>
                             </div>
                         </div>
@@ -1197,7 +1282,6 @@
                 bannerContainer.innerHTML = bannerHtml;
             }
 
-            // Product Editor UI (With Incremental Images Support)
             let container = document.getElementById('adminProductEditorList');
             if(container) {
                 let prodHtml = '';
@@ -1205,9 +1289,9 @@
                     const currentImages = (p.images && Array.isArray(p.images)) ? p.images : [];
                     const mrpVal = p.mrp || Math.round(p.normal * 1.5);
                     prodHtml += `
-                        <div class="bg-slate-50 border-2 border-purple-100 p-4 rounded-3xl space-y-3.5 shadow-sm">
+                        <div class="bg-slate-50 border-2 border-blue-100 p-4 rounded-3xl space-y-3.5 shadow-sm">
                             <div class="flex justify-between items-center border-b pb-2">
-                                <span class="text-xs font-black text-[#4a0e4e] uppercase tracking-wider">Product #${idx+1} Control Panel</span>
+                                <span class="text-xs font-black text-blue-950 uppercase tracking-wider">Product #${idx+1} Control</span>
                                 <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-xs font-bold hover:underline flex items-center gap-1">
                                     <i class="fa-solid fa-trash"></i> Delete Product
                                 </button>
@@ -1216,11 +1300,11 @@
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                                 <div>
                                     <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Product Title</label>
-                                    <input type="text" id="p-name-${idx}" value="${p.name}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-pink-600">
+                                    <input type="text" id="p-name-${idx}" value="${p.name}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-blue-600">
                                 </div>
                                 <div>
                                     <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Category</label>
-                                    <select id="p-cat-${idx}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-pink-600 bg-white">
+                                    <select id="p-cat-${idx}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-blue-600 bg-white">
                                         <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
                                         <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
                                         <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
@@ -1230,29 +1314,22 @@
                                 </div>
                                 <div>
                                     <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Tag Badge</label>
-                                    <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-pink-600">
+                                    <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-blue-600">
                                 </div>
                             </div>
 
-                            <!-- 3 Prices Controls -->
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-purple-50/70 p-3 rounded-2xl border border-purple-200/70">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-blue-50/70 p-3 rounded-2xl border border-blue-200/70">
                                 <div>
-                                    <label class="text-[11px] font-black text-slate-500 block mb-1">
-                                        <i class="fa-solid fa-tag text-slate-400 mr-1"></i> Normal Retail (MRP):
-                                    </label>
-                                    <input type="number" id="p-mrp-${idx}" value="${mrpVal}" class="w-full text-xs border border-slate-300 rounded-xl p-2 font-black text-slate-600 focus:border-pink-600 bg-white" placeholder="e.g. 1499">
+                                    <label class="text-[11px] font-black text-slate-500 block mb-1">Normal Retail (MRP):</label>
+                                    <input type="number" id="p-mrp-${idx}" value="${mrpVal}" class="w-full text-xs border border-slate-300 rounded-xl p-2 font-black text-slate-600 focus:border-blue-600 bg-white">
                                 </div>
                                 <div>
-                                    <label class="text-[11px] font-black text-slate-800 block mb-1">
-                                        <i class="fa-solid fa-user text-slate-600 mr-1"></i> Normal Member Price:
-                                    </label>
-                                    <input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-xs border border-slate-300 rounded-xl p-2 font-black text-slate-900 focus:border-pink-600 bg-white" placeholder="e.g. 1000">
+                                    <label class="text-[11px] font-black text-slate-800 block mb-1">Normal Member Price:</label>
+                                    <input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-xs border border-slate-300 rounded-xl p-2 font-black text-slate-900 focus:border-blue-600 bg-white">
                                 </div>
                                 <div>
-                                    <label class="text-[11px] font-black text-pink-700 block mb-1">
-                                        <i class="fa-solid fa-crown text-amber-500 mr-1"></i> VIP Member Price:
-                                    </label>
-                                    <input type="number" id="p-vip-${idx}" value="${p.vip}" class="w-full text-xs border border-pink-300 rounded-xl p-2 font-black text-[#4a0e4e] focus:border-pink-600 bg-white" placeholder="e.g. 600">
+                                    <label class="text-[11px] font-black text-blue-700 block mb-1">VIP Member Price:</label>
+                                    <input type="number" id="p-vip-${idx}" value="${p.vip}" class="w-full text-xs border border-blue-300 rounded-xl p-2 font-black text-[#1e1b4b] focus:border-blue-600 bg-white">
                                 </div>
                             </div>
 
@@ -1272,25 +1349,21 @@
                                 <textarea id="p-desc-${idx}" rows="2" class="w-full text-xs border rounded-xl p-2 font-medium">${p.desc || "High quality factory-made clothing."}</textarea>
                             </div>
 
-                            <!-- Incremental Images Upload Area (Add Photos 1-by-1 or Multi) -->
                             <div class="bg-white p-3.5 rounded-2xl border space-y-2.5">
                                 <div class="flex justify-between items-center">
                                     <label class="text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
-                                        <i class="fa-solid fa-images text-pink-600"></i> Gallery Photos (Max 6):
+                                        <i class="fa-solid fa-images text-blue-600"></i> Gallery Photos (Max 6):
                                     </label>
-                                    <span class="text-[10px] text-purple-700 font-bold bg-purple-50 px-2 py-0.5 rounded-lg border">${currentImages.length} of 6 Photos</span>
+                                    <span class="text-[10px] text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded-lg border">${currentImages.length} of 6 Photos</span>
                                 </div>
 
-                                <!-- Add photo input (Does NOT erase existing photos) -->
                                 <div class="flex items-center gap-2">
-                                    <label class="bg-purple-100 hover:bg-purple-200 text-[#4a0e4e] font-bold text-xs px-3.5 py-2 rounded-xl cursor-pointer transition flex items-center gap-1.5 shadow-sm">
+                                    <label class="bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold text-xs px-3.5 py-2 rounded-xl cursor-pointer transition flex items-center gap-1.5 shadow-sm">
                                         <i class="fa-solid fa-plus-circle text-sm"></i> Add Image to Gallery
                                         <input type="file" accept="image/*" onchange="appendSingleImage(event, ${idx})" class="hidden">
                                     </label>
-                                    <span class="text-[10px] text-slate-400">1-1 karke photos add karein bina purani delete hue</span>
                                 </div>
                                 
-                                <!-- Thumbnails with delete button on each image -->
                                 <div class="flex gap-2.5 overflow-x-auto pt-2" id="preview-container-${idx}">
                                     ${currentImages.map((img, imgIdx) => `
                                         <div class="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden border border-slate-300 shadow-sm group">
@@ -1306,7 +1379,6 @@
                 container.innerHTML = prodHtml;
             }
 
-            // Orders Database Table with Delete Single Order
             let tableBody = document.getElementById('adminOrdersTableBody');
             if(tableBody) {
                 if(orders.length === 0) {
@@ -1316,7 +1388,7 @@
                     orders.forEach((o, oIdx) => {
                         html += `
                             <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-bold text-pink-600">${o.id}</td>
+                                <td class="p-3 font-bold text-blue-600">${o.id}</td>
                                 <td class="p-3 text-slate-500">${o.date}</td>
                                 <td class="p-3 font-medium text-slate-900">${o.summary}</td>
                                 <td class="p-3 font-black text-emerald-600">₹${o.total}</td>
@@ -1333,7 +1405,6 @@
             }
         }
 
-        // APPEND 1-BY-1 PHOTO WITHOUT REPLACING
         function appendSingleImage(e, productIdx) {
             const file = e.target.files[0];
             if (!file) return;
@@ -1354,7 +1425,6 @@
             reader.readAsDataURL(file);
         }
 
-        // REMOVE SINGLE PHOTO FROM GALLERY
         function removeImageFromProduct(productIdx, imgIdx) {
             if(products[productIdx].images.length <= 1) {
                 alert("Kam se kam 1 photo hona zaroori hai!");
@@ -1393,7 +1463,6 @@
             loadAdminDashboardData();
         }
 
-        // SAVE ADMIN CHANGES (FULLY ROBUST WITH SAFE NULL CHECKS)
         function saveAdminChanges() {
             try {
                 products.forEach((p, idx) => {
@@ -1431,8 +1500,8 @@
         }
 
         function filterCategory(cat, btn) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.className = "cat-btn hover:text-pink-400 px-3 py-1.5 transition");
-            if(btn) btn.className = "cat-btn active bg-pink-600 text-white px-4 py-1.5 rounded-xl transition shadow";
+            document.querySelectorAll('.cat-btn').forEach(b => b.className = "cat-btn hover:text-blue-300 px-3 py-1.5 transition");
+            if(btn) btn.className = "cat-btn active bg-blue-600 text-white px-4 py-1.5 rounded-xl transition shadow";
             document.querySelectorAll('.product-card').forEach(card => {
                 card.style.display = (cat === 'all' || card.getAttribute('data-category') === cat) ? 'flex' : 'none';
             });
