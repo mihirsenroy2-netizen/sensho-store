@@ -8,26 +8,29 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .gradient-sensho { background: linear-gradient(135deg, #4a0e4e 0%, #7b1fa2 50%, #ad1457 100%); }
-        .pink-glow { box-shadow: 0 0 25px rgba(233, 30, 99, 0.35); }
+        .font-mono-card { font-family: 'Space Grotesk', monospace; }
+        .gradient-sensho { background: linear-gradient(135deg, #38003c 0%, #5c0962 50%, #ad1457 100%); }
+        .gradient-vip-card { background: linear-gradient(135deg, #18001a 0%, #4a0e4e 50%, #be123c 100%); }
+        .gold-border { border: 2px solid rgba(251, 191, 36, 0.85); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .banner-track { display: flex; transition: transform 0.5s ease-in-out; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-pink-600 selection:text-white pb-20 md:pb-0">
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-pink-600 selection:text-white pb-24 md:pb-0">
 
     <!-- Top Announcement Bar -->
-    <div class="bg-[#38003c] text-pink-100 text-xs py-2 px-4 flex flex-col sm:flex-row justify-between items-center border-b border-purple-900 gap-1 text-center">
+    <div class="bg-[#240026] text-pink-100 text-xs py-2 px-4 flex flex-col sm:flex-row justify-between items-center border-b border-purple-900 gap-1 text-center">
         <div class="flex items-center justify-center gap-3">
-            <span class="flex items-center gap-1 text-emerald-400 font-bold"><i class="fa-solid fa-shield-check"></i> 100% Secure & Quality Checked</span>
+            <span class="flex items-center gap-1 text-emerald-400 font-bold"><i class="fa-solid fa-shield-check"></i> 100% Quality Checked Wholesale Hub</span>
             <span class="text-purple-400 hidden sm:inline">|</span>
             <span class="hidden sm:inline text-slate-200"><i class="fa-solid fa-truck-fast text-pink-400 mr-1"></i> Pan-India Express Delivery</span>
         </div>
         <div class="flex items-center gap-2">
-            <span class="text-amber-300 font-extrabold">Helpline:</span>
+            <span class="text-amber-300 font-extrabold">VIP Helpline:</span>
             <span class="text-white font-bold">+91 6261118847</span>
         </div>
     </div>
@@ -63,6 +66,10 @@
                     <i class="fa-solid fa-box-open text-amber-400"></i> My Orders
                 </button>
 
+                <button onclick="openVipCardModal()" id="navVipBtn" class="bg-gradient-to-r from-amber-400 to-pink-500 hover:opacity-90 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                    <i class="fa-solid fa-crown text-slate-950"></i> <span id="navVipBtnText">VIP Card</span>
+                </button>
+
                 <div class="bg-purple-900/80 border border-purple-700 px-3 py-1.5 rounded-xl hidden sm:flex items-center gap-2 shadow-inner">
                     <div class="flex flex-col text-right">
                         <span class="text-[9px] text-purple-300 font-bold uppercase tracking-wider">VIP Pricing</span>
@@ -93,68 +100,234 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="gradient-sensho text-white py-14 px-4 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-                <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-amber-300 text-xs font-black px-3.5 py-1 rounded-full mb-4 uppercase tracking-wider">
-                    <i class="fa-solid fa-crown"></i> Sensho Direct Wholesale Sourcing
-                </div>
-                <h1 class="text-3xl sm:text-5xl font-black leading-tight tracking-tight mb-4">
-                    Why Pay <span class="line-through text-pink-300">₹1,000</span> When VIP Price is <span class="text-amber-300">₹600</span>?
-                </h1>
-                <p class="text-purple-100 text-sm sm:text-base mb-6 leading-relaxed">
-                    Sensho par milte hain sabse saste kapde—Men, Women, Boys, Girls aur Kids ke liye. Membership lijiye aur har item par wholesale bachat kijiye!
-                </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="#shop" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-6 py-3.5 rounded-xl shadow-lg transition text-sm flex items-center gap-2">
-                        <i class="fa-solid fa-bag-shopping"></i> Start Shopping
-                    </a>
-                </div>
-            </div>
-
-            <div class="bg-black/40 border border-pink-500/30 p-6 rounded-3xl backdrop-blur-xl shadow-2xl">
-                <div class="flex justify-between items-center mb-4 border-b border-white/10 pb-3">
-                    <span class="text-xs font-extrabold text-purple-200 uppercase tracking-widest">Sensho Helpline</span>
-                    <span class="bg-emerald-500/20 text-emerald-300 text-xs font-black px-3 py-1 rounded-full border border-emerald-500/30">Active 24/7</span>
-                </div>
-                <div class="space-y-3 text-sm text-center">
-                    <p class="text-purple-200">Call / WhatsApp Orders:</p>
-                    <p class="text-2xl font-black text-amber-300">+91 62611 18847</p>
-                </div>
-            </div>
+    <!-- DYNAMIC AUTO-SLIDING BANNER SLIDER -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+        <div class="relative overflow-hidden rounded-3xl shadow-xl bg-slate-900 aspect-[16/7] sm:aspect-[21/6]">
+            <div id="sliderTrack" class="banner-track h-full w-full"></div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
         </div>
-    </section>
+    </div>
 
     <!-- Main Catalog Section -->
-    <main id="shop" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <main id="shop" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b pb-4 border-slate-200">
             <div>
                 <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Sensho Fashion Catalog</h2>
-                <p class="text-slate-500 text-sm">Explore trending apparel. Direct wholesale prices!</p>
+                <p class="text-slate-500 text-sm">Normal vs VIP Wholesale rates ek sath compare karein.</p>
             </div>
 
             <div class="bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm text-xs font-bold text-slate-700 flex items-center gap-2">
-                <span>Status:</span>
+                <span>Account Status:</span>
                 <span id="headerPricingStatusBadge" class="bg-purple-50 text-purple-700 px-3 py-1 rounded-lg border border-purple-200">
                     Standard Retail View
                 </span>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productGrid">
-            <!-- Dynamic Products -->
-        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productGrid"></div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#38003c] text-purple-200 text-center py-10 text-xs border-t border-purple-900">
-        <div class="max-w-7xl mx-auto px-4 space-y-3">
-            <p class="font-black text-white text-lg tracking-wider">SENSHO FASHION HUB</p>
-            <p>Direct Wholesale Sourcing • Customer Helpline: <strong class="text-amber-300">+91 6261118847</strong></p>
-            <p class="text-purple-400">&copy; 2026 Sensho. All rights reserved. Powered by GitHub Pages.</p>
+    <!-- BIG VIP ALERT POPUP -->
+    <div id="bigVipAlertModal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl border-4 border-amber-400 text-center">
+            <button onclick="closeBigVipAlertModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl p-1">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="w-20 h-20 bg-gradient-to-tr from-amber-400 to-pink-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-4 text-4xl shadow-xl">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <span class="bg-amber-100 text-[#4a0e4e] font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider border border-amber-300 inline-block mb-3">
+                ⚠️ VIP Order Restriction
+            </span>
+
+            <h2 class="text-2xl sm:text-3xl font-black text-slate-950 mb-2 leading-tight">
+                VIP Member Bano! Tabhi Hoga Wholesale Discount Order
+            </h2>
+
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-6">
+                Aapne <strong class="text-pink-600 font-extrabold">VIP Wholesale Rate</strong> select kiya hai! Yeh discounted rate sirf unhi ke liye valid hai jinhone **₹299 ka 1-Year Sensho VIP Pass** liya hai.
+            </p>
+
+            <div class="bg-purple-50 border border-purple-200 rounded-2xl p-4 text-left mb-6 space-y-2">
+                <div class="flex items-center gap-2 text-xs font-bold text-purple-950">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Flat 40% Bachat har kapde par
+                </div>
+                <div class="flex items-center gap-2 text-xs font-bold text-purple-950">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Pure 1 Year (365 Din) Ki Validity
+                </div>
+                <div class="flex items-center gap-2 text-xs font-bold text-purple-950">
+                    <i class="fa-solid fa-circle-check text-emerald-600"></i> Unique Digital VIP Card Number
+                </div>
+            </div>
+
+            <div class="bg-slate-50 border rounded-2xl p-3 text-left mb-5">
+                <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Pehle se ₹299 Pay Kiya Hai? Enter Code:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="bigVipCodeInput" placeholder="VIP CODE" class="w-full text-xs border rounded-xl px-3 py-2 font-black uppercase tracking-widest focus:outline-none focus:border-pink-600">
+                    <button onclick="activateBigVipCode()" class="bg-[#4a0e4e] hover:bg-[#38003c] text-white text-xs font-bold px-4 py-2 rounded-xl transition">Activate</button>
+                </div>
+            </div>
+
+            <div class="space-y-2.5">
+                <button onclick="directContactVipWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 rounded-2xl shadow-xl transition flex items-center justify-center gap-3 text-sm sm:text-base">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Mujhe VIP Pass Chahiye (WhatsApp Message)
+                </button>
+                <button onclick="continueAsNormalUser()" class="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-3 rounded-2xl text-xs transition">
+                    Standard Retail Rate Par Order Karein
+                </button>
+            </div>
         </div>
-    </footer>
+    </div>
+
+    <!-- DIGITAL VIP CARD MODAL -->
+    <div id="vipCardModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeVipCardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-xl"><i class="fa-solid fa-xmark"></i></button>
+
+            <h3 class="text-xl font-black text-slate-900 mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-id-card text-amber-500"></i> Sensho 1-Year VIP Pass
+            </h3>
+            <p class="text-xs text-slate-500 mb-5">Aapka verified digital wholesale discount pass.</p>
+
+            <div class="gradient-vip-card gold-border text-white p-6 rounded-3xl shadow-2xl relative overflow-hidden mb-5">
+                <div class="flex justify-between items-start mb-6">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-widest text-pink-300 font-extrabold block">Wholesale Pass</span>
+                        <h4 class="text-xl font-black tracking-wider text-amber-300">SENSHO VIP</h4>
+                    </div>
+                    <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full uppercase flex items-center gap-1 shadow">
+                        <i class="fa-solid fa-shield-halved"></i> Active
+                    </span>
+                </div>
+
+                <div class="mb-6">
+                    <span class="text-[9px] uppercase tracking-widest text-slate-400 block mb-1">Unique VIP Card Number</span>
+                    <p class="text-xl sm:text-2xl font-mono-card font-bold tracking-widest text-white drop-shadow-md" id="vipCardDisplayNumber">
+                        SNS-VIP-••••-••••
+                    </p>
+                </div>
+
+                <div class="flex justify-between items-end border-t border-purple-800/80 pt-3 text-xs">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-slate-400 block">Member Name</span>
+                        <span class="font-bold text-slate-200" id="vipCardDisplayName">Sensho Preferred Buyer</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[9px] uppercase tracking-widest text-slate-400 block">Validity</span>
+                        <span class="font-bold text-amber-300" id="vipCardDisplayExpiry">1 Year (365 Days)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-2xl flex items-center gap-3 text-xs text-emerald-800 font-bold mb-4">
+                <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
+                <span>Wholesale rates enabled! Aap sabhi products VIP discount par order kar sakte hain.</span>
+            </div>
+
+            <button onclick="closeVipCardModal()" class="w-full bg-[#4a0e4e] hover:bg-[#38003c] text-white font-bold py-3 rounded-xl transition text-sm">
+                Done & Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- MEESHO STYLE PRODUCT DETAIL MODAL -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-5xl w-full p-4 sm:p-8 relative shadow-2xl max-h-[92vh] overflow-y-auto">
+            <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-2xl z-10 p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-xs text-slate-400 mb-4 flex items-center gap-2">
+                <span>Home</span> / <span id="detailBreadcrumbCat">Fashion</span> / <span class="text-slate-700 font-bold" id="detailBreadcrumbTitle">Product</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
+                <div class="md:col-span-6 flex flex-col-reverse sm:flex-row gap-3">
+                    <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[460px] no-scrollbar shrink-0" id="detailThumbnailsList"></div>
+                    <div class="flex-1 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 relative aspect-[3/4]">
+                        <img id="detailMainImage" src="" alt="Product Image" class="w-full h-full object-cover">
+                        <span id="detailBadge" class="absolute top-3 left-3 bg-pink-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow"></span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-6 space-y-5">
+                    <div>
+                        <h1 class="text-xl sm:text-2xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
+                        <div class="flex items-center gap-2 mt-2">
+                            <span class="bg-emerald-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+                                4.2 <i class="fa-solid fa-star text-[10px]"></i>
+                            </span>
+                            <span class="text-xs text-slate-400 font-semibold">1,420 Ratings, 380 Reviews</span>
+                        </div>
+                    </div>
+
+                    <!-- Side-by-Side Dual Pricing Box -->
+                    <div class="bg-gradient-to-r from-purple-50 via-pink-50 to-amber-50 border border-purple-200/80 rounded-2xl p-4">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex items-center gap-4">
+                                <div>
+                                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block">Normal Retail</span>
+                                    <span class="text-xl font-black text-slate-500 line-through" id="detailNormalStrikePrice">₹1,000</span>
+                                </div>
+                                <div class="text-purple-300 font-bold text-2xl">|</div>
+                                <div>
+                                    <span class="text-[10px] font-black text-pink-600 uppercase tracking-wider flex items-center gap-1">
+                                        <i class="fa-solid fa-crown text-amber-500"></i> VIP Member Price
+                                    </span>
+                                    <span class="text-3xl font-black text-[#4a0e4e]" id="detailVipPriceBox">₹600</span>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black text-emerald-700 bg-emerald-100 border border-emerald-300 px-3 py-1.5 rounded-xl shadow-sm" id="detailDiscountPercentage">
+                                40% OFF
+                            </span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <label class="text-xs font-black text-slate-800 uppercase tracking-wider">Select Size</label>
+                            <span class="text-[11px] font-bold text-pink-600 cursor-pointer">Size Chart</span>
+                        </div>
+                        <div class="flex gap-2.5" id="sizeSelectorContainer">
+                            <button onclick="selectSize('S', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition">S</button>
+                            <button onclick="selectSize('M', this)" class="size-btn active px-4 py-2 border-2 border-pink-600 bg-pink-50 text-pink-700 rounded-xl font-bold text-xs transition">M</button>
+                            <button onclick="selectSize('L', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition">L</button>
+                            <button onclick="selectSize('XL', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition">XL</button>
+                            <button onclick="selectSize('XXL', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition">XXL</button>
+                        </div>
+                    </div>
+
+                    <div class="border-t pt-4 space-y-3">
+                        <h4 class="text-xs font-black uppercase text-slate-800 tracking-wider">Product Highlights</h4>
+                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-50 p-3.5 rounded-xl border">
+                            <div><span class="text-slate-400">Fabric:</span> <strong class="text-slate-800 block" id="detailFabric">100% Cotton Popcorn</strong></div>
+                            <div><span class="text-slate-400">Fit / Shape:</span> <strong class="text-slate-800 block" id="detailFit">Boxy / Regular Fit</strong></div>
+                            <div><span class="text-slate-400">Color:</span> <strong class="text-slate-800 block" id="detailColor">Multiple Colors</strong></div>
+                            <div><span class="text-slate-400">Delivery:</span> <strong class="text-emerald-600 block">Express Delivery (3-5 Days)</strong></div>
+                        </div>
+
+                        <div>
+                            <span class="text-xs font-black uppercase text-slate-800 tracking-wider block mb-1">Description</span>
+                            <p class="text-xs text-slate-500 leading-relaxed" id="detailDesc">
+                                Premium quality stitched fabric directly sourced from Sensho factory wholesale hub. Super comfortable for all-day wear.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button onclick="detailAddToCart()" class="bg-pink-50 hover:bg-pink-100 text-pink-700 border-2 border-pink-300 font-black text-sm py-3.5 rounded-2xl transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                        </button>
+                        <button onclick="detailBuyNowWhatsApp()" class="bg-pink-600 hover:bg-pink-700 text-white font-black text-sm py-3.5 rounded-2xl transition flex items-center justify-center gap-2 shadow-lg">
+                            <i class="fa-brands fa-whatsapp text-lg"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- MY ORDERS MODAL -->
     <div id="myOrdersModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
@@ -166,23 +339,24 @@
         </div>
     </div>
 
-    <!-- SECURE ADMIN PANEL MODAL -->
+    <!-- FULL POWER SECURE ADMIN PANEL MODAL -->
     <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-5xl w-full p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
             <button onclick="closeAdminModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
             <div id="adminLoginScreen">
                 <h3 class="text-xl font-black text-slate-900 mb-2">Sensho Admin Portal</h3>
-                <p class="text-xs text-slate-500 mb-4">Enter PIN to access local settings.</p>
+                <p class="text-xs text-slate-500 mb-4">Enter PIN to access master store management.</p>
                 <input type="password" id="adminPin" placeholder="Enter Secret PIN" class="w-full text-sm border border-slate-300 rounded-xl px-4 py-3 mb-3 focus:outline-none focus:border-pink-600 font-bold tracking-widest">
                 <button onclick="verifyAdminPin()" class="w-full bg-[#4a0e4e] hover:bg-[#38003c] text-white font-bold py-3 rounded-xl transition">Unlock Dashboard</button>
             </div>
 
             <div id="adminDashboardScreen" class="hidden space-y-6">
+                <!-- PIN Management -->
                 <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
                         <h4 class="font-bold text-sm text-purple-950"><i class="fa-solid fa-shield-halved mr-1 text-pink-600"></i> Admin Security PIN</h4>
-                        <p class="text-xs text-purple-700">Change your device access PIN anytime.</p>
+                        <p class="text-xs text-purple-700">Change device master PIN anytime.</p>
                     </div>
                     <div class="flex items-center gap-2 w-full sm:w-auto">
                         <input type="password" id="newAdminPin" placeholder="New PIN" class="text-xs border rounded-lg px-3 py-2 w-28 font-bold">
@@ -190,6 +364,7 @@
                     </div>
                 </div>
 
+                <!-- Live Store Analytics -->
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div class="bg-purple-50 border border-purple-200 p-4 rounded-2xl">
                         <span class="text-xs font-bold text-purple-700 uppercase">Total Visitors</span>
@@ -205,15 +380,41 @@
                     </div>
                 </div>
 
-                <div>
-                    <h3 class="text-lg font-black text-slate-900 mb-3"><i class="fa-solid fa-clipboard-list mr-2 text-pink-600"></i> Local Orders Log</h3>
+                <!-- BANNER SLIDER MANAGER -->
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-images text-pink-600 mr-1.5"></i> Banner Slider Manager</h3>
+                            <p class="text-xs text-slate-500">Slider ke banners ki images gallery se badle</p>
+                        </div>
+                    </div>
+                    <div id="adminBannerEditorList" class="space-y-3 max-h-72 overflow-y-auto p-1"></div>
+                </div>
+
+                <!-- SUPER PRODUCT & PRICING MASTER MANAGER -->
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <div>
+                            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-sliders text-pink-600 mr-1.5"></i> Products & Pricing Master Manager</h3>
+                            <p class="text-xs text-slate-500">Retail price, VIP price, fabric, description aur photos sabhi kuch yahan se edit karein</p>
+                        </div>
+                        <button onclick="addNewProduct()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-plus"></i> Add New Product
+                        </button>
+                    </div>
+                    <div id="adminProductEditorList" class="space-y-5 max-h-[500px] overflow-y-auto p-1"></div>
+                </div>
+
+                <!-- Orders Log -->
+                <div class="border-t pt-4">
+                    <h3 class="text-lg font-black text-slate-900 mb-3"><i class="fa-solid fa-clipboard-list mr-2 text-pink-600"></i> Customer Orders Database</h3>
                     <div class="overflow-x-auto border rounded-2xl">
                         <table class="w-full text-left text-xs">
                             <thead class="bg-slate-100 text-slate-700 uppercase font-bold">
                                 <tr>
                                     <th class="p-3">Order ID</th>
                                     <th class="p-3">Date/Time</th>
-                                    <th class="p-3">Items Ordered</th>
+                                    <th class="p-3">Items</th>
                                     <th class="p-3">Total Amount</th>
                                 </tr>
                             </thead>
@@ -222,16 +423,10 @@
                     </div>
                 </div>
 
-                <div class="border-t pt-4">
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-lg font-black text-slate-900">Product & Price Manager</h3>
-                        <button onclick="addNewProduct()" class="bg-emerald-600 text-white text-xs font-bold px-3 py-2 rounded-xl"><i class="fa-solid fa-plus mr-1"></i> Add Product</button>
-                    </div>
-                    <div id="adminProductEditorList" class="space-y-4 max-h-60 overflow-y-auto p-1"></div>
-                </div>
-
-                <div class="pt-4 border-t flex justify-end gap-3">
-                    <button onclick="saveAdminChanges()" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-6 py-2.5 rounded-xl text-sm shadow">Save & Apply Changes</button>
+                <div class="pt-4 border-t flex justify-end gap-3 sticky bottom-0 bg-white py-3">
+                    <button onclick="saveAdminChanges()" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-8 py-3 rounded-xl text-sm shadow-xl">
+                        <i class="fa-solid fa-floppy-disk mr-1.5"></i> Save & Apply Changes
+                    </button>
                 </div>
             </div>
         </div>
@@ -259,15 +454,136 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="bg-[#240026] text-purple-200 text-center py-10 text-xs border-t border-purple-900 mt-12">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <p class="font-black text-white text-lg tracking-wider">SENSHO FASHION HUB</p>
+            <p>Direct Wholesale Sourcing • Customer Helpline: <strong class="text-amber-300">+91 6261118847</strong></p>
+            <p class="text-purple-400">&copy; 2026 Sensho. All rights reserved. Powered by GitHub Pages.</p>
+        </div>
+    </footer>
+
     <!-- JavaScript Application Logic -->
     <script>
         const WHATSAPP_NUMBER = "916261118847";
-        // Connected Google Sheet Web App URL
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVdXLM9LR21Js1jpI8aFsg3w76qdyEynrbc5294Q035E4p070ukVGIDmWbIGtEJsGY/exec";
-        
-        let isVIP = localStorage.getItem('senshoVIP') === 'true';
+        const VIP_SECRET_CODE = "SENSHOVIP299";
 
-        // Visitor Counter Logic
+        let isVIP = localStorage.getItem('senshoVIP') === 'true';
+        let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
+        let vipCardData = JSON.parse(localStorage.getItem('senshoVIPCardData')) || null;
+        let activeProductForDetail = null;
+        let selectedProductSize = "M";
+
+        // Default Banners
+        const defaultBanners = [
+            {
+                id: 1,
+                tag: "⭐ Special 1-Year Pass Offer ⭐",
+                title: "₹299 Me Banein VIP Member, Pure 1 Saal Wholesale Sasta!",
+                subtitle: "Sabhi kapdo par flat 40% discount payein. Apna Unique Digital VIP Card WhatsApp par turant activate karwaye!",
+                bgGradient: "gradient-sensho",
+                btnText: "Join VIP Now @ ₹299",
+                isVipAction: true,
+                customImg: ""
+            },
+            {
+                id: 2,
+                tag: "Direct Factory Rates",
+                title: "Sensho Mega Wholesale Dhamaka",
+                subtitle: "Men, Women aur Kids ke trending kapde direct factory rate par uplabdh!",
+                bgGradient: "bg-gradient-to-r from-amber-600 to-rose-700",
+                btnText: "View Catalog",
+                isVipAction: false,
+                customImg: ""
+            },
+            {
+                id: 3,
+                tag: "Baby & Kids",
+                title: "Super Soft Rompers & Boys Wear",
+                subtitle: "100% Cotton, skin-friendly aur long lasting kapde sabse kam daam me.",
+                bgGradient: "bg-gradient-to-r from-indigo-800 to-purple-700",
+                btnText: "Shop Kids Wear",
+                isVipAction: false,
+                customImg: ""
+            },
+            {
+                id: 4,
+                tag: "Super Fast Express",
+                title: "Pan-India Express Safe Shipping",
+                subtitle: "Har order quality check ke baad direct aapke doorstep par dispatch hota hai.",
+                bgGradient: "bg-gradient-to-r from-emerald-800 to-teal-700",
+                btnText: "Start Shopping",
+                isVipAction: false,
+                customImg: ""
+            }
+        ];
+
+        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || defaultBanners;
+
+        function renderBannerSlider() {
+            const track = document.getElementById('sliderTrack');
+            const dots = document.getElementById('sliderDots');
+            let trackHtml = '';
+            let dotsHtml = '';
+
+            banners.forEach((b, idx) => {
+                const hasImg = b.customImg && b.customImg.length > 5;
+                const bgStyle = hasImg ? `background: url('${b.customImg}') center/cover no-repeat;` : '';
+                const gradientClass = hasImg ? 'bg-slate-950/70 backdrop-brightness-50' : b.bgGradient;
+
+                trackHtml += `
+                    <div class="min-w-full h-full relative ${gradientClass} flex items-center px-6 sm:px-14 text-white overflow-hidden" style="${bgStyle}">
+                        <div class="relative z-10 max-w-xl space-y-2">
+                            <span class="bg-amber-400 text-slate-950 text-[10px] sm:text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest shadow">
+                                ${b.tag}
+                            </span>
+                            <h2 class="text-xl sm:text-4xl font-black leading-tight text-white drop-shadow-md">
+                                ${b.title}
+                            </h2>
+                            <p class="text-xs sm:text-sm text-pink-100 hidden sm:block drop-shadow">
+                                ${b.subtitle}
+                            </p>
+                            ${b.isVipAction ? `
+                                <button onclick="directContactVipWhatsApp()" class="bg-amber-400 hover:bg-amber-300 text-slate-950 font-black px-5 py-2.5 rounded-xl shadow-lg text-xs sm:text-sm flex items-center gap-2 mt-2">
+                                    <i class="fa-brands fa-whatsapp text-lg text-emerald-700"></i> ${b.btnText}
+                                </button>
+                            ` : `
+                                <a href="#shop" class="inline-block bg-white text-slate-900 font-black px-5 py-2.5 rounded-xl text-xs sm:text-sm shadow mt-2">
+                                    ${b.btnText}
+                                </a>
+                            `}
+                        </div>
+                        <div class="absolute right-4 sm:right-16 top-1/2 -translate-y-1/2 opacity-25 sm:opacity-90 pointer-events-none">
+                            <i class="fa-solid fa-crown text-8xl sm:text-9xl text-amber-300"></i>
+                        </div>
+                    </div>
+                `;
+
+                dotsHtml += `<span class="${idx === 0 ? 'w-6 bg-amber-400' : 'w-2 bg-white/40'} h-1.5 rounded-full transition-all"></span>`;
+            });
+
+            track.innerHTML = trackHtml;
+            dots.innerHTML = dotsHtml;
+        }
+
+        let currentSlide = 0;
+        function autoSlideBanner() {
+            if (!banners.length) return;
+            currentSlide = (currentSlide + 1) % banners.length;
+            const track = document.getElementById('sliderTrack');
+            if (track) {
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            const dots = document.getElementById('sliderDots');
+            if (dots) {
+                Array.from(dots.children).forEach((dot, idx) => {
+                    dot.className = idx === currentSlide ? "w-6 h-1.5 bg-amber-400 rounded-full transition-all" : "w-2 h-1.5 bg-white/40 rounded-full transition-all";
+                });
+            }
+        }
+        setInterval(autoSlideBanner, 2500);
+
         let visitors = Number(localStorage.getItem('senshoVisitors') || 0);
         if(!sessionStorage.getItem('visited_session')) {
             visitors += 1;
@@ -275,16 +591,87 @@
             sessionStorage.setItem('visited_session', 'true');
         }
 
-        // Default Catalog
         const defaultProducts = [
-            { id: 1, name: "Heavyweight Streetwear Black T-Shirt", category: "mens", normal: 1000, vip: 600, img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60", tag: "Men's Best Seller" },
-            { id: 2, name: "Designer Printed Kurti & Pant Set", category: "womens", normal: 1199, vip: 749, img: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=500&auto=format&fit=crop&q=60", tag: "Women's Special" },
-            { id: 3, name: "Stylish Casual Cotton Shirt & Jeans Set", category: "boys", normal: 999, vip: 599, img: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=500&auto=format&fit=crop&q=60", tag: "Boys Collection" },
-            { id: 4, name: "Cute Party Wear Floral Frock", category: "girls", normal: 899, vip: 549, img: "https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=500&auto=format&fit=crop&q=60", tag: "Girls Fashion" },
-            { id: 5, name: "Soft Cotton Baby Romper & Sleepsuit", category: "kids", normal: 799, vip: 449, img: "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=500&auto=format&fit=crop&q=60", tag: "Baby & Kids" }
+            { 
+                id: 1, 
+                name: "Heavyweight Streetwear Black T-Shirt", 
+                category: "mens", 
+                normal: 1000, 
+                vip: 600, 
+                tag: "Men's Best Seller",
+                fabric: "100% Heavy Cotton",
+                fit: "Oversized Street Fit",
+                desc: "Premium quality 240 GSM breathable cotton t-shirt with durable double stitching.",
+                images: [
+                    "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80"
+                ]
+            },
+            { 
+                id: 2, 
+                name: "Designer Printed Kurti & Pant Set", 
+                category: "womens", 
+                normal: 1199, 
+                vip: 749, 
+                tag: "Women's Special",
+                fabric: "Pure Rayon Soft Cotton",
+                fit: "Straight Fit",
+                desc: "Elegant festival kurti pant set with intricate ethnic print and breathable design.",
+                images: [
+                    "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80"
+                ]
+            },
+            { 
+                id: 3, 
+                name: "Stylish Casual Cotton Shirt & Jeans Set", 
+                category: "boys", 
+                normal: 999, 
+                vip: 599, 
+                tag: "Boys Collection",
+                fabric: "Cotton Blend & Denim",
+                fit: "Regular Comfort Fit",
+                desc: "Durable and trendy party outfit for boys with soft stretchable denim.",
+                images: [
+                    "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&auto=format&fit=crop&q=80"
+                ]
+            },
+            { 
+                id: 4, 
+                name: "Cute Party Wear Floral Frock", 
+                category: "girls", 
+                normal: 899, 
+                vip: 549, 
+                tag: "Girls Fashion",
+                fabric: "Soft Net with Satin Lining",
+                fit: "Flared Fit",
+                desc: "Charming floral printed frock with soft non-itchy inner lining.",
+                images: [
+                    "https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=800&auto=format&fit=crop&q=80"
+                ]
+            },
+            { 
+                id: 5, 
+                name: "Soft Cotton Baby Romper & Sleepsuit", 
+                category: "kids", 
+                normal: 799, 
+                vip: 449, 
+                tag: "Baby & Kids",
+                fabric: "Organic Combed Cotton",
+                fit: "Snug Sleep Fit",
+                desc: "Gentle on newborn skin, snap-button design for quick and easy diaper changes.",
+                images: [
+                    "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=800&auto=format&fit=crop&q=80"
+                ]
+            }
         ];
 
         let products = JSON.parse(localStorage.getItem('senshoProducts')) || defaultProducts;
+        products.forEach(p => {
+            if (!p.images || !p.images.length) {
+                p.images = [p.img || "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"];
+            }
+        });
+
         let cart = JSON.parse(localStorage.getItem('senshoCart')) || [];
         let orders = JSON.parse(localStorage.getItem('senshoOrders')) || [];
         let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
@@ -306,40 +693,56 @@
             }
         });
 
+        // RENDER PRODUCTS WITH SIDE-BY-SIDE PRICING
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             let html = '';
-            products.forEach(p => {
-                const displayPrice = isVIP ? p.vip : p.normal;
+            products.forEach((p, idx) => {
+                const coverImg = p.images && p.images[0] ? p.images[0] : (p.img || "");
+                const photoCount = p.images ? p.images.length : 1;
+                const savings = p.normal - p.vip;
+
                 html += `
-                    <div class="product-card bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition flex flex-col justify-between group" data-category="${p.category}">
-                        <div>
+                    <div class="product-card bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition flex flex-col justify-between group cursor-pointer" data-category="${p.category}">
+                        <div onclick="openProductDetailModal(${idx})">
                             <div class="relative h-64 bg-slate-100 overflow-hidden">
-                                <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                <span class="absolute top-3 left-3 bg-pink-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow">${p.tag}</span>
+                                <img src="${coverImg}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <span class="absolute top-3 left-3 bg-pink-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow">${p.tag || "Best Seller"}</span>
+                                ${photoCount > 1 ? `<span class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2 py-0.5 rounded-lg"><i class="fa-solid fa-images mr-1"></i>${photoCount} Photos</span>` : ''}
                             </div>
                             <div class="p-4">
                                 <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">${p.category.toUpperCase()}</span>
                                 <h3 class="font-bold text-slate-900 text-base mt-0.5 mb-2 line-clamp-1">${p.name}</h3>
-                                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 space-y-1">
-                                    <div class="flex justify-between items-center text-xs text-slate-500">
-                                        <span>Normal Retail:</span>
-                                        <span class="font-bold line-through text-slate-700">₹${p.normal}</span>
+                                
+                                <!-- Side-by-Side Dual Pricing Box -->
+                                <div class="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200/80 rounded-2xl p-3">
+                                    <div class="flex items-center justify-between gap-1">
+                                        <div>
+                                            <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Normal Retail:</span>
+                                            <span class="text-base font-black text-slate-400 line-through">₹${p.normal}</span>
+                                        </div>
+
+                                        <div class="h-8 w-[1.5px] bg-purple-200"></div>
+
+                                        <div class="text-right">
+                                            <span class="text-[9px] font-black text-pink-600 uppercase tracking-wider flex items-center justify-end gap-1">
+                                                <i class="fa-solid fa-crown text-amber-500"></i> VIP Price:
+                                            </span>
+                                            <span class="text-xl font-black text-[#4a0e4e]">₹${p.vip}</span>
+                                        </div>
                                     </div>
-                                    <div class="flex justify-between items-center bg-[#4a0e4e] text-white -mx-3 -mb-3 p-3 rounded-b-2xl border-t border-purple-800">
-                                        <span class="text-xs font-bold text-amber-300 flex items-center gap-1">
-                                            <i class="fa-solid fa-crown"></i> VIP Price:
-                                        </span>
-                                        <span class="text-xl font-black text-amber-300">₹${displayPrice}</span>
+                                    <div class="mt-2 pt-1.5 border-t border-purple-100 flex justify-between items-center text-[10px] font-bold text-emerald-700">
+                                        <span>Bachat: ₹${savings}</span>
+                                        <span class="bg-emerald-100 px-2 py-0.5 rounded-md">Save ${Math.round((savings/p.normal)*100)}%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="p-4 pt-0 grid grid-cols-2 gap-2">
-                            <button onclick="addToCart('${p.name.replace(/'/g, "\\'")}', ${p.normal}, ${p.vip}, '${p.img}')" class="bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 border border-pink-200">
-                                <i class="fa-solid fa-cart-plus"></i> Add
+                            <button onclick="event.stopPropagation(); openProductDetailModal(${idx});" class="bg-pink-50 hover:bg-pink-100 text-pink-700 font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 border border-pink-200">
+                                <i class="fa-solid fa-eye"></i> View Details
                             </button>
-                            <button onclick="buyNowWhatsApp('${p.name.replace(/'/g, "\\'")}', ${p.normal}, ${p.vip})" class="bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 shadow-md">
+                            <button onclick="event.stopPropagation(); quickBuyNow(${idx});" class="bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 shadow-md">
                                 <i class="fa-brands fa-whatsapp text-base"></i> Buy Now
                             </button>
                         </div>
@@ -349,23 +752,146 @@
             grid.innerHTML = html;
         }
 
+        function openProductDetailModal(index) {
+            const p = products[index];
+            if (!p) return;
+            activeProductForDetail = p;
+            selectedProductSize = "M";
+
+            document.getElementById('detailTitle').innerText = p.name;
+            document.getElementById('detailBreadcrumbTitle').innerText = p.name;
+            document.getElementById('detailBreadcrumbCat').innerText = p.category.toUpperCase();
+            document.getElementById('detailBadge').innerText = p.tag || "Best Seller";
+            document.getElementById('detailNormalStrikePrice').innerText = `₹${p.normal}`;
+            document.getElementById('detailVipPriceBox').innerText = `₹${p.vip}`;
+            document.getElementById('detailFabric').innerText = p.fabric || "Premium Cotton";
+            document.getElementById('detailFit').innerText = p.fit || "Regular Fit";
+            document.getElementById('detailDesc').innerText = p.desc || "Premium quality wholesale product directly sourced from factory.";
+
+            const savings = p.normal - p.vip;
+            const discount = Math.round((savings / p.normal) * 100);
+            document.getElementById('detailDiscountPercentage').innerText = `${discount}% OFF (Save ₹${savings})`;
+
+            const mainImg = document.getElementById('detailMainImage');
+            const thumbsList = document.getElementById('detailThumbnailsList');
+            const images = (p.images && p.images.length) ? p.images : [p.img || ""];
+            
+            mainImg.src = images[0];
+            thumbsList.innerHTML = '';
+
+            images.forEach((imgUrl, i) => {
+                const thumbBtn = document.createElement('button');
+                thumbBtn.className = `w-16 h-20 rounded-xl overflow-hidden border-2 transition shrink-0 ${i === 0 ? 'border-pink-600 shadow-md ring-2 ring-pink-300' : 'border-slate-200 hover:border-pink-400'}`;
+                thumbBtn.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover">`;
+                thumbBtn.onclick = function() {
+                    mainImg.src = imgUrl;
+                    thumbsList.querySelectorAll('button').forEach(b => b.className = 'w-16 h-20 rounded-xl overflow-hidden border-2 border-slate-200 hover:border-pink-400 transition shrink-0');
+                    thumbBtn.className = 'w-16 h-20 rounded-xl overflow-hidden border-2 border-pink-600 shadow-md ring-2 ring-pink-300 transition shrink-0';
+                };
+                thumbsList.appendChild(thumbBtn);
+            });
+
+            document.querySelectorAll('.size-btn').forEach(btn => {
+                if (btn.innerText.trim() === 'M') {
+                    btn.className = "size-btn active px-4 py-2 border-2 border-pink-600 bg-pink-50 text-pink-700 rounded-xl font-bold text-xs transition";
+                } else {
+                    btn.className = "size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition";
+                }
+            });
+
+            document.getElementById('productDetailModal').classList.remove('hidden');
+        }
+
+        function closeProductDetailModal() {
+            document.getElementById('productDetailModal').classList.add('hidden');
+        }
+
+        function selectSize(size, el) {
+            selectedProductSize = size;
+            document.querySelectorAll('.size-btn').forEach(b => {
+                b.className = "size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-pink-600 transition";
+            });
+            el.className = "size-btn active px-4 py-2 border-2 border-pink-600 bg-pink-50 text-pink-700 rounded-xl font-bold text-xs transition";
+        }
+
+        function detailAddToCart() {
+            if (!activeProductForDetail) return;
+            if (isVIP && !isVIPVerified) {
+                openBigVipAlertModal();
+                return;
+            }
+            const p = activeProductForDetail;
+            const price = isVIP ? p.vip : p.normal;
+            const mainImg = document.getElementById('detailMainImage').src;
+            const itemKey = `${p.name} (Size: ${selectedProductSize})`;
+
+            let existing = cart.find(item => item.name === itemKey);
+            if(existing) { 
+                existing.qty += 1; 
+            } else { 
+                cart.push({ 
+                    name: itemKey, 
+                    price: price, 
+                    normalPrice: p.normal, 
+                    vipPrice: p.vip, 
+                    qty: 1, 
+                    img: mainImg 
+                }); 
+            }
+            localStorage.setItem('senshoCart', JSON.stringify(cart));
+            updateCartBadge();
+            closeProductDetailModal();
+            openCartDrawer();
+        }
+
+        function detailBuyNowWhatsApp() {
+            if (!activeProductForDetail) return;
+            if (isVIP && !isVIPVerified) {
+                openBigVipAlertModal();
+                return;
+            }
+            const p = activeProductForDetail;
+            const price = isVIP ? p.vip : p.normal;
+            const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
+            const vipCardTag = isVIPVerified && vipCardData ? `[VIP CARD: ${vipCardData.cardNumber}]` : `[Standard Retail]`;
+
+            recordOrder(itemSummary, price, `${vipCardTag} Direct Order`);
+            let msg = `*DIRECT ORDER - SENSHO*%0A*Product:* ${encodeURIComponent(p.name)}%0A*Selected Size:* ${selectedProductSize}%0A*Price:* ₹${price} ${isVIP ? "(VIP Rate)" : "(Retail)"}%0A*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0APlease confirm availability & share delivery details.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+        }
+
+        function quickBuyNow(index) {
+            openProductDetailModal(index);
+        }
+
         function updateUI() {
             const vipMini = document.getElementById('vipStatusMini');
             const badge = document.getElementById('headerPricingStatusBadge');
+            const icon = document.getElementById('toggleIcon');
+            const navBtnText = document.getElementById('navVipBtnText');
+
+            if (isVIPVerified && vipCardData) {
+                navBtnText.innerText = "My VIP Card";
+            } else {
+                navBtnText.innerText = "Get VIP Card";
+            }
 
             if (isVIP) {
-                if(vipMini) vipMini.innerText = "ACTIVE";
+                if(vipMini) vipMini.innerText = isVIPVerified ? "VIP CARD ACTIVE" : "PREVIEW ON";
+                if(icon) icon.className = "fa-solid fa-toggle-on text-base text-amber-400";
                 if(badge) {
-                    badge.innerText = "Sensho VIP Wholesale Rates Enabled";
+                    badge.innerText = isVIPVerified ? `Sensho VIP Active (${vipCardData.cardNumber})` : "VIP Wholesale Preview Active (Order Locked)";
                     badge.className = "bg-amber-100 text-[#4a0e4e] font-black px-3 py-1 rounded-lg border border-amber-300";
                 }
             } else {
                 if(vipMini) vipMini.innerText = "OFF";
+                if(icon) icon.className = "fa-solid fa-toggle-off text-base text-slate-400";
                 if(badge) {
                     badge.innerText = "Standard Retail View";
                     badge.className = "bg-purple-50 text-purple-700 px-3 py-1 rounded-lg border border-purple-200";
                 }
             }
+            renderBannerSlider();
             renderProducts();
             updateCartBadge();
         }
@@ -376,17 +902,71 @@
             updateUI();
         }
 
-        function addToCart(name, normalPrice, vipPrice, imgUrl) {
-            let price = isVIP ? vipPrice : normalPrice;
-            let existing = cart.find(item => item.name === name);
-            if(existing) { 
-                existing.qty += 1; 
-            } else { 
-                cart.push({ name, price, normalPrice, vipPrice, qty: 1, img: imgUrl }); 
+        function openBigVipAlertModal() {
+            document.getElementById('bigVipAlertModal').classList.remove('hidden');
+        }
+
+        function closeBigVipAlertModal() {
+            document.getElementById('bigVipAlertModal').classList.add('hidden');
+        }
+
+        function directContactVipWhatsApp() {
+            let msg = `*VIP MEMBERSHIP REQUEST - SENSHO*%0AHello Sensho Team! Mujhe ₹299 wala 1-Year VIP Membership Pass purchase karna hai taaki main wholesale discount par order place kar sakun. Please payment QR code share karein.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function activateBigVipCode() {
+            let code = document.getElementById('bigVipCodeInput').value.trim().toUpperCase();
+            if (code === VIP_SECRET_CODE || code === "SENSHOVIP") {
+                let randomPart1 = Math.floor(1000 + Math.random() * 9000);
+                let randomPart2 = Math.floor(1000 + Math.random() * 9000);
+                let uniqueCardNum = `SNS-VIP-${randomPart1}-${randomPart2}`;
+
+                let expiryDate = new Date();
+                expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+                let expiryStr = expiryDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+
+                vipCardData = {
+                    cardNumber: uniqueCardNum,
+                    name: "Sensho VIP Member",
+                    issuedDate: new Date().toLocaleDateString(),
+                    expiry: expiryStr
+                };
+
+                isVIPVerified = true;
+                isVIP = true;
+                localStorage.setItem('senshoVIPVerified', 'true');
+                localStorage.setItem('senshoVIP', 'true');
+                localStorage.setItem('senshoVIPCardData', JSON.stringify(vipCardData));
+
+                closeBigVipAlertModal();
+                updateUI();
+                openVipCardModal();
+            } else {
+                alert("❌ Galat Activation Code! ₹299 payment ke baad WhatsApp se activation code lein.");
             }
-            localStorage.setItem('senshoCart', JSON.stringify(cart));
-            updateCartBadge();
-            openCartDrawer();
+        }
+
+        function continueAsNormalUser() {
+            isVIP = false;
+            localStorage.setItem('senshoVIP', false);
+            closeBigVipAlertModal();
+            updateUI();
+        }
+
+        function openVipCardModal() {
+            if (isVIPVerified && vipCardData) {
+                document.getElementById('vipCardDisplayNumber').innerText = vipCardData.cardNumber;
+                document.getElementById('vipCardDisplayName').innerText = vipCardData.name;
+                document.getElementById('vipCardDisplayExpiry').innerText = vipCardData.expiry;
+                document.getElementById('vipCardModal').classList.remove('hidden');
+            } else {
+                openBigVipAlertModal();
+            }
+        }
+
+        function closeVipCardModal() {
+            document.getElementById('vipCardModal').classList.add('hidden');
         }
 
         function updateCartBadge() {
@@ -431,6 +1011,24 @@
             document.getElementById('cartTotalPrice').innerText = `₹${totalPrice}`;
         }
 
+        function checkoutCartWhatsApp() {
+            if(cart.length === 0) { alert("Cart is empty!"); return; }
+            if (isVIP && !isVIPVerified) {
+                closeCartDrawer();
+                openBigVipAlertModal();
+                return;
+            }
+            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            let summaryStr = cart.map(i => `${i.name} (${i.qty}x)`).join(', ');
+            const cardInfo = isVIPVerified && vipCardData ? `[VIP Card: ${vipCardData.cardNumber}]` : `[Standard Retail]`;
+
+            recordOrder(summaryStr, totalPrice, `${cardInfo} Cart Order`);
+
+            let msg = `*CART ORDER - SENSHO*%0A*Total:* ₹${totalPrice} ${isVIP ? "(VIP Rates Applied)" : ""}%0A*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A`;
+            cart.forEach(i => { msg += `- ${encodeURIComponent(i.name)} (${i.qty}x) - ₹${i.price * i.qty}%0A`; });
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+        }
+
         function recordOrder(orderSummary, totalAmt, orderType = "WhatsApp Direct") {
             let orderId = "SNS-" + Math.floor(100000 + Math.random() * 900000);
             let orderDate = new Date().toLocaleString();
@@ -443,42 +1041,20 @@
                 type: orderType
             };
 
-            // LocalStorage Sync
             orders.unshift(newOrder);
             localStorage.setItem('senshoOrders', JSON.stringify(orders));
             cart = [];
             localStorage.removeItem('senshoCart');
             updateCartBadge();
 
-            // Google Sheets Direct Sync
             if (GOOGLE_SCRIPT_URL) {
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
                     mode: "no-cors",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(newOrder)
                 }).catch(err => console.error("Sheet sync failed:", err));
             }
-        }
-
-        function buyNowWhatsApp(name, normalPrice, vipPrice) {
-            let price = isVIP ? vipPrice : normalPrice;
-            recordOrder(`${name} (1x)`, price, "Direct Buy");
-            let msg = `*DIRECT ORDER - SENSHO*%0A*Product:* ${encodeURIComponent(name)}%0A*Price:* ₹${price}%0A%0APlease share delivery details.`;
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
-        }
-
-        function checkoutCartWhatsApp() {
-            if(cart.length === 0) { alert("Cart is empty!"); return; }
-            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            let summaryStr = cart.map(i => `${i.name} (${i.qty}x)`).join(', ');
-            recordOrder(summaryStr, totalPrice, "Cart Order");
-
-            let msg = `*CART ORDER - SENSHO*%0A*Total:* ₹${totalPrice}%0A%0A`;
-            cart.forEach(i => { msg += `- ${encodeURIComponent(i.name)} (${i.qty}x) - ₹${i.price * i.qty}%0A`; });
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
         }
 
         function openMyOrders() {
@@ -496,7 +1072,7 @@
                             </div>
                             <p class="text-sm font-bold text-slate-900">${o.summary}</p>
                             <div class="flex justify-between items-center text-xs pt-1 border-t">
-                                <span class="text-emerald-600 font-extrabold">Status: Confirmed</span>
+                                <span class="text-emerald-600 font-extrabold">${o.type || "Confirmed"}</span>
                                 <span class="font-black text-slate-900">₹${o.total}</span>
                             </div>
                         </div>
@@ -545,12 +1121,124 @@
             }
         }
 
+        // LOAD ADMIN DASHBOARD WITH COMPLETE EDITING POWERS
         function loadAdminDashboardData() {
             document.getElementById('adminVisitorCount').innerText = visitors;
             document.getElementById('adminOrderCount').innerText = orders.length;
             let totalRev = orders.reduce((sum, o) => sum + o.total, 0);
             document.getElementById('adminTotalRevenue').innerText = `₹${totalRev}`;
 
+            // 1. Banner Slider Editor
+            let bannerContainer = document.getElementById('adminBannerEditorList');
+            let bannerHtml = '';
+            banners.forEach((b, idx) => {
+                bannerHtml += `
+                    <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl flex flex-col sm:flex-row items-center gap-3">
+                        <div class="w-24 h-14 bg-slate-200 rounded-xl overflow-hidden border shrink-0">
+                            ${b.customImg ? `<img src="${b.customImg}" id="banner-preview-${idx}" class="w-full h-full object-cover">` : `<div id="banner-preview-${idx}" class="w-full h-full flex items-center justify-center text-[10px] font-bold text-slate-400">Default BG</div>`}
+                        </div>
+                        <div class="flex-1 w-full space-y-1">
+                            <span class="text-xs font-bold text-purple-950 block">Slide #${idx+1}: ${b.title.substring(0, 32)}...</span>
+                            <div class="flex items-center gap-2">
+                                <label class="text-[11px] font-bold text-slate-600">Select Banner Image:</label>
+                                <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100 cursor-pointer">
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            bannerContainer.innerHTML = bannerHtml;
+
+            // 2. Full Control Product & Pricing Editor
+            let container = document.getElementById('adminProductEditorList');
+            let prodHtml = '';
+            products.forEach((p, idx) => {
+                const currentImages = p.images || [];
+                prodHtml += `
+                    <div class="bg-slate-50 border-2 border-purple-100 p-4 rounded-3xl space-y-3.5 shadow-sm">
+                        <div class="flex justify-between items-center border-b pb-2">
+                            <span class="text-xs font-black text-[#4a0e4e] uppercase tracking-wider">Product #${idx+1} Control Panel</span>
+                            <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-xs font-bold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-trash"></i> Delete Product
+                            </button>
+                        </div>
+
+                        <!-- Row 1: Title, Category, Tag -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Product Title</label>
+                                <input type="text" id="p-name-${idx}" value="${p.name}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-pink-600">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Category</label>
+                                <select id="p-cat-${idx}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-pink-600 bg-white">
+                                    <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
+                                    <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
+                                    <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
+                                    <option value="girls" ${p.category==='girls'?'selected':''}>Girls Clothing</option>
+                                    <option value="kids" ${p.category==='kids'?'selected':''}>Baby & Kids</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Tag Badge</label>
+                                <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-pink-600">
+                            </div>
+                        </div>
+
+                        <!-- Row 2: Normal Retail Price vs VIP Wholesale Price (Both Editable) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-purple-50/70 p-3 rounded-2xl border border-purple-200/70">
+                            <div>
+                                <label class="text-[11px] font-black text-slate-700 block mb-1">
+                                    <i class="fa-solid fa-tag text-slate-500 mr-1"></i> Normal Retail Price (₹):
+                                </label>
+                                <input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-sm border border-slate-300 rounded-xl p-2 font-black text-slate-800 focus:border-pink-600 bg-white" placeholder="e.g. 1000">
+                            </div>
+                            <div>
+                                <label class="text-[11px] font-black text-pink-700 block mb-1">
+                                    <i class="fa-solid fa-crown text-amber-500 mr-1"></i> VIP Member Price (₹):
+                                </label>
+                                <input type="number" id="p-vip-${idx}" value="${p.vip}" class="w-full text-sm border border-pink-300 rounded-xl p-2 font-black text-[#4a0e4e] focus:border-pink-600 bg-white" placeholder="e.g. 600">
+                            </div>
+                        </div>
+
+                        <!-- Row 3: Fabric & Fit Details -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Fabric Type</label>
+                                <input type="text" id="p-fabric-${idx}" value="${p.fabric || "100% Pure Cotton"}" class="w-full text-xs border rounded-xl p-2 font-medium">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Fit / Shape</label>
+                                <input type="text" id="p-fit-${idx}" value="${p.fit || "Regular Fit"}" class="w-full text-xs border rounded-xl p-2 font-medium">
+                            </div>
+                        </div>
+
+                        <!-- Row 4: Product Description -->
+                        <div>
+                            <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Product Description</label>
+                            <textarea id="p-desc-${idx}" rows="2" class="w-full text-xs border rounded-xl p-2 font-medium">${p.desc || "High quality factory-made clothing."}</textarea>
+                        </div>
+
+                        <!-- Multi-image Upload (Up to 6) -->
+                        <div class="bg-white p-3.5 rounded-2xl border space-y-2">
+                            <div class="flex justify-between items-center">
+                                <label class="text-[11px] font-bold text-slate-700">
+                                    <i class="fa-solid fa-images text-pink-600 mr-1"></i> Gallery Se Up to 6 Photos Upload Karein:
+                                </label>
+                                <span class="text-[10px] text-purple-700 font-bold" id="img-count-${idx}">${currentImages.length} of 6 Photos</span>
+                            </div>
+                            <input type="file" multiple accept="image/*" onchange="handleMultiImageUpload(event, ${idx})" class="w-full text-xs text-slate-500 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100 cursor-pointer">
+                            
+                            <div class="flex gap-2 overflow-x-auto pt-2" id="preview-container-${idx}">
+                                ${currentImages.map(img => `<img src="${img}" class="w-14 h-14 object-cover rounded-xl border">`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = prodHtml;
+
+            // Orders Table
             let tableBody = document.getElementById('adminOrdersTableBody');
             if(orders.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="4" class="p-4 text-center text-slate-400">No orders recorded yet.</td></tr>`;
@@ -568,26 +1256,46 @@
                 });
                 tableBody.innerHTML = html;
             }
+        }
 
-            let container = document.getElementById('adminProductEditorList');
-            let prodHtml = '';
-            products.forEach((p, idx) => {
-                prodHtml += `
-                    <div class="bg-slate-50 border p-3 rounded-xl space-y-2">
-                        <div class="flex justify-between items-center">
-                            <span class="text-[11px] font-bold text-purple-900">Product #${idx+1}</span>
-                            <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-xs font-bold hover:underline">Delete</button>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                            <input type="text" id="p-name-${idx}" value="${p.name}" class="text-xs border rounded p-1.5" placeholder="Product Name">
-                            <input type="number" id="p-normal-${idx}" value="${p.normal}" class="text-xs border rounded p-1.5" placeholder="Normal Price">
-                            <input type="number" id="p-vip-${idx}" value="${p.vip}" class="text-xs border rounded p-1.5" placeholder="VIP Price">
-                            <input type="text" id="p-img-${idx}" value="${p.img}" class="text-xs border rounded p-1.5" placeholder="Image URL">
-                        </div>
-                    </div>
-                `;
+        function handleBannerUpload(e, index) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64 = event.target.result;
+                banners[index].customImg = base64;
+                const previewEl = document.getElementById(`banner-preview-${index}`);
+                if (previewEl.tagName === 'IMG') {
+                    previewEl.src = base64;
+                } else {
+                    previewEl.outerHTML = `<img src="${base64}" id="banner-preview-${index}" class="w-full h-full object-cover">`;
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleMultiImageUpload(e, index) {
+            const files = Array.from(e.target.files).slice(0, 6);
+            if (!files.length) return;
+
+            let loadedImages = [];
+            let processed = 0;
+
+            files.forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    loadedImages.push(event.target.result);
+                    processed++;
+                    if (processed === files.length) {
+                        products[index].images = loadedImages;
+                        document.getElementById(`img-count-${index}`).innerText = `${loadedImages.length} of 6 Photos`;
+                        document.getElementById(`preview-container-${index}`).innerHTML = loadedImages.map(img => `<img src="${img}" class="w-14 h-14 object-cover rounded-xl border">`).join('');
+                    }
+                };
+                reader.readAsDataURL(file);
             });
-            container.innerHTML = prodHtml;
         }
 
         function addNewProduct() {
@@ -597,40 +1305,49 @@
                 category: "mens", 
                 normal: 1000, 
                 vip: 600, 
-                img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60", 
-                tag: "New" 
+                tag: "New Arrival",
+                fabric: "100% Pure Cotton",
+                fit: "Regular Comfort Fit",
+                desc: "High quality factory-made clothing.",
+                images: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"]
             });
             loadAdminDashboardData();
         }
 
+        // SAVE ALL ADMIN CHANGES (PRICES, TEXT, FABRIC, BANNERS)
         function saveAdminChanges() {
             products.forEach((p, idx) => {
                 let nameEl = document.getElementById(`p-name-${idx}`);
+                let catEl = document.getElementById(`p-cat-${idx}`);
+                let tagEl = document.getElementById(`p-tag-${idx}`);
                 let normEl = document.getElementById(`p-normal-${idx}`);
                 let vipEl = document.getElementById(`p-vip-${idx}`);
-                let imgEl = document.getElementById(`p-img-${idx}`);
+                let fabricEl = document.getElementById(`p-fabric-${idx}`);
+                let fitEl = document.getElementById(`p-fit-${idx}`);
+                let descEl = document.getElementById(`p-desc-${idx}`);
+
                 if(nameEl) p.name = nameEl.value;
+                if(catEl) p.category = catEl.value;
+                if(tagEl) p.tag = tagEl.value;
                 if(normEl) p.normal = Number(normEl.value);
                 if(vipEl) p.vip = Number(vipEl.value);
-                if(imgEl) p.img = imgEl.value;
+                if(fabricEl) p.fabric = fabricEl.value;
+                if(fitEl) p.fit = fitEl.value;
+                if(descEl) p.desc = descEl.value;
             });
+
             localStorage.setItem('senshoProducts', JSON.stringify(products));
-            alert("Saved successfully! Local view updated.");
+            localStorage.setItem('senshoBanners', JSON.stringify(banners));
+            alert("✅ Super Admin Settings Saved! Prices, Products aur Banners update ho chuke hain.");
             closeAdminModal();
-            renderProducts();
+            updateUI();
         }
 
         function filterCategory(cat, btn) {
             document.querySelectorAll('.cat-btn').forEach(b => b.className = "cat-btn hover:text-pink-400 px-3 py-1.5 transition");
-            if(btn) {
-                btn.className = "cat-btn active bg-pink-600 text-white px-4 py-1.5 rounded-xl transition shadow";
-            }
+            if(btn) btn.className = "cat-btn active bg-pink-600 text-white px-4 py-1.5 rounded-xl transition shadow";
             document.querySelectorAll('.product-card').forEach(card => {
-                if (cat === 'all' || card.getAttribute('data-category') === cat) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = (cat === 'all' || card.getAttribute('data-category') === cat) ? 'flex' : 'none';
             });
         }
 
