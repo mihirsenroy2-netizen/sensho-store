@@ -22,24 +22,23 @@
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
 
-    <!-- Top Announcement Bar (Clean & Responsive) -->
+    <!-- Top Announcement Bar -->
     <div class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 flex justify-between items-center border-b border-slate-800 text-center">
         <span class="flex items-center gap-1 text-emerald-400 font-bold truncate">
-            <i class="fa-solid fa-shield-check"></i> 100% Quality Wholesale
+            <i class="fa-solid fa-shield-check"></i> 100% Quality Checked Wholesale Hub
         </span>
         <span class="text-amber-400 font-extrabold truncate">
-            Helpline: +91 6261118847
+            Direct Helpline: +91 6261118847
         </span>
     </div>
 
-    <!-- Main Navigation Header (Meesho Style Responsive) -->
+    <!-- Main Navigation Header -->
     <header class="sticky top-0 z-40 bg-[#1e1b4b] text-white shadow-md">
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex flex-col gap-2">
             
-            <!-- Top Row: Logo & Quick Action Buttons -->
             <div class="flex items-center justify-between gap-2">
-                <!-- Brand Logo (Secret Admin Trigger on Triple Click) -->
-                <div onclick="secretLogoClick()" class="flex items-center gap-2 cursor-pointer select-none shrink-0" title="Sensho Hub">
+                <!-- Brand Logo (Mobile Long-Press & Triple Click Secret Admin Trigger) -->
+                <div id="brandLogoContainer" onclick="secretLogoClick()" class="flex items-center gap-2 cursor-pointer select-none shrink-0" title="Sensho Hub">
                     <div class="bg-gradient-to-tr from-blue-600 to-amber-400 text-white p-2 rounded-xl font-black text-base sm:text-lg shadow">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
@@ -49,7 +48,7 @@
                     </div>
                 </div>
 
-                <!-- Desktop Action Buttons (Hidden on Small Mobile, visible on Desktop) -->
+                <!-- Desktop Action Buttons -->
                 <div class="hidden md:flex items-center gap-3">
                     <button onclick="openHelpModal()" class="bg-blue-900/80 hover:bg-blue-800 text-blue-200 text-xs font-bold px-3 py-2 rounded-xl border border-blue-700 transition flex items-center gap-1.5">
                         <i class="fa-solid fa-headset text-emerald-400"></i> Help Support
@@ -62,7 +61,7 @@
                     </button>
                 </div>
 
-                <!-- Right Cart Icon (Always visible) -->
+                <!-- Right Header Actions -->
                 <div class="flex items-center gap-2">
                     <button onclick="openVipCardModal()" class="md:hidden bg-amber-400 text-slate-950 font-black text-[11px] px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow">
                         <i class="fa-solid fa-crown text-xs"></i> VIP
@@ -74,7 +73,7 @@
                 </div>
             </div>
 
-            <!-- Bottom Row: 100% Full Width Meesho Search Bar -->
+            <!-- Full Width Search Bar -->
             <div class="w-full">
                 <div class="flex w-full bg-white rounded-xl overflow-hidden shadow-inner border border-slate-200 focus-within:ring-2 focus-within:ring-blue-500">
                     <span class="flex items-center pl-3 text-slate-400">
@@ -85,7 +84,7 @@
             </div>
         </div>
 
-        <!-- Horizontal Scrollable Category Bar (Meesho Style Pills) -->
+        <!-- Categories Bar -->
         <nav class="bg-[#17143a] border-t border-slate-800 px-3 overflow-x-auto no-scrollbar py-2">
             <div class="flex space-x-2 text-xs font-bold whitespace-nowrap text-blue-200">
                 <button onclick="filterCategory('all', this)" class="cat-btn active bg-blue-600 text-white px-3.5 py-1.5 rounded-full transition shadow text-xs">All Items</button>
@@ -106,7 +105,7 @@
         </div>
     </div>
 
-    <!-- Main Catalog Section (Meesho App 2-Column Grid on Mobile) -->
+    <!-- Main Catalog Section -->
     <main id="shop" class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-6">
         <div class="flex justify-between items-center mb-4 px-1">
             <div>
@@ -119,37 +118,103 @@
             </div>
         </div>
 
-        <!-- 2-Columns on Mobile (grid-cols-2), 4-Columns on PC (sm:grid-cols-2 lg:grid-cols-4) -->
         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6" id="productGrid"></div>
+        
+        <div id="noProductsFoundState" class="hidden text-center py-12 px-4 bg-white rounded-3xl border border-slate-200 mt-4 shadow-sm">
+            <i class="fa-solid fa-magnifying-glass text-4xl text-slate-300 mb-3 block"></i>
+            <h3 class="text-base font-bold text-slate-800 mb-1">Aapka manga hua product catalog me nahi mila</h3>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto mb-4">Aap WhatsApp par photo bhejkar direct factory wholesale rate par mangwa sakte hain!</p>
+            <div class="flex justify-center gap-2">
+                <button onclick="document.getElementById('searchInput').value=''; searchProducts();" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-4 py-2 rounded-xl text-xs">Clear Search</button>
+                <button onclick="sendHelpWhatsApp('Custom Sourcing', 'Mujhe ek specific kapda chahiye jo website par nahi mila.')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp Custom Sourcing
+                </button>
+            </div>
+        </div>
     </main>
 
-    <!-- MEESHO STYLE BOTTOM APP NAVIGATION BAR (FOR MOBILE USERS) -->
-    <div class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 py-1.5 px-4 flex justify-around items-center md:hidden shadow-2xl">
+    <!-- Floating Circular WhatsApp Button -->
+    <button onclick="sendHelpWhatsApp('Direct Chat', 'Hello! Mujhe catalog ke regarding baat karni hai.')" class="fixed right-4 bottom-20 md:bottom-6 z-30 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition hover:scale-110 border-2 border-white" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
+    </button>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 py-1.5 px-2 flex justify-around items-center md:hidden shadow-2xl">
         <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center text-blue-600">
-            <i class="fa-solid fa-house text-base"></i>
+            <i class="fa-solid fa-house text-sm"></i>
             <span class="text-[9px] font-bold mt-0.5">Home</span>
         </button>
         <button onclick="openHelpModal()" class="flex flex-col items-center text-slate-500 hover:text-blue-600">
-            <i class="fa-solid fa-headset text-base"></i>
+            <i class="fa-solid fa-headset text-sm"></i>
             <span class="text-[9px] font-bold mt-0.5">Help</span>
         </button>
+        <button onclick="sendHelpWhatsApp('Direct Order Helpline', 'Hello Sensho Team! Mujhe direct order place karna hai.')" class="flex flex-col items-center justify-center -mt-4 bg-emerald-500 text-white w-11 h-11 rounded-full shadow-lg border-2 border-white">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+        </button>
         <button onclick="openVipCardModal()" class="flex flex-col items-center text-amber-500 hover:text-amber-600">
-            <i class="fa-solid fa-crown text-base"></i>
+            <i class="fa-solid fa-crown text-sm"></i>
             <span class="text-[9px] font-bold mt-0.5">VIP Pass</span>
         </button>
-        <button onclick="openMyOrders()" class="flex flex-col items-center text-slate-500 hover:text-blue-600">
-            <i class="fa-solid fa-box-open text-base"></i>
-            <span class="text-[9px] font-bold mt-0.5">Orders</span>
-        </button>
         <button onclick="openCartDrawer()" class="flex flex-col items-center text-slate-500 hover:text-blue-600 relative">
-            <i class="fa-solid fa-cart-shopping text-base"></i>
+            <i class="fa-solid fa-cart-shopping text-sm"></i>
             <span class="text-[9px] font-bold mt-0.5">Cart</span>
         </button>
     </div>
 
-    <!-- CUSTOMER CARE CATEGORIES MODAL -->
-    <div id="helpModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <!-- DELIVERY ADDRESS CHECKOUT MODAL -->
+    <div id="addressCheckoutModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
+            <button type="button" onclick="closeAddressModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="flex items-center gap-2.5 mb-3">
+                <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-black text-slate-900">Delivery Address Details</h3>
+                    <p class="text-[11px] text-slate-500">Order confirm karne ke liye delivery address bharein</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 border p-2.5 rounded-xl mb-3 text-xs flex justify-between items-center">
+                <span class="font-bold text-slate-700 truncate max-w-[200px]" id="checkoutPreviewItem">Product</span>
+                <span class="font-black text-blue-700" id="checkoutPreviewPrice">₹0</span>
+            </div>
+
+            <form onsubmit="handleFinalOrderSubmission(event)" class="space-y-2.5">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Full Name</label>
+                    <input type="text" id="custFullName" required placeholder="Aapka Poora Naam" class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-bold focus:outline-none focus:border-blue-600">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Mobile Number (Calling & WhatsApp)</label>
+                    <input type="tel" id="custPhone" required placeholder="10 Digits Mobile Number" class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-bold focus:outline-none focus:border-blue-600">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Pincode</label>
+                        <input type="number" id="custPincode" required placeholder="6 Digits Pincode" class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-bold focus:outline-none focus:border-blue-600">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">City / Town</label>
+                        <input type="text" id="custCity" required placeholder="City / District" class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-bold focus:outline-none focus:border-blue-600">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Full Delivery Address & Landmark</label>
+                    <textarea id="custFullAddress" required rows="2" placeholder="House No, Ward, Street, Landmark..." class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-medium focus:outline-none focus:border-blue-600"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 rounded-2xl shadow-lg transition flex items-center justify-center gap-2 text-xs sm:text-sm mt-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Confirm & Send Order on WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CUSTOMER CARE MODAL -->
+    <div id="helpModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 relative shadow-2xl">
             <button onclick="closeHelpModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="flex items-center gap-3 mb-4">
@@ -210,46 +275,49 @@
         </div>
     </div>
 
-    <!-- VIP MEMBERSHIP PROMO MODAL -->
+    <!-- VIP PROMO MODAL WITH QR PAYMENT -->
     <div id="bigVipAlertModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 relative shadow-2xl border-4 border-blue-600 text-center">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-7 relative shadow-2xl border-4 border-blue-600 text-center">
             <button onclick="closeBigVipAlertModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
 
-            <div class="w-16 h-16 bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-800 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-3xl shadow-xl border-2 border-amber-300">
+            <div class="w-14 h-14 bg-gradient-to-tr from-blue-700 to-indigo-800 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-2 text-2xl shadow-xl border border-amber-300">
                 <i class="fa-solid fa-crown"></i>
             </div>
 
-            <span class="bg-blue-50 text-blue-800 font-black text-[10px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-blue-200 inline-block mb-2">
-                🔒 Sensho Verified Wholesale Access
-            </span>
-
-            <h2 class="text-xl sm:text-2xl font-black text-slate-950 mb-1 leading-tight">
+            <h2 class="text-lg sm:text-xl font-black text-slate-950 mb-1">
                 VIP Member Banein Aur Flat 40% Bachayein!
             </h2>
 
-            <div class="my-2.5 py-2 bg-rose-50 border border-rose-200 rounded-2xl">
-                <span class="text-[10px] font-black text-rose-500 uppercase tracking-widest block">Yearly Membership Fee</span>
-                <span class="text-2xl sm:text-3xl font-black text-rose-600 tracking-tight">ONLY ₹299</span>
-                <span class="text-[11px] font-bold text-slate-500 block">Valid for Complete 1 Year (365 Days)</span>
+            <div class="my-2 py-1.5 bg-rose-50 border border-rose-200 rounded-xl">
+                <span class="text-[9px] font-black text-rose-500 uppercase tracking-widest block">Yearly Membership Fee</span>
+                <span class="text-2xl font-black text-rose-600 tracking-tight">ONLY ₹299</span>
+                <span class="text-[10px] font-bold text-slate-500 block">Pure 1 Saal (365 Din) Ki Validity</span>
             </div>
 
-            <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                VIP Pass lene ke baad aapko har kapde par factory wholesale rates milenge. Agar pehle se passcode hai toh neeche daal kar activate karein:
-            </p>
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 my-3">
+                <div class="flex items-center justify-center gap-2 text-xs font-bold text-blue-900 mb-2">
+                    <i class="fa-solid fa-qrcode text-base"></i> Scan QR & Pay ₹299 Instantly
+                </div>
+                <div class="w-36 h-36 bg-white mx-auto p-1.5 rounded-xl border shadow-sm mb-1.5 flex items-center justify-center">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=6261118847@ibl%26pn=Sensho%20Fashion%26am=299%26cu=INR" alt="UPI QR" class="w-full h-full object-contain">
+                </div>
+                <span class="text-[10px] font-black text-slate-600 block">UPI ID: <strong class="text-blue-700">6261118847@ibl</strong></span>
+                <span class="text-[9px] text-slate-400">Payment karne ke baad screenshot WhatsApp helpline par bhejein</span>
+            </div>
 
-            <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-3 text-left mb-4">
-                <label class="text-[10px] font-bold text-blue-950 uppercase block mb-1">Enter Secret VIP Passcode:</label>
+            <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-2.5 text-left mb-3">
+                <label class="text-[9px] font-bold text-blue-950 uppercase block mb-1">Enter Secret VIP Passcode:</label>
                 <div class="flex gap-2">
-                    <input type="text" id="bigVipCodeInput" placeholder="ENTER PASSCODE" class="w-full text-xs border border-blue-300 rounded-xl px-3 py-2 font-black uppercase tracking-widest focus:outline-none focus:border-blue-600 bg-white">
-                    <button onclick="activateBigVipCode()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-black px-4 py-2 rounded-xl transition shadow">
+                    <input type="text" id="bigVipCodeInput" placeholder="ENTER PASSCODE" class="w-full text-xs border border-blue-300 rounded-lg px-2.5 py-1.5 font-black uppercase tracking-widest focus:outline-none focus:border-blue-600 bg-white">
+                    <button onclick="activateBigVipCode()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-black px-4 py-1.5 rounded-lg transition shadow">
                         Activate
                     </button>
                 </div>
             </div>
 
-            <div class="space-y-2">
-                <button onclick="directContactVipWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 rounded-2xl shadow-lg transition flex items-center justify-center gap-2 text-xs sm:text-sm">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Buy 1-Year VIP Pass @ ₹299 (WhatsApp)
+            <div class="space-y-1.5">
+                <button onclick="directContactVipWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-2.5 rounded-xl shadow transition flex items-center justify-center gap-2 text-xs">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Send ₹299 Payment Screenshot on WhatsApp
                 </button>
                 <button onclick="closeBigVipAlertModal()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 rounded-xl text-xs transition">
                     Continue with Normal Shopping
@@ -260,15 +328,15 @@
 
     <!-- DIGITAL VIP CARD MODAL -->
     <div id="vipCardModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 relative shadow-2xl">
             <button onclick="closeVipCardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
             <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
                 <i class="fa-solid fa-id-card text-blue-600"></i> Sensho 1-Year VIP Card
             </h3>
-            <p class="text-xs text-slate-500 mb-4">Aapka verified digital wholesale discount pass.</p>
+            <p class="text-xs text-slate-500 mb-3">Aapka verified digital wholesale discount pass.</p>
 
-            <div class="gradient-vip-card gold-border text-white p-5 rounded-2xl shadow-2xl relative overflow-hidden mb-4">
+            <div class="gradient-vip-card gold-border text-white p-5 rounded-2xl shadow-2xl relative overflow-hidden mb-3">
                 <div class="flex justify-between items-start mb-4">
                     <div>
                         <span class="text-[9px] uppercase tracking-widest text-blue-200 font-extrabold block">Official Wholesale Pass</span>
@@ -309,13 +377,12 @@
         </div>
     </div>
 
-    <!-- MEESHO STYLE PRODUCT DETAIL MODAL (RESPONSIVE) -->
+    <!-- PRODUCT DETAIL MODAL -->
     <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
             <button onclick="closeProductDetailModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 text-xl z-10 p-1"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start mt-2">
-                <!-- Gallery Section -->
                 <div class="md:col-span-6 flex flex-col-reverse sm:flex-row gap-2.5">
                     <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[380px] no-scrollbar shrink-0" id="detailThumbnailsList"></div>
                     <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative aspect-[3/4]">
@@ -324,7 +391,6 @@
                     </div>
                 </div>
 
-                <!-- Product Info -->
                 <div class="md:col-span-6 space-y-3.5">
                     <div>
                         <h1 class="text-base sm:text-xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
@@ -336,7 +402,6 @@
                         </div>
                     </div>
 
-                    <!-- 3-Tier Pricing -->
                     <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border-2 border-blue-200 rounded-2xl p-3 shadow-sm">
                         <div class="flex items-center gap-2 mb-1.5 pb-1.5 border-b border-blue-100">
                             <span class="text-[10px] font-bold text-slate-400 uppercase">Normal Retail:</span>
@@ -364,19 +429,17 @@
                         </div>
                     </div>
 
-                    <!-- Sizes -->
                     <div>
                         <label class="text-[11px] font-black text-slate-800 uppercase block mb-1">Select Size</label>
                         <div class="flex gap-2" id="sizeSelectorContainer">
                             <button onclick="selectSize('S', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">S</button>
                             <button onclick="selectSize('M', this)" class="size-btn active px-3 py-1.5 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs">M</button>
                             <button onclick="selectSize('L', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">L</button>
-                            <button onclick="selectSize('XL', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">XL</button>
-                            <button onclick="selectSize('XXL', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">XXL</button>
+                            <button onclick="selectSize('XL', this)" class="size-btn px-4 py-1.5 border rounded-lg font-bold text-xs">XL</button>
+                            <button onclick="selectSize('XXL', this)" class="size-btn px-4 py-1.5 border rounded-lg font-bold text-xs">XXL</button>
                         </div>
                     </div>
 
-                    <!-- Highlights -->
                     <div class="border-t pt-2.5 space-y-2 text-xs text-slate-600">
                         <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl border">
                             <div><span class="text-slate-400">Fabric:</span> <strong class="text-slate-800 block text-[11px]" id="detailFabric">100% Pure Cotton</strong></div>
@@ -385,11 +448,11 @@
                         <p class="text-[11px] text-slate-500 leading-relaxed" id="detailDesc"></p>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-2 pt-1">
+                    <div class="grid grid-cols-2 gap-2 pt-1" id="detailActionButtonsContainer">
                         <button onclick="detailAddToCart()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-300 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                         </button>
-                        <button onclick="detailBuyNowWhatsApp()" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-md">
+                        <button onclick="openDirectBuyAddressModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-md">
                             <i class="fa-brands fa-whatsapp text-sm"></i> Buy Now
                         </button>
                     </div>
@@ -408,9 +471,9 @@
         </div>
     </div>
 
-    <!-- MASTER ADMIN PANEL -->
-    <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
-        <div class="bg-white rounded-3xl max-w-5xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
+    <!-- FULL POWER MOBILE & DESKTOP MASTER ADMIN PANEL -->
+    <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-3xl max-w-5xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[94vh] overflow-y-auto">
             <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
             <div id="adminLoginScreen">
@@ -462,10 +525,18 @@
                     </div>
                 </div>
 
-                <!-- Banner Manager -->
+                <!-- FULL BANNER SLIDER MANAGER -->
                 <div class="border-t pt-3">
-                    <h3 class="text-sm font-black text-slate-900 mb-2"><i class="fa-solid fa-images text-blue-600 mr-1"></i> Banner Slider Manager</h3>
-                    <div id="adminBannerEditorList" class="space-y-2 max-h-56 overflow-y-auto"></div>
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900"><i class="fa-solid fa-images text-blue-600 mr-1"></i> Banner Slider Master Manager</h3>
+                            <p class="text-[10px] text-slate-500">Title, subtitle, tags, buttons aur images sab kuch yahan se edit karein</p>
+                        </div>
+                        <button type="button" onclick="addNewBannerSlide()" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-plus"></i> Add New Slide
+                        </button>
+                    </div>
+                    <div id="adminBannerEditorList" class="space-y-3 max-h-72 overflow-y-auto p-1"></div>
                 </div>
 
                 <!-- Product Master Manager -->
@@ -522,19 +593,23 @@
                     <span>Final Amount:</span>
                     <span class="text-blue-600" id="cartTotalPrice">₹0</span>
                 </div>
-                <button onclick="checkoutCartWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> Order via WhatsApp (+91 6261118847)
+                <button onclick="openCartAddressModal()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Proceed to Order with Address
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer with Secret Admin Lock Trigger -->
     <footer class="bg-slate-900 text-slate-400 text-center py-8 text-[11px] border-t border-slate-800 mt-10">
         <div class="max-w-7xl mx-auto px-4 space-y-2">
             <p class="font-black text-white text-base tracking-wider">SENSHO FASHION HUB</p>
             <p>Direct Wholesale Sourcing • Customer Helpline: <strong class="text-amber-400">+91 6261118847</strong></p>
-            <p class="text-slate-500">&copy; 2026 Sensho. All rights reserved. Powered by GitHub Pages.</p>
+            <p class="text-slate-500">
+                &copy; 2026 Sensho. All rights reserved. 
+                <!-- Secret Admin Lock Icon for Mobile Access -->
+                <span onclick="openAdminLogin()" class="cursor-pointer text-slate-700 hover:text-slate-400 ml-1" title="Admin Portal">🔒</span>
+            </p>
         </div>
     </footer>
 
@@ -558,6 +633,7 @@
 
         let activeProductForDetail = null;
         let selectedProductSize = "M";
+        let pendingCheckoutType = "direct"; 
 
         // Banners
         const defaultBanners = [
@@ -605,27 +681,27 @@
             banners.forEach((b, idx) => {
                 const hasImg = b.customImg && b.customImg.length > 5;
                 const bgStyle = hasImg ? `background: url('${b.customImg}') center/cover no-repeat;` : '';
-                const gradientClass = hasImg ? 'bg-slate-950/70 backdrop-brightness-50' : b.bgGradient;
+                const gradientClass = hasImg ? 'bg-slate-950/70 backdrop-brightness-50' : (b.bgGradient || 'gradient-sensho');
 
                 trackHtml += `
                     <div class="min-w-full h-full relative ${gradientClass} flex items-center px-4 sm:px-14 text-white overflow-hidden" style="${bgStyle}">
                         <div class="relative z-10 max-w-xl space-y-1 sm:space-y-2">
                             <span class="bg-amber-400 text-slate-950 text-[9px] sm:text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-widest shadow inline-block">
-                                ${b.tag}
+                                ${b.tag || "Special Offer"}
                             </span>
                             <h2 class="text-sm sm:text-3xl font-black leading-tight text-white drop-shadow-md line-clamp-2">
-                                ${b.title}
+                                ${b.title || "Sensho Wholesale Collection"}
                             </h2>
                             <p class="text-[10px] sm:text-xs text-blue-100 hidden sm:block drop-shadow line-clamp-1">
-                                ${b.subtitle}
+                                ${b.subtitle || ""}
                             </p>
                             ${b.isVipAction ? `
                                 <button onclick="directContactVipWhatsApp()" class="bg-amber-400 text-slate-950 font-black px-3.5 py-1.5 rounded-lg shadow text-[10px] sm:text-xs flex items-center gap-1.5 mt-1">
-                                    <i class="fa-brands fa-whatsapp text-emerald-700"></i> ${b.btnText}
+                                    <i class="fa-brands fa-whatsapp text-emerald-700"></i> ${b.btnText || "Join VIP"}
                                 </button>
                             ` : `
                                 <a href="#shop" class="inline-block bg-white text-slate-900 font-black px-3.5 py-1.5 rounded-lg text-[10px] sm:text-xs shadow mt-1">
-                                    ${b.btnText}
+                                    ${b.btnText || "View Catalog"}
                                 </a>
                             `}
                         </div>
@@ -675,6 +751,7 @@
                 fabric: "100% Heavy Cotton",
                 fit: "Oversized Street Fit",
                 desc: "Premium quality 240 GSM breathable cotton t-shirt with durable double stitching.",
+                inStock: true,
                 images: [
                     "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80",
                     "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80"
@@ -691,6 +768,7 @@
                 fabric: "Pure Rayon Soft Cotton",
                 fit: "Straight Fit",
                 desc: "Elegant festival kurti pant set with intricate ethnic print and breathable design.",
+                inStock: true,
                 images: [
                     "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80"
                 ]
@@ -706,6 +784,7 @@
                 fabric: "Cotton Blend & Denim",
                 fit: "Regular Comfort Fit",
                 desc: "Durable and trendy party outfit for boys with soft stretchable denim.",
+                inStock: true,
                 images: [
                     "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&auto=format&fit=crop&q=80"
                 ]
@@ -721,6 +800,7 @@
                 fabric: "Soft Net with Satin Lining",
                 fit: "Flared Fit",
                 desc: "Charming floral printed frock with soft non-itchy inner lining.",
+                inStock: true,
                 images: [
                     "https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=800&auto=format&fit=crop&q=80"
                 ]
@@ -736,6 +816,7 @@
                 fabric: "Organic Combed Cotton",
                 fit: "Snug Sleep Fit",
                 desc: "Gentle on newborn skin, snap-button design for quick and easy diaper changes.",
+                inStock: true,
                 images: [
                     "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=800&auto=format&fit=crop&q=80"
                 ]
@@ -745,6 +826,7 @@
         let products = JSON.parse(localStorage.getItem('senshoProducts')) || defaultProducts;
         products.forEach(p => {
             if(!p.mrp) p.mrp = Math.round(p.normal * 1.5);
+            if (p.inStock === undefined) p.inStock = true;
             if (!p.images || !Array.isArray(p.images)) {
                 p.images = [p.img || "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"];
             }
@@ -754,6 +836,7 @@
         let orders = JSON.parse(localStorage.getItem('senshoOrders')) || [];
         let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
 
+        // Secret Admin Triggers: 1. Triple click on logo, 2. Long press on mobile logo (1.5s), 3. Ctrl+Shift+A
         let logoClicks = 0;
         function secretLogoClick() {
             logoClicks++;
@@ -764,6 +847,21 @@
             }
         }
 
+        // Mobile Long-Press / Touch-Hold Trigger on Logo
+        let touchTimer = null;
+        const logoEl = document.getElementById('brandLogoContainer');
+        if (logoEl) {
+            logoEl.addEventListener('touchstart', function() {
+                touchTimer = setTimeout(function() {
+                    openAdminLogin();
+                }, 1500); // 1.5 second hold
+            }, { passive: true });
+
+            logoEl.addEventListener('touchend', function() {
+                if (touchTimer) clearTimeout(touchTimer);
+            });
+        }
+
         document.addEventListener('keydown', function(e) {
             if(e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
                 e.preventDefault();
@@ -771,7 +869,6 @@
             }
         });
 
-        // IMAGE COMPRESSION
         function compressImage(base64Str, maxWidth = 800, maxHeight = 800, quality = 0.5) {
             return new Promise((resolve) => {
                 const img = new Image();
@@ -800,7 +897,7 @@
             });
         }
 
-        // MEESHO APP STYLE 2-COLUMN GRID (MOBILE FRIENDLY)
+        // RENDER PRODUCTS
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
@@ -809,14 +906,22 @@
                 const coverImg = (p.images && p.images.length > 0) ? p.images[0] : (p.img || "");
                 const photoCount = p.images ? p.images.length : 1;
                 const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+                const isOutOfStock = p.inStock === false;
 
                 html += `
-                    <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition flex flex-col justify-between group cursor-pointer" data-category="${p.category}">
+                    <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition flex flex-col justify-between group cursor-pointer ${isOutOfStock ? 'opacity-70' : ''}" data-category="${p.category}">
                         <div onclick="openProductDetailModal(${idx})">
-                            <!-- 3:4 Proportional Box -->
                             <div class="relative bg-slate-100 overflow-hidden w-full aspect-[3/4]">
                                 <img src="${coverImg}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                <span class="absolute top-2 left-2 bg-blue-600 text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow">${p.tag || "Best Seller"}</span>
+                                
+                                ${isOutOfStock ? `
+                                    <span class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px] flex items-center justify-center text-white font-black text-xs uppercase tracking-widest">
+                                        Out of Stock
+                                    </span>
+                                ` : `
+                                    <span class="absolute top-2 left-2 bg-blue-600 text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow">${p.tag || "Best Seller"}</span>
+                                `}
+
                                 ${photoCount > 1 ? `<span class="absolute bottom-2 right-2 bg-slate-900/80 backdrop-blur text-white text-[9px] font-bold px-1.5 py-0.2 rounded"><i class="fa-solid fa-images mr-0.5"></i>${photoCount}</span>` : ''}
                             </div>
                             <div class="p-2 sm:p-3">
@@ -854,8 +959,8 @@
                             <button onclick="event.stopPropagation(); openProductDetailModal(${idx});" class="bg-blue-50 text-blue-700 font-bold text-[10px] sm:text-xs py-2 rounded-lg border border-blue-200 flex items-center justify-center">
                                 Details
                             </button>
-                            <button onclick="event.stopPropagation(); quickBuyNow(${idx});" class="bg-blue-600 text-white font-bold text-[10px] sm:text-xs py-2 rounded-lg flex items-center justify-center gap-1 shadow">
-                                Buy Now
+                            <button onclick="event.stopPropagation(); ${isOutOfStock ? 'alert(\'Yeh product filhal Out of Stock hai.\')' : `quickDirectBuy(${idx})`};" class="${isOutOfStock ? 'bg-slate-300 text-slate-500 cursor-not-allowed' : 'bg-blue-600 text-white shadow'} font-bold text-[10px] sm:text-xs py-2 rounded-lg flex items-center justify-center gap-1">
+                                ${isOutOfStock ? 'Sold Out' : 'Buy Now'}
                             </button>
                         </div>
                     </div>
@@ -871,11 +976,12 @@
             selectedProductSize = "M";
 
             const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+            const isOutOfStock = p.inStock === false;
 
             document.getElementById('detailTitle').innerText = p.name;
             document.getElementById('detailBreadcrumbTitle').innerText = p.name;
             document.getElementById('detailBreadcrumbCat').innerText = p.category.toUpperCase();
-            document.getElementById('detailBadge').innerText = p.tag || "Best Seller";
+            document.getElementById('detailBadge').innerText = isOutOfStock ? "Out of Stock" : (p.tag || "Best Seller");
             
             document.getElementById('detailMrpPrice').innerText = `₹${mrpVal}`;
             document.getElementById('detailMrpDiscount').innerText = `Save ₹${mrpVal - p.vip}`;
@@ -886,6 +992,24 @@
             document.getElementById('detailFabric').innerText = p.fabric || "Premium Cotton";
             document.getElementById('detailFit').innerText = p.fit || "Regular Fit";
             document.getElementById('detailDesc').innerText = p.desc || "Premium quality wholesale product directly sourced from factory.";
+
+            const actionContainer = document.getElementById('detailActionButtonsContainer');
+            if(isOutOfStock) {
+                actionContainer.innerHTML = `
+                    <button disabled class="col-span-2 bg-slate-200 text-slate-500 font-black text-xs py-3 rounded-xl cursor-not-allowed text-center">
+                        Out of Stock (Currently Unavailable)
+                    </button>
+                `;
+            } else {
+                actionContainer.innerHTML = `
+                    <button type="button" onclick="detailAddToCart()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-300 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                    </button>
+                    <button type="button" onclick="openDirectBuyAddressModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-md">
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Buy Now
+                    </button>
+                `;
+            }
 
             const mainImg = document.getElementById('detailMainImage');
             const thumbsList = document.getElementById('detailThumbnailsList');
@@ -924,12 +1048,11 @@
         function selectSize(size, el) {
             selectedProductSize = size;
             document.querySelectorAll('.size-btn').forEach(b => {
-                b.className = "size-btn px-3 py-1.5 border rounded-lg font-bold text-xs";
+                b.className = "size-btn px-4 py-2 border rounded-lg font-bold text-xs";
             });
-            el.className = "size-btn active px-3 py-1.5 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs";
+            el.className = "size-btn active px-4 py-2 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs";
         }
 
-        // ADD TO CART
         function detailAddToCart() {
             if (!activeProductForDetail) return;
             const p = activeProductForDetail;
@@ -958,33 +1081,98 @@
             openCartDrawer();
         }
 
-        // BUY NOW WHATSAPP
-        function detailBuyNowWhatsApp() {
-            if (!activeProductForDetail) return;
-            const p = activeProductForDetail;
-
-            let price = 0;
-            let orderTier = "";
-            let cardParam = "None";
-
-            if (isVIPVerified && vipCardData) {
-                price = p.vip;
-                orderTier = "Verified VIP Wholesale Rate";
-                cardParam = vipCardData.cardNumber;
-            } else {
-                price = p.normal;
-                orderTier = "Normal Member Standard Rate";
-            }
-
-            const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
-            recordOrder(itemSummary, price, `[${orderTier}] Direct Order`);
-
-            let msg = `*NEW ORDER - SENSHO FASHION HUB*%0A%0A*Product:* ${encodeURIComponent(p.name)}%0A*Selected Size:* ${selectedProductSize}%0A*Pricing Tier:* ${orderTier}%0A*Final Price:* ₹${price}%0A*VIP Card Number:* ${cardParam}%0A%0APlease confirm product availability and share delivery instructions.`;
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+        function quickDirectBuy(index) {
+            const p = products[index];
+            if (!p) return;
+            activeProductForDetail = p;
+            selectedProductSize = "M";
+            openDirectBuyAddressModal();
         }
 
-        function quickBuyNow(index) {
-            openProductDetailModal(index);
+        function openDirectBuyAddressModal() {
+            if (!activeProductForDetail) return;
+            pendingCheckoutType = "direct";
+            const p = activeProductForDetail;
+            const price = isVIPVerified ? p.vip : p.normal;
+            const tierLabel = isVIPVerified ? "(VIP Price)" : "(Normal Price)";
+            
+            document.getElementById('checkoutPreviewItem').innerText = `${p.name} [Size: ${selectedProductSize}] ${tierLabel}`;
+            document.getElementById('checkoutPreviewPrice').innerText = `₹${price}`;
+            document.getElementById('addressCheckoutModal').classList.remove('hidden');
+        }
+
+        function openCartAddressModal() {
+            if(cart.length === 0) { alert("Cart is empty!"); return; }
+            pendingCheckoutType = "cart";
+            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('checkoutPreviewItem').innerText = `${cart.length} Items in Cart`;
+            document.getElementById('checkoutPreviewPrice').innerText = `₹${totalPrice}`;
+            closeCartDrawer();
+            document.getElementById('addressCheckoutModal').classList.remove('hidden');
+        }
+
+        function closeAddressModal() {
+            document.getElementById('addressCheckoutModal').classList.add('hidden');
+        }
+
+        function handleFinalOrderSubmission(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('custFullName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const pincode = document.getElementById('custPincode').value.trim();
+            const city = document.getElementById('custCity').value.trim();
+            const fullAddress = document.getElementById('custFullAddress').value.trim();
+
+            if (pendingCheckoutType === "direct") {
+                const p = activeProductForDetail;
+                const price = isVIPVerified ? p.vip : p.normal;
+                const tierType = isVIPVerified ? "VIP Wholesale Rate" : "Normal Member Rate";
+                const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
+
+                recordOrder(itemSummary, price, `[${tierType}] Customer: ${fullName}, ${city} - ${pincode}`);
+
+                let msg = `*NEW VERIFIED ORDER - SENSHO FASHION HUB*%0A%0A` +
+                          `*Product:* ${encodeURIComponent(p.name)}%0A` +
+                          `*Size:* ${selectedProductSize}%0A` +
+                          `*Price:* ₹${price} (${tierType})%0A` +
+                          `*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A` +
+                          `*--- DELIVERY ADDRESS ---*%0A` +
+                          `*Name:* ${encodeURIComponent(fullName)}%0A` +
+                          `*Phone:* ${encodeURIComponent(phone)}%0A` +
+                          `*Pincode:* ${encodeURIComponent(pincode)}%0A` +
+                          `*City:* ${encodeURIComponent(city)}%0A` +
+                          `*Address:* ${encodeURIComponent(fullAddress)}%0A%0A` +
+                          `Please confirm order dispatch & share tracking code.`;
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            } else {
+                let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                let summaryStr = cart.map(i => `${i.name} (${i.qty}x)`).join(', ');
+                const tierType = isVIPVerified ? "VIP Wholesale" : "Normal Member";
+
+                recordOrder(summaryStr, totalPrice, `[${tierType} Cart] Customer: ${fullName}, ${city} - ${pincode}`);
+
+                let msg = `*NEW CART ORDER - SENSHO FASHION HUB*%0A%0A` +
+                          `*Total Amount:* ₹${totalPrice} (${tierType})%0A` +
+                          `*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A` +
+                          `*Items Ordered:*%0A`;
+                cart.forEach(i => { msg += `- ${encodeURIComponent(i.name)} (${i.qty}x) - ₹${i.price * i.qty}%0A`; });
+                msg += `%0A*--- DELIVERY ADDRESS ---*%0A` +
+                       `*Name:* ${encodeURIComponent(fullName)}%0A` +
+                       `*Phone:* ${encodeURIComponent(phone)}%0A` +
+                       `*Pincode:* ${encodeURIComponent(pincode)}%0A` +
+                       `*City:* ${encodeURIComponent(city)}%0A` +
+                       `*Address:* ${encodeURIComponent(fullAddress)}%0A%0A` +
+                       `Please confirm order dispatch & share tracking code.`;
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+                cart = [];
+                localStorage.removeItem('senshoCart');
+                updateCartBadge();
+            }
+
+            closeAddressModal();
+            closeProductDetailModal();
         }
 
         function updateUI() {
@@ -1009,7 +1197,6 @@
             updateCartBadge();
         }
 
-        // HELP MODAL
         function openHelpModal() {
             document.getElementById('helpModal').classList.remove('hidden');
         }
@@ -1024,7 +1211,6 @@
             closeHelpModal();
         }
 
-        // VIP ALERT MODAL
         function openBigVipAlertModal() {
             document.getElementById('bigVipAlertModal').classList.remove('hidden');
         }
@@ -1034,11 +1220,10 @@
         }
 
         function directContactVipWhatsApp() {
-            let msg = `*VIP 1-YEAR PASS REQUEST - SENSHO*%0AHello Sensho Team! Mujhe *ONLY ₹299* wala 1-Year VIP Membership Pass purchase karna hai taaki main wholesale rate par order kar sakun. Please apna payment QR code share karein.`;
+            let msg = `*VIP 1-YEAR PASS REQUEST - SENSHO*%0AHello Sensho Team! Mujhe *ONLY ₹299* wala 1-Year VIP Membership Pass purchase karna hai. Maine QR code scan karke ₹299 pay kiya hai, please mera VIP Passcode share karein.`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // DYNAMIC PASSCODE ACTIVATION
         function activateBigVipCode() {
             let code = document.getElementById('bigVipCodeInput').value.trim().toUpperCase();
             let currentValidCode = (localStorage.getItem('senshoDynamicVipCode') || "SENSHO299").trim().toUpperCase();
@@ -1129,19 +1314,6 @@
             document.getElementById('cartTotalPrice').innerText = `₹${totalPrice}`;
         }
 
-        function checkoutCartWhatsApp() {
-            if(cart.length === 0) { alert("Cart is empty!"); return; }
-            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            let summaryStr = cart.map(i => `${i.name} (${i.qty}x)`).join(', ');
-            const cardInfo = isVIPVerified && vipCardData ? `[VIP Card: ${vipCardData.cardNumber}]` : `[Normal Member Cart]`;
-
-            recordOrder(summaryStr, totalPrice, `${cardInfo} Checkout`);
-
-            let msg = `*CART ORDER - SENSHO FASHION HUB*%0A*Account Type:* ${isVIPVerified ? "Verified VIP Member (Wholesale Rate)" : "Normal Member (Standard Price)"}%0A*Total Amount:* ₹${totalPrice}%0A*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A*Items:*%0A`;
-            cart.forEach(i => { msg += `- ${encodeURIComponent(i.name)} (${i.qty}x) - ₹${i.price * i.qty}%0A`; });
-            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
-        }
-
         function recordOrder(orderSummary, totalAmt, orderType = "WhatsApp Direct") {
             let orderId = "SNS-" + Math.floor(100000 + Math.random() * 900000);
             let orderDate = new Date().toLocaleString();
@@ -1156,8 +1328,6 @@
 
             orders.unshift(newOrder);
             localStorage.setItem('senshoOrders', JSON.stringify(orders));
-            cart = [];
-            localStorage.removeItem('senshoCart');
             updateCartBadge();
 
             if (GOOGLE_SCRIPT_URL) {
@@ -1260,6 +1430,33 @@
             }
         }
 
+        function toggleStockStatus(idx) {
+            products[idx].inStock = !products[idx].inStock;
+            loadAdminDashboardData();
+        }
+
+        function addNewBannerSlide() {
+            banners.push({
+                id: Date.now(),
+                tag: "Festive Offer",
+                title: "New Banner Sale Title",
+                subtitle: "Direct factory rates for our valuable customers.",
+                btnText: "Shop Now",
+                isVipAction: false,
+                customImg: ""
+            });
+            loadAdminDashboardData();
+        }
+
+        function deleteBannerSlide(idx) {
+            if (banners.length <= 1) {
+                alert("Kam se kam 1 banner slide hona zaroori hai!");
+                return;
+            }
+            banners.splice(idx, 1);
+            loadAdminDashboardData();
+        }
+
         function loadAdminDashboardData() {
             document.getElementById('adminVisitorCount').innerText = visitors;
             document.getElementById('adminOrderCount').innerText = orders.length;
@@ -1274,13 +1471,37 @@
                 let bannerHtml = '';
                 banners.forEach((b, idx) => {
                     bannerHtml += `
-                        <div class="bg-slate-50 border p-2.5 rounded-xl flex items-center gap-2">
-                            <div class="w-16 h-10 bg-slate-200 rounded overflow-hidden shrink-0">
-                                ${b.customImg ? `<img src="${b.customImg}" id="banner-preview-${idx}" class="w-full h-full object-cover">` : `<div id="banner-preview-${idx}" class="w-full h-full flex items-center justify-center text-[8px] text-slate-400">Default</div>`}
+                        <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl space-y-2">
+                            <div class="flex justify-between items-center border-b pb-1">
+                                <span class="text-xs font-black text-blue-950">Slide #${idx+1} Settings</span>
+                                <button type="button" onclick="deleteBannerSlide(${idx})" class="text-rose-600 text-[10px] font-bold hover:underline">Delete Slide</button>
                             </div>
-                            <div class="flex-1 space-y-0.5">
-                                <span class="text-[11px] font-bold text-slate-900 block truncate">Slide #${idx+1}: ${b.title}</span>
-                                <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-[10px]">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Offer Tag / Badge</label>
+                                    <input type="text" id="b-tag-${idx}" value="${b.tag || ''}" class="w-full text-xs border rounded-lg p-1.5 font-bold" placeholder="e.g. Diwali Dhamaka">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Button Text</label>
+                                    <input type="text" id="b-btn-${idx}" value="${b.btnText || ''}" class="w-full text-xs border rounded-lg p-1.5 font-bold" placeholder="e.g. Shop Now">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 block">Main Headline Title</label>
+                                <input type="text" id="b-title-${idx}" value="${b.title || ''}" class="w-full text-xs border rounded-lg p-1.5 font-bold" placeholder="Main banner title">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 block">Subtitle / Description</label>
+                                <input type="text" id="b-sub-${idx}" value="${b.subtitle || ''}" class="w-full text-xs border rounded-lg p-1.5 font-medium" placeholder="Banner description">
+                            </div>
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border">
+                                <div class="w-16 h-10 bg-slate-200 rounded overflow-hidden shrink-0">
+                                    ${b.customImg ? `<img src="${b.customImg}" id="banner-preview-${idx}" class="w-full h-full object-cover">` : `<div id="banner-preview-${idx}" class="w-full h-full flex items-center justify-center text-[8px] text-slate-400">Default</div>`}
+                                </div>
+                                <div class="flex-1">
+                                    <label class="text-[10px] font-bold text-slate-700 block">Change Banner Image from Gallery:</label>
+                                    <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-[10px] w-full">
+                                </div>
                             </div>
                         </div>
                     `;
@@ -1294,10 +1515,17 @@
                 products.forEach((p, idx) => {
                     const currentImages = (p.images && Array.isArray(p.images)) ? p.images : [];
                     const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+                    const isInStock = p.inStock !== false;
+
                     prodHtml += `
                         <div class="bg-slate-50 border p-3 rounded-2xl space-y-2.5">
                             <div class="flex justify-between items-center border-b pb-1">
-                                <span class="text-xs font-black text-blue-950">Product #${idx+1} Control</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs font-black text-blue-950">Product #${idx+1} Control</span>
+                                    <button type="button" onclick="toggleStockStatus(${idx})" class="text-[9px] font-black px-2 py-0.5 rounded-md ${isInStock ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
+                                        ${isInStock ? '● In Stock' : '✕ Out of Stock'}
+                                    </button>
+                                </div>
                                 <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-[10px] font-bold hover:underline">Delete</button>
                             </div>
 
@@ -1429,6 +1657,7 @@
                 fabric: "100% Pure Cotton",
                 fit: "Regular Comfort Fit",
                 desc: "High quality factory-made clothing directly from wholesale hub.",
+                inStock: true,
                 images: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"]
             });
             loadAdminDashboardData();
@@ -1436,6 +1665,18 @@
 
         function saveAdminChanges() {
             try {
+                banners.forEach((b, idx) => {
+                    const tagEl = document.getElementById(`b-tag-${idx}`);
+                    const titleEl = document.getElementById(`b-title-${idx}`);
+                    const subEl = document.getElementById(`b-sub-${idx}`);
+                    const btnEl = document.getElementById(`b-btn-${idx}`);
+
+                    if (tagEl) b.tag = tagEl.value;
+                    if (titleEl) b.title = titleEl.value;
+                    if (subEl) b.subtitle = subEl.value;
+                    if (btnEl) b.btnText = btnEl.value;
+                });
+
                 products.forEach((p, idx) => {
                     const nameEl = document.getElementById(`p-name-${idx}`);
                     const catEl = document.getElementById(`p-cat-${idx}`);
@@ -1473,11 +1714,23 @@
         }
 
         function searchProducts() {
-            let val = document.getElementById('searchInput').value.toLowerCase();
+            let val = document.getElementById('searchInput').value.toLowerCase().trim();
+            let matchedCount = 0;
             document.querySelectorAll('.product-card').forEach(card => {
                 let title = card.querySelector('h3').innerText.toLowerCase();
-                card.style.display = title.includes(val) ? 'flex' : 'none';
+                let isMatch = title.includes(val);
+                card.style.display = isMatch ? 'flex' : 'none';
+                if(isMatch) matchedCount++;
             });
+
+            const emptyState = document.getElementById('noProductsFoundState');
+            if(emptyState) {
+                if(matchedCount === 0 && val.length > 0) {
+                    emptyState.classList.remove('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                }
+            }
         }
 
         window.onload = updateUI;
