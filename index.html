@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <!-- Full Width Meesho-Style Search Bar -->
+            <!-- Full Width Search Bar -->
             <div class="w-full">
                 <div class="flex w-full bg-white rounded-xl overflow-hidden shadow-inner border border-slate-200 focus-within:ring-2 focus-within:ring-amber-400">
                     <span class="flex items-center pl-3 text-slate-400">
@@ -97,7 +97,7 @@
         </nav>
     </header>
 
-    <!-- CLEAN PURE SLIDER (GLOBAL SYNCHRONIZED) -->
+    <!-- PURE CLEAN HERO BANNER SLIDER (WITHOUT TEXT OVERLAYS) -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
         <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
             <div id="sliderTrack" class="banner-track h-full w-full"></div>
@@ -162,7 +162,7 @@
         </button>
     </div>
 
-    <!-- MEESHO STYLE PRODUCT DETAIL MODAL -->
+    <!-- PRODUCT DETAIL MODAL -->
     <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
             <button type="button" onclick="closeProductDetailModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 text-xl z-20 p-2"><i class="fa-solid fa-xmark"></i></button>
@@ -353,7 +353,7 @@
     </div>
 
     <!-- VIP PROMO MODAL -->
-    <div id="bigVipAlertModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div id="bigVipAlertModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
         <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-7 relative shadow-2xl border-4 border-blue-600 text-center">
             <button type="button" onclick="closeBigVipAlertModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
 
@@ -563,7 +563,8 @@
     <!-- JavaScript Application Logic -->
     <script>
         const WHATSAPP_NUMBER = "916261118847";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyp5eER9ZLJ0Hrxl590fa5QShZ8VHDD8hGt0mov3rSGQl4luRIvEyg5aKzmfeqd0fXQ/exec";
+        // AAPKA NAYA APPS SCRIPT URL LINK HO CHUKA HAI:
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyl76_eGhifisK-8TVYJv7i6XepU_WRwb16jL5sB1fa2JJTCV76itTgAvbUo9K_CrM/exec";
 
         let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
         let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
@@ -582,7 +583,7 @@
         let selectedProductSize = "M";
         let pendingCheckoutType = "direct"; 
 
-        // GLOBAL HARDCODED DEFAULT BANNERS (HAR DEVICE PAR BINA UPLOAD KE BHEE DIKHENGE)
+        // GLOBAL HARDCODED DEFAULT BANNERS (HAR DEVICE PAR DIKHENGE)
         const globalDefaultBanners = [
             {
                 id: 1,
@@ -743,7 +744,7 @@
             });
         }
 
-        // PURE CLEAN HERO BANNER SLIDER (HAR DEVICE PAR IMAGE DIKHEGI)
+        // PURE CLEAN HERO BANNER SLIDER
         function renderBannerSlider() {
             const track = document.getElementById('sliderTrack');
             const dots = document.getElementById('sliderDots');
@@ -1299,7 +1300,7 @@
             const vipInput = document.getElementById('adminVipSecretCode');
             if(vipInput) vipInput.value = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
 
-            // 1. CLEAN BANNER SLIDER UI (NO FALTU TEXT INPUTS)
+            // 1. BANNER SLIDER UI
             let bannerContainer = document.getElementById('adminBannerEditorList');
             if(bannerContainer) {
                 let bannerHtml = '';
@@ -1448,7 +1449,7 @@
                     });
                 }
 
-                alert("🎉 SUCCESS! Saara data Google Cloud par sync ho gaya hai. Ab Mobile aur kisi bhi doosre Laptop par bhi 100% live show hoga!");
+                alert("🎉 SUCCESS! Saara data Google Cloud Sheet me sync ho gaya hai. Ab Mobile aur har doosre device par 100% live show hoga!");
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
                 updateUI();
