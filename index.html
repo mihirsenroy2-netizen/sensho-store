@@ -97,7 +97,7 @@
         </nav>
     </header>
 
-    <!-- DYNAMIC BANNER SLIDER -->
+    <!-- DYNAMIC AUTO-SLIDING BANNER SLIDER -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
         <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/6]">
             <div id="sliderTrack" class="banner-track h-full w-full"></div>
@@ -110,11 +110,11 @@
         <div class="flex justify-between items-center mb-4 px-1">
             <div>
                 <h2 class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">Trending Catalog</h2>
-                <p class="text-slate-500 text-[11px] sm:text-xs">Live Factory Cloud Sync Active</p>
+                <p class="text-slate-500 text-[11px] sm:text-xs">Live Cloud Sync Enabled</p>
             </div>
 
             <div class="bg-white border border-slate-200 px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
-                <span id="syncIndicator" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span id="headerPricingStatusBadge" class="text-blue-700">Normal Member View</span>
             </div>
         </div>
@@ -162,7 +162,7 @@
         </button>
     </div>
 
-    <!-- MEESHO STYLE PRODUCT DETAIL MODAL -->
+    <!-- MEESHO STYLE PRODUCT DETAIL & DESCRIPTION MODAL -->
     <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
             <button type="button" onclick="closeProductDetailModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 text-xl z-20 p-2"><i class="fa-solid fa-xmark"></i></button>
@@ -179,11 +179,12 @@
                 <div class="md:col-span-6 space-y-3.5">
                     <div>
                         <h1 class="text-base sm:text-xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
+                        <!-- Customizable Rating & Review Banner -->
                         <div class="flex items-center gap-2 mt-1">
                             <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-                                4.2 <i class="fa-solid fa-star text-[8px]"></i>
+                                <span id="detailRatingBadge">4.2</span> <i class="fa-solid fa-star text-[8px]"></i>
                             </span>
-                            <span class="text-[11px] text-slate-400 font-semibold">1,420 Ratings, 380 Reviews</span>
+                            <span class="text-[11px] text-slate-400 font-semibold" id="detailReviewCount">1,420 Ratings, 380 Reviews</span>
                         </div>
                     </div>
 
@@ -225,6 +226,7 @@
                         </div>
                     </div>
 
+                    <!-- Description & Highlights -->
                     <div class="border-t pt-2.5 space-y-2 text-xs text-slate-600">
                         <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl border">
                             <div><span class="text-slate-400">Fabric:</span> <strong class="text-slate-800 block text-[11px]" id="detailFabric">100% Pure Cotton</strong></div>
@@ -497,12 +499,12 @@
                     </div>
                 </div>
 
-                <!-- Product Master Manager -->
+                <!-- Product Master Manager with Star Ratings & Review Counts -->
                 <div class="border-t pt-3">
                     <div class="flex justify-between items-center mb-2">
                         <div>
                             <h3 class="text-sm font-black text-slate-900"><i class="fa-solid fa-sliders text-blue-600 mr-1"></i> Products Master Manager</h3>
-                            <p class="text-[10px] text-slate-500">Changes save hone ke baad direct live Cloud Sheet par sync honge</p>
+                            <p class="text-[10px] text-slate-500">Ratings, reviews, prices aur description sab edit karein</p>
                         </div>
                         <button type="button" onclick="addNewProduct()" class="bg-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
                             <i class="fa-solid fa-plus"></i> Add Product
@@ -558,7 +560,8 @@
     <!-- JavaScript Application Logic -->
     <script>
         const WHATSAPP_NUMBER = "916261118847";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVdXLM9LR21Js1jpI8aFsg3w76qdyEynrbc5294Q035E4p070ukVGIDmWbIGtEJsGY/exec";
+        // Updated Web App URL from Screenshot 38
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyp5eER9ZLJ0Hrxl590fa5QShZ8VHDD8hGt0mov3rSGQl4luRIvEyg5aKzmfeqd0fXQ/exec";
 
         let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
         let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
@@ -590,6 +593,8 @@
                 fabric: "100% Heavy Cotton",
                 fit: "Oversized Street Fit",
                 desc: "Premium quality 240 GSM breathable cotton t-shirt with durable double stitching.",
+                rating: "4.2",
+                reviews: "1,420 Ratings, 380 Reviews",
                 inStock: true,
                 images: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"]
             },
@@ -604,6 +609,8 @@
                 fabric: "Pure Rayon Soft Cotton",
                 fit: "Straight Fit",
                 desc: "Elegant festival kurti pant set with intricate ethnic print and breathable design.",
+                rating: "4.5",
+                reviews: "2,180 Ratings, 510 Reviews",
                 inStock: true,
                 images: ["https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80"]
             },
@@ -618,6 +625,8 @@
                 fabric: "Cotton Blend & Denim",
                 fit: "Regular Comfort Fit",
                 desc: "Durable and trendy party outfit for boys with soft stretchable denim.",
+                rating: "4.3",
+                reviews: "950 Ratings, 210 Reviews",
                 inStock: true,
                 images: ["https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&auto=format&fit=crop&q=80"]
             },
@@ -632,6 +641,8 @@
                 fabric: "Soft Net with Satin Lining",
                 fit: "Flared Fit",
                 desc: "Charming floral printed frock with soft non-itchy inner lining.",
+                rating: "4.4",
+                reviews: "1,120 Ratings, 290 Reviews",
                 inStock: true,
                 images: ["https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=800&auto=format&fit=crop&q=80"]
             }
@@ -639,7 +650,7 @@
 
         let products = JSON.parse(localStorage.getItem('senshoProducts')) || defaultProducts;
 
-        // FETCH LIVE PRODUCTS FROM GOOGLE APPS SCRIPT CLOUD (MOBILE ⇄ PC SYNC)
+        // FETCH LIVE PRODUCTS FROM GOOGLE APPS SCRIPT CLOUD
         async function fetchCloudProducts() {
             if (!GOOGLE_SCRIPT_URL) return;
             try {
@@ -649,10 +660,9 @@
                     products = cloudData.products;
                     localStorage.setItem('senshoProducts', JSON.stringify(products));
                     renderProducts();
-                    console.log("Synced live from cloud successfully!");
                 }
             } catch (err) {
-                console.log("Loading offline cached products:", err);
+                console.log("Loading local cached products:", err);
             }
         }
 
@@ -664,8 +674,7 @@
                 title: "ONLY ₹299 Me Banein VIP Member, Pure 1 Saal Wholesale Sasta!",
                 subtitle: "Direct factory wholesale rates unlocked! Apna VIP digital pass WhatsApp helpline se activate karwaye.",
                 btnText: "Join VIP @ ₹299 (1 Year)",
-                isVipAction: true,
-                customImg: ""
+                isVipAction: true
             },
             {
                 id: 2,
@@ -673,8 +682,7 @@
                 title: "Sensho Mega Wholesale Collection",
                 subtitle: "Men, Women aur Kids ke trending kapde direct factory rate par uplabdh!",
                 btnText: "View Catalog",
-                isVipAction: false,
-                customImg: ""
+                isVipAction: false
             }
         ];
         let banners = defaultBanners;
@@ -847,6 +855,11 @@
             document.getElementById('detailNormalPrice').innerText = `₹${p.normal}`;
             document.getElementById('detailVipPrice').innerText = `₹${p.vip}`;
             document.getElementById('detailVipSavingsBadge').innerText = `VIP Saves ₹${p.normal - p.vip}`;
+            
+            // Customizable Rating & Review details
+            document.getElementById('detailRatingBadge').innerText = p.rating || "4.2";
+            document.getElementById('detailReviewCount').innerText = p.reviews || "1,420 Ratings, 380 Reviews";
+
             document.getElementById('detailFabric').innerText = p.fabric || "Premium Cotton";
             document.getElementById('detailFit').innerText = p.fit || "Regular Fit";
             document.getElementById('detailDesc').innerText = p.desc || "Premium quality wholesale product directly sourced from factory.";
@@ -1182,6 +1195,8 @@
                 fabric: "100% Pure Cotton", 
                 fit: "Regular Comfort Fit", 
                 desc: "High quality factory-made clothing directly from wholesale hub.", 
+                rating: "4.2",
+                reviews: "1,420 Ratings, 380 Reviews",
                 inStock: true, 
                 images: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"] 
             });
@@ -1201,16 +1216,38 @@
                             <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-[10px] font-bold hover:underline">Delete</button>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <input type="text" id="p-name-${idx}" value="${p.name}" class="text-xs border rounded-lg p-1.5 font-bold" placeholder="Product Name">
-                            <select id="p-cat-${idx}" class="text-xs border rounded-lg p-1.5 font-bold bg-white">
-                                <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
-                                <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
-                                <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
-                                <option value="girls" ${p.category==='girls'?'selected':''}>Girls Clothing</option>
-                                <option value="kids" ${p.category==='kids'?'selected':''}>Baby & Kids</option>
-                            </select>
-                            <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="text-xs border rounded-lg p-1.5 font-bold" placeholder="Tag Badge">
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 block">Name</label>
+                                <input type="text" id="p-name-${idx}" value="${p.name}" class="text-xs border rounded-lg p-1.5 font-bold w-full">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 block">Category</label>
+                                <select id="p-cat-${idx}" class="text-xs border rounded-lg p-1.5 font-bold bg-white w-full">
+                                    <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
+                                    <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
+                                    <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
+                                    <option value="girls" ${p.category==='girls'?'selected':''}>Girls Clothing</option>
+                                    <option value="kids" ${p.category==='kids'?'selected':''}>Baby & Kids</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 block">Tag Badge</label>
+                                <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="text-xs border rounded-lg p-1.5 font-bold w-full">
+                            </div>
                         </div>
+
+                        <!-- Ratings & Reviews Customization Fields -->
+                        <div class="grid grid-cols-2 gap-2 bg-amber-50/60 p-2 rounded-xl border border-amber-200">
+                            <div>
+                                <label class="text-[9px] font-black text-amber-800 block">Star Rating (e.g. 4.2)</label>
+                                <input type="text" id="p-rating-${idx}" value="${p.rating || '4.2'}" class="w-full text-xs border rounded p-1 font-bold text-amber-900 bg-white">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-black text-amber-800 block">Reviews Text</label>
+                                <input type="text" id="p-reviews-${idx}" value="${p.reviews || '1,420 Ratings, 380 Reviews'}" class="w-full text-xs border rounded p-1 font-medium bg-white">
+                            </div>
+                        </div>
+
                         <div class="grid grid-cols-3 gap-2 bg-blue-50/70 p-2 rounded-xl">
                             <div><label class="text-[9px] font-bold text-slate-500 block">MRP</label><input type="number" id="p-mrp-${idx}" value="${mrpVal}" class="w-full text-xs border rounded p-1 font-bold"></div>
                             <div><label class="text-[9px] font-bold text-slate-800 block">Normal</label><input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-xs border rounded p-1 font-bold"></div>
@@ -1226,7 +1263,7 @@
             container.innerHTML = prodHtml;
         }
 
-        // SAVE AND SYNC LIVE TO CLOUD (MOBILE + PC BOTH)
+        // SAVE AND SYNC LIVE TO CLOUD
         async function saveAdminChanges() {
             const btn = document.getElementById('saveAdminBtn');
             btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing to Cloud...`;
@@ -1239,6 +1276,8 @@
                     const mrpEl = document.getElementById(`p-mrp-${idx}`);
                     const normEl = document.getElementById(`p-normal-${idx}`);
                     const vipEl = document.getElementById(`p-vip-${idx}`);
+                    const ratingEl = document.getElementById(`p-rating-${idx}`);
+                    const reviewsEl = document.getElementById(`p-reviews-${idx}`);
                     const descEl = document.getElementById(`p-desc-${idx}`);
 
                     if(nameEl) p.name = nameEl.value;
@@ -1247,6 +1286,8 @@
                     if(mrpEl && mrpEl.value !== "") p.mrp = Number(mrpEl.value);
                     if(normEl && normEl.value !== "") p.normal = Number(normEl.value);
                     if(vipEl && vipEl.value !== "") p.vip = Number(vipEl.value);
+                    if(ratingEl) p.rating = ratingEl.value;
+                    if(reviewsEl) p.reviews = reviewsEl.value;
                     if(descEl) p.desc = descEl.value;
                 });
 
@@ -1265,7 +1306,7 @@
                     });
                 }
 
-                alert("🎉 SUCCESS! Products successfully Google Cloud Database me save ho gaye hain. Ab Mobile aur PC dono par same live dikhega!");
+                alert("🎉 SUCCESS! Products & Custom Ratings Google Cloud me save ho gaye!");
                 btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
                 updateUI();
