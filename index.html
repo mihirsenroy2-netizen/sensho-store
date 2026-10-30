@@ -110,7 +110,7 @@
         <div class="flex justify-between items-center mb-4 px-1">
             <div>
                 <h2 class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">Trending Catalog</h2>
-                <p class="text-slate-500 text-[11px] sm:text-xs">Live Cloud Sync Enabled</p>
+                <p class="text-slate-500 text-[11px] sm:text-xs">Live Factory Cloud Sync Active</p>
             </div>
 
             <div class="bg-white border border-slate-200 px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
@@ -134,7 +134,7 @@
         </div>
     </main>
 
-    <!-- Floating Circular WhatsApp Button -->
+    <!-- Floating WhatsApp Button -->
     <button type="button" onclick="sendHelpWhatsApp('Direct Chat', 'Hello! Mujhe catalog ke regarding baat karni hai.')" class="fixed right-4 bottom-20 md:bottom-6 z-30 bg-emerald-500 hover:bg-emerald-600 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition hover:scale-110 border-2 border-white" title="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
     </button>
@@ -162,7 +162,7 @@
         </button>
     </div>
 
-    <!-- MEESHO STYLE PRODUCT DETAIL & DESCRIPTION MODAL -->
+    <!-- PRODUCT DETAIL & DESCRIPTION MODAL -->
     <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
             <button type="button" onclick="closeProductDetailModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 text-xl z-20 p-2"><i class="fa-solid fa-xmark"></i></button>
@@ -179,7 +179,6 @@
                 <div class="md:col-span-6 space-y-3.5">
                     <div>
                         <h1 class="text-base sm:text-xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
-                        <!-- Customizable Rating & Review Banner -->
                         <div class="flex items-center gap-2 mt-1">
                             <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
                                 <span id="detailRatingBadge">4.2</span> <i class="fa-solid fa-star text-[8px]"></i>
@@ -226,7 +225,6 @@
                         </div>
                     </div>
 
-                    <!-- Description & Highlights -->
                     <div class="border-t pt-2.5 space-y-2 text-xs text-slate-600">
                         <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl border">
                             <div><span class="text-slate-400">Fabric:</span> <strong class="text-slate-800 block text-[11px]" id="detailFabric">100% Pure Cotton</strong></div>
@@ -499,18 +497,32 @@
                     </div>
                 </div>
 
-                <!-- Product Master Manager with Star Ratings & Review Counts -->
+                <!-- FULL BANNER SLIDER MASTER MANAGER (SLIDE #1, #2, #3...) -->
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900"><i class="fa-solid fa-images text-blue-600 mr-1"></i> Banner Slider Master Manager</h3>
+                            <p class="text-[10px] text-slate-500">Slide #1, #2, #3 ki headlines, button text aur gallery images upload karein</p>
+                        </div>
+                        <button type="button" onclick="addNewBannerSlide()" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-plus"></i> Add New Slide
+                        </button>
+                    </div>
+                    <div id="adminBannerEditorList" class="space-y-3 max-h-72 overflow-y-auto p-1"></div>
+                </div>
+
+                <!-- PRODUCT MASTER MANAGER (WITH IMAGE GALLERY & RATINGS/REVIEWS) -->
                 <div class="border-t pt-3">
                     <div class="flex justify-between items-center mb-2">
                         <div>
                             <h3 class="text-sm font-black text-slate-900"><i class="fa-solid fa-sliders text-blue-600 mr-1"></i> Products Master Manager</h3>
-                            <p class="text-[10px] text-slate-500">Ratings, reviews, prices aur description sab edit karein</p>
+                            <p class="text-[10px] text-slate-500">Photos gallery upload, Star Ratings, Reviews aur Prices edit karein</p>
                         </div>
                         <button type="button" onclick="addNewProduct()" class="bg-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
                             <i class="fa-solid fa-plus"></i> Add Product
                         </button>
                     </div>
-                    <div id="adminProductEditorList" class="space-y-3.5 max-h-[420px] overflow-y-auto"></div>
+                    <div id="adminProductEditorList" class="space-y-3.5 max-h-[460px] overflow-y-auto p-1"></div>
                 </div>
 
                 <!-- Sticky Save Changes Button -->
@@ -560,7 +572,6 @@
     <!-- JavaScript Application Logic -->
     <script>
         const WHATSAPP_NUMBER = "916261118847";
-        // Updated Web App URL from Screenshot 38
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyp5eER9ZLJ0Hrxl590fa5QShZ8VHDD8hGt0mov3rSGQl4luRIvEyg5aKzmfeqd0fXQ/exec";
 
         let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
@@ -674,7 +685,8 @@
                 title: "ONLY ₹299 Me Banein VIP Member, Pure 1 Saal Wholesale Sasta!",
                 subtitle: "Direct factory wholesale rates unlocked! Apna VIP digital pass WhatsApp helpline se activate karwaye.",
                 btnText: "Join VIP @ ₹299 (1 Year)",
-                isVipAction: true
+                isVipAction: true,
+                customImg: ""
             },
             {
                 id: 2,
@@ -682,10 +694,20 @@
                 title: "Sensho Mega Wholesale Collection",
                 subtitle: "Men, Women aur Kids ke trending kapde direct factory rate par uplabdh!",
                 btnText: "View Catalog",
-                isVipAction: false
+                isVipAction: false,
+                customImg: ""
+            },
+            {
+                id: 3,
+                tag: "Baby & Kids",
+                title: "Super Soft Rompers & Boys Wear",
+                subtitle: "100% Cotton, skin-friendly aur durable fabrics sabse kam wholesale rate me.",
+                btnText: "Shop Kids Wear",
+                isVipAction: false,
+                customImg: ""
             }
         ];
-        let banners = defaultBanners;
+        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || defaultBanners;
 
         let cart = JSON.parse(localStorage.getItem('senshoCart')) || [];
         let orders = JSON.parse(localStorage.getItem('senshoOrders')) || [];
@@ -723,6 +745,34 @@
             }
         });
 
+        function compressImage(base64Str, maxWidth = 800, maxHeight = 800, quality = 0.5) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.src = base64Str;
+                img.onload = function () {
+                    let width = img.width;
+                    let height = img.height;
+                    if (width > height) {
+                        if (width > maxWidth) {
+                            height = Math.round((height * maxWidth) / width);
+                            width = maxWidth;
+                        }
+                    } else {
+                        if (height > maxHeight) {
+                            width = Math.round((width * maxHeight) / height);
+                            height = maxHeight;
+                        }
+                    }
+                    const canvas = document.createElement("canvas");
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, width, height);
+                    resolve(canvas.toDataURL("image/jpeg", quality));
+                };
+            });
+        }
+
         function renderBannerSlider() {
             const track = document.getElementById('sliderTrack');
             const dots = document.getElementById('sliderDots');
@@ -731,8 +781,12 @@
             let dotsHtml = '';
 
             banners.forEach((b, idx) => {
+                const hasImg = b.customImg && b.customImg.length > 5;
+                const bgStyle = hasImg ? `background: url('${b.customImg}') center/cover no-repeat;` : '';
+                const gradientClass = hasImg ? 'bg-slate-950/70 backdrop-brightness-50' : 'gradient-sensho';
+
                 trackHtml += `
-                    <div class="min-w-full h-full relative gradient-sensho flex items-center px-4 sm:px-14 text-white overflow-hidden">
+                    <div class="min-w-full h-full relative ${gradientClass} flex items-center px-4 sm:px-14 text-white overflow-hidden" style="${bgStyle}">
                         <div class="relative z-10 max-w-xl space-y-1 sm:space-y-2">
                             <span class="bg-amber-400 text-slate-950 text-[9px] sm:text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-widest shadow inline-block">
                                 ${b.tag || "Special Offer"}
@@ -1183,6 +1237,66 @@
             }
         }
 
+        function updateAdminPin() {
+            let newPin = document.getElementById('newAdminPin').value;
+            if(newPin && newPin.length >= 4) {
+                adminPinCode = newPin;
+                localStorage.setItem('senshoAdminPin', newPin);
+                alert("Admin PIN updated successfully!");
+                document.getElementById('newAdminPin').value = '';
+            } else {
+                alert("PIN must be at least 4 digits long.");
+            }
+        }
+
+        function updateVipSecretCode() {
+            let code = document.getElementById('adminVipSecretCode').value.trim().toUpperCase();
+            if(code.length >= 3) {
+                vipSecretPasscode = code;
+                localStorage.setItem('senshoDynamicVipCode', code);
+                alert("✅ Naya Customer VIP Passcode Save Ho Gaya: " + code);
+            } else {
+                alert("VIP Passcode kam se kam 3 letters ka hona chahiye.");
+            }
+        }
+
+        // BANNER SLIDER FUNCTIONS (SLIDE 1, 2, 3...)
+        function addNewBannerSlide() {
+            banners.push({
+                id: Date.now(),
+                tag: "Festive Offer",
+                title: "New Banner Sale Title",
+                subtitle: "Direct factory rates for our valuable customers.",
+                btnText: "Shop Now",
+                isVipAction: false,
+                customImg: ""
+            });
+            loadAdminDashboardData();
+        }
+
+        function deleteBannerSlide(idx) {
+            if (banners.length <= 1) {
+                alert("Kam se kam 1 banner slide hona zaroori hai!");
+                return;
+            }
+            banners.splice(idx, 1);
+            loadAdminDashboardData();
+        }
+
+        async function handleBannerUpload(e, index) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async function(event) {
+                const compressedBanner = await compressImage(event.target.result, 1200, 450, 0.5);
+                banners[index].customImg = compressedBanner;
+                loadAdminDashboardData();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // PRODUCT & MULTI-IMAGE FUNCTIONS
         function addNewProduct() {
             products.push({ 
                 id: Date.now(), 
@@ -1203,64 +1317,164 @@
             loadAdminDashboardData();
         }
 
+        async function appendSingleImage(e, productIdx) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if(!products[productIdx].images) {
+                products[productIdx].images = [];
+            }
+            if(products[productIdx].images.length >= 6) {
+                alert("Maximum 6 photos allowed for this product.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = async function(event) {
+                const compressed = await compressImage(event.target.result, 600, 800, 0.4);
+                products[productIdx].images.push(compressed);
+                loadAdminDashboardData();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImageFromProduct(productIdx, imgIdx) {
+            if(products[productIdx].images.length <= 1) {
+                alert("Kam se kam 1 photo hona zaroori hai!");
+                return;
+            }
+            products[productIdx].images.splice(imgIdx, 1);
+            loadAdminDashboardData();
+        }
+
         function loadAdminDashboardData() {
+            const vipInput = document.getElementById('adminVipSecretCode');
+            if(vipInput) vipInput.value = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
+
+            // 1. Banner Slider Master Manager UI
+            let bannerContainer = document.getElementById('adminBannerEditorList');
+            if(bannerContainer) {
+                let bannerHtml = '';
+                banners.forEach((b, idx) => {
+                    bannerHtml += `
+                        <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl space-y-2">
+                            <div class="flex justify-between items-center border-b pb-1">
+                                <span class="text-xs font-black text-blue-950">Slide #${idx+1} Settings</span>
+                                <button type="button" onclick="deleteBannerSlide(${idx})" class="text-rose-600 text-[10px] font-bold hover:underline">Delete Slide</button>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Offer Tag / Badge</label>
+                                    <input type="text" id="b-tag-${idx}" value="${b.tag || ''}" class="w-full text-xs border rounded-lg p-1.5 font-bold" placeholder="e.g. Diwali Dhamaka">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Button Text</label>
+                                    <input type="text" id="b-btn-${idx}" value="${b.btnText || ''}" class="w-full text-xs border rounded-lg p-1.5 font-bold" placeholder="e.g. Shop Now">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 block">Main Headline Title</label>
+                                <input type="text" id="b-title-${idx}" value="${b.title || ''}" class="w-full text-xs border rounded-lg p-1.5 font-bold" placeholder="Main banner title">
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-slate-500 block">Subtitle / Description</label>
+                                <input type="text" id="b-sub-${idx}" value="${b.subtitle || ''}" class="w-full text-xs border rounded-lg p-1.5 font-medium" placeholder="Banner description">
+                            </div>
+                            <div class="flex items-center gap-3 bg-white p-2 rounded-xl border">
+                                <div class="w-16 h-10 bg-slate-200 rounded overflow-hidden shrink-0">
+                                    ${b.customImg ? `<img src="${b.customImg}" id="banner-preview-${idx}" class="w-full h-full object-cover">` : `<div id="banner-preview-${idx}" class="w-full h-full flex items-center justify-center text-[8px] text-slate-400">Default</div>`}
+                                </div>
+                                <div class="flex-1">
+                                    <label class="text-[10px] font-bold text-slate-700 block">Upload Banner Image from Gallery:</label>
+                                    <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-[10px] w-full">
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                bannerContainer.innerHTML = bannerHtml;
+            }
+
+            // 2. Product Master Manager UI with Image Gallery & Ratings/Reviews
             let container = document.getElementById('adminProductEditorList');
-            if(!container) return;
-            let prodHtml = '';
-            products.forEach((p, idx) => {
-                const mrpVal = p.mrp || Math.round(p.normal * 1.5);
-                prodHtml += `
-                    <div class="bg-slate-50 border p-3 rounded-2xl space-y-2.5">
-                        <div class="flex justify-between items-center border-b pb-1">
-                            <span class="text-xs font-black text-blue-950">Product #${idx+1} Control</span>
-                            <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-[10px] font-bold hover:underline">Delete</button>
-                        </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-500 block">Name</label>
-                                <input type="text" id="p-name-${idx}" value="${p.name}" class="text-xs border rounded-lg p-1.5 font-bold w-full">
+            if(container) {
+                let prodHtml = '';
+                products.forEach((p, idx) => {
+                    const currentImages = (p.images && Array.isArray(p.images)) ? p.images : [];
+                    const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+                    prodHtml += `
+                        <div class="bg-slate-50 border p-3 rounded-2xl space-y-2.5">
+                            <div class="flex justify-between items-center border-b pb-1">
+                                <span class="text-xs font-black text-blue-950">Product #${idx+1} Control</span>
+                                <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-[10px] font-bold hover:underline">Delete</button>
                             </div>
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-500 block">Category</label>
-                                <select id="p-cat-${idx}" class="text-xs border rounded-lg p-1.5 font-bold bg-white w-full">
-                                    <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
-                                    <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
-                                    <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
-                                    <option value="girls" ${p.category==='girls'?'selected':''}>Girls Clothing</option>
-                                    <option value="kids" ${p.category==='kids'?'selected':''}>Baby & Kids</option>
-                                </select>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Product Name</label>
+                                    <input type="text" id="p-name-${idx}" value="${p.name}" class="text-xs border rounded-lg p-1.5 font-bold w-full">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Category</label>
+                                    <select id="p-cat-${idx}" class="text-xs border rounded-lg p-1.5 font-bold bg-white w-full">
+                                        <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
+                                        <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
+                                        <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
+                                        <option value="girls" ${p.category==='girls'?'selected':''}>Girls Clothing</option>
+                                        <option value="kids" ${p.category==='kids'?'selected':''}>Baby & Kids</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Tag Badge</label>
+                                    <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="text-xs border rounded-lg p-1.5 font-bold w-full">
+                                </div>
                             </div>
-                            <div>
-                                <label class="text-[9px] font-bold text-slate-500 block">Tag Badge</label>
-                                <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="text-xs border rounded-lg p-1.5 font-bold w-full">
-                            </div>
-                        </div>
 
-                        <!-- Ratings & Reviews Customization Fields -->
-                        <div class="grid grid-cols-2 gap-2 bg-amber-50/60 p-2 rounded-xl border border-amber-200">
-                            <div>
-                                <label class="text-[9px] font-black text-amber-800 block">Star Rating (e.g. 4.2)</label>
-                                <input type="text" id="p-rating-${idx}" value="${p.rating || '4.2'}" class="w-full text-xs border rounded p-1 font-bold text-amber-900 bg-white">
+                            <!-- Ratings & Reviews Customization Fields -->
+                            <div class="grid grid-cols-2 gap-2 bg-amber-50/60 p-2 rounded-xl border border-amber-200">
+                                <div>
+                                    <label class="text-[9px] font-black text-amber-800 block">Star Rating (e.g. 4.2)</label>
+                                    <input type="text" id="p-rating-${idx}" value="${p.rating || '4.2'}" class="w-full text-xs border rounded p-1 font-bold text-amber-900 bg-white">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-black text-amber-800 block">Reviews Count Text</label>
+                                    <input type="text" id="p-reviews-${idx}" value="${p.reviews || '1,420 Ratings, 380 Reviews'}" class="w-full text-xs border rounded p-1 font-medium bg-white">
+                                </div>
                             </div>
-                            <div>
-                                <label class="text-[9px] font-black text-amber-800 block">Reviews Text</label>
-                                <input type="text" id="p-reviews-${idx}" value="${p.reviews || '1,420 Ratings, 380 Reviews'}" class="w-full text-xs border rounded p-1 font-medium bg-white">
-                            </div>
-                        </div>
 
-                        <div class="grid grid-cols-3 gap-2 bg-blue-50/70 p-2 rounded-xl">
-                            <div><label class="text-[9px] font-bold text-slate-500 block">MRP</label><input type="number" id="p-mrp-${idx}" value="${mrpVal}" class="w-full text-xs border rounded p-1 font-bold"></div>
-                            <div><label class="text-[9px] font-bold text-slate-800 block">Normal</label><input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-xs border rounded p-1 font-bold"></div>
-                            <div><label class="text-[9px] font-bold text-blue-700 block">VIP</label><input type="number" id="p-vip-${idx}" value="${p.vip}" class="w-full text-xs border rounded p-1 font-bold text-blue-900"></div>
+                            <div class="grid grid-cols-3 gap-2 bg-blue-50/70 p-2 rounded-xl">
+                                <div><label class="text-[9px] font-bold text-slate-500 block">MRP</label><input type="number" id="p-mrp-${idx}" value="${mrpVal}" class="w-full text-xs border rounded p-1 font-bold"></div>
+                                <div><label class="text-[9px] font-bold text-slate-800 block">Normal</label><input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-xs border rounded p-1 font-bold"></div>
+                                <div><label class="text-[9px] font-bold text-blue-700 block">VIP</label><input type="number" id="p-vip-${idx}" value="${p.vip}" class="w-full text-xs border rounded p-1 font-bold text-blue-900"></div>
+                            </div>
+
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-600 block mb-0.5">Description:</label>
+                                <textarea id="p-desc-${idx}" rows="2" class="w-full text-xs border rounded-lg p-1.5 font-medium">${p.desc || ''}</textarea>
+                            </div>
+
+                            <!-- Gallery Upload (1-by-1 Photos up to 6) -->
+                            <div class="bg-white p-2.5 rounded-xl border space-y-1.5">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-bold text-slate-700">Gallery Photos (${currentImages.length}/6 Photos)</span>
+                                    <label class="bg-blue-100 text-blue-900 font-bold text-[9px] px-2.5 py-1 rounded-md cursor-pointer hover:bg-blue-200">
+                                        + Add Image to Gallery
+                                        <input type="file" accept="image/*" onchange="appendSingleImage(event, ${idx})" class="hidden">
+                                    </label>
+                                </div>
+                                <div class="flex gap-2 overflow-x-auto pt-1">
+                                    ${currentImages.map((img, imgIdx) => `
+                                        <div class="relative w-12 h-14 shrink-0 rounded-lg overflow-hidden border">
+                                            <img src="${img}" class="w-full h-full object-cover">
+                                            <button type="button" onclick="removeImageFromProduct(${idx}, ${imgIdx})" class="absolute top-0 right-0 bg-rose-600 text-white rounded-full w-3.5 h-3.5 text-[8px] flex items-center justify-center">✕</button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label class="text-[10px] font-bold text-slate-600 block mb-0.5">Description:</label>
-                            <textarea id="p-desc-${idx}" rows="2" class="w-full text-xs border rounded-lg p-1.5 font-medium">${p.desc || ''}</textarea>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = prodHtml;
+                    `;
+                });
+                container.innerHTML = prodHtml;
+            }
         }
 
         // SAVE AND SYNC LIVE TO CLOUD
@@ -1269,6 +1483,20 @@
             btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing to Cloud...`;
 
             try {
+                // Save Banners
+                banners.forEach((b, idx) => {
+                    const tagEl = document.getElementById(`b-tag-${idx}`);
+                    const titleEl = document.getElementById(`b-title-${idx}`);
+                    const subEl = document.getElementById(`b-sub-${idx}`);
+                    const btnEl = document.getElementById(`b-btn-${idx}`);
+
+                    if (tagEl) b.tag = tagEl.value;
+                    if (titleEl) b.title = titleEl.value;
+                    if (subEl) b.subtitle = subEl.value;
+                    if (btnEl) b.btnText = btnEl.value;
+                });
+
+                // Save Products
                 products.forEach((p, idx) => {
                     const nameEl = document.getElementById(`p-name-${idx}`);
                     const catEl = document.getElementById(`p-cat-${idx}`);
@@ -1292,6 +1520,7 @@
                 });
 
                 localStorage.setItem('senshoProducts', JSON.stringify(products));
+                localStorage.setItem('senshoBanners', JSON.stringify(banners));
 
                 // Send to Google Sheets Cloud Database
                 if (GOOGLE_SCRIPT_URL) {
@@ -1306,7 +1535,7 @@
                     });
                 }
 
-                alert("🎉 SUCCESS! Products & Custom Ratings Google Cloud me save ho gaye!");
+                alert("🎉 SUCCESS! Products, Banners, Photos aur Ratings Google Cloud me save ho gaye!");
                 btn.innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
                 updateUI();
