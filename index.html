@@ -21,7 +21,7 @@
 </head>
 <body id="mainBodyTheme" class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
 
-    <!-- Top Announcement Bar (Helpline removed to prevent overlap) -->
+    <!-- Top Announcement Bar -->
     <div id="topAnnouncementBar" class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 text-center border-b border-slate-800">
         <span class="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
             <i class="fa-solid fa-cloud-check text-emerald-400 animate-pulse"></i> 
@@ -173,8 +173,20 @@
             <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
                 <i class="fa-solid fa-heart text-rose-500"></i> My Liked Products (Wishlist)
             </h3>
-            <p class="text-xs text-slate-500 mb-4">Aapke pasand kiye hue sabhi items yahan save hain.</p>
+            <p class="text-xs text-slate-500 mb-4">Aapke pasand kiye hue sabhi items yahan save hain. Tap karke details dekhein.</p>
             <div id="wishlistItemsContainer" class="space-y-2.5"></div>
+        </div>
+    </div>
+
+    <!-- MY ORDERS MODAL -->
+    <div id="myOrdersModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto">
+            <button type="button" onclick="closeMyOrders()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-box-open text-blue-600"></i> My Order History
+            </h3>
+            <p class="text-xs text-slate-500 mb-4">Aapke dwara kiye gaye orders ki history.</p>
+            <div id="customerOrdersList" class="space-y-2.5"></div>
         </div>
     </div>
 
@@ -809,14 +821,15 @@
                 let html = '';
                 wishlist.forEach((item, index) => {
                     let coverImg = (item.images && item.images[0]) ? item.images[0] : item.img;
+                    let originalProdIndex = products.findIndex(p => p.name === item.name);
                     html += `
-                        <div class="flex items-center gap-2.5 bg-slate-50 border p-2.5 rounded-xl">
+                        <div class="flex items-center gap-2.5 bg-slate-50 border p-2.5 rounded-xl cursor-pointer hover:bg-slate-100 transition" onclick="closeWishlistModal(); openProductDetailModal(${originalProdIndex >= 0 ? originalProdIndex : 0})">
                             <img src="${coverImg}" class="w-12 h-14 object-cover rounded-lg border">
                             <div class="flex-1">
                                 <h4 class="font-bold text-xs text-slate-900 line-clamp-1">${item.name}</h4>
                                 <p class="text-[11px] text-blue-700 font-extrabold mt-0.5">₹${item.normal}</p>
                             </div>
-                            <button type="button" onclick="wishlist.splice(${index},1);localStorage.setItem('senshoWishlist', JSON.stringify(wishlist));updateWishlistBadges();openWishlistModal();renderProducts();" class="text-slate-400 hover:text-rose-600 p-1.5"><i class="fa-solid fa-trash text-xs"></i></button>
+                            <button type="button" onclick="event.stopPropagation(); wishlist.splice(${index},1);localStorage.setItem('senshoWishlist', JSON.stringify(wishlist));updateWishlistBadges();openWishlistModal();renderProducts();" class="text-slate-400 hover:text-rose-600 p-1.5"><i class="fa-solid fa-trash text-xs"></i></button>
                         </div>
                     `;
                 });
@@ -1218,6 +1231,37 @@
             document.getElementById('cartTotalPrice').innerText = `₹${totalPrice}`;
         }
 
+        function openMyOrders() {
+            let container = document.getElementById('customerOrdersList');
+            if(!container) return;
+            if(orders.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-center py-6 text-xs">No orders placed yet.</p>`;
+            } else {
+                let html = '';
+                orders.forEach(o => {
+                    html += `
+                        <div class="bg-slate-50 border p-3 rounded-xl space-y-1">
+                            <div class="flex justify-between text-[11px] font-bold text-blue-600">
+                                <span>Order ID: ${o.id}</span>
+                                <span class="text-slate-500">${o.date}</span>
+                            </div>
+                            <p class="text-xs font-bold text-slate-900">${o.summary}</p>
+                            <div class="flex justify-between items-center text-xs pt-1 border-t">
+                                <span class="text-emerald-600 font-extrabold text-[11px]">${o.type || "Confirmed"}</span>
+                                <span class="font-black text-slate-900">₹${o.total}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('myOrdersModal').classList.remove('hidden');
+        }
+
+        function closeMyOrders() {
+            document.getElementById('myOrdersModal').classList.add('hidden');
+        }
+
         function recordOrder(orderSummary, totalAmt, orderType = "WhatsApp Direct") {
             let orderId = "SNS-" + Math.floor(100000 + Math.random() * 900000);
             let orderDate = new Date().toLocaleString();
@@ -1286,7 +1330,6 @@
             }
         }
 
-        // CONFIRMATION POPUP BEFORE DELETING BANNER
         function deleteBannerSlide(idx) {
             if (banners.length <= 1) {
                 alert("Kam se kam 1 banner slide hona zaroori hai!");
@@ -1340,7 +1383,6 @@
             loadAdminDashboardData();
         }
 
-        // CONFIRMATION POPUP BEFORE DELETING PRODUCT
         function deleteProduct(idx) {
             if (products.length <= 1) {
                 alert("Kam se kam 1 product hona zaroori hai!");
@@ -1422,7 +1464,7 @@
                         <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl space-y-2.5">
                             <div class="flex justify-between items-center border-b pb-1.5">
                                 <span class="text-xs font-black text-slate-900">Product #${idx+1} Control</span>
-                                <button onclick="deleteProduct(${idx})" class="text-rose-600 text-[11px] font-bold hover:underline">Delete Product</button>
+                                <button type="button" onclick="deleteProduct(${idx})" class="text-rose-600 text-[11px] font-bold hover:underline">Delete Product</button>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                                 <div>
@@ -1569,39 +1611,6 @@
                     emptyState.classList.add('hidden');
                 }
             }
-        }
-
-        function openMyOrders() {
-            let container = document.getElementById('customerOrdersList');
-            if(!container) return;
-            if(orders.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-center py-6 text-xs">No orders placed yet.</p>`;
-            } else {
-                let html = '';
-                orders.forEach(o => {
-                    html += `
-                        <div class="bg-slate-50 border p-3 rounded-xl space-y-1">
-                            <div class="flex justify-between text-[11px] font-bold text-blue-600">
-                                <span>Order ID: ${o.id}</span>
-                                <span class="text-slate-500">${o.date}</span>
-                            </div>
-                            <p class="text-xs font-bold text-slate-900">${o.summary}</p>
-                            <div class="flex justify-between items-center text-xs pt-1 border-t">
-                                <span class="text-emerald-600 font-extrabold text-[11px]">${o.type || "Confirmed"}</span>
-                                <span class="font-black text-slate-900">₹${o.total}</span>
-                            </div>
-                        </div>
-                    `;
-                });
-                container.innerHTML = html;
-            }
-            const modal = document.getElementById('myOrdersModal');
-            if (modal) modal.classList.remove('hidden');
-        }
-
-        function closeMyOrders() {
-            const modal = document.getElementById('myOrdersModal');
-            if (modal) modal.classList.add('hidden');
         }
 
         async function fetchCloudData() {
