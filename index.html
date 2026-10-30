@@ -21,14 +21,11 @@
 </head>
 <body id="mainBodyTheme" class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
 
-    <!-- Top Announcement Bar -->
-    <div id="topAnnouncementBar" class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 flex justify-between items-center border-b border-slate-800 text-center">
-        <span class="flex items-center gap-1.5 text-emerald-400 font-bold truncate">
+    <!-- Top Announcement Bar (Helpline removed to prevent overlap) -->
+    <div id="topAnnouncementBar" class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 text-center border-b border-slate-800">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
             <i class="fa-solid fa-cloud-check text-emerald-400 animate-pulse"></i> 
             <span>100% Quality Checked Direct Factory Wholesale Hub</span>
-        </span>
-        <span class="text-amber-400 font-extrabold truncate">
-            Helpline: +91 6261118847
         </span>
     </div>
 
@@ -49,12 +46,15 @@
                 </div>
 
                 <!-- Desktop Action Buttons -->
-                <div class="hidden md:flex items-center gap-3">
+                <div class="hidden md:flex items-center gap-2.5">
+                    <button type="button" onclick="openWishlistModal()" class="relative bg-slate-800 hover:bg-slate-700 text-rose-400 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-heart"></i> Wishlist <span id="wishlistBadgeDesktop" class="bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.2 rounded-full">0</span>
+                    </button>
                     <button type="button" onclick="openHelpModal()" class="bg-blue-900/80 hover:bg-blue-800 text-blue-200 text-xs font-bold px-3 py-2 rounded-xl border border-blue-700 transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-headset text-emerald-400"></i> Help Support
+                        <i class="fa-solid fa-headset text-emerald-400"></i> Help
                     </button>
                     <button type="button" onclick="openMyOrders()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
-                        <i class="fa-solid fa-box-open text-amber-400"></i> My Orders
+                        <i class="fa-solid fa-box-open text-amber-400"></i> Orders
                     </button>
                     <button type="button" onclick="openVipCardModal()" id="navVipBtnDesktop" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
                         <i class="fa-solid fa-crown text-slate-950"></i> <span>VIP Pass</span>
@@ -63,6 +63,10 @@
 
                 <!-- Mobile Header Right Actions -->
                 <div class="flex items-center gap-2">
+                    <button type="button" onclick="openWishlistModal()" class="relative md:hidden bg-slate-800 text-rose-400 p-2 rounded-xl border border-slate-700 flex items-center justify-center">
+                        <i class="fa-solid fa-heart text-base"></i>
+                        <span id="wishlistBadgeMobile" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
                     <button type="button" onclick="openVipCardModal()" class="md:hidden bg-amber-400 text-slate-950 font-black text-[11px] px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow">
                         <i class="fa-solid fa-crown text-xs"></i> VIP
                     </button>
@@ -145,9 +149,9 @@
             <i class="fa-solid fa-house text-sm"></i>
             <span class="text-[9px] font-bold mt-0.5">Home</span>
         </button>
-        <button type="button" onclick="openHelpModal()" class="flex flex-col items-center text-slate-500 hover:text-blue-600">
-            <i class="fa-solid fa-headset text-sm"></i>
-            <span class="text-[9px] font-bold mt-0.5">Help</span>
+        <button type="button" onclick="openWishlistModal()" class="flex flex-col items-center text-slate-500 hover:text-rose-600 relative">
+            <i class="fa-solid fa-heart text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">Wishlist</span>
         </button>
         <button type="button" onclick="sendHelpWhatsApp('Direct Order Helpline', 'Hello Sensho Team! Mujhe direct order place karna hai.')" class="flex flex-col items-center justify-center -mt-4 bg-emerald-500 text-white w-11 h-11 rounded-full shadow-lg border-2 border-white">
             <i class="fa-brands fa-whatsapp text-xl"></i>
@@ -160,6 +164,18 @@
             <i class="fa-solid fa-cart-shopping text-sm"></i>
             <span class="text-[9px] font-bold mt-0.5">Cart</span>
         </button>
+    </div>
+
+    <!-- WISHLIST MODAL -->
+    <div id="wishlistModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto">
+            <button type="button" onclick="closeWishlistModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-heart text-rose-500"></i> My Liked Products (Wishlist)
+            </h3>
+            <p class="text-xs text-slate-500 mb-4">Aapke pasand kiye hue sabhi items yahan save hain.</p>
+            <div id="wishlistItemsContainer" class="space-y-2.5"></div>
+        </div>
     </div>
 
     <!-- PRODUCT DETAIL MODAL -->
@@ -596,7 +612,7 @@
             }
         ];
 
-        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || defaultBanners;
+        let banners = defaultBanners;
 
         const defaultProducts = [
             { 
@@ -665,8 +681,9 @@
             }
         ];
 
-        let products = JSON.parse(localStorage.getItem('senshoProducts')) || defaultProducts;
+        let products = defaultProducts;
         let cart = JSON.parse(localStorage.getItem('senshoCart')) || [];
+        let wishlist = JSON.parse(localStorage.getItem('senshoWishlist')) || [];
         let orders = JSON.parse(localStorage.getItem('senshoOrders')) || [];
         let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
 
@@ -761,6 +778,73 @@
         }
         setInterval(autoSlideBanner, 2800);
 
+        function toggleWishlist(index, event) {
+            if(event) event.stopPropagation();
+            const p = products[index];
+            const existIndex = wishlist.findIndex(item => item.name === p.name);
+            if(existIndex >= 0) {
+                wishlist.splice(existIndex, 1);
+            } else {
+                wishlist.push(p);
+            }
+            localStorage.setItem('senshoWishlist', JSON.stringify(wishlist));
+            updateWishlistBadges();
+            renderProducts();
+        }
+
+        function updateWishlistBadges() {
+            const count = wishlist.length;
+            const dBadge = document.getElementById('wishlistBadgeDesktop');
+            const mBadge = document.getElementById('wishlistBadgeMobile');
+            if(dBadge) dBadge.innerText = count;
+            if(mBadge) mBadge.innerText = count;
+        }
+
+        function openWishlistModal() {
+            let container = document.getElementById('wishlistItemsContainer');
+            if(!container) return;
+            if(wishlist.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-center py-8 text-xs">Aapne abhi tak koi product wishlist mein save nahi kiya hai.</p>`;
+            } else {
+                let html = '';
+                wishlist.forEach((item, index) => {
+                    let coverImg = (item.images && item.images[0]) ? item.images[0] : item.img;
+                    html += `
+                        <div class="flex items-center gap-2.5 bg-slate-50 border p-2.5 rounded-xl">
+                            <img src="${coverImg}" class="w-12 h-14 object-cover rounded-lg border">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-xs text-slate-900 line-clamp-1">${item.name}</h4>
+                                <p class="text-[11px] text-blue-700 font-extrabold mt-0.5">₹${item.normal}</p>
+                            </div>
+                            <button type="button" onclick="wishlist.splice(${index},1);localStorage.setItem('senshoWishlist', JSON.stringify(wishlist));updateWishlistBadges();openWishlistModal();renderProducts();" class="text-slate-400 hover:text-rose-600 p-1.5"><i class="fa-solid fa-trash text-xs"></i></button>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('wishlistModal').classList.remove('hidden');
+        }
+
+        function closeWishlistModal() {
+            document.getElementById('wishlistModal').classList.add('hidden');
+        }
+
+        function shareProduct(index, event) {
+            if(event) event.stopPropagation();
+            const p = products[index];
+            const shareText = `🔥 *SENSHO WHOLESALE DEAL* 🔥\n*${p.name}*\nNormal Price: ₹${p.normal} | *VIP Price: ₹${p.vip}*\n\nCheck out this amazing product here:\n${window.location.href}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: p.name,
+                    text: shareText,
+                    url: window.location.href,
+                }).catch(() => {});
+            } else {
+                window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+            }
+        }
+
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
@@ -768,6 +852,7 @@
             products.forEach((p, idx) => {
                 const coverImg = (p.images && p.images.length > 0) ? p.images[0] : (p.img || "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80");
                 const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+                const isLiked = wishlist.some(item => item.name === p.name);
 
                 html += `
                     <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition flex flex-col justify-between group cursor-pointer" data-category="${p.category}">
@@ -775,6 +860,17 @@
                             <div class="relative bg-slate-100 overflow-hidden w-full aspect-[3/4]">
                                 <img src="${coverImg}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                                 <span class="absolute top-2 left-2 bg-blue-600 text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow">${p.tag || "Best Seller"}</span>
+                                
+                                <!-- Like & Share Action Buttons -->
+                                <div class="absolute top-2 right-2 flex flex-col gap-1.5 z-10">
+                                    <button type="button" onclick="toggleWishlist(${idx}, event)" class="w-7 h-7 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-xs ${isLiked ? 'text-rose-600' : 'text-slate-600 hover:text-rose-600'}">
+                                        <i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                                    </button>
+                                    <button type="button" onclick="shareProduct(${idx}, event)" class="w-7 h-7 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-xs text-slate-600 hover:text-blue-600">
+                                        <i class="fa-solid fa-share-nodes"></i>
+                                    </button>
+                                </div>
+
                                 ${p.images && p.images.length > 1 ? `<span class="absolute bottom-2 right-2 bg-slate-900/80 backdrop-blur text-white text-[9px] font-bold px-1.5 py-0.2 rounded"><i class="fa-solid fa-images mr-0.5"></i>${p.images.length}</span>` : ''}
                             </div>
                             <div class="p-2 sm:p-3">
@@ -1023,6 +1119,7 @@
             renderBannerSlider();
             renderProducts();
             updateCartBadge();
+            updateWishlistBadges();
         }
 
         function openHelpModal() { document.getElementById('helpModal').classList.remove('hidden'); }
@@ -1189,22 +1286,16 @@
             }
         }
 
-        function addNewBannerSlide() {
-            banners.push({
-                id: Date.now(),
-                title: "Banner Slide " + (banners.length + 1),
-                customImg: "https://images.unsplash.com/photo-1544441893-675973e31985?w=1600&auto=format&fit=crop&q=80"
-            });
-            loadAdminDashboardData();
-        }
-
+        // CONFIRMATION POPUP BEFORE DELETING BANNER
         function deleteBannerSlide(idx) {
             if (banners.length <= 1) {
                 alert("Kam se kam 1 banner slide hona zaroori hai!");
                 return;
             }
-            banners.splice(idx, 1);
-            loadAdminDashboardData();
+            if (confirm("⚠️ Kya aap sach mein is banner slide ko delete karna chahte hain?")) {
+                banners.splice(idx, 1);
+                loadAdminDashboardData();
+            }
         }
 
         async function handleBannerUpload(e, index) {
@@ -1217,6 +1308,15 @@
             const cloudUrl = await uploadFileToPermanentCloud(file);
             banners[index].customImg = cloudUrl;
             if(uploadStatusText) uploadStatusText.innerText = "✅ Uploaded!";
+            loadAdminDashboardData();
+        }
+
+        function addNewBannerSlide() {
+            banners.push({
+                id: Date.now(),
+                title: "Banner Slide " + (banners.length + 1),
+                customImg: "https://images.unsplash.com/photo-1544441893-675973e31985?w=1600&auto=format&fit=crop&q=80"
+            });
             loadAdminDashboardData();
         }
 
@@ -1238,6 +1338,18 @@
                 images: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"] 
             });
             loadAdminDashboardData();
+        }
+
+        // CONFIRMATION POPUP BEFORE DELETING PRODUCT
+        function deleteProduct(idx) {
+            if (products.length <= 1) {
+                alert("Kam se kam 1 product hona zaroori hai!");
+                return;
+            }
+            if (confirm("⚠️ Kya aap sach mein is product ko catalog se delete karna chahte hain?")) {
+                products.splice(idx, 1);
+                loadAdminDashboardData();
+            }
         }
 
         async function appendSingleImage(e, productIdx) {
@@ -1267,8 +1379,10 @@
                 alert("Kam se kam 1 photo hona zaroori hai!");
                 return;
             }
-            products[productIdx].images.splice(imgIdx, 1);
-            loadAdminDashboardData();
+            if (confirm("⚠️ Kya aap is photo ko gallery se hatana chahte hain?")) {
+                products[productIdx].images.splice(imgIdx, 1);
+                loadAdminDashboardData();
+            }
         }
 
         function loadAdminDashboardData() {
@@ -1308,7 +1422,7 @@
                         <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl space-y-2.5">
                             <div class="flex justify-between items-center border-b pb-1.5">
                                 <span class="text-xs font-black text-slate-900">Product #${idx+1} Control</span>
-                                <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-[11px] font-bold hover:underline">Delete Product</button>
+                                <button onclick="deleteProduct(${idx})" class="text-rose-600 text-[11px] font-bold hover:underline">Delete Product</button>
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                                 <div>
@@ -1405,14 +1519,6 @@
                     if(descEl) p.desc = descEl.value;
                 });
 
-                // BYPASS LOCALSTORAGE QUOTA EXCEEDED BY STORING ONLY LIGHTWEIGHT REFERENCES OR DIRECT CLOUD SYNC
-                try {
-                    localStorage.setItem('senshoProducts', JSON.stringify(products));
-                    localStorage.setItem('senshoBanners', JSON.stringify(banners));
-                } catch(quotaErr) {
-                    console.warn("LocalStorage quota full, bypassing local cache and syncing directly to cloud sheet.");
-                }
-
                 if (GOOGLE_SCRIPT_URL) {
                     await fetch(GOOGLE_SCRIPT_URL, {
                         method: "POST",
@@ -1426,7 +1532,7 @@
                     });
                 }
 
-                alert("🎉 SUCCESS! Quota error bypassed & Data Google Cloud Sheet par 100% live sync ho gaya hai!");
+                alert("🎉 SUCCESS! Saara data Google Cloud Sheet me successfully sync ho gaya hai!");
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
                 updateUI();
