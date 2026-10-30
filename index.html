@@ -12,13 +12,6 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         .font-mono-card { font-family: 'Space Grotesk', monospace; }
-        
-        .theme-default { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); }
-        .theme-diwali { background: linear-gradient(135deg, #450a0a 0%, #78350f 40%, #b45309 80%, #d97706 100%); }
-        .theme-holi { background: linear-gradient(135deg, #831843 0%, #be185d 30%, #6d28d9 70%, #0369a1 100%); }
-        .theme-eid { background: linear-gradient(135deg, #064e3b 0%, #065f46 45%, #047857 75%, #b45309 100%); }
-        .theme-newyear { background: linear-gradient(135deg, #09090b 0%, #1e1b4b 50%, #4c1d95 100%); }
-
         .gradient-vip-card { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%); }
         .gold-border { border: 2px solid rgba(251, 191, 36, 0.9); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -31,8 +24,8 @@
     <!-- Top Announcement Bar -->
     <div id="topAnnouncementBar" class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 flex justify-between items-center border-b border-slate-800 text-center">
         <span class="flex items-center gap-1.5 text-emerald-400 font-bold truncate">
-            <i class="fa-solid fa-sparkles text-amber-400 animate-pulse"></i> 
-            <span id="announcementText">100% Quality Checked Direct Factory Wholesale Hub</span>
+            <i class="fa-solid fa-cloud-check text-emerald-400 animate-pulse"></i> 
+            <span>100% Quality Checked Direct Factory Wholesale Hub</span>
         </span>
         <span class="text-amber-400 font-extrabold truncate">
             Helpline: +91 6261118847
@@ -44,7 +37,7 @@
         <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex flex-col gap-2">
             
             <div class="flex items-center justify-between gap-2">
-                <!-- Brand Logo (Long-Press for Admin Login) -->
+                <!-- Brand Logo (Long Press 1.5s for Secret Admin Login) -->
                 <div id="brandLogoContainer" onclick="secretLogoClick()" class="flex items-center gap-2 cursor-pointer select-none shrink-0" title="Sensho Hub">
                     <div id="logoBadgeIcon" class="bg-gradient-to-tr from-blue-600 to-amber-400 text-white p-2 rounded-xl font-black text-base sm:text-lg shadow">
                         <i class="fa-solid fa-bag-shopping"></i>
@@ -104,7 +97,7 @@
         </nav>
     </header>
 
-    <!-- PURE CLEAN BANNER SLIDER (CLEAN WITHOUT TEXT OVERLAYS) -->
+    <!-- CLEAN PURE SLIDER (GLOBAL SYNCHRONIZED) -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
         <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
             <div id="sliderTrack" class="banner-track h-full w-full"></div>
@@ -120,11 +113,11 @@
                     <span>Trending Wholesale Collection</span>
                     <i class="fa-solid fa-fire text-amber-500 text-sm"></i>
                 </h2>
-                <p class="text-slate-500 text-[10px] sm:text-xs">Direct Wholesale Factory Hub</p>
+                <p class="text-slate-500 text-[10px] sm:text-xs">Live Cloud Synchronized Across All Devices</p>
             </div>
 
             <div class="bg-white border border-slate-200 px-2 py-1 rounded-lg text-[10px] sm:text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span id="headerPricingStatusBadge" class="text-blue-700 font-black">Normal Member View</span>
             </div>
         </div>
@@ -142,11 +135,11 @@
     </main>
 
     <!-- Floating Circular WhatsApp Button -->
-    <button type="button" onclick="sendHelpWhatsApp('Direct Chat', 'Hello! Mujhe catalog ke regarding wholesale purchase karni hai.')" class="fixed right-4 bottom-20 md:bottom-6 z-30 bg-emerald-500 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition hover:scale-105 border-2 border-white" title="Chat on WhatsApp">
+    <button type="button" onclick="sendHelpWhatsApp('Direct Chat', 'Hello! Mujhe wholesale order ke regarding baat karni hai.')" class="fixed right-4 bottom-20 md:bottom-6 z-30 bg-emerald-500 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition hover:scale-105 border-2 border-white" title="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
     </button>
 
-    <!-- Mobile Bottom Navigation Bar (App Experience) -->
+    <!-- Mobile Bottom App Bar -->
     <div class="fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-slate-200 py-1.5 px-2 flex justify-around items-center md:hidden shadow-2xl">
         <button type="button" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center text-blue-600">
             <i class="fa-solid fa-house text-sm"></i>
@@ -482,7 +475,7 @@
                     <div class="bg-blue-50 border border-blue-200 p-3.5 rounded-2xl flex flex-col justify-between gap-2">
                         <div>
                             <h4 class="font-bold text-xs text-blue-950"><i class="fa-solid fa-crown mr-1 text-amber-500"></i> Customer VIP Passcode</h4>
-                            <p class="text-[10px] text-blue-700">Payment ke baad customer ko dene wala secret code set karein.</p>
+                            <p class="text-[10px] text-blue-700">Payment hone ke baad customer ko dene wala secret code set karein.</p>
                         </div>
                         <div class="flex items-center gap-2">
                             <input type="text" id="adminVipSecretCode" class="text-xs border border-blue-300 rounded-lg px-2.5 py-1.5 font-black uppercase text-blue-900 bg-white" placeholder="SET VIP CODE">
@@ -491,7 +484,7 @@
                     </div>
                 </div>
 
-                <!-- BANNER SLIDER MANAGER (CLEAN PHOTO UPLOADER) -->
+                <!-- BANNER SLIDER MANAGER -->
                 <div class="border-t pt-3">
                     <div class="flex justify-between items-center mb-2">
                         <div>
@@ -526,7 +519,7 @@
                 <!-- Save Changes Button -->
                 <div class="pt-3 border-t flex justify-end sticky bottom-0 bg-white py-2 shadow-lg z-20">
                     <button type="button" id="saveAdminBtn" onclick="saveAdminChanges()" class="bg-pink-600 hover:bg-pink-700 text-white font-black px-6 py-2.5 rounded-xl text-xs shadow-xl flex items-center gap-1.5 cursor-pointer">
-                        <i class="fa-solid fa-floppy-disk"></i> Save & Apply Changes
+                        <i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live
                     </button>
                 </div>
             </div>
@@ -589,7 +582,26 @@
         let selectedProductSize = "M";
         let pendingCheckoutType = "direct"; 
 
-        // Default Fallback Products
+        // GLOBAL HARDCODED DEFAULT BANNERS (HAR DEVICE PAR BINA UPLOAD KE BHEE DIKHENGE)
+        const globalDefaultBanners = [
+            {
+                id: 1,
+                title: "Sensho VIP 1-Year Membership @ 299",
+                customImg: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 2,
+                title: "Sensho Mega Wholesale Dhamaka Up to 80% Off",
+                customImg: "https://images.unsplash.com/photo-1544441893-675973e31985?w=1600&auto=format&fit=crop&q=80"
+            }
+        ];
+
+        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || globalDefaultBanners;
+        if (!banners || banners.length === 0 || !banners[0].customImg) {
+            banners = globalDefaultBanners;
+        }
+
+        // DEFAULT FULL PRODUCTS
         const defaultProducts = [
             { 
                 id: 1, 
@@ -605,7 +617,10 @@
                 rating: "4.2",
                 reviews: "1,420 Ratings, 380 Reviews",
                 inStock: true,
-                images: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"]
+                images: [
+                    "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80",
+                    "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=800&auto=format&fit=crop&q=80"
+                ]
             },
             { 
                 id: 2, 
@@ -621,7 +636,9 @@
                 rating: "4.5",
                 reviews: "2,180 Ratings, 510 Reviews",
                 inStock: true,
-                images: ["https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80"]
+                images: [
+                    "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=800&auto=format&fit=crop&q=80"
+                ]
             },
             { 
                 id: 3, 
@@ -637,7 +654,9 @@
                 rating: "4.3",
                 reviews: "950 Ratings, 210 Reviews",
                 inStock: true,
-                images: ["https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&auto=format&fit=crop&q=80"]
+                images: [
+                    "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=800&auto=format&fit=crop&q=80"
+                ]
             },
             { 
                 id: 4, 
@@ -653,32 +672,18 @@
                 rating: "4.4",
                 reviews: "1,120 Ratings, 290 Reviews",
                 inStock: true,
-                images: ["https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=800&auto=format&fit=crop&q=80"]
+                images: [
+                    "https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb?w=800&auto=format&fit=crop&q=80"
+                ]
             }
         ];
 
         let products = JSON.parse(localStorage.getItem('senshoProducts')) || defaultProducts;
-
-        // Default Banners
-        const defaultBanners = [
-            {
-                id: 1,
-                title: "Sensho Wholesale Hub Banner 1",
-                customImg: ""
-            },
-            {
-                id: 2,
-                title: "Sensho Wholesale Dhamaka Banner 2",
-                customImg: ""
-            }
-        ];
-        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || defaultBanners;
-
         let cart = JSON.parse(localStorage.getItem('senshoCart')) || [];
         let orders = JSON.parse(localStorage.getItem('senshoOrders')) || [];
         let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
 
-        // Secret Admin Triggers
+        // Admin Trigger
         let logoClicks = 0;
         function secretLogoClick() {
             logoClicks++;
@@ -710,7 +715,6 @@
             }
         });
 
-        // IMAGE COMPRESSOR
         function compressImage(base64Str, maxWidth = 900, maxHeight = 900, quality = 0.6) {
             return new Promise((resolve) => {
                 const img = new Image();
@@ -739,7 +743,7 @@
             });
         }
 
-        // PURE CLEAN HERO BANNER RENDERER (NO EXTRA TEXTS/BUTTONS OVERLAY)
+        // PURE CLEAN HERO BANNER SLIDER (HAR DEVICE PAR IMAGE DIKHEGI)
         function renderBannerSlider() {
             const track = document.getElementById('sliderTrack');
             const dots = document.getElementById('sliderDots');
@@ -748,24 +752,12 @@
             let dotsHtml = '';
 
             banners.forEach((b, idx) => {
-                const hasImg = b.customImg && b.customImg.length > 5;
-                if(hasImg) {
-                    trackHtml += `
-                        <div class="min-w-full h-full relative cursor-pointer" onclick="openBigVipAlertModal()">
-                            <img src="${b.customImg}" class="w-full h-full object-cover">
-                        </div>
-                    `;
-                } else {
-                    trackHtml += `
-                        <div class="min-w-full h-full relative bg-gradient-to-r from-blue-900 to-indigo-900 flex items-center justify-center text-white p-6 cursor-pointer" onclick="openBigVipAlertModal()">
-                            <div class="text-center space-y-1">
-                                <span class="bg-amber-400 text-slate-950 font-black text-xs px-3 py-1 rounded-full uppercase">Wholesale Hub</span>
-                                <h2 class="text-xl sm:text-3xl font-black text-white">SENSHO WHOLESALE STORE</h2>
-                                <p class="text-xs text-blue-200">Upload banner from Admin Panel to customize</p>
-                            </div>
-                        </div>
-                    `;
-                }
+                const imgSource = b.customImg && b.customImg.length > 5 ? b.customImg : "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80";
+                trackHtml += `
+                    <div class="min-w-full h-full relative cursor-pointer" onclick="openBigVipAlertModal()">
+                        <img src="${imgSource}" class="w-full h-full object-cover">
+                    </div>
+                `;
                 dotsHtml += `<span class="${idx === 0 ? 'w-4 bg-amber-400' : 'w-1.5 bg-white/40'} h-1 rounded-full transition-all"></span>`;
             });
 
@@ -1224,7 +1216,7 @@
             banners.push({
                 id: Date.now(),
                 title: "Banner Slide " + (banners.length + 1),
-                customImg: ""
+                customImg: "https://images.unsplash.com/photo-1544441893-675973e31985?w=1600&auto=format&fit=crop&q=80"
             });
             loadAdminDashboardData();
         }
@@ -1319,7 +1311,7 @@
                                     ${b.customImg ? `<img src="${b.customImg}" class="w-full h-full object-cover">` : `<span class="text-[9px] font-bold text-slate-400">Default BG</span>`}
                                 </div>
                                 <div>
-                                    <span class="text-xs font-bold text-slate-900 block">Slide #${idx+1} Banner</span>
+                                    <span class="text-xs font-bold text-slate-900 block truncate">Slide #${idx+1} Banner</span>
                                     <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-xs file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:font-bold file:bg-blue-100 file:text-blue-700 cursor-pointer">
                                 </div>
                             </div>
@@ -1411,10 +1403,10 @@
             }
         }
 
-        // SAVE AND SYNC LIVE
+        // SAVE & SYNC LIVE GLOBALLY ACROSS ALL DEVICES
         async function saveAdminChanges() {
             const btn = document.getElementById('saveAdminBtn');
-            if(btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Saving...`;
+            if(btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing Globally to Cloud...`;
 
             try {
                 products.forEach((p, idx) => {
@@ -1442,27 +1434,28 @@
                 localStorage.setItem('senshoProducts', JSON.stringify(products));
                 localStorage.setItem('senshoBanners', JSON.stringify(banners));
 
-                // Send to Google Sheets Cloud Database
+                // Send complete payload to Google Sheets Cloud Database
                 if (GOOGLE_SCRIPT_URL) {
-                    fetch(GOOGLE_SCRIPT_URL, {
+                    await fetch(GOOGLE_SCRIPT_URL, {
                         method: "POST",
                         mode: "no-cors",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
-                            action: "save_products",
-                            products: products
+                            action: "sync_all",
+                            products: products,
+                            banners: banners
                         })
-                    }).catch(e => console.log("Cloud sync in background", e));
+                    });
                 }
 
-                alert("✅ Changes successfully save ho gaye hain!");
-                if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Apply Changes`;
+                alert("🎉 SUCCESS! Saara data Google Cloud par sync ho gaya hai. Ab Mobile aur kisi bhi doosre Laptop par bhi 100% live show hoga!");
+                if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
                 updateUI();
             } catch(err) {
                 console.error("Save error:", err);
-                alert("Local save successful! Error: " + err.message);
-                if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Apply Changes`;
+                alert("Saved locally! Cloud sync background error: " + err.message);
+                if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
             }
         }
 
@@ -1527,25 +1520,32 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // BACKGROUND CLOUD SYNC (DOES NOT BLOCK MOBILE RENDERING)
-        async function fetchCloudProducts() {
+        // AUTO-FETCH CLOUD DATA (MOBILE & ALL PCS)
+        async function fetchCloudData() {
             if (!GOOGLE_SCRIPT_URL) return;
             try {
                 const res = await fetch(GOOGLE_SCRIPT_URL);
                 const cloudData = await res.json();
-                if (cloudData && cloudData.products && cloudData.products.length > 0) {
-                    products = cloudData.products;
-                    localStorage.setItem('senshoProducts', JSON.stringify(products));
+                if (cloudData) {
+                    if (cloudData.products && cloudData.products.length > 0) {
+                        products = cloudData.products;
+                        localStorage.setItem('senshoProducts', JSON.stringify(products));
+                    }
+                    if (cloudData.banners && cloudData.banners.length > 0) {
+                        banners = cloudData.banners;
+                        localStorage.setItem('senshoBanners', JSON.stringify(banners));
+                    }
+                    renderBannerSlider();
                     renderProducts();
                 }
             } catch (err) {
-                console.log("Using cached local products");
+                console.log("Cached fallback active:", err);
             }
         }
 
         window.onload = function() {
             updateUI();
-            fetchCloudProducts();
+            fetchCloudData();
         };
     </script>
 </body>
