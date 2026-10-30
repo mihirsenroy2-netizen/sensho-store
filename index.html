@@ -16,7 +16,8 @@
         .gold-border { border: 2px solid rgba(251, 191, 36, 0.9); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .banner-track { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .banner-track { display: flex; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: grab; user-select: none; }
+        .banner-track:active { cursor: grabbing; }
     </style>
 </head>
 <body id="mainBodyTheme" class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
@@ -24,7 +25,7 @@
     <!-- Top Announcement Bar -->
     <div id="topAnnouncementBar" class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 text-center border-b border-slate-800">
         <span class="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
-            <i class="fa-solid fa-cloud-check text-emerald-400 animate-pulse"></i> 
+            <i class="fa-solid fa-bolt text-amber-400 animate-pulse"></i> 
             <span>100% Quality Checked Direct Factory Wholesale Hub</span>
         </span>
     </div>
@@ -101,9 +102,9 @@
         </nav>
     </header>
 
-    <!-- CLEAN PURE SLIDER -->
+    <!-- SWIPEABLE TOUCH BANNER SLIDER -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
-        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
+        <div id="bannerContainer" class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
             <div id="sliderTrack" class="banner-track h-full w-full"></div>
             <div class="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
         </div>
@@ -117,7 +118,7 @@
                     <span>Trending Wholesale Collection</span>
                     <i class="fa-solid fa-fire text-amber-500 text-sm"></i>
                 </h2>
-                <p class="text-slate-500 text-[10px] sm:text-xs">Live Factory Cloud Sync Active</p>
+                <p class="text-slate-500 text-[10px] sm:text-xs">Instant Lightning Speed Active</p>
             </div>
 
             <div class="bg-white border border-slate-200 px-2 py-1 rounded-lg text-[10px] sm:text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
@@ -624,7 +625,7 @@
             }
         ];
 
-        let banners = defaultBanners;
+        let banners = JSON.parse(localStorage.getItem('senshoCachedBanners')) || defaultBanners;
 
         const defaultProducts = [
             { 
@@ -693,7 +694,7 @@
             }
         ];
 
-        let products = defaultProducts;
+        let products = JSON.parse(localStorage.getItem('senshoCachedProducts')) || defaultProducts;
         let cart = JSON.parse(localStorage.getItem('senshoCart')) || [];
         let wishlist = JSON.parse(localStorage.getItem('senshoWishlist')) || [];
         let orders = JSON.parse(localStorage.getItem('senshoOrders')) || [];
@@ -752,6 +753,7 @@
             });
         }
 
+        // SWIPEABLE / TOUCH DRAGGABLE BANNER SLIDER LOGIC
         function renderBannerSlider() {
             const track = document.getElementById('sliderTrack');
             const dots = document.getElementById('sliderDots');
@@ -762,11 +764,11 @@
             banners.forEach((b, idx) => {
                 const imgSource = b.customImg && b.customImg.length > 5 ? b.customImg : "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80";
                 trackHtml += `
-                    <div class="min-w-full h-full relative cursor-pointer" onclick="openBigVipAlertModal()">
-                        <img src="${imgSource}" class="w-full h-full object-cover">
+                    <div class="min-w-full h-full relative cursor-pointer shrink-0" onclick="openBigVipAlertModal()">
+                        <img src="${imgSource}" class="w-full h-full object-cover pointer-events-none">
                     </div>
                 `;
-                dotsHtml += `<span class="${idx === 0 ? 'w-4 bg-amber-400' : 'w-1.5 bg-white/40'} h-1 rounded-full transition-all"></span>`;
+                dotsHtml += `<span class="${idx === currentSlide ? 'w-4 bg-amber-400' : 'w-1.5 bg-white/40'} h-1 rounded-full transition-all"></span>`;
             });
 
             track.innerHTML = trackHtml;
@@ -774,9 +776,15 @@
         }
 
         let currentSlide = 0;
+        let slideInterval = setInterval(autoSlideBanner, 3500);
+
         function autoSlideBanner() {
             if (!banners.length) return;
             currentSlide = (currentSlide + 1) % banners.length;
+            updateSlidePosition();
+        }
+
+        function updateSlidePosition() {
             const track = document.getElementById('sliderTrack');
             if (track) {
                 track.style.transform = `translateX(-${currentSlide * 100}%)`;
@@ -788,7 +796,59 @@
                 });
             }
         }
-        setInterval(autoSlideBanner, 2800);
+
+        // Touch & Mouse Drag Listeners for Banner Slider
+        let isDragging = false;
+        let startPos = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const sliderContainer = document.getElementById('bannerContainer');
+            const track = document.getElementById('sliderTrack');
+
+            if(sliderContainer && track) {
+                sliderContainer.addEventListener('touchstart', touchStart);
+                sliderContainer.addEventListener('touchend', touchEnd);
+                sliderContainer.addEventListener('touchmove', touchMove);
+
+                sliderContainer.addEventListener('mousedown', touchStart);
+                sliderContainer.addEventListener('mouseup', touchEnd);
+                sliderContainer.addEventListener('mouseleave', touchEnd);
+                sliderContainer.addEventListener('mousemove', touchMove);
+            }
+        });
+
+        function getPositionX(event) {
+            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+        }
+
+        function touchStart(event) {
+            isDragging = true;
+            startPos = getPositionX(event);
+            clearInterval(slideInterval);
+        }
+
+        function touchMove(event) {
+            if (!isDragging) return;
+            const currentPosition = getPositionX(event);
+            const diff = currentPosition - startPos;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0 && currentSlide > 0) {
+                    currentSlide--;
+                } else if (diff < 0 && currentSlide < banners.length - 1) {
+                    currentSlide++;
+                }
+                isDragging = false;
+                updateSlidePosition();
+                slideInterval = setInterval(autoSlideBanner, 3500);
+            }
+        }
+
+        function touchEnd() {
+            isDragging = false;
+            slideInterval = setInterval(autoSlideBanner, 3500);
+        }
 
         function toggleWishlist(index, event) {
             if(event) event.stopPropagation();
@@ -1335,7 +1395,7 @@
                 alert("Kam se kam 1 banner slide hona zaroori hai!");
                 return;
             }
-            if (confirm("⚠️ Kya aap sach mein is banner slide ko delete karna chahte hain?")) {
+            if (confirm("⚠️ Kya aap sach mein is banner slide को delete karna chahte hain?")) {
                 banners.splice(idx, 1);
                 loadAdminDashboardData();
             }
@@ -1574,6 +1634,9 @@
                     });
                 }
 
+                localStorage.setItem('senshoCachedProducts', JSON.stringify(products));
+                localStorage.setItem('senshoCachedBanners', JSON.stringify(banners));
+
                 alert("🎉 SUCCESS! Saara data Google Cloud Sheet me successfully sync ho gaya hai!");
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
@@ -1613,6 +1676,7 @@
             }
         }
 
+        // INSTANT LIGHTNING SPEED CLOUD SYNC ON LOAD
         async function fetchCloudData() {
             if (!GOOGLE_SCRIPT_URL) return;
             try {
@@ -1621,20 +1685,24 @@
                 if (cloudData) {
                     if (cloudData.products && cloudData.products.length > 0) {
                         products = cloudData.products;
+                        localStorage.setItem('senshoCachedProducts', JSON.stringify(products));
                     }
                     if (cloudData.banners && cloudData.banners.length > 0) {
                         banners = cloudData.banners;
+                        localStorage.setItem('senshoCachedBanners', JSON.stringify(banners));
                     }
                     renderBannerSlider();
                     renderProducts();
                 }
             } catch (err) {
-                console.log("Cloud fetch active fallback:", err);
+                console.log("Using instant local cache fallback:", err);
             }
         }
 
         window.onload = function() {
             updateUI();
+            renderBannerSlider();
+            renderProducts();
             fetchCloudData();
         };
     </script>
