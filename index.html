@@ -24,8 +24,8 @@
     <!-- Top Announcement Bar -->
     <div id="topAnnouncementBar" class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 flex justify-between items-center border-b border-slate-800 text-center">
         <span class="flex items-center gap-1.5 text-emerald-400 font-bold truncate">
-            <i class="fa-solid fa-cloud-arrow-up text-emerald-400 animate-pulse"></i> 
-            <span>Live Cloud Sourced Direct Factory Wholesale Hub</span>
+            <i class="fa-solid fa-cloud-check text-emerald-400 animate-pulse"></i> 
+            <span>100% Quality Checked Direct Factory Wholesale Hub</span>
         </span>
         <span class="text-amber-400 font-extrabold truncate">
             Helpline: +91 6261118847
@@ -97,7 +97,7 @@
         </nav>
     </header>
 
-    <!-- CLEAN PURE SLIDER (GLOBAL SYNCHRONIZED) -->
+    <!-- PURE CLEAN HERO BANNER SLIDER -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
         <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
             <div id="sliderTrack" class="banner-track h-full w-full"></div>
@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <!-- Main Catalog Section (Meesho 2-Column Mobile Grid) -->
+    <!-- Main Catalog Section -->
     <main id="shop" class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-6">
         <div class="flex justify-between items-center mb-4 px-1">
             <div>
@@ -117,7 +117,7 @@
             </div>
 
             <div class="bg-white border border-slate-200 px-2 py-1 rounded-lg text-[10px] sm:text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
-                <span id="cloudStatusDot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span id="headerPricingStatusBadge" class="text-blue-700 font-black">Normal Member View</span>
             </div>
         </div>
@@ -475,7 +475,7 @@
                     <div class="bg-blue-50 border border-blue-200 p-3.5 rounded-2xl flex flex-col justify-between gap-2">
                         <div>
                             <h4 class="font-bold text-xs text-blue-950"><i class="fa-solid fa-crown mr-1 text-amber-500"></i> Customer VIP Passcode</h4>
-                            <p class="text-[10px] text-blue-700">Payment ke baad customer ko dene wala secret code set karein.</p>
+                            <p class="text-[10px] text-blue-700">Payment hone ke baad customer ko dene wala secret code set karein.</p>
                         </div>
                         <div class="flex items-center gap-2">
                             <input type="text" id="adminVipSecretCode" class="text-xs border border-blue-300 rounded-lg px-2.5 py-1.5 font-black uppercase text-blue-900 bg-white" placeholder="SET VIP CODE">
@@ -564,8 +564,14 @@
     <script>
         const WHATSAPP_NUMBER = "916261118847";
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyl76_eGhifisK-8TVYJv7i6XepU_WRwb16jL5sB1fa2JJTCV76itTgAvbUo9K_CrM/exec";
-        // FREE DIRECT IMAGE CLOUD HOSTING API
         const IMGBB_API_KEY = "6d207e02198a847aa5a0a0330f625680"; 
+        const CACHE_VERSION = "v_sensho_sync_46"; // Version bump clears stale dummy cache on other devices
+
+        if (localStorage.getItem('sensho_cache_ver') !== CACHE_VERSION) {
+            localStorage.removeItem('senshoProducts');
+            localStorage.removeItem('senshoBanners');
+            localStorage.setItem('sensho_cache_ver', CACHE_VERSION);
+        }
 
         let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
         let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
@@ -584,7 +590,8 @@
         let selectedProductSize = "M";
         let pendingCheckoutType = "direct"; 
 
-        const defaultBanners = [
+        // SCREENSHOT 48 AUTHENTIC BANNERS & PRODUCTS
+        const globalDefaultBanners = [
             {
                 id: 1,
                 title: "Sensho VIP 1-Year Membership @ 299",
@@ -597,7 +604,7 @@
             }
         ];
 
-        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || defaultBanners;
+        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || globalDefaultBanners;
 
         const defaultProducts = [
             { 
@@ -671,7 +678,6 @@
         let orders = JSON.parse(localStorage.getItem('senshoOrders')) || [];
         let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
 
-        // Secret Admin Triggers
         let logoClicks = 0;
         function secretLogoClick() {
             logoClicks++;
@@ -703,7 +709,6 @@
             }
         });
 
-        // DIRECT CLOUD IMAGE UPLOADER (CONVERTS GALLERY IMAGE TO PERMANENT HTTPS URL)
         async function uploadFileToPermanentCloud(file) {
             try {
                 const formData = new FormData();
@@ -717,9 +722,8 @@
                     return data.data.url;
                 }
             } catch(e) {
-                console.error("Cloud Image Error, falling back to base64:", e);
+                console.error("Cloud Image Error:", e);
             }
-            // Fallback
             return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onload = (e) => resolve(e.target.result);
@@ -727,7 +731,6 @@
             });
         }
 
-        // PURE CLEAN HERO BANNER SLIDER
         function renderBannerSlider() {
             const track = document.getElementById('sliderTrack');
             const dots = document.getElementById('sliderDots');
@@ -766,7 +769,6 @@
         }
         setInterval(autoSlideBanner, 2800);
 
-        // MEESHO 2-COLUMN PRODUCT GRID RENDERER
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
@@ -1195,7 +1197,6 @@
             }
         }
 
-        // BANNER SLIDER FUNCTIONS (CLEAN SLIDES)
         function addNewBannerSlide() {
             banners.push({
                 id: Date.now(),
@@ -1226,7 +1227,6 @@
             loadAdminDashboardData();
         }
 
-        // PRODUCT & MULTI-IMAGE GALLERY (UPTO 10 IMAGES)
         function addNewProduct() {
             products.push({ 
                 id: Date.now(), 
@@ -1278,12 +1278,10 @@
             loadAdminDashboardData();
         }
 
-        // LOAD ADMIN DASHBOARD
         function loadAdminDashboardData() {
             const vipInput = document.getElementById('adminVipSecretCode');
             if(vipInput) vipInput.value = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
 
-            // 1. BANNER SLIDER UI
             let bannerContainer = document.getElementById('adminBannerEditorList');
             if(bannerContainer) {
                 let bannerHtml = '';
@@ -1307,7 +1305,6 @@
                 bannerContainer.innerHTML = bannerHtml;
             }
 
-            // 2. PRODUCT MASTER MANAGER (MAX 10 PHOTOS)
             let container = document.getElementById('adminProductEditorList');
             if(container) {
                 let prodHtml = '';
@@ -1363,7 +1360,6 @@
                                 <textarea id="p-desc-${idx}" rows="2" class="w-full text-xs border rounded-lg p-1.5 font-medium bg-white">${p.desc || ''}</textarea>
                             </div>
 
-                            <!-- Gallery Upload (Upto 10 Photos) -->
                             <div class="bg-white p-2.5 rounded-xl border space-y-1.5">
                                 <div class="flex justify-between items-center">
                                     <span class="text-[10px] font-bold text-slate-700">Gallery Photos (${currentImages.length}/10 Photos)</span>
@@ -1388,7 +1384,6 @@
             }
         }
 
-        // SAVE & SYNC LIVE GLOBALLY ACROSS ALL DEVICES
         async function saveAdminChanges() {
             const btn = document.getElementById('saveAdminBtn');
             if(btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing Globally to Cloud...`;
@@ -1419,7 +1414,6 @@
                 localStorage.setItem('senshoProducts', JSON.stringify(products));
                 localStorage.setItem('senshoBanners', JSON.stringify(banners));
 
-                // Send complete payload to Google Sheets Cloud Database
                 if (GOOGLE_SCRIPT_URL) {
                     await fetch(GOOGLE_SCRIPT_URL, {
                         method: "POST",
@@ -1505,7 +1499,6 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // AUTO-FETCH CLOUD DATA (MOBILE & ALL PCS)
         async function fetchCloudData() {
             if (!GOOGLE_SCRIPT_URL) return;
             try {
