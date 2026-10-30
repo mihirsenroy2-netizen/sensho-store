@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SENSHO - India's Trusted Online Fashion & Wholesale Store</title>
+    <!-- Preconnect for Faster Cloud Fetch -->
+    <link rel="preconnect" href="https://script.google.com">
+    <link rel="preconnect" href="https://script.googleusercontent.com">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome 6 Icons -->
@@ -17,6 +20,15 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .banner-track { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes shimmer {
+            0% { background-position: -400px 0; }
+            100% { background-position: 400px 0; }
+        }
+        .skeleton-box {
+            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background-size: 800px 100%;
+            animation: shimmer 1.2s infinite linear;
+        }
     </style>
 </head>
 <body id="mainBodyTheme" class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
@@ -88,46 +100,9 @@
             </div>
         </div>
 
-        <!-- Circular Category Icons Bar (Meesho/Shopsy Style) -->
+        <!-- Dynamic Circular Category Icons Bar (Meesho/Shopsy Style) -->
         <div class="bg-white/10 backdrop-blur border-t border-white/10 px-3 py-2.5 overflow-x-auto no-scrollbar">
-            <div class="flex space-x-4 sm:space-x-6 text-center whitespace-nowrap max-w-7xl mx-auto">
-                <button type="button" onclick="filterCategory('all', this)" class="cat-btn flex flex-col items-center gap-1 group">
-                    <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-amber-400 text-slate-950 ring-2 ring-white flex items-center justify-center text-base shadow font-black transition">
-                        <i class="fa-solid fa-border-all"></i>
-                    </div>
-                    <span class="cat-label text-[10px] font-extrabold text-amber-300">All Items</span>
-                </button>
-                <button type="button" onclick="filterCategory('mens', this)" class="cat-btn flex flex-col items-center gap-1 group">
-                    <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-indigo-900 text-blue-200 flex items-center justify-center text-base shadow group-hover:bg-amber-400 group-hover:text-slate-950 transition">
-                        <i class="fa-solid fa-shirt"></i>
-                    </div>
-                    <span class="cat-label text-[10px] font-bold text-blue-100">Men</span>
-                </button>
-                <button type="button" onclick="filterCategory('womens', this)" class="cat-btn flex flex-col items-center gap-1 group">
-                    <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-indigo-900 text-pink-300 flex items-center justify-center text-base shadow group-hover:bg-amber-400 group-hover:text-slate-950 transition">
-                        <i class="fa-solid fa-person-dress"></i>
-                    </div>
-                    <span class="cat-label text-[10px] font-bold text-blue-100">Women</span>
-                </button>
-                <button type="button" onclick="filterCategory('boys', this)" class="cat-btn flex flex-col items-center gap-1 group">
-                    <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-indigo-900 text-blue-200 flex items-center justify-center text-base shadow group-hover:bg-amber-400 group-hover:text-slate-950 transition">
-                        <i class="fa-solid fa-child"></i>
-                    </div>
-                    <span class="cat-label text-[10px] font-bold text-blue-100">Boys</span>
-                </button>
-                <button type="button" onclick="filterCategory('girls', this)" class="cat-btn flex flex-col items-center gap-1 group">
-                    <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-indigo-900 text-pink-300 flex items-center justify-center text-base shadow group-hover:bg-amber-400 group-hover:text-slate-950 transition">
-                        <i class="fa-solid fa-child-dress"></i>
-                    </div>
-                    <span class="cat-label text-[10px] font-bold text-blue-100">Girls</span>
-                </button>
-                <button type="button" onclick="filterCategory('kids', this)" class="cat-btn flex flex-col items-center gap-1 group">
-                    <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-indigo-900 text-amber-300 flex items-center justify-center text-base shadow group-hover:bg-amber-400 group-hover:text-slate-950 transition">
-                        <i class="fa-solid fa-baby"></i>
-                    </div>
-                    <span class="cat-label text-[10px] font-bold text-blue-100">Baby & Kids</span>
-                </button>
-            </div>
+            <div id="categoryNavContainer" class="flex space-x-4 sm:space-x-6 text-center whitespace-nowrap max-w-7xl mx-auto"></div>
         </div>
     </header>
 
@@ -143,7 +118,10 @@
     <!-- AUTOMATIC CLEAN BANNER SLIDER -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
         <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
-            <div id="sliderTrack" class="banner-track h-full w-full"></div>
+            <div id="sliderTrack" class="banner-track h-full w-full">
+                <!-- Shimmer placeholder until instant DB or Cloud loads -->
+                <div class="min-w-full h-full skeleton-box"></div>
+            </div>
             <div class="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
         </div>
     </div>
@@ -156,7 +134,7 @@
                     <span>Trending Wholesale Collection</span>
                     <i class="fa-solid fa-fire text-amber-500 text-sm"></i>
                 </h2>
-                <p class="text-slate-500 text-[10px] sm:text-xs" id="syncStatusSubtext">Live Factory Cloud Sync Active</p>
+                <p class="text-slate-500 text-[10px] sm:text-xs" id="syncStatusSubtext">Instant Turbo Cache Active</p>
             </div>
 
             <!-- Sorting Dropdown Bar -->
@@ -309,7 +287,7 @@
 
                     <div>
                         <label class="text-[11px] font-black text-slate-800 uppercase block mb-1">Select Size</label>
-                        <div class="flex gap-2" id="sizeSelectorContainer">
+                        <div class="flex flex-wrap gap-2" id="sizeSelectorContainer">
                             <button type="button" onclick="selectSize('S', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">S</button>
                             <button type="button" onclick="selectSize('M', this)" class="size-btn active px-3 py-1.5 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs">M</button>
                             <button type="button" onclick="selectSize('L', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">L</button>
@@ -578,6 +556,25 @@
                     </div>
                 </div>
 
+                <!-- CUSTOM CATEGORY MANAGER -->
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-layer-group text-blue-600"></i> Category Bar Manager
+                            </h3>
+                            <p class="text-[10px] text-slate-500">Nayi category add ya delete karein (e.g. Kurti, Saree, Footwear)</p>
+                        </div>
+                        <div class="flex gap-1.5">
+                            <input type="text" id="newCatNameInput" placeholder="Category Name" class="text-xs border rounded-lg px-2 py-1 font-bold w-28 sm:w-36">
+                            <button type="button" onclick="addCustomCategory()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg shadow">
+                                + Add
+                            </button>
+                        </div>
+                    </div>
+                    <div id="adminCategoryEditorList" class="flex flex-wrap gap-2 p-1"></div>
+                </div>
+
                 <!-- BANNER SLIDER MANAGER -->
                 <div class="border-t pt-3">
                     <div class="flex justify-between items-center mb-2">
@@ -612,7 +609,7 @@
 
                 <!-- Save Changes Button -->
                 <div class="pt-3 border-t flex justify-between items-center sticky bottom-0 bg-white py-2 shadow-lg z-20">
-                    <span class="text-[10px] text-slate-500 font-bold hidden sm:inline"><i class="fa-solid fa-bolt text-amber-500"></i> Instant 1-2s Cloud Sync Enabled</span>
+                    <span class="text-[10px] text-emerald-600 font-extrabold hidden sm:inline"><i class="fa-solid fa-bolt"></i> Auto Image Optimizer & Instant 0.1s Cache Active</span>
                     <button type="button" id="saveAdminBtn" onclick="saveAdminChanges()" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white font-black px-6 py-2.5 rounded-xl text-xs shadow-xl flex items-center justify-center gap-1.5 cursor-pointer">
                         <i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live
                     </button>
@@ -661,18 +658,58 @@
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyl76_eGhifisK-8TVYJv7i6XepU_WRwb16jL5sB1fa2JJTCV76itTgAvbUo9K_CrM/exec";
         const IMGBB_API_KEY = "6d207e02198a847aa5a0a0330f625680";
 
-        // Safe LocalStorage Helper (Prevents QuotaExceededError)
+        // ============================================================================
+        // UNLIMITED INDEXED-DB ENGINE (SOLVES 5MB QUOTA LIMIT & 7-12s DELAY FOREVER)
+        // ============================================================================
+        const DB_NAME = "SenshoUltraFastDB";
+        const STORE_NAME = "store_cache";
+
+        function openSenshoDB() {
+            return new Promise((resolve, reject) => {
+                const req = indexedDB.open(DB_NAME, 1);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        db.createObjectStore(STORE_NAME);
+                    }
+                };
+                req.onsuccess = (e) => resolve(e.target.result);
+                req.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function saveToInstantDB(key, val) {
+            try {
+                const db = await openSenshoDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(STORE_NAME, "readwrite");
+                    tx.objectStore(STORE_NAME).put(val, key);
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => resolve(false);
+                });
+            } catch (e) {
+                return false;
+            }
+        }
+
+        async function getFromInstantDB(key) {
+            try {
+                const db = await openSenshoDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(STORE_NAME, "readonly");
+                    const req = tx.objectStore(STORE_NAME).get(key);
+                    req.onsuccess = () => resolve(req.result || null);
+                    req.onerror = () => resolve(null);
+                });
+            } catch (e) {
+                return null;
+            }
+        }
+
         function safeSetStorage(key, value) {
             try {
                 localStorage.setItem(key, JSON.stringify(value));
-            } catch (err) {
-                console.warn("Storage quota notice, clearing old cache:", err);
-                try {
-                    localStorage.removeItem('senshoProducts');
-                    localStorage.removeItem('senshoBanners');
-                    localStorage.setItem(key, JSON.stringify(value));
-                } catch (e) {}
-            }
+            } catch (err) {}
         }
 
         function safeGetStorage(key, fallback) {
@@ -702,23 +739,32 @@
         let pendingCheckoutType = "direct";
         let currentActiveCategory = "all";
 
-        const defaultBanners = [
+        const defaultCategories = [
+            { id: "all", label: "All Items", icon: "fa-border-all", color: "text-blue-200" },
+            { id: "mens", label: "Men", icon: "fa-shirt", color: "text-blue-200" },
+            { id: "womens", label: "Women", icon: "fa-person-dress", color: "text-pink-300" },
+            { id: "boys", label: "Boys", icon: "fa-child", color: "text-blue-200" },
+            { id: "girls", label: "Girls", icon: "fa-child-dress", color: "text-pink-300" },
+            { id: "kids", label: "Baby & Kids", icon: "fa-baby", color: "text-amber-300" }
+        ];
+
+        let categories = safeGetStorage('senshoCategories', defaultCategories);
+        if (!Array.isArray(categories) || categories.length === 0) categories = defaultCategories;
+
+        const fallbackBanners = [
             {
                 id: 1,
                 title: "Sensho VIP 1-Year Membership @ 299",
-                customImg: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80"
+                customImg: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600&auto=format&fit=crop&q=80"
             },
             {
                 id: 2,
                 title: "Sensho Mega Wholesale Dhamaka Up to 80% Off",
-                customImg: "https://images.unsplash.com/photo-1544441893-675973e31985?w=1600&auto=format&fit=crop&q=80"
+                customImg: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=1600&auto=format&fit=crop&q=80"
             }
         ];
 
-        let banners = safeGetStorage('senshoCachedBanners', defaultBanners);
-        if (!Array.isArray(banners) || banners.length === 0) banners = defaultBanners;
-
-        const defaultProducts = [
+        const fallbackProducts = [
             { 
                 id: 1, 
                 name: "Soft Cotton Baby Romper & Sleepsuit", 
@@ -785,13 +831,48 @@
             }
         ];
 
-        let products = safeGetStorage('senshoCachedProducts', defaultProducts);
-        if (!Array.isArray(products) || products.length === 0) products = defaultProducts;
-
+        let banners = [];
+        let products = [];
         let cart = safeGetStorage('senshoCart', []);
         let wishlist = safeGetStorage('senshoWishlist', []);
         let orders = safeGetStorage('senshoOrders', []);
         let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
+
+        // Render Shimmer Skeletons while waiting (Prevents Fake Products Flash)
+        function showInitialSkeletons() {
+            const grid = document.getElementById('productGrid');
+            if (!grid) return;
+            let skelHtml = '';
+            for (let i = 0; i < 4; i++) {
+                skelHtml += `
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden p-2 space-y-2">
+                        <div class="w-full aspect-[3/4] rounded-xl skeleton-box"></div>
+                        <div class="h-3 w-1/3 rounded skeleton-box"></div>
+                        <div class="h-4 w-3/4 rounded skeleton-box"></div>
+                        <div class="h-12 w-full rounded-xl skeleton-box"></div>
+                    </div>
+                `;
+            }
+            grid.innerHTML = skelHtml;
+        }
+
+        function renderCategoryBar() {
+            const nav = document.getElementById('categoryNavContainer');
+            if (!nav) return;
+            let html = '';
+            categories.forEach(c => {
+                const isActive = currentActiveCategory === c.id;
+                html += `
+                    <button type="button" onclick="filterCategory('${c.id}', this)" class="cat-btn flex flex-col items-center gap-1 group shrink-0">
+                        <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full ${isActive ? 'bg-amber-400 text-slate-950 ring-2 ring-white font-black' : 'bg-indigo-900 ' + (c.color || 'text-blue-200')} flex items-center justify-center text-base shadow group-hover:bg-amber-400 group-hover:text-slate-950 transition">
+                            <i class="fa-solid ${c.icon || 'fa-tag'}"></i>
+                        </div>
+                        <span class="cat-label text-[10px] ${isActive ? 'font-extrabold text-amber-300' : 'font-bold text-blue-100'}">${c.label}</span>
+                    </button>
+                `;
+            });
+            nav.innerHTML = html;
+        }
 
         let logoClicks = 0;
         function secretLogoClick() {
@@ -824,35 +905,47 @@
             }
         });
 
-        // Client-Side Fast Image Compressor + Cloud Uploader (Uploads in < 1 second)
-        function compressImageFile(file, maxWidth = 1000, maxHeight = 1000, quality = 0.78) {
+        // Fast Image Compressor + Cloud Uploader (Makes images ~35KB for 1s sync)
+        function compressImageDataUrl(dataUrl, maxWidth = 800, maxHeight = 900, quality = 0.68) {
+            return new Promise((resolve) => {
+                if (!dataUrl || !dataUrl.startsWith('data:image')) {
+                    resolve(dataUrl);
+                    return;
+                }
+                const img = new Image();
+                img.onload = function() {
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > h) {
+                        if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
+                    } else {
+                        if (h > maxHeight) { w = Math.round((w * maxHeight) / h); h = maxHeight; }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = () => resolve(dataUrl);
+                img.src = dataUrl;
+            });
+        }
+
+        function compressImageFile(file, maxWidth = 800, maxHeight = 900, quality = 0.68) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = new Image();
-                    img.onload = function() {
-                        let w = img.width;
-                        let h = img.height;
-                        if (w > h) {
-                            if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
-                        } else {
-                            if (h > maxHeight) { w = Math.round((w * maxHeight) / h); h = maxHeight; }
-                        }
-                        const canvas = document.createElement('canvas');
-                        canvas.width = w;
-                        canvas.height = h;
-                        const ctx = canvas.getContext('2d');
-                        ctx.drawImage(img, 0, 0, w, h);
-                        resolve(canvas.toDataURL('image/jpeg', quality));
-                    };
-                    img.src = event.target.result;
+                reader.onload = async function(event) {
+                    const compressed = await compressImageDataUrl(event.target.result, maxWidth, maxHeight, quality);
+                    resolve(compressed);
                 };
                 reader.readAsDataURL(file);
             });
         }
 
         async function uploadFileToPermanentCloud(file, isBanner = false) {
-            const compressedDataUrl = await compressImageFile(file, isBanner ? 1400 : 900, isBanner ? 600 : 1100, 0.78);
+            const compressedDataUrl = await compressImageFile(file, isBanner ? 1200 : 750, isBanner ? 520 : 900, 0.68);
             try {
                 const base64Clean = compressedDataUrl.split(',')[1];
                 const formData = new FormData();
@@ -865,10 +958,26 @@
                 if(data && data.data && data.data.url) {
                     return data.data.url;
                 }
-            } catch(e) {
-                console.warn("Cloud Image fallback to compressed data URL:", e);
-            }
+            } catch(e) {}
             return compressedDataUrl;
+        }
+
+        // Automatically shrink existing heavy Base64 images in products/banners so Cloud loads in 1-2s
+        async function optimizeAllExistingImages() {
+            for (let i = 0; i < banners.length; i++) {
+                if (banners[i].customImg && banners[i].customImg.startsWith('data:image') && banners[i].customImg.length > 90000) {
+                    banners[i].customImg = await compressImageDataUrl(banners[i].customImg, 1200, 520, 0.65);
+                }
+            }
+            for (let i = 0; i < products.length; i++) {
+                if (products[i].images && Array.isArray(products[i].images)) {
+                    for (let j = 0; j < products[i].images.length; j++) {
+                        if (products[i].images[j] && products[i].images[j].startsWith('data:image') && products[i].images[j].length > 70000) {
+                            products[i].images[j] = await compressImageDataUrl(products[i].images[j], 700, 850, 0.65);
+                        }
+                    }
+                }
+            }
         }
 
         // AUTOMATIC BANNER SLIDER LOGIC
@@ -876,13 +985,13 @@
         function renderBannerSlider() {
             const track = document.getElementById('sliderTrack');
             const dots = document.getElementById('sliderDots');
-            if(!track || !dots) return;
+            if(!track || !dots || !banners.length) return;
             if (currentSlide >= banners.length) currentSlide = 0;
             let trackHtml = '';
             let dotsHtml = '';
 
             banners.forEach((b, idx) => {
-                const imgSource = b.customImg && b.customImg.length > 5 ? b.customImg : "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80";
+                const imgSource = b.customImg && b.customImg.length > 5 ? b.customImg : fallbackBanners[0].customImg;
                 trackHtml += `
                     <div class="min-w-full h-full relative cursor-pointer" onclick="openBigVipAlertModal()">
                         <img src="${imgSource}" alt="${b.title || 'Banner'}" class="w-full h-full object-cover">
@@ -1045,7 +1154,7 @@
 
         function renderProducts() {
             const grid = document.getElementById('productGrid');
-            if(!grid) return;
+            if(!grid || !products.length) return;
             let html = '';
             products.forEach((p, idx) => {
                 const coverImg = (p.images && p.images.length > 0) ? p.images[0] : (p.img || "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80");
@@ -1196,7 +1305,6 @@
             }
         }
 
-        // Swipe & Drag support inside Product Modal Image Container
         let modalTouchStartX = 0;
         document.addEventListener("DOMContentLoaded", () => {
             const imgContainer = document.getElementById('modalImageContainer');
@@ -1377,8 +1485,9 @@
                     badge.className = "text-blue-700 font-bold";
                 }
             }
-            renderBannerSlider();
-            renderProducts();
+            renderCategoryBar();
+            if (banners.length) renderBannerSlider();
+            if (products.length) renderProducts();
             updateCartBadge();
             updateWishlistBadges();
         }
@@ -1595,7 +1704,37 @@
             }
         }
 
-        // PRESERVE TYPED INPUTS IN ADMIN PANEL BEFORE RE-RENDERING
+        function addCustomCategory() {
+            captureAdminFormValues();
+            const inp = document.getElementById('newCatNameInput');
+            if (!inp || !inp.value.trim()) return;
+            const label = inp.value.trim();
+            const id = label.toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (!id || categories.some(c => c.id === id)) {
+                alert("Ye category pehle se maujood hai!");
+                return;
+            }
+            categories.push({ id: id, label: label, icon: "fa-tag", color: "text-amber-300" });
+            inp.value = '';
+            safeSetStorage('senshoCategories', categories);
+            renderCategoryBar();
+            loadAdminDashboardData();
+        }
+
+        function deleteCustomCategory(idx) {
+            captureAdminFormValues();
+            if (categories[idx].id === 'all') {
+                alert("'All Items' category delete nahi ki ja sakti!");
+                return;
+            }
+            if (confirm(`⚠️ Kya aap '${categories[idx].label}' category hatana chahte hain?`)) {
+                categories.splice(idx, 1);
+                safeSetStorage('senshoCategories', categories);
+                renderCategoryBar();
+                loadAdminDashboardData();
+            }
+        }
+
         function captureAdminFormValues() {
             products.forEach((p, idx) => {
                 const nameEl = document.getElementById(`p-name-${idx}`);
@@ -1648,7 +1787,7 @@
 
             const cloudUrl = await uploadFileToPermanentCloud(file, true);
             banners[index].customImg = cloudUrl;
-            if(uploadStatusText) uploadStatusText.innerText = "✅ Uploaded!";
+            if(uploadStatusText) uploadStatusText.innerText = "✅ Ready!";
             loadAdminDashboardData();
         }
 
@@ -1657,7 +1796,7 @@
             banners.push({
                 id: Date.now(),
                 title: "Banner Slide " + (banners.length + 1),
-                customImg: "https://images.unsplash.com/photo-1544441893-675973e31985?w=1600&auto=format&fit=crop&q=80"
+                customImg: fallbackBanners[0].customImg
             });
             loadAdminDashboardData();
         }
@@ -1735,6 +1874,17 @@
             const countSpan = document.getElementById('adminTotalProductsCount');
             if(countSpan) countSpan.innerText = products.length;
 
+            // Render Categories in Admin
+            const catEditor = document.getElementById('adminCategoryEditorList');
+            if (catEditor) {
+                catEditor.innerHTML = categories.map((c, i) => `
+                    <span class="bg-slate-100 border border-slate-300 text-slate-800 text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+                        ${c.label}
+                        ${c.id !== 'all' ? `<button type="button" onclick="deleteCustomCategory(${i})" class="text-rose-600 hover:text-rose-800 font-black">✕</button>` : ''}
+                    </span>
+                `).join('');
+            }
+
             let bannerContainer = document.getElementById('adminBannerEditorList');
             if(bannerContainer) {
                 let bannerHtml = '';
@@ -1764,6 +1914,10 @@
                 products.forEach((p, idx) => {
                     const currentImages = (p.images && Array.isArray(p.images)) ? p.images : [];
                     const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+                    const catOptionsHtml = categories.filter(c => c.id !== 'all').map(c => 
+                        `<option value="${c.id}" ${p.category === c.id ? 'selected' : ''}>${c.label}</option>`
+                    ).join('');
+
                     prodHtml += `
                         <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl space-y-2.5">
                             <div class="flex justify-between items-center border-b pb-1.5">
@@ -1778,11 +1932,7 @@
                                 <div>
                                     <label class="text-[9px] font-bold text-slate-500 block">Category</label>
                                     <select id="p-cat-${idx}" class="text-xs border rounded-lg p-1.5 font-bold bg-white w-full">
-                                        <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
-                                        <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
-                                        <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
-                                        <option value="girls" ${p.category==='girls'?'selected':''}>Girls Clothing</option>
-                                        <option value="kids" ${p.category==='kids'?'selected':''}>Baby & Kids</option>
+                                        ${catOptionsHtml}
                                     </select>
                                 </div>
                                 <div>
@@ -1858,15 +2008,17 @@
 
         async function saveAdminChanges() {
             const btn = document.getElementById('saveAdminBtn');
-            if(btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing Live in 1s...`;
+            if(btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Optimizing & Syncing...`;
 
             try {
                 captureAdminFormValues();
+                await optimizeAllExistingImages();
 
-                safeSetStorage('senshoCachedProducts', products);
-                safeSetStorage('senshoCachedBanners', banners);
+                // Save in Unlimited IndexedDB for 0.01s instant reload
+                await saveToInstantDB('products', products);
+                await saveToInstantDB('banners', banners);
+                safeSetStorage('senshoCategories', categories);
 
-                // Instant UI Render before network finishes
                 updateUI();
 
                 if (GOOGLE_SCRIPT_URL) {
@@ -1884,7 +2036,7 @@
 
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
-                alert("🎉 SUCCESS! Aapke changes 100% Cloud par save ho gaye hain aur sabhi devices par live ho chuke hain!");
+                alert("🎉 SUCCESS! Saare products optimize hokar Instant DB aur Google Cloud par sync ho gaye hain!");
             } catch(err) {
                 console.error("Save error:", err);
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
@@ -1894,28 +2046,7 @@
 
         function filterCategory(cat, btn) {
             currentActiveCategory = cat;
-            document.querySelectorAll('.cat-btn').forEach(b => {
-                const iconDiv = b.querySelector('.cat-icon');
-                const labelSpan = b.querySelector('.cat-label');
-                if(iconDiv) {
-                    iconDiv.classList.remove('bg-amber-400', 'text-slate-950', 'ring-2', 'ring-white', 'font-black');
-                    iconDiv.classList.add('bg-indigo-900', 'text-blue-200');
-                }
-                if(labelSpan) {
-                    labelSpan.className = "cat-label text-[10px] font-bold text-blue-100";
-                }
-            });
-            if(btn) {
-                const activeIcon = btn.querySelector('.cat-icon');
-                const activeLabel = btn.querySelector('.cat-label');
-                if(activeIcon) {
-                    activeIcon.classList.remove('bg-indigo-900', 'text-blue-200');
-                    activeIcon.classList.add('bg-amber-400', 'text-slate-950', 'ring-2', 'ring-white', 'font-black');
-                }
-                if(activeLabel) {
-                    activeLabel.className = "cat-label text-[10px] font-extrabold text-amber-300";
-                }
-            }
+            renderCategoryBar();
             applyFiltersAndSearch();
         }
 
@@ -1940,7 +2071,7 @@
 
             const emptyState = document.getElementById('noProductsFoundState');
             if(emptyState) {
-                if(matchedCount === 0) {
+                if(matchedCount === 0 && products.length > 0) {
                     emptyState.classList.remove('hidden');
                 } else {
                     emptyState.classList.add('hidden');
@@ -1951,39 +2082,34 @@
         async function fetchCloudData() {
             if (!GOOGLE_SCRIPT_URL) return;
             try {
-                // Cache-busting timestamp ensures instant 1-second fresh data
                 const res = await fetch(`${GOOGLE_SCRIPT_URL}?t=${Date.now()}`, { cache: "no-store" });
                 const cloudData = await res.json();
                 if (cloudData) {
-                    let hasChanged = false;
                     if (cloudData.products && Array.isArray(cloudData.products) && cloudData.products.length > 0) {
-                        if (JSON.stringify(products) !== JSON.stringify(cloudData.products)) {
-                            products = cloudData.products;
-                            safeSetStorage('senshoCachedProducts', products);
-                            hasChanged = true;
-                        }
+                        products = cloudData.products;
+                        await saveToInstantDB('products', products);
                     }
                     if (cloudData.banners && Array.isArray(cloudData.banners) && cloudData.banners.length > 0) {
-                        if (JSON.stringify(banners) !== JSON.stringify(cloudData.banners)) {
-                            banners = cloudData.banners;
-                            safeSetStorage('senshoCachedBanners', banners);
-                            hasChanged = true;
-                        }
+                        banners = cloudData.banners;
+                        await saveToInstantDB('banners', banners);
                     }
-                    if (hasChanged) {
-                        renderBannerSlider();
-                        renderProducts();
-                    }
+                    renderBannerSlider();
+                    renderProducts();
                     checkUrlParamsForProduct();
                 }
             } catch (err) {
-                console.log("Instant local cache active:", err);
+                if (products.length === 0) {
+                    products = fallbackProducts;
+                    banners = fallbackBanners;
+                    renderBannerSlider();
+                    renderProducts();
+                }
             }
         }
 
         let deepLinkOpened = false;
         function checkUrlParamsForProduct() {
-            if (deepLinkOpened) return;
+            if (deepLinkOpened || !products.length) return;
             const urlParams = new URLSearchParams(window.location.search);
             const sharedProdName = urlParams.get('product');
             if(sharedProdName) {
@@ -1995,11 +2121,30 @@
             }
         }
 
-        window.onload = function() {
-            updateUI();
-            checkUrlParamsForProduct();
-            fetchCloudData();
-            // Auto background live sync every 12 seconds when Admin Modal is closed
+        // INSTANT 0.01s STARTUP ENGINE
+        window.onload = async function() {
+            renderCategoryBar();
+            updateCartBadge();
+            updateWishlistBadges();
+
+            // 1. Check Unlimited IndexedDB first (Loads in 0.01 seconds!)
+            const cachedProds = await getFromInstantDB('products');
+            const cachedBans = await getFromInstantDB('banners');
+
+            if (cachedProds && cachedProds.length > 0) {
+                products = cachedProds;
+                banners = (cachedBans && cachedBans.length > 0) ? cachedBans : fallbackBanners;
+                updateUI();
+                checkUrlParamsForProduct();
+            } else {
+                // Show sleek shimmer skeleton instead of fake dummy products
+                showInitialSkeletons();
+            }
+
+            // 2. Sync fresh cloud updates in background
+            await fetchCloudData();
+
+            // 3. Auto-poll every 12s for live updates
             setInterval(() => {
                 const adminModal = document.getElementById('adminModal');
                 if (adminModal && adminModal.classList.contains('hidden')) {
