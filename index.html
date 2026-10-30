@@ -16,8 +16,7 @@
         .gold-border { border: 2px solid rgba(251, 191, 36, 0.9); }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .banner-track { display: flex; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: grab; user-select: none; }
-        .banner-track:active { cursor: grabbing; }
+        .banner-track { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
     </style>
 </head>
 <body id="mainBodyTheme" class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
@@ -25,7 +24,7 @@
     <!-- Top Announcement Bar -->
     <div id="topAnnouncementBar" class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 text-center border-b border-slate-800">
         <span class="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
-            <i class="fa-solid fa-bolt text-amber-400 animate-pulse"></i> 
+            <i class="fa-solid fa-cloud-check text-emerald-400 animate-pulse"></i> 
             <span>100% Quality Checked Direct Factory Wholesale Hub</span>
         </span>
     </div>
@@ -102,9 +101,9 @@
         </nav>
     </header>
 
-    <!-- SWIPEABLE TOUCH BANNER SLIDER -->
+    <!-- AUTOMATIC CLEAN BANNER SLIDER -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
-        <div id="bannerContainer" class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
             <div id="sliderTrack" class="banner-track h-full w-full"></div>
             <div class="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
         </div>
@@ -118,7 +117,7 @@
                     <span>Trending Wholesale Collection</span>
                     <i class="fa-solid fa-fire text-amber-500 text-sm"></i>
                 </h2>
-                <p class="text-slate-500 text-[10px] sm:text-xs">Instant Lightning Speed Active</p>
+                <p class="text-slate-500 text-[10px] sm:text-xs">Live Factory Cloud Sync Active</p>
             </div>
 
             <div class="bg-white border border-slate-200 px-2 py-1 rounded-lg text-[10px] sm:text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
@@ -191,7 +190,7 @@
         </div>
     </div>
 
-    <!-- PRODUCT DETAIL MODAL -->
+    <!-- PRODUCT DETAIL MODAL (WITH DEEP LINK SHARE & IMAGE SLIDER) -->
     <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
         <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
             <button type="button" onclick="closeProductDetailModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 text-xl z-20 p-2"><i class="fa-solid fa-xmark"></i></button>
@@ -199,9 +198,19 @@
             <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start mt-2">
                 <div class="md:col-span-6 flex flex-col-reverse sm:flex-row gap-2.5">
                     <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[380px] no-scrollbar shrink-0" id="detailThumbnailsList"></div>
-                    <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative aspect-[3/4]">
+                    <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative aspect-[3/4]" id="modalImageContainer">
                         <img id="detailMainImage" src="" alt="Product Image" class="w-full h-full object-cover">
                         <span id="detailBadge" class="absolute top-2 left-2 bg-blue-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow"></span>
+                        
+                        <!-- Modal Like & Share Buttons -->
+                        <div class="absolute top-2 right-2 flex flex-col gap-1.5 z-10">
+                            <button type="button" id="modalLikeBtn" onclick="toggleWishlistFromModal()" class="w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-sm text-slate-600 hover:text-rose-600">
+                                <i class="fa-regular fa-heart" id="modalLikeIcon"></i>
+                            </button>
+                            <button type="button" onclick="shareProductFromModal()" class="w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-sm text-slate-600 hover:text-blue-600">
+                                <i class="fa-solid fa-share-nodes"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -753,7 +762,7 @@
             });
         }
 
-        // SWIPEABLE / TOUCH DRAGGABLE BANNER SLIDER LOGIC
+        // AUTOMATIC SLIDER LOGIC RESTORED
         function renderBannerSlider() {
             const track = document.getElementById('sliderTrack');
             const dots = document.getElementById('sliderDots');
@@ -764,8 +773,8 @@
             banners.forEach((b, idx) => {
                 const imgSource = b.customImg && b.customImg.length > 5 ? b.customImg : "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=1600&auto=format&fit=crop&q=80";
                 trackHtml += `
-                    <div class="min-w-full h-full relative cursor-pointer shrink-0" onclick="openBigVipAlertModal()">
-                        <img src="${imgSource}" class="w-full h-full object-cover pointer-events-none">
+                    <div class="min-w-full h-full relative cursor-pointer" onclick="openBigVipAlertModal()">
+                        <img src="${imgSource}" class="w-full h-full object-cover">
                     </div>
                 `;
                 dotsHtml += `<span class="${idx === currentSlide ? 'w-4 bg-amber-400' : 'w-1.5 bg-white/40'} h-1 rounded-full transition-all"></span>`;
@@ -776,15 +785,9 @@
         }
 
         let currentSlide = 0;
-        let slideInterval = setInterval(autoSlideBanner, 3500);
-
         function autoSlideBanner() {
             if (!banners.length) return;
             currentSlide = (currentSlide + 1) % banners.length;
-            updateSlidePosition();
-        }
-
-        function updateSlidePosition() {
             const track = document.getElementById('sliderTrack');
             if (track) {
                 track.style.transform = `translateX(-${currentSlide * 100}%)`;
@@ -796,59 +799,7 @@
                 });
             }
         }
-
-        // Touch & Mouse Drag Listeners for Banner Slider
-        let isDragging = false;
-        let startPos = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const sliderContainer = document.getElementById('bannerContainer');
-            const track = document.getElementById('sliderTrack');
-
-            if(sliderContainer && track) {
-                sliderContainer.addEventListener('touchstart', touchStart);
-                sliderContainer.addEventListener('touchend', touchEnd);
-                sliderContainer.addEventListener('touchmove', touchMove);
-
-                sliderContainer.addEventListener('mousedown', touchStart);
-                sliderContainer.addEventListener('mouseup', touchEnd);
-                sliderContainer.addEventListener('mouseleave', touchEnd);
-                sliderContainer.addEventListener('mousemove', touchMove);
-            }
-        });
-
-        function getPositionX(event) {
-            return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-        }
-
-        function touchStart(event) {
-            isDragging = true;
-            startPos = getPositionX(event);
-            clearInterval(slideInterval);
-        }
-
-        function touchMove(event) {
-            if (!isDragging) return;
-            const currentPosition = getPositionX(event);
-            const diff = currentPosition - startPos;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0 && currentSlide > 0) {
-                    currentSlide--;
-                } else if (diff < 0 && currentSlide < banners.length - 1) {
-                    currentSlide++;
-                }
-                isDragging = false;
-                updateSlidePosition();
-                slideInterval = setInterval(autoSlideBanner, 3500);
-            }
-        }
-
-        function touchEnd() {
-            isDragging = false;
-            slideInterval = setInterval(autoSlideBanner, 3500);
-        }
+        setInterval(autoSlideBanner, 3200);
 
         function toggleWishlist(index, event) {
             if(event) event.stopPropagation();
@@ -862,6 +813,36 @@
             localStorage.setItem('senshoWishlist', JSON.stringify(wishlist));
             updateWishlistBadges();
             renderProducts();
+            if(activeProductForDetail && activeProductForDetail.name === p.name) {
+                updateModalLikeState();
+            }
+        }
+
+        function toggleWishlistFromModal() {
+            if(!activeProductForDetail) return;
+            const idx = products.findIndex(p => p.name === activeProductForDetail.name);
+            if(idx >= 0) {
+                toggleWishlist(idx);
+            } else {
+                const existIndex = wishlist.findIndex(item => item.name === activeProductForDetail.name);
+                if(existIndex >= 0) wishlist.splice(existIndex, 1);
+                else wishlist.push(activeProductForDetail);
+                localStorage.setItem('senshoWishlist', JSON.stringify(wishlist));
+                updateWishlistBadges();
+                updateModalLikeState();
+                renderProducts();
+            }
+        }
+
+        function updateModalLikeState() {
+            if(!activeProductForDetail) return;
+            const isLiked = wishlist.some(item => item.name === activeProductForDetail.name);
+            const icon = document.getElementById('modalLikeIcon');
+            const btn = document.getElementById('modalLikeBtn');
+            if(icon && btn) {
+                icon.className = isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart";
+                btn.className = isLiked ? "w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-sm text-rose-600" : "w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-sm text-slate-600 hover:text-rose-600";
+            }
         }
 
         function updateWishlistBadges() {
@@ -895,25 +876,40 @@
                 });
                 container.innerHTML = html;
             }
-            document.getElementById('wishlistModal').classList.remove('hidden');
+            document.getElementById('wishlistModal').classList.add('hidden') || document.getElementById('wishlistModal').classList.remove('hidden');
         }
 
         function closeWishlistModal() {
             document.getElementById('wishlistModal').classList.add('hidden');
         }
 
+        // DEEP LINK SHARE WITH IMAGE PREVIEW
         function shareProduct(index, event) {
             if(event) event.stopPropagation();
             const p = products[index];
-            const shareText = `🔥 *SENSHO WHOLESALE DEAL* 🔥\n*${p.name}*\nNormal Price: ₹${p.normal} | *VIP Price: ₹${p.vip}*\n\nCheck out this amazing product here:\n${window.location.href}`;
+            const coverImg = (p.images && p.images[0]) ? p.images[0] : "";
+            const deepLinkUrl = `${window.location.origin}${window.location.pathname}?product=${encodeURIComponent(p.name)}`;
+            const shareText = `🔥 *SENSHO WHOLESALE DEAL* 🔥\n*${p.name}*\nNormal Price: ₹${p.normal} | *VIP Price: ₹${p.vip}*\n📸 Image: ${coverImg}\n\n👉 *Direct Product Link:* ${deepLinkUrl}`;
             
             if (navigator.share) {
                 navigator.share({
                     title: p.name,
                     text: shareText,
-                    url: window.location.href,
+                    url: deepLinkUrl,
                 }).catch(() => {});
             } else {
+                window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+            }
+        }
+
+        function shareProductFromModal() {
+            if(!activeProductForDetail) return;
+            const idx = products.findIndex(p => p.name === activeProductForDetail.name);
+            if(idx >= 0) shareProduct(idx);
+            else {
+                const coverImg = (activeProductForDetail.images && activeProductForDetail.images[0]) ? activeProductForDetail.images[0] : "";
+                const deepLinkUrl = `${window.location.origin}${window.location.pathname}?product=${encodeURIComponent(activeProductForDetail.name)}`;
+                const shareText = `🔥 *SENSHO WHOLESALE DEAL* 🔥\n*${activeProductForDetail.name}*\nNormal Price: ₹${activeProductForDetail.normal} | *VIP Price: ₹${activeProductForDetail.vip}*\n📸 Image: ${coverImg}\n\n👉 *Direct Product Link:* ${deepLinkUrl}`;
                 window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
             }
         }
@@ -991,6 +987,9 @@
             grid.innerHTML = html;
         }
 
+        let currentModalImageIndex = 0;
+        let currentModalImagesList = [];
+
         function openProductDetailModal(index) {
             const p = products[index];
             if (!p) return;
@@ -1014,29 +1013,59 @@
             document.getElementById('detailFit').innerText = p.fit || "Regular Fit";
             document.getElementById('detailDesc').innerText = p.desc || "Premium quality wholesale product directly sourced from factory.";
 
+            currentModalImagesList = (p.images && p.images.length) ? p.images : ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"];
+            currentModalImageIndex = 0;
+
+            updateModalImageView();
+            updateModalLikeState();
+            document.getElementById('productDetailModal').classList.remove('hidden');
+        }
+
+        function updateModalImageView() {
             const mainImg = document.getElementById('detailMainImage');
             const thumbsList = document.getElementById('detailThumbnailsList');
-            const images = (p.images && p.images.length) ? p.images : ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"];
-            
-            if (mainImg) mainImg.src = images[0];
+
+            if (mainImg && currentModalImagesList.length > 0) {
+                mainImg.src = currentModalImagesList[currentModalImageIndex];
+            }
+
             if (thumbsList) {
                 thumbsList.innerHTML = '';
-                images.forEach((imgUrl, i) => {
+                currentModalImagesList.forEach((imgUrl, i) => {
                     const thumbBtn = document.createElement('button');
                     thumbBtn.type = "button";
-                    thumbBtn.className = `w-12 sm:w-14 h-16 rounded-lg overflow-hidden border-2 transition shrink-0 ${i === 0 ? 'border-blue-600 shadow' : 'border-slate-200'}`;
+                    thumbBtn.className = `w-12 sm:w-14 h-16 rounded-lg overflow-hidden border-2 transition shrink-0 ${i === currentModalImageIndex ? 'border-blue-600 shadow' : 'border-slate-200'}`;
                     thumbBtn.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover">`;
                     thumbBtn.onclick = function() {
-                        mainImg.src = imgUrl;
-                        thumbsList.querySelectorAll('button').forEach(b => b.className = 'w-12 sm:w-14 h-16 rounded-lg overflow-hidden border-2 border-slate-200 transition shrink-0');
-                        thumbBtn.className = 'w-12 sm:w-14 h-16 rounded-lg overflow-hidden border-2 border-blue-600 shadow transition shrink-0';
+                        currentModalImageIndex = i;
+                        updateModalImageView();
                     };
                     thumbsList.appendChild(thumbBtn);
                 });
             }
-
-            document.getElementById('productDetailModal').classList.remove('hidden');
         }
+
+        // Swipe & Drag support inside Product Modal Image Container
+        let modalTouchStartX = 0;
+        document.addEventListener("DOMContentLoaded", () => {
+            const imgContainer = document.getElementById('modalImageContainer');
+            if(imgContainer) {
+                imgContainer.addEventListener('touchstart', (e) => {
+                    modalTouchStartX = e.touches[0].clientX;
+                });
+                imgContainer.addEventListener('touchend', (e) => {
+                    let diffX = e.changedTouches[0].clientX - modalTouchStartX;
+                    if(Math.abs(diffX) > 40) {
+                        if(diffX > 0 && currentModalImageIndex > 0) {
+                            currentModalImageIndex--;
+                        } else if(diffX < 0 && currentModalImageIndex < currentModalImagesList.length - 1) {
+                            currentModalImageIndex++;
+                        }
+                        updateModalImageView();
+                    }
+                });
+            }
+        });
 
         function closeProductDetailModal() {
             document.getElementById('productDetailModal').classList.add('hidden');
@@ -1054,7 +1083,7 @@
             if (!activeProductForDetail) return;
             const p = activeProductForDetail;
             const price = isVIPVerified ? p.vip : p.normal;
-            const mainImg = (p.images && p.images[0]) ? p.images[0] : "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80";
+            const mainImg = (currentModalImagesList.length > 0) ? currentModalImagesList[currentModalImageIndex] : "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80";
             const tierType = isVIPVerified ? "VIP Wholesale" : "Normal Member";
             const itemKey = `${p.name} (${tierType}, Size: ${selectedProductSize})`;
 
@@ -1395,7 +1424,7 @@
                 alert("Kam se kam 1 banner slide hona zaroori hai!");
                 return;
             }
-            if (confirm("⚠️ Kya aap sach mein is banner slide को delete karna chahte hain?")) {
+            if (confirm("⚠️ Kya aap sach mein is banner slide ko delete karna chahte hain?")) {
                 banners.splice(idx, 1);
                 loadAdminDashboardData();
             }
@@ -1676,7 +1705,6 @@
             }
         }
 
-        // INSTANT LIGHTNING SPEED CLOUD SYNC ON LOAD
         async function fetchCloudData() {
             if (!GOOGLE_SCRIPT_URL) return;
             try {
@@ -1693,9 +1721,22 @@
                     }
                     renderBannerSlider();
                     renderProducts();
+                    checkUrlParamsForProduct();
                 }
             } catch (err) {
-                console.log("Using instant local cache fallback:", err);
+                console.log("Cloud fetch active fallback:", err);
+            }
+        }
+
+        // Check if shared link has product query parameter
+        function checkUrlParamsForProduct() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const sharedProdName = urlParams.get('product');
+            if(sharedProdName) {
+                const foundIdx = products.findIndex(p => p.name.toLowerCase() === decodeURIComponent(sharedProdName).toLowerCase());
+                if(foundIdx >= 0) {
+                    openProductDetailModal(foundIdx);
+                }
             }
         }
 
@@ -1703,6 +1744,7 @@
             updateUI();
             renderBannerSlider();
             renderProducts();
+            checkUrlParamsForProduct();
             fetchCloudData();
         };
     </script>
