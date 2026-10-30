@@ -2,13 +2,13 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SENSHO - India's Trusted Online Fashion & Wholesale Store</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&family=Space+Grotesk:wght=600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .font-mono-card { font-family: 'Space Grotesk', monospace; }
@@ -20,165 +20,191 @@
         .banner-track { display: flex; transition: transform 0.5s ease-in-out; }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-0">
+<body class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-slate-900 text-blue-100 text-xs py-2 px-4 flex flex-col sm:flex-row justify-between items-center border-b border-slate-800 gap-1 text-center">
-        <div class="flex items-center justify-center gap-3">
-            <span class="flex items-center gap-1 text-emerald-400 font-bold"><i class="fa-solid fa-shield-check"></i> 100% Quality Checked Wholesale Hub</span>
-            <span class="text-slate-600 hidden sm:inline">|</span>
-            <span class="hidden sm:inline text-slate-300"><i class="fa-solid fa-truck-fast text-blue-400 mr-1"></i> Pan-India Express Delivery</span>
-        </div>
-        <div class="flex items-center gap-2">
-            <span class="text-amber-400 font-extrabold">Direct Helpline:</span>
-            <span class="text-white font-bold">+91 6261118847</span>
-        </div>
+    <!-- Top Announcement Bar (Clean & Responsive) -->
+    <div class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 flex justify-between items-center border-b border-slate-800 text-center">
+        <span class="flex items-center gap-1 text-emerald-400 font-bold truncate">
+            <i class="fa-solid fa-shield-check"></i> 100% Quality Wholesale
+        </span>
+        <span class="text-amber-400 font-extrabold truncate">
+            Helpline: +91 6261118847
+        </span>
     </div>
 
-    <!-- Main Navigation Bar -->
-    <header class="sticky top-0 z-40 bg-[#1e1b4b] text-white shadow-xl backdrop-blur-md bg-[#1e1b4b]/95">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-
-            <!-- Brand Logo (Secret Admin Trigger on Triple Click) -->
-            <div onclick="secretLogoClick()" class="flex items-center gap-2 group cursor-pointer select-none" title="Sensho Hub">
-                <div class="bg-gradient-to-tr from-blue-600 to-amber-400 text-white p-2.5 rounded-2xl font-black text-xl group-hover:scale-105 transition shadow-lg">
-                    <i class="fa-solid fa-bag-shopping"></i>
+    <!-- Main Navigation Header (Meesho Style Responsive) -->
+    <header class="sticky top-0 z-40 bg-[#1e1b4b] text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex flex-col gap-2">
+            
+            <!-- Top Row: Logo & Quick Action Buttons -->
+            <div class="flex items-center justify-between gap-2">
+                <!-- Brand Logo (Secret Admin Trigger on Triple Click) -->
+                <div onclick="secretLogoClick()" class="flex items-center gap-2 cursor-pointer select-none shrink-0" title="Sensho Hub">
+                    <div class="bg-gradient-to-tr from-blue-600 to-amber-400 text-white p-2 rounded-xl font-black text-base sm:text-lg shadow">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl sm:text-2xl font-black tracking-wider leading-none text-white">SEN<span class="text-blue-400">SHO</span></span>
+                        <span class="text-[8px] text-blue-200 tracking-widest font-extrabold uppercase">Wholesale Hub</span>
+                    </div>
                 </div>
-                <div class="flex flex-col">
-                    <span class="text-2xl sm:text-3xl font-black tracking-wider leading-none text-white">SEN<span class="text-blue-400">SHO</span></span>
-                    <span class="text-[9px] text-blue-200 tracking-widest font-extrabold uppercase">Wholesale Hub</span>
-                </div>
-            </div>
 
-            <!-- Search Bar -->
-            <div class="hidden md:flex flex-1 max-w-xl mx-4">
-                <div class="flex w-full bg-white/10 border border-blue-400/30 rounded-2xl overflow-hidden focus-within:border-blue-400 transition shadow-inner">
-                    <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search clothes for Men, Women, Kids..." class="w-full px-4 py-3 bg-transparent text-white text-sm focus:outline-none placeholder-blue-200">
-                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 font-bold transition flex items-center justify-center">
-                        <i class="fa-solid fa-magnifying-glass"></i>
+                <!-- Desktop Action Buttons (Hidden on Small Mobile, visible on Desktop) -->
+                <div class="hidden md:flex items-center gap-3">
+                    <button onclick="openHelpModal()" class="bg-blue-900/80 hover:bg-blue-800 text-blue-200 text-xs font-bold px-3 py-2 rounded-xl border border-blue-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-headset text-emerald-400"></i> Help Support
+                    </button>
+                    <button onclick="openMyOrders()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-box-open text-amber-400"></i> My Orders
+                    </button>
+                    <button onclick="openVipCardModal()" id="navVipBtnDesktop" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                        <i class="fa-solid fa-crown text-slate-950"></i> <span>VIP Pass</span>
+                    </button>
+                </div>
+
+                <!-- Right Cart Icon (Always visible) -->
+                <div class="flex items-center gap-2">
+                    <button onclick="openVipCardModal()" class="md:hidden bg-amber-400 text-slate-950 font-black text-[11px] px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                        <i class="fa-solid fa-crown text-xs"></i> VIP
+                    </button>
+                    <button onclick="openCartDrawer()" class="relative bg-blue-600 hover:bg-blue-700 p-2 sm:p-2.5 rounded-xl text-white transition flex items-center justify-center shadow">
+                        <i class="fa-solid fa-cart-shopping text-base sm:text-lg"></i>
+                        <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-amber-400 text-slate-950 text-[10px] font-black w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow">0</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Right Actions -->
-            <div class="flex items-center gap-2.5 sm:gap-3">
-                <button onclick="openHelpModal()" class="bg-blue-900/80 hover:bg-blue-800 text-blue-200 text-xs font-bold px-3 py-2 rounded-xl border border-blue-700 transition flex items-center gap-1.5 shadow">
-                    <i class="fa-solid fa-headset text-emerald-400"></i> Help
-                </button>
-
-                <button onclick="openMyOrders()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5 shadow">
-                    <i class="fa-solid fa-box-open text-amber-400"></i> My Orders
-                </button>
-
-                <button onclick="openVipCardModal()" id="navVipBtn" class="bg-gradient-to-r from-amber-400 to-amber-500 hover:opacity-90 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
-                    <i class="fa-solid fa-crown text-slate-950"></i> <span id="navVipBtnText">VIP Pass</span>
-                </button>
-
-                <button onclick="openCartDrawer()" class="relative bg-blue-600 hover:bg-blue-700 p-2.5 rounded-xl text-white transition flex items-center justify-center shadow">
-                    <i class="fa-solid fa-cart-shopping text-lg"></i>
-                    <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-amber-400 text-slate-950 text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow">0</span>
-                </button>
+            <!-- Bottom Row: 100% Full Width Meesho Search Bar -->
+            <div class="w-full">
+                <div class="flex w-full bg-white rounded-xl overflow-hidden shadow-inner border border-slate-200 focus-within:ring-2 focus-within:ring-blue-500">
+                    <span class="flex items-center pl-3 text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </span>
+                    <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search clothes, kurti, t-shirt, kids wear..." class="w-full px-3 py-2 sm:py-2.5 bg-transparent text-slate-900 text-xs sm:text-sm focus:outline-none placeholder-slate-400 font-medium">
+                </div>
             </div>
         </div>
 
-        <!-- Categories -->
-        <nav class="bg-[#17143a] border-t border-slate-800 px-4">
-            <div class="max-w-7xl mx-auto flex space-x-2 sm:space-x-6 overflow-x-auto py-3 text-xs font-extrabold whitespace-nowrap text-blue-200 no-scrollbar">
-                <button onclick="filterCategory('all', this)" class="cat-btn active bg-blue-600 text-white px-4 py-1.5 rounded-xl transition shadow">All Collection</button>
-                <button onclick="filterCategory('mens', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Men's Fashion</button>
-                <button onclick="filterCategory('womens', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Women's Wear</button>
-                <button onclick="filterCategory('boys', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Boys Clothing</button>
-                <button onclick="filterCategory('girls', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Girls Clothing</button>
-                <button onclick="filterCategory('kids', this)" class="cat-btn hover:text-blue-300 px-3 py-1.5 transition">Baby & Kids</button>
+        <!-- Horizontal Scrollable Category Bar (Meesho Style Pills) -->
+        <nav class="bg-[#17143a] border-t border-slate-800 px-3 overflow-x-auto no-scrollbar py-2">
+            <div class="flex space-x-2 text-xs font-bold whitespace-nowrap text-blue-200">
+                <button onclick="filterCategory('all', this)" class="cat-btn active bg-blue-600 text-white px-3.5 py-1.5 rounded-full transition shadow text-xs">All Items</button>
+                <button onclick="filterCategory('mens', this)" class="cat-btn hover:text-white px-3 py-1.5 rounded-full bg-slate-800/80 transition text-xs">Men's Fashion</button>
+                <button onclick="filterCategory('womens', this)" class="cat-btn hover:text-white px-3 py-1.5 rounded-full bg-slate-800/80 transition text-xs">Women's Wear</button>
+                <button onclick="filterCategory('boys', this)" class="cat-btn hover:text-white px-3 py-1.5 rounded-full bg-slate-800/80 transition text-xs">Boys Wear</button>
+                <button onclick="filterCategory('girls', this)" class="cat-btn hover:text-white px-3 py-1.5 rounded-full bg-slate-800/80 transition text-xs">Girls Wear</button>
+                <button onclick="filterCategory('kids', this)" class="cat-btn hover:text-white px-3 py-1.5 rounded-full bg-slate-800/80 transition text-xs">Baby & Kids</button>
             </div>
         </nav>
     </header>
 
     <!-- DYNAMIC AUTO-SLIDING BANNER SLIDER -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-        <div class="relative overflow-hidden rounded-3xl shadow-xl bg-slate-900 aspect-[16/7] sm:aspect-[21/6]">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/6]">
             <div id="sliderTrack" class="banner-track h-full w-full"></div>
-            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
+            <div class="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
         </div>
     </div>
 
-    <!-- Main Catalog Section -->
-    <main id="shop" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4 border-b pb-4 border-slate-200">
+    <!-- Main Catalog Section (Meesho App 2-Column Grid on Mobile) -->
+    <main id="shop" class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-6">
+        <div class="flex justify-between items-center mb-4 px-1">
             <div>
-                <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Sensho Fashion Catalog</h2>
-                <p class="text-slate-500 text-sm">Normal Retail, Normal Member aur VIP Member rates compare karein.</p>
+                <h2 class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight">Trending Catalog</h2>
+                <p class="text-slate-500 text-[11px] sm:text-xs">Direct wholesale factory collection</p>
             </div>
 
-            <div class="bg-white border border-slate-200 px-4 py-2 rounded-xl shadow-sm text-xs font-bold text-slate-700 flex items-center gap-2">
-                <span>Account Status:</span>
-                <span id="headerPricingStatusBadge" class="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg border border-blue-200">
-                    Standard Retail View
-                </span>
+            <div class="bg-white border border-slate-200 px-2.5 py-1 rounded-lg text-[10px] sm:text-xs font-bold text-slate-700 shadow-sm">
+                <span id="headerPricingStatusBadge" class="text-blue-700">Normal Member View</span>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="productGrid"></div>
+        <!-- 2-Columns on Mobile (grid-cols-2), 4-Columns on PC (sm:grid-cols-2 lg:grid-cols-4) -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6" id="productGrid"></div>
     </main>
+
+    <!-- MEESHO STYLE BOTTOM APP NAVIGATION BAR (FOR MOBILE USERS) -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 py-1.5 px-4 flex justify-around items-center md:hidden shadow-2xl">
+        <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center text-blue-600">
+            <i class="fa-solid fa-house text-base"></i>
+            <span class="text-[9px] font-bold mt-0.5">Home</span>
+        </button>
+        <button onclick="openHelpModal()" class="flex flex-col items-center text-slate-500 hover:text-blue-600">
+            <i class="fa-solid fa-headset text-base"></i>
+            <span class="text-[9px] font-bold mt-0.5">Help</span>
+        </button>
+        <button onclick="openVipCardModal()" class="flex flex-col items-center text-amber-500 hover:text-amber-600">
+            <i class="fa-solid fa-crown text-base"></i>
+            <span class="text-[9px] font-bold mt-0.5">VIP Pass</span>
+        </button>
+        <button onclick="openMyOrders()" class="flex flex-col items-center text-slate-500 hover:text-blue-600">
+            <i class="fa-solid fa-box-open text-base"></i>
+            <span class="text-[9px] font-bold mt-0.5">Orders</span>
+        </button>
+        <button onclick="openCartDrawer()" class="flex flex-col items-center text-slate-500 hover:text-blue-600 relative">
+            <i class="fa-solid fa-cart-shopping text-base"></i>
+            <span class="text-[9px] font-bold mt-0.5">Cart</span>
+        </button>
+    </div>
 
     <!-- CUSTOMER CARE CATEGORIES MODAL -->
     <div id="helpModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 relative shadow-2xl">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
             <button onclick="closeHelpModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
             <div class="flex items-center gap-3 mb-4">
-                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-xl">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-lg">
                     <i class="fa-solid fa-headset"></i>
                 </div>
                 <div>
-                    <h3 class="text-lg font-black text-slate-900">Sensho Help Support</h3>
+                    <h3 class="text-base font-black text-slate-900">Sensho Help Support</h3>
                     <p class="text-xs text-slate-500">Problem select karke WhatsApp par solution lein</p>
                 </div>
             </div>
 
-            <div class="space-y-2.5">
-                <button onclick="sendHelpWhatsApp('Order & Delivery Tracking', 'Mujhe mera order status aur delivery details check karwana hai.')" class="w-full text-left p-3.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-2xl transition flex items-center justify-between group">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-truck-ramp-box text-blue-600 text-lg"></i>
+            <div class="space-y-2">
+                <button onclick="sendHelpWhatsApp('Order & Delivery Tracking', 'Mujhe mera order status aur delivery tracking check karwana hai.')" class="w-full text-left p-3 bg-slate-50 hover:bg-blue-50 border rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-truck-ramp-box text-blue-600 text-base"></i>
                         <div>
                             <span class="text-xs font-bold text-slate-900 block">Order Status & Delivery</span>
-                            <span class="text-[10px] text-slate-500">Dispatch, tracking code aur arrival date</span>
+                            <span class="text-[10px] text-slate-500">Tracking code aur arrival date</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-blue-600"></i>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
                 </button>
 
-                <button onclick="sendHelpWhatsApp('VIP Membership Activation', 'Maine ₹299 pay kiya hai, mujhe mera VIP Activation Passcode aur VIP Card chahiye.')" class="w-full text-left p-3.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-2xl transition flex items-center justify-between group">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-crown text-amber-500 text-lg"></i>
+                <button onclick="sendHelpWhatsApp('VIP Membership Activation', 'Maine ₹299 pay kiya hai, mujhe mera VIP Passcode aur Card chahiye.')" class="w-full text-left p-3 bg-slate-50 hover:bg-blue-50 border rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-crown text-amber-500 text-base"></i>
                         <div>
                             <span class="text-xs font-bold text-slate-900 block">VIP Membership Issue</span>
-                            <span class="text-[10px] text-slate-500">Payment ke baad VIP Passcode activation help</span>
+                            <span class="text-[10px] text-slate-500">VIP Passcode activation help</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-blue-600"></i>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
                 </button>
 
-                <button onclick="sendHelpWhatsApp('Bulk Wholesale Sourcing', 'Mujhe bulk wholesale quantity me kapde purchase karne hain factory rate par.')" class="w-full text-left p-3.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-2xl transition flex items-center justify-between group">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-boxes-packing text-emerald-600 text-lg"></i>
+                <button onclick="sendHelpWhatsApp('Bulk Wholesale Sourcing', 'Mujhe bulk wholesale quantity me kapde purchase karne hain.')" class="w-full text-left p-3 bg-slate-50 hover:bg-blue-50 border rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-boxes-packing text-emerald-600 text-base"></i>
                         <div>
-                            <span class="text-xs font-bold text-slate-900 block">Bulk Wholesale Sourcing</span>
-                            <span class="text-[10px] text-slate-500">Shopkeepers aur bulk orders ke liye</span>
+                            <span class="text-xs font-bold text-slate-900 block">Bulk Wholesale Inquiry</span>
+                            <span class="text-[10px] text-slate-500">Shopkeepers aur bulk buyers</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-blue-600"></i>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
                 </button>
 
-                <button onclick="sendHelpWhatsApp('Return, Exchange or Refund', 'Mujhe product return, size change ya refund ke regarding help chahiye.')" class="w-full text-left p-3.5 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-300 rounded-2xl transition flex items-center justify-between group">
-                    <div class="flex items-center gap-3">
-                        <i class="fa-solid fa-arrow-rotate-left text-rose-600 text-lg"></i>
+                <button onclick="sendHelpWhatsApp('Return, Exchange or Refund', 'Mujhe product return, size change ya refund ke regarding help chahiye.')" class="w-full text-left p-3 bg-slate-50 hover:bg-blue-50 border rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-arrow-rotate-left text-rose-600 text-base"></i>
                         <div>
-                            <span class="text-xs font-bold text-slate-900 block">Return / Exchange / Refund</span>
-                            <span class="text-[10px] text-slate-500">Defective product ya size issue support</span>
+                            <span class="text-xs font-bold text-slate-900 block">Return / Exchange</span>
+                            <span class="text-[10px] text-slate-500">Defective product ya size issue</span>
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-xs text-slate-400 group-hover:text-blue-600"></i>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
                 </button>
             </div>
         </div>
@@ -186,48 +212,46 @@
 
     <!-- VIP MEMBERSHIP PROMO MODAL -->
     <div id="bigVipAlertModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl border-4 border-blue-600 text-center">
-            <button onclick="closeBigVipAlertModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-2xl p-1">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-8 relative shadow-2xl border-4 border-blue-600 text-center">
+            <button onclick="closeBigVipAlertModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
 
-            <div class="w-20 h-20 bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-800 text-amber-400 rounded-3xl flex items-center justify-center mx-auto mb-4 text-4xl shadow-xl border-2 border-amber-300">
+            <div class="w-16 h-16 bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-800 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-3 text-3xl shadow-xl border-2 border-amber-300">
                 <i class="fa-solid fa-crown"></i>
             </div>
 
-            <span class="bg-blue-50 text-blue-800 font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider border border-blue-200 inline-block mb-2">
+            <span class="bg-blue-50 text-blue-800 font-black text-[10px] sm:text-xs px-3 py-1 rounded-full uppercase tracking-wider border border-blue-200 inline-block mb-2">
                 🔒 Sensho Verified Wholesale Access
             </span>
 
-            <h2 class="text-2xl sm:text-3xl font-black text-slate-950 mb-1 leading-tight">
+            <h2 class="text-xl sm:text-2xl font-black text-slate-950 mb-1 leading-tight">
                 VIP Member Banein Aur Flat 40% Bachayein!
             </h2>
 
-            <div class="my-3 py-2 bg-rose-50 border border-rose-200 rounded-2xl">
-                <span class="text-xs font-black text-rose-500 uppercase tracking-widest block">Yearly Membership Fee</span>
-                <span class="text-3xl sm:text-4xl font-black text-rose-600 tracking-tight">ONLY ₹299</span>
-                <span class="text-xs font-bold text-slate-500 block">Valid for Complete 1 Year (365 Days)</span>
+            <div class="my-2.5 py-2 bg-rose-50 border border-rose-200 rounded-2xl">
+                <span class="text-[10px] font-black text-rose-500 uppercase tracking-widest block">Yearly Membership Fee</span>
+                <span class="text-2xl sm:text-3xl font-black text-rose-600 tracking-tight">ONLY ₹299</span>
+                <span class="text-[11px] font-bold text-slate-500 block">Valid for Complete 1 Year (365 Days)</span>
             </div>
 
             <p class="text-xs text-slate-600 leading-relaxed mb-4">
                 VIP Pass lene ke baad aapko har kapde par factory wholesale rates milenge. Agar pehle se passcode hai toh neeche daal kar activate karein:
             </p>
 
-            <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-3.5 text-left mb-4">
+            <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-3 text-left mb-4">
                 <label class="text-[10px] font-bold text-blue-950 uppercase block mb-1">Enter Secret VIP Passcode:</label>
                 <div class="flex gap-2">
-                    <input type="text" id="bigVipCodeInput" placeholder="ENTER PASSCODE" class="w-full text-xs border border-blue-300 rounded-xl px-3 py-2.5 font-black uppercase tracking-widest focus:outline-none focus:border-blue-600 bg-white">
-                    <button onclick="activateBigVipCode()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-black px-5 py-2.5 rounded-xl transition shadow">
+                    <input type="text" id="bigVipCodeInput" placeholder="ENTER PASSCODE" class="w-full text-xs border border-blue-300 rounded-xl px-3 py-2 font-black uppercase tracking-widest focus:outline-none focus:border-blue-600 bg-white">
+                    <button onclick="activateBigVipCode()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-black px-4 py-2 rounded-xl transition shadow">
                         Activate
                     </button>
                 </div>
             </div>
 
             <div class="space-y-2">
-                <button onclick="directContactVipWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3.5 rounded-2xl shadow-lg transition flex items-center justify-center gap-2.5 text-sm sm:text-base">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Buy 1-Year VIP Pass @ ₹299 (WhatsApp)
+                <button onclick="directContactVipWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 rounded-2xl shadow-lg transition flex items-center justify-center gap-2 text-xs sm:text-sm">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Buy 1-Year VIP Pass @ ₹299 (WhatsApp)
                 </button>
-                <button onclick="closeBigVipAlertModal()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 rounded-xl text-xs transition">
+                <button onclick="closeBigVipAlertModal()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2 rounded-xl text-xs transition">
                     Continue with Normal Shopping
                 </button>
             </div>
@@ -236,154 +260,137 @@
 
     <!-- DIGITAL VIP CARD MODAL -->
     <div id="vipCardModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 relative shadow-2xl">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
             <button onclick="closeVipCardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
-            <h3 class="text-xl font-black text-slate-900 mb-1 flex items-center gap-2">
+            <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
                 <i class="fa-solid fa-id-card text-blue-600"></i> Sensho 1-Year VIP Card
             </h3>
-            <p class="text-xs text-slate-500 mb-5">Aapka verified digital wholesale discount pass.</p>
+            <p class="text-xs text-slate-500 mb-4">Aapka verified digital wholesale discount pass.</p>
 
-            <div class="gradient-vip-card gold-border text-white p-6 rounded-3xl shadow-2xl relative overflow-hidden mb-5">
-                <div class="flex justify-between items-start mb-6">
+            <div class="gradient-vip-card gold-border text-white p-5 rounded-2xl shadow-2xl relative overflow-hidden mb-4">
+                <div class="flex justify-between items-start mb-4">
                     <div>
-                        <span class="text-[10px] uppercase tracking-widest text-blue-200 font-extrabold block">Official Wholesale Pass</span>
-                        <h4 class="text-xl font-black tracking-wider text-amber-300">SENSHO VIP</h4>
+                        <span class="text-[9px] uppercase tracking-widest text-blue-200 font-extrabold block">Official Wholesale Pass</span>
+                        <h4 class="text-lg font-black tracking-wider text-amber-300">SENSHO VIP</h4>
                     </div>
-                    <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2.5 py-1 rounded-full uppercase flex items-center gap-1 shadow">
+                    <span class="bg-amber-400 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded-full uppercase flex items-center gap-1 shadow">
                         <i class="fa-solid fa-shield-halved"></i> 1-Year Active
                     </span>
                 </div>
 
-                <div class="mb-6">
-                    <span class="text-[9px] uppercase tracking-widest text-slate-300 block mb-1">Unique VIP Card Number</span>
-                    <p class="text-xl sm:text-2xl font-mono-card font-bold tracking-widest text-white drop-shadow-md" id="vipCardDisplayNumber">
+                <div class="mb-4">
+                    <span class="text-[8px] uppercase tracking-widest text-slate-300 block mb-0.5">Unique VIP Card Number</span>
+                    <p class="text-lg font-mono-card font-bold tracking-widest text-white drop-shadow-md" id="vipCardDisplayNumber">
                         SNS-VIP-••••-••••
                     </p>
                 </div>
 
-                <div class="flex justify-between items-end border-t border-blue-500/40 pt-3 text-xs">
+                <div class="flex justify-between items-end border-t border-blue-500/40 pt-2.5 text-[11px]">
                     <div>
-                        <span class="text-[9px] uppercase tracking-widest text-slate-300 block">Status</span>
+                        <span class="text-[8px] uppercase tracking-widest text-slate-300 block">Status</span>
                         <span class="font-bold text-white">Verified Member</span>
                     </div>
                     <div class="text-right">
-                        <span class="text-[9px] uppercase tracking-widest text-slate-300 block">Valid Until</span>
+                        <span class="text-[8px] uppercase tracking-widest text-slate-300 block">Valid Until</span>
                         <span class="font-bold text-amber-300" id="vipCardDisplayExpiry">1 Year</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-2xl flex items-center gap-3 text-xs text-emerald-800 font-bold mb-4">
-                <i class="fa-solid fa-circle-check text-emerald-600 text-lg"></i>
-                <span>VIP Wholesale rates unlocked! Sabhi orders ab flat wholesale discount par place honge.</span>
+            <div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl flex items-center gap-2.5 text-xs text-emerald-800 font-bold mb-3">
+                <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>
+                <span>VIP Wholesale rates unlocked! Sabhi orders wholesale discount par honge.</span>
             </div>
 
-            <button onclick="closeVipCardModal()" class="w-full bg-[#1e1b4b] hover:bg-slate-900 text-white font-bold py-3 rounded-xl transition text-sm">
+            <button onclick="closeVipCardModal()" class="w-full bg-[#1e1b4b] text-white font-bold py-2.5 rounded-xl transition text-xs">
                 Done & Continue Shopping
             </button>
         </div>
     </div>
 
-    <!-- MEESHO STYLE PRODUCT DETAIL MODAL -->
+    <!-- MEESHO STYLE PRODUCT DETAIL MODAL (RESPONSIVE) -->
     <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl max-w-5xl w-full p-4 sm:p-8 relative shadow-2xl max-h-[92vh] overflow-y-auto">
-            <button onclick="closeProductDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-850 text-2xl z-10 p-2">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+        <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
+            <button onclick="closeProductDetailModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 text-xl z-10 p-1"><i class="fa-solid fa-xmark"></i></button>
 
-            <div class="text-xs text-slate-400 mb-4 flex items-center gap-2">
-                <span>Home</span> / <span id="detailBreadcrumbCat">Fashion</span> / <span class="text-slate-700 font-bold" id="detailBreadcrumbTitle">Product</span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-start">
-                <div class="md:col-span-6 flex flex-col-reverse sm:flex-row gap-3">
-                    <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[460px] no-scrollbar shrink-0" id="detailThumbnailsList"></div>
-                    <div class="flex-1 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200 relative aspect-[3/4]">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start mt-2">
+                <!-- Gallery Section -->
+                <div class="md:col-span-6 flex flex-col-reverse sm:flex-row gap-2.5">
+                    <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[380px] no-scrollbar shrink-0" id="detailThumbnailsList"></div>
+                    <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative aspect-[3/4]">
                         <img id="detailMainImage" src="" alt="Product Image" class="w-full h-full object-cover">
-                        <span id="detailBadge" class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider shadow"></span>
+                        <span id="detailBadge" class="absolute top-2 left-2 bg-blue-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow"></span>
                     </div>
                 </div>
 
-                <div class="md:col-span-6 space-y-5">
+                <!-- Product Info -->
+                <div class="md:col-span-6 space-y-3.5">
                     <div>
-                        <h1 class="text-xl sm:text-2xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
-                        <div class="flex items-center gap-2 mt-2">
-                            <span class="bg-emerald-600 text-white text-xs font-black px-2.5 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-                                4.2 <i class="fa-solid fa-star text-[10px]"></i>
+                        <h1 class="text-base sm:text-xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+                                4.2 <i class="fa-solid fa-star text-[8px]"></i>
                             </span>
-                            <span class="text-xs text-slate-400 font-semibold">1,420 Ratings, 380 Reviews</span>
+                            <span class="text-[11px] text-slate-400 font-semibold">1,420 Ratings, 380 Reviews</span>
                         </div>
                     </div>
 
-                    <!-- 3-TIER PRICING CONTAINER -->
-                    <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border-2 border-blue-200 rounded-2xl p-4 shadow-sm">
-                        <div class="flex items-center gap-2 mb-2 pb-2 border-b border-blue-100">
-                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Normal Retail:</span>
-                            <span class="text-sm font-bold text-slate-400 line-through" id="detailMrpPrice">₹1,499</span>
-                            <span class="text-[11px] font-black text-rose-600 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-md" id="detailMrpDiscount">Save ₹899</span>
+                    <!-- 3-Tier Pricing -->
+                    <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border-2 border-blue-200 rounded-2xl p-3 shadow-sm">
+                        <div class="flex items-center gap-2 mb-1.5 pb-1.5 border-b border-blue-100">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Normal Retail:</span>
+                            <span class="text-xs font-bold text-slate-400 line-through" id="detailMrpPrice">₹1,499</span>
+                            <span class="text-[10px] font-black text-rose-600 bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded" id="detailMrpDiscount">Save ₹899</span>
                         </div>
 
-                        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-                            <div class="flex items-center gap-4">
-                                <div id="detailNormalBoxContainer" class="p-2 rounded-xl transition">
-                                    <span class="text-[10px] font-black text-slate-500 uppercase tracking-wider block">Normal Member:</span>
-                                    <span class="text-xl font-black text-slate-800" id="detailNormalPrice">₹1,000</span>
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <span class="text-[9px] font-black text-slate-500 uppercase block">Normal Member:</span>
+                                    <span class="text-base font-black text-slate-800" id="detailNormalPrice">₹1,000</span>
                                 </div>
-
-                                <div class="h-9 w-[2px] bg-blue-200"></div>
-
-                                <div id="detailVipBoxContainer" class="p-2 rounded-xl transition">
-                                    <span class="text-[10px] font-black text-blue-700 uppercase tracking-wider flex items-center gap-1">
+                                <div class="h-7 w-[1.5px] bg-blue-200"></div>
+                                <div>
+                                    <span class="text-[9px] font-black text-blue-700 uppercase flex items-center gap-1">
                                         <i class="fa-solid fa-crown text-amber-500"></i> VIP Member:
                                     </span>
-                                    <span class="text-3xl font-black text-[#1e1b4b]" id="detailVipPrice">₹600</span>
+                                    <span class="text-xl font-black text-[#1e1b4b]" id="detailVipPrice">₹600</span>
                                 </div>
                             </div>
-
-                            <span class="text-xs font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-xl shadow-sm" id="detailVipSavingsBadge">
-                                VIP Saves ₹400
+                            <span class="text-[10px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-lg shadow-sm" id="detailVipSavingsBadge">
+                                Saves ₹400
                             </span>
                         </div>
                     </div>
 
+                    <!-- Sizes -->
                     <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="text-xs font-black text-slate-800 uppercase tracking-wider">Select Size</label>
-                            <span class="text-[11px] font-bold text-blue-600 cursor-pointer">Size Chart</span>
-                        </div>
-                        <div class="flex gap-2.5" id="sizeSelectorContainer">
-                            <button onclick="selectSize('S', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition">S</button>
-                            <button onclick="selectSize('M', this)" class="size-btn active px-4 py-2 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl font-bold text-xs transition">M</button>
-                            <button onclick="selectSize('L', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition">L</button>
-                            <button onclick="selectSize('XL', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition">XL</button>
-                            <button onclick="selectSize('XXL', this)" class="size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition">XXL</button>
+                        <label class="text-[11px] font-black text-slate-800 uppercase block mb-1">Select Size</label>
+                        <div class="flex gap-2" id="sizeSelectorContainer">
+                            <button onclick="selectSize('S', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">S</button>
+                            <button onclick="selectSize('M', this)" class="size-btn active px-3 py-1.5 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs">M</button>
+                            <button onclick="selectSize('L', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">L</button>
+                            <button onclick="selectSize('XL', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">XL</button>
+                            <button onclick="selectSize('XXL', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">XXL</button>
                         </div>
                     </div>
 
-                    <div class="border-t pt-4 space-y-3">
-                        <h4 class="text-xs font-black uppercase text-slate-850 tracking-wider">Product Highlights</h4>
-                        <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 bg-slate-50 p-3.5 rounded-xl border">
-                            <div><span class="text-slate-400">Fabric:</span> <strong class="text-slate-800 block" id="detailFabric">100% Cotton Popcorn</strong></div>
-                            <div><span class="text-slate-400">Fit / Shape:</span> <strong class="text-slate-800 block" id="detailFit">Boxy / Regular Fit</strong></div>
-                            <div><span class="text-slate-400">Color:</span> <strong class="text-slate-800 block" id="detailColor">Multiple Colors</strong></div>
-                            <div><span class="text-slate-400">Delivery:</span> <strong class="text-emerald-600 block">Express Delivery (3-5 Days)</strong></div>
+                    <!-- Highlights -->
+                    <div class="border-t pt-2.5 space-y-2 text-xs text-slate-600">
+                        <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl border">
+                            <div><span class="text-slate-400">Fabric:</span> <strong class="text-slate-800 block text-[11px]" id="detailFabric">100% Pure Cotton</strong></div>
+                            <div><span class="text-slate-400">Fit / Shape:</span> <strong class="text-slate-800 block text-[11px]" id="detailFit">Regular Fit</strong></div>
                         </div>
-
-                        <div>
-                            <span class="text-xs font-black uppercase text-slate-800 tracking-wider block mb-1">Description</span>
-                            <p class="text-xs text-slate-500 leading-relaxed" id="detailDesc">
-                                Premium quality stitched fabric directly sourced from Sensho factory wholesale hub. Super comfortable for all-day wear.
-                            </p>
-                        </div>
+                        <p class="text-[11px] text-slate-500 leading-relaxed" id="detailDesc"></p>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <button onclick="detailAddToCart()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border-2 border-blue-300 font-black text-sm py-3.5 rounded-2xl transition flex items-center justify-center gap-2">
+                    <div class="grid grid-cols-2 gap-2 pt-1">
+                        <button onclick="detailAddToCart()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-300 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-cart-shopping"></i> Add to Cart
                         </button>
-                        <button onclick="detailBuyNowWhatsApp()" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-sm py-3.5 rounded-2xl transition flex items-center justify-center gap-2 shadow-lg">
-                            <i class="fa-brands fa-whatsapp text-lg"></i> Buy Now
+                        <button onclick="detailBuyNowWhatsApp()" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-md">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Buy Now
                         </button>
                     </div>
                 </div>
@@ -393,109 +400,96 @@
 
     <!-- MY ORDERS MODAL -->
     <div id="myOrdersModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto">
-            <button onclick="closeMyOrders()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-xl font-black text-slate-900 mb-1"><i class="fa-solid fa-box-open text-blue-600 mr-2"></i> My Order History</h3>
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto">
+            <button onclick="closeMyOrders()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-lg font-black text-slate-900 mb-1"><i class="fa-solid fa-box-open text-blue-600 mr-2"></i> My Order History</h3>
             <p class="text-xs text-slate-500 mb-4">Track items ordered from this device.</p>
-            <div id="customerOrdersList" class="space-y-3"></div>
+            <div id="customerOrdersList" class="space-y-2.5"></div>
         </div>
     </div>
 
     <!-- MASTER ADMIN PANEL -->
-    <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-5xl w-full p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
-            <button onclick="closeAdminModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+    <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-3xl max-w-5xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
             <div id="adminLoginScreen">
-                <h3 class="text-xl font-black text-slate-900 mb-2">Sensho Master Admin Portal</h3>
+                <h3 class="text-lg font-black text-slate-900 mb-1">Sensho Master Admin Portal</h3>
                 <p class="text-xs text-slate-500 mb-4">Enter PIN to access master store management.</p>
-                <input type="password" id="adminPin" placeholder="Enter Secret PIN" class="w-full text-sm border border-slate-300 rounded-xl px-4 py-3 mb-3 focus:outline-none focus:border-blue-600 font-bold tracking-widest">
-                <button onclick="verifyAdminPin()" class="w-full bg-[#1e1b4b] hover:bg-slate-900 text-white font-bold py-3 rounded-xl transition">Unlock Dashboard</button>
+                <input type="password" id="adminPin" placeholder="Enter Secret PIN" class="w-full text-xs border border-slate-300 rounded-xl px-4 py-2.5 mb-3 focus:outline-none focus:border-blue-600 font-bold tracking-widest">
+                <button onclick="verifyAdminPin()" class="w-full bg-[#1e1b4b] text-white font-bold py-2.5 rounded-xl transition text-xs">Unlock Dashboard</button>
             </div>
 
-            <div id="adminDashboardScreen" class="hidden space-y-6">
-                <!-- PIN & VIP Code Manager -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl flex flex-col justify-between gap-3">
+            <div id="adminDashboardScreen" class="hidden space-y-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl flex flex-col justify-between gap-2">
                         <div>
-                            <h4 class="font-bold text-sm text-slate-900"><i class="fa-solid fa-shield-halved mr-1 text-blue-600"></i> Admin Security PIN</h4>
-                            <p class="text-xs text-slate-500">Change device master PIN anytime.</p>
+                            <h4 class="font-bold text-xs text-slate-900"><i class="fa-solid fa-shield-halved mr-1 text-blue-600"></i> Admin Security PIN</h4>
+                            <p class="text-[10px] text-slate-500">Change device master PIN anytime.</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="password" id="newAdminPin" placeholder="New PIN" class="text-xs border rounded-lg px-3 py-2 w-28 font-bold">
-                            <button onclick="updateAdminPin()" class="bg-[#1e1b4b] text-white text-xs font-bold px-3 py-2 rounded-lg hover:bg-slate-900">Update PIN</button>
+                            <input type="password" id="newAdminPin" placeholder="New PIN" class="text-xs border rounded-lg px-2.5 py-1.5 w-24 font-bold">
+                            <button onclick="updateAdminPin()" class="bg-[#1e1b4b] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg">Update PIN</button>
                         </div>
                     </div>
 
-                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl flex flex-col justify-between gap-3">
+                    <div class="bg-blue-50 border border-blue-200 p-3.5 rounded-2xl flex flex-col justify-between gap-2">
                         <div>
-                            <h4 class="font-bold text-sm text-blue-950"><i class="fa-solid fa-crown mr-1 text-amber-500"></i> Customer VIP Passcode</h4>
-                            <p class="text-xs text-blue-700">Payment hone ke baad customer ko dene wala secret code yahan set karein.</p>
+                            <h4 class="font-bold text-xs text-blue-950"><i class="fa-solid fa-crown mr-1 text-amber-500"></i> Customer VIP Passcode</h4>
+                            <p class="text-[10px] text-blue-700">Payment hone ke baad customer ko dene wala secret code set karein.</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="text" id="adminVipSecretCode" class="text-xs border border-blue-300 rounded-lg px-3 py-2 font-black uppercase text-blue-900 bg-white" placeholder="SET VIP CODE">
-                            <button onclick="updateVipSecretCode()" class="bg-blue-600 text-white text-xs font-bold px-3 py-2 rounded-lg hover:bg-blue-700">Save Passcode</button>
+                            <input type="text" id="adminVipSecretCode" class="text-xs border border-blue-300 rounded-lg px-2.5 py-1.5 font-black uppercase text-blue-900 bg-white" placeholder="SET VIP CODE">
+                            <button onclick="updateVipSecretCode()" class="bg-blue-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg">Save Code</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Live Store Analytics -->
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl">
-                        <span class="text-xs font-bold text-slate-500 uppercase">Total Visitors</span>
-                        <h2 class="text-3xl font-black text-slate-900 mt-1" id="adminVisitorCount">0</h2>
+                <!-- Analytics -->
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="bg-slate-50 border p-2.5 rounded-xl text-center">
+                        <span class="text-[9px] font-bold text-slate-500 uppercase">Visitors</span>
+                        <h2 class="text-xl font-black text-slate-900 mt-0.5" id="adminVisitorCount">0</h2>
                     </div>
-                    <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
-                        <span class="text-xs font-bold text-blue-700 uppercase">Orders Placed</span>
-                        <h2 class="text-3xl font-black text-blue-950 mt-1" id="adminOrderCount">0</h2>
+                    <div class="bg-blue-50 border border-blue-200 p-2.5 rounded-xl text-center">
+                        <span class="text-[9px] font-bold text-blue-700 uppercase">Orders</span>
+                        <h2 class="text-xl font-black text-blue-950 mt-0.5" id="adminOrderCount">0</h2>
                     </div>
-                    <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl relative">
-                        <span class="text-xs font-bold text-emerald-700 uppercase">Total Revenue</span>
-                        <h2 class="text-3xl font-black text-emerald-950 mt-1" id="adminTotalRevenue">₹0</h2>
-                        <button onclick="clearAllOrders()" class="absolute top-3 right-3 text-[10px] bg-rose-100 hover:bg-rose-200 text-rose-700 font-bold px-2 py-1 rounded-md" title="Reset test orders">Reset Orders</button>
+                    <div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded-xl text-center relative">
+                        <span class="text-[9px] font-bold text-emerald-700 uppercase">Revenue</span>
+                        <h2 class="text-xl font-black text-emerald-950 mt-0.5" id="adminTotalRevenue">₹0</h2>
+                        <button onclick="clearAllOrders()" class="text-[8px] text-rose-600 underline block mt-0.5">Reset</button>
                     </div>
                 </div>
 
-                <!-- BANNER SLIDER MANAGER -->
-                <div class="border-t pt-4">
-                    <div class="flex justify-between items-center mb-3">
-                        <div>
-                            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-images text-blue-600 mr-1.5"></i> Banner Slider Manager</h3>
-                            <p class="text-xs text-slate-500">Slider ke banners ki images gallery se upload karein</p>
-                        </div>
-                    </div>
-                    <div id="adminBannerEditorList" class="space-y-3 max-h-72 overflow-y-auto p-1"></div>
+                <!-- Banner Manager -->
+                <div class="border-t pt-3">
+                    <h3 class="text-sm font-black text-slate-900 mb-2"><i class="fa-solid fa-images text-blue-600 mr-1"></i> Banner Slider Manager</h3>
+                    <div id="adminBannerEditorList" class="space-y-2 max-h-56 overflow-y-auto"></div>
                 </div>
 
-                <!-- SUPER PRODUCT & 3-PRICING MASTER MANAGER -->
-                <div class="border-t pt-4">
-                    <div class="flex justify-between items-center mb-3">
-                        <div>
-                            <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-sliders text-blue-600 mr-1.5"></i> Products Master Manager</h3>
-                            <p class="text-xs text-slate-500">Normal Retail (1499), Normal Member (1000) aur VIP Member (600) prices set karein</p>
-                        </div>
-                        <button onclick="addNewProduct()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl flex items-center gap-1 shadow">
-                            <i class="fa-solid fa-plus"></i> Add New Product
+                <!-- Product Master Manager -->
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-sm font-black text-slate-900"><i class="fa-solid fa-sliders text-blue-600 mr-1"></i> Products Master Manager</h3>
+                        <button onclick="addNewProduct()" class="bg-emerald-600 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-plus"></i> Add Product
                         </button>
                     </div>
-                    <div id="adminProductEditorList" class="space-y-5 max-h-[500px] overflow-y-auto p-1"></div>
+                    <div id="adminProductEditorList" class="space-y-3.5 max-h-[420px] overflow-y-auto"></div>
                 </div>
 
-                <!-- Orders Log -->
-                <div class="border-t pt-4">
-                    <div class="flex justify-between items-center mb-3">
-                        <h3 class="text-lg font-black text-slate-900"><i class="fa-solid fa-clipboard-list mr-2 text-blue-600"></i> Customer Orders Database</h3>
-                        <button onclick="clearAllOrders()" class="text-xs text-rose-600 font-bold hover:underline">Delete All Orders</button>
-                    </div>
-                    <div class="overflow-x-auto border rounded-2xl">
-                        <table class="w-full text-left text-xs">
-                            <thead class="bg-slate-100 text-slate-700 uppercase font-bold">
+                <!-- Orders Database Table -->
+                <div class="border-t pt-3">
+                    <h3 class="text-sm font-black text-slate-900 mb-2"><i class="fa-solid fa-clipboard-list mr-1 text-blue-600"></i> Orders Database</h3>
+                    <div class="overflow-x-auto border rounded-xl">
+                        <table class="w-full text-left text-[11px]">
+                            <thead class="bg-slate-100 uppercase font-bold text-slate-600">
                                 <tr>
-                                    <th class="p-3">Order ID</th>
-                                    <th class="p-3">Date/Time</th>
-                                    <th class="p-3">Items</th>
-                                    <th class="p-3">Total Amount</th>
-                                    <th class="p-3 text-center">Action</th>
+                                    <th class="p-2">ID</th>
+                                    <th class="p-2">Items</th>
+                                    <th class="p-2">Total</th>
+                                    <th class="p-2 text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody id="adminOrdersTableBody" class="divide-y"></tbody>
@@ -503,9 +497,10 @@
                     </div>
                 </div>
 
-                <div class="pt-4 border-t flex justify-end gap-3 sticky bottom-0 bg-white py-3 shadow-lg z-20">
-                    <button type="button" onclick="saveAdminChanges()" class="bg-blue-600 hover:bg-blue-700 text-white font-black px-8 py-3.5 rounded-2xl text-sm shadow-xl flex items-center gap-2 cursor-pointer">
-                        <i class="fa-solid fa-floppy-disk text-base"></i> Save & Apply Changes
+                <!-- Sticky Save Changes Button -->
+                <div class="pt-3 border-t flex justify-end sticky bottom-0 bg-white py-2 shadow-lg">
+                    <button type="button" onclick="saveAdminChanges()" class="bg-blue-600 hover:bg-blue-700 text-white font-black px-6 py-2.5 rounded-xl text-xs shadow-xl flex items-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-floppy-disk"></i> Save & Apply Changes
                     </button>
                 </div>
             </div>
@@ -514,30 +509,30 @@
 
     <!-- Cart Drawer -->
     <div id="cartDrawer" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex justify-end">
-        <div class="bg-white w-full max-w-md h-full flex flex-col shadow-2xl">
-            <div class="p-5 bg-[#1e1b4b] text-white flex justify-between items-center">
-                <h3 class="font-black text-lg flex items-center gap-2"><i class="fa-solid fa-bag-shopping text-amber-400"></i> Your Sensho Cart</h3>
-                <button onclick="closeCartDrawer()" class="text-slate-300 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <div class="bg-white w-full max-w-sm h-full flex flex-col shadow-2xl">
+            <div class="p-4 bg-[#1e1b4b] text-white flex justify-between items-center">
+                <h3 class="font-black text-base flex items-center gap-2"><i class="fa-solid fa-bag-shopping text-amber-400"></i> Sensho Cart</h3>
+                <button onclick="closeCartDrawer()" class="text-slate-300 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="p-5 flex-1 overflow-y-auto space-y-4" id="cartItemsContainer">
-                <p class="text-slate-400 text-center py-12 text-sm">Your cart is empty.</p>
+            <div class="p-4 flex-1 overflow-y-auto space-y-3" id="cartItemsContainer">
+                <p class="text-slate-400 text-center py-12 text-xs">Your cart is empty.</p>
             </div>
-            <div class="p-5 border-t border-slate-200 bg-slate-50 space-y-3">
-                <div class="flex justify-between text-base font-black">
+            <div class="p-4 border-t border-slate-200 bg-slate-50 space-y-2.5">
+                <div class="flex justify-between text-sm font-black">
                     <span>Final Amount:</span>
                     <span class="text-blue-600" id="cartTotalPrice">₹0</span>
                 </div>
-                <button onclick="checkoutCartWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-705 text-white font-bold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Order via WhatsApp (+91 6261118847)
+                <button onclick="checkoutCartWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Order via WhatsApp (+91 6261118847)
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 text-center py-10 text-xs border-t border-slate-800 mt-12">
-        <div class="max-w-7xl mx-auto px-4 space-y-3">
-            <p class="font-black text-white text-lg tracking-wider">SENSHO FASHION HUB</p>
+    <footer class="bg-slate-900 text-slate-400 text-center py-8 text-[11px] border-t border-slate-800 mt-10">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-black text-white text-base tracking-wider">SENSHO FASHION HUB</p>
             <p>Direct Wholesale Sourcing • Customer Helpline: <strong class="text-amber-400">+91 6261118847</strong></p>
             <p class="text-slate-500">&copy; 2026 Sensho. All rights reserved. Powered by GitHub Pages.</p>
         </div>
@@ -549,11 +544,9 @@
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxVdXLM9LR21Js1jpI8aFsg3w76qdyEynrbc5294Q035E4p070ukVGIDmWbIGtEJsGY/exec";
 
         let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
-
         let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
         let vipCardData = JSON.parse(localStorage.getItem('senshoVIPCardData')) || null;
 
-        // Check if existing VIP has expired (1 Year Validity check)
         if (vipCardData && vipCardData.expiryTimestamp) {
             if (Date.now() > vipCardData.expiryTimestamp) {
                 isVIPVerified = false;
@@ -615,34 +608,31 @@
                 const gradientClass = hasImg ? 'bg-slate-950/70 backdrop-brightness-50' : b.bgGradient;
 
                 trackHtml += `
-                    <div class="min-w-full h-full relative ${gradientClass} flex items-center px-6 sm:px-14 text-white overflow-hidden" style="${bgStyle}">
-                        <div class="relative z-10 max-w-xl space-y-2">
-                            <span class="bg-amber-400 text-slate-950 text-[10px] sm:text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest shadow">
+                    <div class="min-w-full h-full relative ${gradientClass} flex items-center px-4 sm:px-14 text-white overflow-hidden" style="${bgStyle}">
+                        <div class="relative z-10 max-w-xl space-y-1 sm:space-y-2">
+                            <span class="bg-amber-400 text-slate-950 text-[9px] sm:text-xs font-black px-2.5 py-0.5 rounded-full uppercase tracking-widest shadow inline-block">
                                 ${b.tag}
                             </span>
-                            <h2 class="text-xl sm:text-4xl font-black leading-tight text-white drop-shadow-md">
+                            <h2 class="text-sm sm:text-3xl font-black leading-tight text-white drop-shadow-md line-clamp-2">
                                 ${b.title}
                             </h2>
-                            <p class="text-xs sm:text-sm text-blue-100 hidden sm:block drop-shadow">
+                            <p class="text-[10px] sm:text-xs text-blue-100 hidden sm:block drop-shadow line-clamp-1">
                                 ${b.subtitle}
                             </p>
                             ${b.isVipAction ? `
-                                <button onclick="directContactVipWhatsApp()" class="bg-amber-400 hover:bg-amber-305 text-slate-955 font-black px-5 py-2.5 rounded-xl shadow-lg text-xs sm:text-sm flex items-center gap-2 mt-2">
-                                    <i class="fa-brands fa-whatsapp text-lg text-emerald-700"></i> ${b.btnText}
+                                <button onclick="directContactVipWhatsApp()" class="bg-amber-400 text-slate-950 font-black px-3.5 py-1.5 rounded-lg shadow text-[10px] sm:text-xs flex items-center gap-1.5 mt-1">
+                                    <i class="fa-brands fa-whatsapp text-emerald-700"></i> ${b.btnText}
                                 </button>
                             ` : `
-                                <a href="#shop" class="inline-block bg-white text-slate-900 font-black px-5 py-2.5 rounded-xl text-xs sm:text-sm shadow mt-2">
+                                <a href="#shop" class="inline-block bg-white text-slate-900 font-black px-3.5 py-1.5 rounded-lg text-[10px] sm:text-xs shadow mt-1">
                                     ${b.btnText}
                                 </a>
                             `}
                         </div>
-                        <div class="absolute right-4 sm:right-16 top-1/2 -translate-y-1/2 opacity-25 sm:opacity-90 pointer-events-none">
-                            <i class="fa-solid fa-crown text-8xl sm:text-98 text-amber-300"></i>
-                        </div>
                     </div>
                 `;
 
-                dotsHtml += `<span class="${idx === 0 ? 'w-6 bg-amber-400' : 'w-2 bg-white/40'} h-1.5 rounded-full transition-all"></span>`;
+                dotsHtml += `<span class="${idx === 0 ? 'w-4 bg-amber-400' : 'w-1.5 bg-white/40'} h-1 rounded-full transition-all"></span>`;
             });
 
             track.innerHTML = trackHtml;
@@ -660,7 +650,7 @@
             const dots = document.getElementById('sliderDots');
             if (dots) {
                 Array.from(dots.children).forEach((dot, idx) => {
-                    dot.className = idx === currentSlide ? "w-6 h-1.5 bg-amber-400 rounded-full transition-all" : "w-2 h-1.5 bg-white/40 rounded-full transition-all";
+                    dot.className = idx === currentSlide ? "w-4 h-1 bg-amber-400 rounded-full transition-all" : "w-1.5 h-1 bg-white/40 rounded-full transition-all";
                 });
             }
         }
@@ -781,7 +771,7 @@
             }
         });
 
-        // IMAGE COMPRESSION FUNCTION (Compresses dynamic photos on upload to avoid exceeded quota)[cite: 1]
+        // IMAGE COMPRESSION
         function compressImage(base64Str, maxWidth = 800, maxHeight = 800, quality = 0.5) {
             return new Promise((resolve) => {
                 const img = new Image();
@@ -810,7 +800,7 @@
             });
         }
 
-        // RENDER PRODUCTS
+        // MEESHO APP STYLE 2-COLUMN GRID (MOBILE FRIENDLY)
         function renderProducts() {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
@@ -821,50 +811,51 @@
                 const mrpVal = p.mrp || Math.round(p.normal * 1.5);
 
                 html += `
-                    <div class="product-card bg-white rounded-3xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-xl transition flex flex-col justify-between group cursor-pointer" data-category="${p.category}">
+                    <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition flex flex-col justify-between group cursor-pointer" data-category="${p.category}">
                         <div onclick="openProductDetailModal(${idx})">
+                            <!-- 3:4 Proportional Box -->
                             <div class="relative bg-slate-100 overflow-hidden w-full aspect-[3/4]">
                                 <img src="${coverImg}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                                <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow">${p.tag || "Best Seller"}</span>
-                                ${photoCount > 1 ? `<span class="absolute bottom-3 right-3 bg-slate-900/80 backdrop-blur text-white text-[10px] font-bold px-2 py-0.5 rounded-lg"><i class="fa-solid fa-images mr-1"></i>${photoCount} Photos</span>` : ''}
+                                <span class="absolute top-2 left-2 bg-blue-600 text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow">${p.tag || "Best Seller"}</span>
+                                ${photoCount > 1 ? `<span class="absolute bottom-2 right-2 bg-slate-900/80 backdrop-blur text-white text-[9px] font-bold px-1.5 py-0.2 rounded"><i class="fa-solid fa-images mr-0.5"></i>${photoCount}</span>` : ''}
                             </div>
-                            <div class="p-4">
-                                <span class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest">${p.category.toUpperCase()}</span>
-                                <h3 class="font-bold text-slate-900 text-base mt-0.5 mb-2 line-clamp-1">${p.name}</h3>
+                            <div class="p-2 sm:p-3">
+                                <span class="text-[9px] text-slate-400 font-extrabold uppercase">${p.category.toUpperCase()}</span>
+                                <h3 class="font-bold text-slate-900 text-xs sm:text-sm mt-0.5 mb-1.5 line-clamp-1">${p.name}</h3>
                                 
-                                <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border border-blue-200/90 rounded-2xl p-3 shadow-inner">
-                                    <div class="flex items-center justify-between pb-1.5 mb-1.5 border-b border-blue-100 text-[10px]">
-                                        <span class="text-slate-400 font-bold">Normal Retail:</span>
-                                        <div class="flex items-center gap-1.5">
-                                            <span class="text-slate-400 font-bold line-through">₹${mrpVal}</span>
-                                            <span class="bg-rose-100 text-rose-700 font-black px-1.5 py-0.2 rounded text-[9px]">Save ₹${mrpVal - p.vip}</span>
+                                <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border border-blue-200/90 rounded-xl p-2 shadow-inner">
+                                    <div class="flex items-center justify-between pb-1 mb-1 border-b border-blue-100 text-[9px]">
+                                        <span class="text-slate-400">Normal Retail:</span>
+                                        <div class="flex items-center gap-1">
+                                            <span class="text-slate-400 line-through">₹${mrpVal}</span>
+                                            <span class="bg-rose-100 text-rose-700 font-black px-1 rounded text-[8px]">Save ₹${mrpVal - p.vip}</span>
                                         </div>
                                     </div>
 
                                     <div class="flex items-center justify-between gap-1">
-                                        <div class="${!isVIPVerified ? 'bg-white/80 p-1 rounded-lg border border-blue-200' : ''}">
-                                            <span class="text-[8px] font-black ${!isVIPVerified ? 'text-blue-900 font-extrabold' : 'text-slate-500'} uppercase tracking-tight block">Normal Member:</span>
-                                            <span class="text-sm font-black text-slate-800">₹${p.normal}</span>
+                                        <div>
+                                            <span class="text-[8px] font-black ${!isVIPVerified ? 'text-blue-900' : 'text-slate-500'} uppercase block">Normal:</span>
+                                            <span class="text-xs sm:text-sm font-black text-slate-800">₹${p.normal}</span>
                                         </div>
 
-                                        <div class="h-6 w-[1.5px] bg-blue-300"></div>
+                                        <div class="h-5 w-[1.5px] bg-blue-300"></div>
 
-                                        <div class="text-right ${isVIPVerified ? 'bg-amber-100/80 p-1 rounded-lg border border-amber-300' : ''}">
-                                            <span class="text-[8px] font-black text-blue-700 uppercase tracking-tight flex items-center justify-end gap-0.5">
-                                                <i class="fa-solid fa-crown text-amber-505 text-amber-500"></i> VIP Member:
+                                        <div class="text-right">
+                                            <span class="text-[8px] font-black text-blue-700 uppercase flex items-center justify-end gap-0.5">
+                                                <i class="fa-solid fa-crown text-amber-500"></i> VIP:
                                             </span>
-                                            <span class="text-lg font-black text-[#1e1b4b]">₹${p.vip}</span>
+                                            <span class="text-sm sm:text-base font-black text-[#1e1b4b]">₹${p.vip}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-4 pt-0 grid grid-cols-2 gap-2">
-                            <button onclick="event.stopPropagation(); openProductDetailModal(${idx});" class="bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 border border-blue-200">
-                                <i class="fa-solid fa-eye"></i> View Details
+                        <div class="p-2 pt-0 grid grid-cols-2 gap-1.5">
+                            <button onclick="event.stopPropagation(); openProductDetailModal(${idx});" class="bg-blue-50 text-blue-700 font-bold text-[10px] sm:text-xs py-2 rounded-lg border border-blue-200 flex items-center justify-center">
+                                Details
                             </button>
-                            <button onclick="event.stopPropagation(); quickBuyNow(${idx});" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1 shadow-md">
-                                <i class="fa-brands fa-whatsapp text-base"></i> Buy Now
+                            <button onclick="event.stopPropagation(); quickBuyNow(${idx});" class="bg-blue-600 text-white font-bold text-[10px] sm:text-xs py-2 rounded-lg flex items-center justify-center gap-1 shadow">
+                                Buy Now
                             </button>
                         </div>
                     </div>
@@ -892,17 +883,6 @@
             document.getElementById('detailVipPrice').innerText = `₹${p.vip}`;
             document.getElementById('detailVipSavingsBadge').innerText = `VIP Saves ₹${p.normal - p.vip}`;
 
-            const normalBox = document.getElementById('detailNormalBoxContainer');
-            const vipBox = document.getElementById('detailVipBoxContainer');
-
-            if(isVIPVerified) {
-                vipBox.className = "p-2 rounded-xl bg-amber-100 border-2 border-amber-400";
-                normalBox.className = "p-2 rounded-xl opacity-60";
-            } else {
-                normalBox.className = "p-2 rounded-xl bg-white border-2 border-blue-400 shadow-sm";
-                vipBox.className = "p-2 rounded-xl opacity-75";
-            }
-
             document.getElementById('detailFabric').innerText = p.fabric || "Premium Cotton";
             document.getElementById('detailFit').innerText = p.fit || "Regular Fit";
             document.getElementById('detailDesc').innerText = p.desc || "Premium quality wholesale product directly sourced from factory.";
@@ -916,21 +896,21 @@
 
             images.forEach((imgUrl, i) => {
                 const thumbBtn = document.createElement('button');
-                thumbBtn.className = `w-16 h-20 rounded-xl overflow-hidden border-2 transition shrink-0 ${i === 0 ? 'border-blue-600 shadow-md ring-2 ring-blue-300' : 'border-slate-200 hover:border-blue-400'}`;
+                thumbBtn.className = `w-12 sm:w-14 h-16 rounded-lg overflow-hidden border-2 transition shrink-0 ${i === 0 ? 'border-blue-600 shadow ring-1 ring-blue-300' : 'border-slate-200'}`;
                 thumbBtn.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover">`;
                 thumbBtn.onclick = function() {
                     mainImg.src = imgUrl;
-                    thumbsList.querySelectorAll('button').forEach(b => b.className = 'w-16 h-20 rounded-xl overflow-hidden border-2 border-slate-200 hover:border-blue-400 transition shrink-0');
-                    thumbBtn.className = 'w-16 h-20 rounded-xl overflow-hidden border-2 border-blue-600 shadow-md ring-2 ring-blue-300 transition shrink-0';
+                    thumbsList.querySelectorAll('button').forEach(b => b.className = 'w-12 sm:w-14 h-16 rounded-lg overflow-hidden border-2 border-slate-200 transition shrink-0');
+                    thumbBtn.className = 'w-12 sm:w-14 h-16 rounded-lg overflow-hidden border-2 border-blue-600 shadow ring-1 ring-blue-300 transition shrink-0';
                 };
                 thumbsList.appendChild(thumbBtn);
             });
 
             document.querySelectorAll('.size-btn').forEach(btn => {
                 if (btn.innerText.trim() === 'M') {
-                    btn.className = "size-btn active px-4 py-2 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl font-bold text-xs transition";
+                    btn.className = "size-btn active px-3 py-1.5 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs";
                 } else {
-                    btn.className = "size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition";
+                    btn.className = "size-btn px-3 py-1.5 border rounded-lg font-bold text-xs";
                 }
             });
 
@@ -944,9 +924,9 @@
         function selectSize(size, el) {
             selectedProductSize = size;
             document.querySelectorAll('.size-btn').forEach(b => {
-                b.className = "size-btn px-4 py-2 border-2 border-slate-200 rounded-xl font-bold text-xs hover:border-blue-600 transition";
+                b.className = "size-btn px-3 py-1.5 border rounded-lg font-bold text-xs";
             });
-            el.className = "size-btn active px-4 py-2 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-xl font-bold text-xs transition";
+            el.className = "size-btn active px-3 py-1.5 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs";
         }
 
         // ADD TO CART
@@ -999,7 +979,7 @@
             const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
             recordOrder(itemSummary, price, `[${orderTier}] Direct Order`);
 
-            let msg = `*NEW ORDER - SENSHO FASHION HUB*%0A%0A*Product:* ${encodeURIComponent(p.name)}%0A*Selected Size:* ${selectedProductSize}%0A*Pricing Tier:* ${orderTier}%0A*Final Price:* ₹${price}%0A*VIP Card Number:* ${cardParam}%0A%0APlease confirm product availability and share payment / delivery instructions.`;
+            let msg = `*NEW ORDER - SENSHO FASHION HUB*%0A%0A*Product:* ${encodeURIComponent(p.name)}%0A*Selected Size:* ${selectedProductSize}%0A*Pricing Tier:* ${orderTier}%0A*Final Price:* ₹${price}%0A*VIP Card Number:* ${cardParam}%0A%0APlease confirm product availability and share delivery instructions.`;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
         }
 
@@ -1009,19 +989,19 @@
 
         function updateUI() {
             const badge = document.getElementById('headerPricingStatusBadge');
-            const navBtnText = document.getElementById('navVipBtnText');
+            const navBtnTextDesktop = document.getElementById('navVipBtnDesktop');
 
             if (isVIPVerified && vipCardData) {
-                if(navBtnText) navBtnText.innerText = "My VIP Card";
+                if(navBtnTextDesktop) navBtnTextDesktop.innerText = "My VIP Card";
                 if(badge) {
-                    badge.innerText = `VIP Wholesale Active (${vipCardData.cardNumber})`;
-                    badge.className = "bg-amber-100 text-blue-950 font-black px-3 py-1 rounded-lg border border-amber-300";
+                    badge.innerText = `VIP Active (${vipCardData.cardNumber})`;
+                    badge.className = "text-amber-600 font-bold";
                 }
             } else {
-                if(navBtnText) navBtnText.innerText = "Get VIP Pass";
+                if(navBtnTextDesktop) navBtnTextDesktop.innerText = "VIP Pass";
                 if(badge) {
-                    badge.innerText = "Normal Member Active (VIP ₹299)";
-                    badge.className = "bg-blue-50 text-blue-700 px-3 py-1 rounded-lg border border-blue-200";
+                    badge.innerText = "Normal Member View (VIP ₹299)";
+                    badge.className = "text-blue-700 font-bold";
                 }
             }
             renderBannerSlider();
@@ -1058,7 +1038,7 @@
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        // DYNAMIC PASSCODE ACTIVATION (365 DAYS)
+        // DYNAMIC PASSCODE ACTIVATION
         function activateBigVipCode() {
             let code = document.getElementById('bigVipCodeInput').value.trim().toUpperCase();
             let currentValidCode = (localStorage.getItem('senshoDynamicVipCode') || "SENSHO299").trim().toUpperCase();
@@ -1125,7 +1105,7 @@
             let container = document.getElementById('cartItemsContainer');
             let totalPrice = 0;
             if(cart.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-center py-12 text-sm">Your cart is empty.</p>`;
+                container.innerHTML = `<p class="text-slate-400 text-center py-10 text-xs">Your cart is empty.</p>`;
                 document.getElementById('cartTotalPrice').innerText = "₹0";
                 return;
             }
@@ -1135,13 +1115,13 @@
                 item.price = currentItemPrice;
                 totalPrice += (currentItemPrice * item.qty);
                 html += `
-                    <div class="flex items-center gap-3 bg-slate-50 border p-3 rounded-2xl">
-                        <img src="${item.img}" class="w-16 h-16 object-cover rounded-xl border">
+                    <div class="flex items-center gap-2.5 bg-slate-50 border p-2.5 rounded-xl">
+                        <img src="${item.img}" class="w-12 h-14 object-cover rounded-lg border">
                         <div class="flex-1">
-                            <h4 class="font-bold text-sm text-slate-900 line-clamp-1">${item.name}</h4>
-                            <p class="text-xs text-blue-700 font-extrabold mt-0.5">₹${currentItemPrice} x ${item.qty}</p>
+                            <h4 class="font-bold text-xs text-slate-900 line-clamp-1">${item.name}</h4>
+                            <p class="text-[11px] text-blue-700 font-extrabold mt-0.5">₹${currentItemPrice} x ${item.qty}</p>
                         </div>
-                        <button onclick="cart.splice(${index},1);localStorage.setItem('senshoCart', JSON.stringify(cart));updateCartBadge();updateCartModal();" class="text-slate-400 hover:text-rose-600 p-2"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="cart.splice(${index},1);localStorage.setItem('senshoCart', JSON.stringify(cart));updateCartBadge();updateCartModal();" class="text-slate-400 hover:text-rose-600 p-1.5"><i class="fa-solid fa-trash text-xs"></i></button>
                     </div>
                 `;
             });
@@ -1157,7 +1137,7 @@
 
             recordOrder(summaryStr, totalPrice, `${cardInfo} Checkout`);
 
-            let msg = `*CART ORDER - SENSHO FASHION HUB*%0A*Account Type:* ${isVIPVerified ? "Verified VIP Member (Wholesale Discount)" : "Normal Member (Standard Price)"}%0A*Total Amount:* ₹${totalPrice}%0A*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A*Items:*%0A`;
+            let msg = `*CART ORDER - SENSHO FASHION HUB*%0A*Account Type:* ${isVIPVerified ? "Verified VIP Member (Wholesale Rate)" : "Normal Member (Standard Price)"}%0A*Total Amount:* ₹${totalPrice}%0A*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A*Items:*%0A`;
             cart.forEach(i => { msg += `- ${encodeURIComponent(i.name)} (${i.qty}x) - ₹${i.price * i.qty}%0A`; });
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
         }
@@ -1191,7 +1171,7 @@
         }
 
         function clearAllOrders() {
-            if(confirm("Kya aap sach me sabhi test orders aur revenue ko delete karke 0 karna chahte hain?")) {
+            if(confirm("Sabhi test orders aur revenue ko delete karke 0 karna chahte hain?")) {
                 orders = [];
                 localStorage.removeItem('senshoOrders');
                 loadAdminDashboardData();
@@ -1208,19 +1188,19 @@
         function openMyOrders() {
             let container = document.getElementById('customerOrdersList');
             if(orders.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-center py-8 text-sm">No orders placed yet.</p>`;
+                container.innerHTML = `<p class="text-slate-400 text-center py-6 text-xs">No orders placed yet.</p>`;
             } else {
                 let html = '';
                 orders.forEach(o => {
                     html += `
-                        <div class="bg-slate-50 border p-4 rounded-2xl space-y-1">
-                            <div class="flex justify-between text-xs font-bold text-blue-600">
+                        <div class="bg-slate-50 border p-3 rounded-xl space-y-1">
+                            <div class="flex justify-between text-[11px] font-bold text-blue-600">
                                 <span>Order ID: ${o.id}</span>
                                 <span class="text-slate-500">${o.date}</span>
                             </div>
-                            <p class="text-sm font-bold text-slate-900">${o.summary}</p>
+                            <p class="text-xs font-bold text-slate-900">${o.summary}</p>
                             <div class="flex justify-between items-center text-xs pt-1 border-t">
-                                <span class="text-emerald-600 font-extrabold">${o.type || "Confirmed"}</span>
+                                <span class="text-emerald-600 font-extrabold text-[11px]">${o.type || "Confirmed"}</span>
                                 <span class="font-black text-slate-900">₹${o.total}</span>
                             </div>
                         </div>
@@ -1294,16 +1274,13 @@
                 let bannerHtml = '';
                 banners.forEach((b, idx) => {
                     bannerHtml += `
-                        <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl flex flex-col sm:flex-row items-center gap-3">
-                            <div class="w-24 h-14 bg-slate-200 rounded-xl overflow-hidden border shrink-0">
-                                ${b.customImg ? `<img src="${b.customImg}" id="banner-preview-${idx}" class="w-full h-full object-cover">` : `<div id="banner-preview-${idx}" class="w-full h-full flex items-center justify-center text-[10px] font-bold text-slate-400">Default BG</div>`}
+                        <div class="bg-slate-50 border p-2.5 rounded-xl flex items-center gap-2">
+                            <div class="w-16 h-10 bg-slate-200 rounded overflow-hidden shrink-0">
+                                ${b.customImg ? `<img src="${b.customImg}" id="banner-preview-${idx}" class="w-full h-full object-cover">` : `<div id="banner-preview-${idx}" class="w-full h-full flex items-center justify-center text-[8px] text-slate-400">Default</div>`}
                             </div>
-                            <div class="flex-1 w-full space-y-1">
-                                <span class="text-xs font-bold text-slate-900 block">Slide #${idx+1}: ${b.title.substring(0, 32)}...</span>
-                                <div class="flex items-center gap-2">
-                                    <label class="text-[11px] font-bold text-slate-600">Select Banner Image:</label>
-                                    <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-xs file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 cursor-pointer">
-                                </div>
+                            <div class="flex-1 space-y-0.5">
+                                <span class="text-[11px] font-bold text-slate-900 block truncate">Slide #${idx+1}: ${b.title}</span>
+                                <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-[10px]">
                             </div>
                         </div>
                     `;
@@ -1318,86 +1295,52 @@
                     const currentImages = (p.images && Array.isArray(p.images)) ? p.images : [];
                     const mrpVal = p.mrp || Math.round(p.normal * 1.5);
                     prodHtml += `
-                        <div class="bg-slate-50 border-2 border-blue-100 p-4 rounded-3xl space-y-3.5 shadow-sm">
-                            <div class="flex justify-between items-center border-b pb-2">
-                                <span class="text-xs font-black text-blue-950 uppercase tracking-wider">Product #${idx+1} Control Panel</span>
-                                <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-xs font-bold hover:underline flex items-center gap-1">
-                                    <i class="fa-solid fa-trash"></i> Delete Product
-                                </button>
+                        <div class="bg-slate-50 border p-3 rounded-2xl space-y-2.5">
+                            <div class="flex justify-between items-center border-b pb-1">
+                                <span class="text-xs font-black text-blue-950">Product #${idx+1} Control</span>
+                                <button onclick="products.splice(${idx},1);loadAdminDashboardData();" class="text-rose-600 text-[10px] font-bold hover:underline">Delete</button>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-                                <div>
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Product Title</label>
-                                    <input type="text" id="p-name-${idx}" value="${p.name}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-blue-600">
-                                </div>
-                                <div>
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Category</label>
-                                    <select id="p-cat-${idx}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-blue-600 bg-white">
-                                        <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
-                                        <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
-                                        <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
-                                        <option value="girls" ${p.category==='girls'?'selected':''}>Girls Clothing</option>
-                                        <option value="kids" ${p.category==='kids'?'selected':''}>Baby & Kids</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Tag Badge</label>
-                                    <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="w-full text-xs border rounded-xl p-2 font-bold focus:border-blue-600">
-                                </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <input type="text" id="p-name-${idx}" value="${p.name}" class="text-xs border rounded-lg p-1.5 font-bold" placeholder="Product Name">
+                                <select id="p-cat-${idx}" class="text-xs border rounded-lg p-1.5 font-bold bg-white">
+                                    <option value="mens" ${p.category==='mens'?'selected':''}>Men's Fashion</option>
+                                    <option value="womens" ${p.category==='womens'?'selected':''}>Women's Wear</option>
+                                    <option value="boys" ${p.category==='boys'?'selected':''}>Boys Clothing</option>
+                                    <option value="girls" ${p.category==='girls'?'selected':''}>Girls Clothing</option>
+                                    <option value="kids" ${p.category==='kids'?'selected':''}>Baby & Kids</option>
+                                </select>
+                                <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="text-xs border rounded-lg p-1.5 font-bold" placeholder="Tag Badge">
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-blue-50/70 p-3 rounded-2xl border border-blue-200/70">
+                            <div class="grid grid-cols-3 gap-2 bg-blue-50/70 p-2 rounded-xl">
                                 <div>
-                                    <label class="text-[11px] font-black text-slate-500 block mb-1">Normal Retail (MRP):</label>
-                                    <input type="number" id="p-mrp-${idx}" value="${mrpVal}" class="w-full text-xs border border-slate-300 rounded-xl p-2 font-black text-slate-600 focus:border-blue-600 bg-white">
+                                    <label class="text-[9px] font-bold text-slate-500 block">MRP (₹)</label>
+                                    <input type="number" id="p-mrp-${idx}" value="${mrpVal}" class="w-full text-xs border rounded p-1 font-bold">
                                 </div>
                                 <div>
-                                    <label class="text-[11px] font-black text-slate-850 block mb-1">Normal Member Price:</label>
-                                    <input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-xs border border-slate-300 rounded-xl p-2 font-black text-slate-900 focus:border-blue-600 bg-white">
+                                    <label class="text-[9px] font-bold text-slate-800 block">Normal (₹)</label>
+                                    <input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-xs border rounded p-1 font-bold">
                                 </div>
                                 <div>
-                                    <label class="text-[11px] font-black text-blue-700 block mb-1">VIP Member Price:</label>
-                                    <input type="number" id="p-vip-${idx}" value="${p.vip}" class="w-full text-xs border border-blue-300 rounded-xl p-2 font-black text-[#1e1b4b] focus:border-blue-600 bg-white">
+                                    <label class="text-[9px] font-bold text-blue-700 block">VIP (₹)</label>
+                                    <input type="number" id="p-vip-${idx}" value="${p.vip}" class="w-full text-xs border rounded p-1 font-bold text-blue-900">
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                <div>
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Fabric Type</label>
-                                    <input type="text" id="p-fabric-${idx}" value="${p.fabric || "100% Pure Cotton"}" class="w-full text-xs border rounded-xl p-2 font-medium">
-                                </div>
-                                <div>
-                                    <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Fit / Shape</label>
-                                    <input type="text" id="p-fit-${idx}" value="${p.fit || "Regular Fit"}" class="w-full text-xs border rounded-xl p-2 font-medium">
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="text-[10px] font-bold text-slate-500 uppercase block mb-1">Product Description</label>
-                                <textarea id="p-desc-${idx}" rows="2" class="w-full text-xs border rounded-xl p-2 font-medium">${p.desc || "High quality factory-made clothing."}</textarea>
-                            </div>
-
-                            <div class="bg-white p-3.5 rounded-2xl border space-y-2.5">
+                            <div class="bg-white p-2 rounded-xl border space-y-1.5">
                                 <div class="flex justify-between items-center">
-                                    <label class="text-[11px] font-bold text-slate-705 flex items-center gap-1.5">
-                                        <i class="fa-solid fa-images text-blue-600"></i> Gallery Photos (Max 6):
-                                    </label>
-                                    <span class="text-[10px] text-blue-700 font-bold bg-blue-50 px-2 py-0.5 rounded-lg border">${currentImages.length} of 6 Photos</span>
-                                </div>
-
-                                <div class="flex items-center gap-2">
-                                    <label class="bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold text-xs px-3.5 py-2 rounded-xl cursor-pointer transition flex items-center gap-1.5 shadow-sm">
-                                        <i class="fa-solid fa-plus-circle text-sm"></i> Add Image to Gallery
+                                    <span class="text-[10px] font-bold text-slate-700">Gallery (${currentImages.length}/6 Photos)</span>
+                                    <label class="bg-blue-100 text-blue-900 font-bold text-[9px] px-2 py-1 rounded cursor-pointer">
+                                        + Add Image
                                         <input type="file" accept="image/*" onchange="appendSingleImage(event, ${idx})" class="hidden">
                                     </label>
                                 </div>
-                                
-                                <div class="flex gap-2.5 overflow-x-auto pt-2" id="preview-container-${idx}">
+                                <div class="flex gap-2 overflow-x-auto pt-1">
                                     ${currentImages.map((img, imgIdx) => `
-                                        <div class="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden border border-slate-300 shadow-sm group">
+                                        <div class="relative w-12 h-14 shrink-0 rounded-lg overflow-hidden border">
                                             <img src="${img}" class="w-full h-full object-cover">
-                                            <button onclick="removeImageFromProduct(${idx}, ${imgIdx})" type="button" class="absolute top-0.5 right-0.5 bg-rose-600 hover:bg-rose-700 text-white rounded-full w-4 h-4 text-[9px] flex items-center justify-center shadow" title="Delete image">✕</button>
+                                            <button onclick="removeImageFromProduct(${idx}, ${imgIdx})" type="button" class="absolute top-0 right-0 bg-rose-600 text-white rounded-full w-3.5 h-3.5 text-[8px] flex items-center justify-center">✕</button>
                                         </div>
                                     `).join('')}
                                 </div>
@@ -1411,20 +1354,17 @@
             let tableBody = document.getElementById('adminOrdersTableBody');
             if(tableBody) {
                 if(orders.length === 0) {
-                    tableBody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-400">No orders recorded yet. Revenue is ₹0.</td></tr>`;
+                    tableBody.innerHTML = `<tr><td colspan="4" class="p-3 text-center text-slate-400">No orders recorded yet.</td></tr>`;
                 } else {
                     let html = '';
                     orders.forEach((o, oIdx) => {
                         html += `
                             <tr class="hover:bg-slate-50">
-                                <td class="p-3 font-bold text-blue-600">${o.id}</td>
-                                <td class="p-3 text-slate-505">${o.date}</td>
-                                <td class="p-3 font-medium text-slate-900">${o.summary}</td>
-                                <td class="p-3 font-black text-emerald-600">₹${o.total}</td>
-                                <td class="p-3 text-center">
-                                    <button onclick="deleteSingleOrder(${oIdx})" class="text-rose-600 hover:text-rose-800 text-xs font-bold p-1" title="Delete Order">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                <td class="p-2 font-bold text-blue-600">${o.id}</td>
+                                <td class="p-2 font-medium text-slate-900 truncate max-w-[120px]">${o.summary}</td>
+                                <td class="p-2 font-black text-emerald-600">₹${o.total}</td>
+                                <td class="p-2 text-center">
+                                    <button onclick="deleteSingleOrder(${oIdx})" class="text-rose-600 text-xs"><i class="fa-solid fa-trash"></i></button>
                                 </td>
                             </tr>
                         `;
@@ -1448,7 +1388,6 @@
 
             const reader = new FileReader();
             reader.onload = async function(event) {
-                // Background image compress karke low memory optimize karega[cite: 1]
                 const compressed = await compressImage(event.target.result, 600, 800, 0.4);
                 products[productIdx].images.push(compressed);
                 loadAdminDashboardData();
@@ -1471,7 +1410,6 @@
 
             const reader = new FileReader();
             reader.onload = async function(event) {
-                // heavy 2MB image compressor for hero banners[cite: 1]
                 const compressedBanner = await compressImage(event.target.result, 1200, 450, 0.5);
                 banners[index].customImg = compressedBanner;
                 loadAdminDashboardData();
@@ -1489,7 +1427,7 @@
                 vip: 599, 
                 tag: "New Arrival",
                 fabric: "100% Pure Cotton",
-                fit: "Comfort Regular Fit",
+                fit: "Regular Comfort Fit",
                 desc: "High quality factory-made clothing directly from wholesale hub.",
                 images: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"]
             });
@@ -1505,9 +1443,6 @@
                     const mrpEl = document.getElementById(`p-mrp-${idx}`);
                     const normEl = document.getElementById(`p-normal-${idx}`);
                     const vipEl = document.getElementById(`p-vip-${idx}`);
-                    const fabricEl = document.getElementById(`p-fabric-${idx}`);
-                    const fitEl = document.getElementById(`p-fit-${idx}`);
-                    const descEl = document.getElementById(`p-desc-${idx}`);
 
                     if(nameEl) p.name = nameEl.value;
                     if(catEl) p.category = catEl.value;
@@ -1515,26 +1450,14 @@
                     if(mrpEl && mrpEl.value !== "") p.mrp = Number(mrpEl.value);
                     if(normEl && normEl.value !== "") p.normal = Number(normEl.value);
                     if(vipEl && vipEl.value !== "") p.vip = Number(vipEl.value);
-                    if(fabricEl) p.fabric = fabricEl.value;
-                    if(fitEl) p.fit = fitEl.value;
-                    if(descEl) p.desc = descEl.value;
                 });
 
-                // Clear heavy obsolete state/cache and store the rest
-                try {
-                    localStorage.setItem('senshoProducts', JSON.stringify(products));
-                    localStorage.setItem('senshoBanners', JSON.stringify(banners));
-                    alert("✅ Changes successfully save ho gaye hain without quota errors!");
-                    closeAdminModal();
-                    updateUI();
-                } catch(e) {
-                    console.warn("Storage warning - optimizing footprint.", e);
-                    // Automatic backup mechanism to strip ultra non-critical metadata
-                    localStorage.setItem('senshoProducts', JSON.stringify(products.slice(0, 15))); 
-                    alert("⚠️ High data optimization kiya gaya. Changes save ho gaye!");
-                    closeAdminModal();
-                    updateUI();
-                }
+                localStorage.setItem('senshoProducts', JSON.stringify(products));
+                localStorage.setItem('senshoBanners', JSON.stringify(banners));
+                
+                alert("✅ Saare changes save ho gaye hain! Mobile & Desktop updated.");
+                closeAdminModal();
+                updateUI();
             } catch(err) {
                 console.error("Save Error:", err);
                 alert("Save karne me issue aaya: " + err.message);
@@ -1542,8 +1465,8 @@
         }
 
         function filterCategory(cat, btn) {
-            document.querySelectorAll('.cat-btn').forEach(b => b.className = "cat-btn hover:text-blue-300 px-3 py-1.5 transition");
-            if(btn) btn.className = "cat-btn active bg-blue-600 text-white px-4 py-1.5 rounded-xl transition shadow";
+            document.querySelectorAll('.cat-btn').forEach(b => b.className = "cat-btn hover:text-white px-3 py-1.5 rounded-full bg-slate-800/80 transition text-xs");
+            if(btn) btn.className = "cat-btn active bg-blue-600 text-white px-3.5 py-1.5 rounded-full transition shadow text-xs";
             document.querySelectorAll('.product-card').forEach(card => {
                 card.style.display = (cat === 'all' || card.getAttribute('data-category') === cat) ? 'flex' : 'none';
             });
