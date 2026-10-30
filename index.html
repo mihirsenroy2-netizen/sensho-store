@@ -97,7 +97,7 @@
         </nav>
     </header>
 
-    <!-- PURE CLEAN HERO BANNER SLIDER -->
+    <!-- CLEAN PURE SLIDER -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
         <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
             <div id="sliderTrack" class="banner-track h-full w-full"></div>
@@ -565,13 +565,6 @@
         const WHATSAPP_NUMBER = "916261118847";
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyl76_eGhifisK-8TVYJv7i6XepU_WRwb16jL5sB1fa2JJTCV76itTgAvbUo9K_CrM/exec";
         const IMGBB_API_KEY = "6d207e02198a847aa5a0a0330f625680"; 
-        const CACHE_VERSION = "v_sensho_sync_46"; // Version bump clears stale dummy cache on other devices
-
-        if (localStorage.getItem('sensho_cache_ver') !== CACHE_VERSION) {
-            localStorage.removeItem('senshoProducts');
-            localStorage.removeItem('senshoBanners');
-            localStorage.setItem('sensho_cache_ver', CACHE_VERSION);
-        }
 
         let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
         let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
@@ -590,8 +583,7 @@
         let selectedProductSize = "M";
         let pendingCheckoutType = "direct"; 
 
-        // SCREENSHOT 48 AUTHENTIC BANNERS & PRODUCTS
-        const globalDefaultBanners = [
+        const defaultBanners = [
             {
                 id: 1,
                 title: "Sensho VIP 1-Year Membership @ 299",
@@ -604,7 +596,7 @@
             }
         ];
 
-        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || globalDefaultBanners;
+        let banners = JSON.parse(localStorage.getItem('senshoBanners')) || defaultBanners;
 
         const defaultProducts = [
             { 
@@ -1224,6 +1216,7 @@
 
             const cloudUrl = await uploadFileToPermanentCloud(file);
             banners[index].customImg = cloudUrl;
+            if(uploadStatusText) uploadStatusText.innerText = "✅ Uploaded!";
             loadAdminDashboardData();
         }
 
@@ -1360,6 +1353,7 @@
                                 <textarea id="p-desc-${idx}" rows="2" class="w-full text-xs border rounded-lg p-1.5 font-medium bg-white">${p.desc || ''}</textarea>
                             </div>
 
+                            <!-- Gallery Upload (Upto 10 Photos) -->
                             <div class="bg-white p-2.5 rounded-xl border space-y-1.5">
                                 <div class="flex justify-between items-center">
                                     <span class="text-[10px] font-bold text-slate-700">Gallery Photos (${currentImages.length}/10 Photos)</span>
@@ -1411,8 +1405,13 @@
                     if(descEl) p.desc = descEl.value;
                 });
 
-                localStorage.setItem('senshoProducts', JSON.stringify(products));
-                localStorage.setItem('senshoBanners', JSON.stringify(banners));
+                // BYPASS LOCALSTORAGE QUOTA EXCEEDED BY STORING ONLY LIGHTWEIGHT REFERENCES OR DIRECT CLOUD SYNC
+                try {
+                    localStorage.setItem('senshoProducts', JSON.stringify(products));
+                    localStorage.setItem('senshoBanners', JSON.stringify(banners));
+                } catch(quotaErr) {
+                    console.warn("LocalStorage quota full, bypassing local cache and syncing directly to cloud sheet.");
+                }
 
                 if (GOOGLE_SCRIPT_URL) {
                     await fetch(GOOGLE_SCRIPT_URL, {
@@ -1427,13 +1426,13 @@
                     });
                 }
 
-                alert("🎉 SUCCESS! Saara data Google Cloud Sheet me sync ho gaya hai. Ab Mobile aur har doosre device par 100% live show hoga!");
+                alert("🎉 SUCCESS! Quota error bypassed & Data Google Cloud Sheet par 100% live sync ho gaya hai!");
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
                 updateUI();
             } catch(err) {
                 console.error("Save error:", err);
-                alert("Saved locally! Cloud sync background error: " + err.message);
+                alert("Cloud sync notice: " + err.message);
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
             }
         }
@@ -1507,17 +1506,15 @@
                 if (cloudData) {
                     if (cloudData.products && cloudData.products.length > 0) {
                         products = cloudData.products;
-                        localStorage.setItem('senshoProducts', JSON.stringify(products));
                     }
                     if (cloudData.banners && cloudData.banners.length > 0) {
                         banners = cloudData.banners;
-                        localStorage.setItem('senshoBanners', JSON.stringify(banners));
                     }
                     renderBannerSlider();
                     renderProducts();
                 }
             } catch (err) {
-                console.log("Cached fallback active:", err);
+                console.log("Cloud fetch active fallback:", err);
             }
         }
 
