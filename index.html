@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SENSHO - India's Trusted Online Fashion & Wholesale Store</title>
-    <!-- Preconnect for Faster Cloud Fetch -->
+    <!-- Preconnect for Ultra-Fast Cloud Sync -->
     <link rel="preconnect" href="https://script.google.com">
     <link rel="preconnect" href="https://script.googleusercontent.com">
     <!-- Tailwind CSS CDN -->
@@ -20,15 +20,6 @@
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .banner-track { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        @keyframes shimmer {
-            0% { background-position: -400px 0; }
-            100% { background-position: 400px 0; }
-        }
-        .skeleton-box {
-            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
-            background-size: 800px 100%;
-            animation: shimmer 1.2s infinite linear;
-        }
     </style>
 </head>
 <body id="mainBodyTheme" class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
@@ -100,13 +91,13 @@
             </div>
         </div>
 
-        <!-- Dynamic Circular Category Icons Bar (Meesho/Shopsy Style) -->
+        <!-- Dynamic Circular Category Icons Bar -->
         <div class="bg-white/10 backdrop-blur border-t border-white/10 px-3 py-2.5 overflow-x-auto no-scrollbar">
             <div id="categoryNavContainer" class="flex space-x-4 sm:space-x-6 text-center whitespace-nowrap max-w-7xl mx-auto"></div>
         </div>
     </header>
 
-    <!-- TRUST BADGES STRIP (Flipkart / Shopsy Style) -->
+    <!-- TRUST BADGES STRIP -->
     <div class="bg-white border-b border-slate-200 py-2 px-3 shadow-sm">
         <div class="max-w-7xl mx-auto flex justify-around items-center text-[10px] sm:text-xs font-bold text-slate-700">
             <span class="flex items-center gap-1 text-emerald-700"><i class="fa-solid fa-rotate-left"></i> 7 Days Easy Return</span>
@@ -118,10 +109,7 @@
     <!-- AUTOMATIC CLEAN BANNER SLIDER -->
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
         <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
-            <div id="sliderTrack" class="banner-track h-full w-full">
-                <!-- Shimmer placeholder until instant DB or Cloud loads -->
-                <div class="min-w-full h-full skeleton-box"></div>
-            </div>
+            <div id="sliderTrack" class="banner-track h-full w-full"></div>
             <div class="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
         </div>
     </div>
@@ -134,7 +122,7 @@
                     <span>Trending Wholesale Collection</span>
                     <i class="fa-solid fa-fire text-amber-500 text-sm"></i>
                 </h2>
-                <p class="text-slate-500 text-[10px] sm:text-xs" id="syncStatusSubtext">Instant Turbo Cache Active</p>
+                <p class="text-slate-500 text-[10px] sm:text-xs" id="syncStatusSubtext">Instant Zero-Delay Engine Active</p>
             </div>
 
             <!-- Sorting Dropdown Bar -->
@@ -204,38 +192,85 @@
         </div>
     </div>
 
-    <!-- MY ORDERS MODAL -->
-    <div id="myOrdersModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto">
-            <button type="button" onclick="closeMyOrders()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
-            <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
-                <i class="fa-solid fa-box-open text-blue-600"></i> My Order History
-            </h3>
-            <p class="text-xs text-slate-500 mb-4">Aapke dwara kiye gaye orders ki history.</p>
-            <div id="customerOrdersList" class="space-y-2.5"></div>
+    <!-- MY ORDERS MODAL (MEESHO STYLE LIST + LIVE TRACKING VIEW) -->
+    <div id="myOrdersModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-4 sm:p-6 relative shadow-2xl max-h-[88vh] overflow-y-auto">
+            <button type="button" onclick="closeMyOrders()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+            
+            <!-- Orders List View -->
+            <div id="ordersListView">
+                <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-box-open text-blue-600"></i> My Orders
+                </h3>
+                <p class="text-xs text-slate-500 mb-4">Kisi bhi order par tap karke Live Tracking, Cancel ya Return dekhein.</p>
+                <div id="customerOrdersList" class="space-y-2.5"></div>
+            </div>
+
+            <!-- Single Order Detailed Meesho Tracking View -->
+            <div id="orderTrackingDetailView" class="hidden space-y-4">
+                <button type="button" onclick="backToOrdersList()" class="text-xs font-black text-blue-600 flex items-center gap-1.5 hover:underline">
+                    <i class="fa-solid fa-arrow-left"></i> Back to My Orders
+                </button>
+
+                <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl flex gap-3 items-center">
+                    <img id="trackOrderImg" src="" class="w-16 h-20 object-cover rounded-xl border bg-white shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-black text-blue-600 uppercase" id="trackOrderId">Order #SNS</span>
+                            <span class="text-[10px] text-slate-400 font-semibold" id="trackOrderDate">Date</span>
+                        </div>
+                        <h4 class="text-xs sm:text-sm font-black text-slate-900 truncate mt-0.5" id="trackOrderTitle">Product Name</h4>
+                        <p class="text-sm font-black text-slate-900 mt-1" id="trackOrderPrice">₹0</p>
+                        <span id="trackCurrentBadge" class="inline-block mt-1 text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Order Confirmed</span>
+                    </div>
+                </div>
+
+                <!-- 4-Step Meesho Order Status Timeline -->
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl">
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-wider mb-3">Live Delivery Status</h4>
+                    <div id="trackingStepsTimeline" class="space-y-4 relative pl-2"></div>
+                </div>
+
+                <!-- Delivery Address Info -->
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl text-xs">
+                    <span class="text-[10px] font-black text-slate-400 uppercase block mb-0.5">Customer & Delivery Details</span>
+                    <p class="font-bold text-slate-700" id="trackOrderAddress">Address details</p>
+                </div>
+
+                <!-- Order Cancel & Return Action Buttons -->
+                <div id="trackOrderActionBtns" class="grid grid-cols-2 gap-2.5 pt-1">
+                    <button type="button" id="btnCancelOrder" onclick="triggerCancelOrder()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-ban"></i> Cancel Order
+                    </button>
+                    <button type="button" id="btnReturnOrder" onclick="triggerReturnOrder()" class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-rotate-left"></i> Return Order
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- PRODUCT DETAIL MODAL -->
+    <!-- PRODUCT DETAIL MODAL (SEPARATED TOP HEADER BAR FOR CLOSE VS LIKE/SHARE) -->
     <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-        <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[92vh] overflow-y-auto">
-            <button type="button" onclick="closeProductDetailModal()" class="absolute top-3 right-3 text-slate-400 hover:text-slate-800 text-xl z-20 p-2"><i class="fa-solid fa-xmark"></i></button>
+        <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full relative shadow-2xl max-h-[92vh] overflow-y-auto flex flex-col">
+            
+            <!-- Dedicated Sticky Top Bar (Prevents accidental Like click when closing) -->
+            <div class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200 px-4 py-2.5 flex items-center justify-between">
+                <button type="button" onclick="closeProductDetailModal()" class="flex items-center gap-1.5 text-slate-700 hover:text-slate-950 font-black text-xs py-1 px-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 transition">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <span class="text-xs font-extrabold text-slate-500 truncate max-w-[180px]" id="modalTopHeaderTitle">Product Details</span>
+                <button type="button" onclick="closeProductDetailModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-rose-100 text-slate-600 hover:text-rose-600 flex items-center justify-center text-base font-bold transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start mt-2">
+            <div class="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start">
                 <div class="md:col-span-6 flex flex-col-reverse sm:flex-row gap-2.5">
                     <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[380px] no-scrollbar shrink-0" id="detailThumbnailsList"></div>
                     <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative aspect-[3/4]" id="modalImageContainer">
                         <img id="detailMainImage" src="" alt="Product Image" class="w-full h-full object-cover">
-                        <span id="detailBadge" class="absolute top-2 left-2 bg-blue-600 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow"></span>
-                        
-                        <div class="absolute top-2 right-2 flex flex-col gap-1.5 z-10">
-                            <button type="button" id="modalLikeBtn" onclick="toggleWishlistFromModal()" class="w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-sm text-slate-600 hover:text-rose-600">
-                                <i class="fa-regular fa-heart" id="modalLikeIcon"></i>
-                            </button>
-                            <button type="button" onclick="shareProductFromModal()" class="w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-sm text-slate-600 hover:text-blue-600">
-                                <i class="fa-solid fa-share-nodes"></i>
-                            </button>
-                        </div>
+                        <span id="detailBadge" class="absolute top-2.5 left-2.5 bg-blue-600 text-white text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow"></span>
 
                         <!-- Left / Right Image Navigation Arrows inside Modal -->
                         <button type="button" id="modalPrevImgBtn" onclick="changeModalImage(-1)" class="hidden absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center text-xs z-10">
@@ -248,13 +283,28 @@
                 </div>
 
                 <div class="md:col-span-6 space-y-3.5">
-                    <div>
-                        <h1 class="text-base sm:text-xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
-                        <div class="flex items-center gap-2 mt-1">
-                            <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-                                <span id="detailRatingBadge">4.2</span> <i class="fa-solid fa-star text-[8px]"></i>
-                            </span>
-                            <span class="text-[11px] text-slate-400 font-semibold" id="detailReviewCount">1,420 Ratings, 380 Reviews</span>
+                    <!-- Title + Separated Like & Share Buttons Row (Meesho Layout) -->
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex-1">
+                            <h1 class="text-base sm:text-xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
+                            <div class="flex items-center gap-2 mt-1.5">
+                                <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+                                    <span id="detailRatingBadge">4.2</span> <i class="fa-solid fa-star text-[8px]"></i>
+                                </span>
+                                <span class="text-[11px] text-slate-400 font-semibold" id="detailReviewCount">1,420 Ratings, 380 Reviews</span>
+                            </div>
+                        </div>
+
+                        <!-- Well-Separated Like & Share Action Pills -->
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button type="button" id="modalLikeBtn" onclick="toggleWishlistFromModal()" class="flex flex-col items-center justify-center w-12 h-12 rounded-xl border border-slate-200 bg-slate-50 hover:bg-rose-50 text-slate-600 transition shadow-sm">
+                                <i class="fa-regular fa-heart text-base" id="modalLikeIcon"></i>
+                                <span class="text-[9px] font-bold mt-0.5">Wishlist</span>
+                            </button>
+                            <button type="button" onclick="shareProductFromModal()" class="flex flex-col items-center justify-center w-12 h-12 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-600 hover:text-blue-600 transition shadow-sm">
+                                <i class="fa-solid fa-share-nodes text-base"></i>
+                                <span class="text-[9px] font-bold mt-0.5">Share</span>
+                            </button>
                         </div>
                     </div>
 
@@ -531,29 +581,44 @@
             </div>
 
             <div id="adminDashboardScreen" class="hidden space-y-5">
-                <!-- PIN & VIP Code -->
+                <!-- 2-FACTOR GLOBAL PIN & VIP PASSCODE -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl flex flex-col justify-between gap-2">
+                    <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl space-y-2">
                         <div>
-                            <h4 class="font-bold text-xs text-slate-900"><i class="fa-solid fa-shield-halved mr-1 text-blue-600"></i> Admin Security PIN</h4>
-                            <p class="text-[10px] text-slate-500">Change device master PIN anytime.</p>
+                            <h4 class="font-bold text-xs text-slate-900"><i class="fa-solid fa-shield-halved mr-1 text-blue-600"></i> Global Admin PIN (2-Step Security)</h4>
+                            <p class="text-[10px] text-slate-500">Sabhi devices par PIN badalne ke liye dono secret passwords dalein.</p>
                         </div>
+                        <input type="password" id="masterPass1" placeholder="Secret Password 1" class="w-full text-xs border rounded-lg px-2.5 py-1.5 font-bold bg-white">
+                        <input type="password" id="masterPass2" placeholder="Secret Password 2" class="w-full text-xs border rounded-lg px-2.5 py-1.5 font-bold bg-white">
                         <div class="flex items-center gap-2">
-                            <input type="password" id="newAdminPin" placeholder="New PIN" class="text-xs border rounded-lg px-2.5 py-1.5 w-24 font-bold">
-                            <button type="button" onclick="updateAdminPin()" class="bg-[#1e1b4b] text-white text-[11px] font-bold px-3 py-1.5 rounded-lg">Update PIN</button>
+                            <input type="password" id="newAdminPin" placeholder="New PIN (4+ digits)" class="text-xs border rounded-lg px-2.5 py-1.5 flex-1 font-bold bg-white">
+                            <button type="button" onclick="updateAdminPinGlobally()" class="bg-[#1e1b4b] hover:bg-blue-900 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg shrink-0 shadow">Update All Devices</button>
                         </div>
                     </div>
 
                     <div class="bg-blue-50 border border-blue-200 p-3.5 rounded-2xl flex flex-col justify-between gap-2">
                         <div>
-                            <h4 class="font-bold text-xs text-blue-950"><i class="fa-solid fa-crown mr-1 text-amber-500"></i> Customer VIP Passcode</h4>
-                            <p class="text-[10px] text-blue-700">Payment hone ke baad customer ko dene wala secret code set karein.</p>
+                            <h4 class="font-bold text-xs text-blue-950"><i class="fa-solid fa-crown mr-1 text-amber-500"></i> Customer VIP Passcode (Global)</h4>
+                            <p class="text-[10px] text-blue-700">Payment ke baad customer ko dene wala secret code set karein.</p>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="text" id="adminVipSecretCode" class="text-xs border border-blue-300 rounded-lg px-2.5 py-1.5 font-black uppercase text-blue-900 bg-white" placeholder="SET VIP CODE">
-                            <button type="button" onclick="updateVipSecretCode()" class="bg-blue-600 text-white text-[11px] font-bold px-3 py-1.5 rounded-lg">Save Code</button>
+                            <input type="text" id="adminVipSecretCode" class="text-xs border border-blue-300 rounded-lg px-2.5 py-1.5 font-black uppercase text-blue-900 bg-white w-full" placeholder="SET VIP CODE">
+                            <button type="button" onclick="updateVipSecretCode()" class="bg-blue-600 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg shrink-0">Save Code</button>
                         </div>
                     </div>
+                </div>
+
+                <!-- ADMIN LIVE ORDER STATUS CONTROLLER -->
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-truck-fast text-emerald-600"></i> Customer Orders Status Manager
+                            </h3>
+                            <p class="text-[10px] text-slate-500">Orders ka status (Confirmed, Shipped, Out for Delivery, Delivered) set karein</p>
+                        </div>
+                    </div>
+                    <div id="adminOrdersEditorList" class="space-y-2 max-h-48 overflow-y-auto p-1"></div>
                 </div>
 
                 <!-- CUSTOM CATEGORY MANAGER -->
@@ -563,7 +628,7 @@
                             <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
                                 <i class="fa-solid fa-layer-group text-blue-600"></i> Category Bar Manager
                             </h3>
-                            <p class="text-[10px] text-slate-500">Nayi category add ya delete karein (e.g. Kurti, Saree, Footwear)</p>
+                            <p class="text-[10px] text-slate-500">Nayi category add ya delete karein</p>
                         </div>
                         <div class="flex gap-1.5">
                             <input type="text" id="newCatNameInput" placeholder="Category Name" class="text-xs border rounded-lg px-2 py-1 font-bold w-28 sm:w-36">
@@ -591,7 +656,7 @@
                     <div id="adminBannerEditorList" class="space-y-2.5 max-h-60 overflow-y-auto p-1"></div>
                 </div>
 
-                <!-- PRODUCT MASTER MANAGER (MAX 10 IMAGES + FULL DETAILS) -->
+                <!-- PRODUCT MASTER MANAGER -->
                 <div class="border-t pt-3">
                     <div class="flex justify-between items-center mb-2">
                         <div>
@@ -609,7 +674,7 @@
 
                 <!-- Save Changes Button -->
                 <div class="pt-3 border-t flex justify-between items-center sticky bottom-0 bg-white py-2 shadow-lg z-20">
-                    <span class="text-[10px] text-emerald-600 font-extrabold hidden sm:inline"><i class="fa-solid fa-bolt"></i> Auto Image Optimizer & Instant 0.1s Cache Active</span>
+                    <span class="text-[10px] text-emerald-600 font-extrabold hidden sm:inline"><i class="fa-solid fa-bolt"></i> Instant 0.01s Cache + Global Sync</span>
                     <button type="button" id="saveAdminBtn" onclick="saveAdminChanges()" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white font-black px-6 py-2.5 rounded-xl text-xs shadow-xl flex items-center justify-center gap-1.5 cursor-pointer">
                         <i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live
                     </button>
@@ -658,8 +723,12 @@
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyl76_eGhifisK-8TVYJv7i6XepU_WRwb16jL5sB1fa2JJTCV76itTgAvbUo9K_CrM/exec";
         const IMGBB_API_KEY = "6d207e02198a847aa5a0a0330f625680";
 
+        // Required 2-Factor Master Passwords for Global PIN Change
+        const REQUIRED_PASS_1 = "born to rule the world";
+        const REQUIRED_PASS_2 = "kill every emotions $ distraction";
+
         // ============================================================================
-        // UNLIMITED INDEXED-DB ENGINE (SOLVES 5MB QUOTA LIMIT & 7-12s DELAY FOREVER)
+        // DUAL-ENGINE: UNLIMITED INDEXED-DB + 0ms LOCAL SNAPSHOT
         // ============================================================================
         const DB_NAME = "SenshoUltraFastDB";
         const STORE_NAME = "store_cache";
@@ -738,6 +807,7 @@
         let selectedProductSize = "M";
         let pendingCheckoutType = "direct";
         let currentActiveCategory = "all";
+        let activeOrderIndexForTracking = null;
 
         const defaultCategories = [
             { id: "all", label: "All Items", icon: "fa-border-all", color: "text-blue-200" },
@@ -766,7 +836,7 @@
 
         const fallbackProducts = [
             { 
-                id: 1, 
+                id: "prod_default_1", 
                 name: "Soft Cotton Baby Romper & Sleepsuit", 
                 category: "kids", 
                 mrp: 1199,
@@ -782,7 +852,7 @@
                 images: ["https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&auto=format&fit=crop&q=80"]
             },
             { 
-                id: 2, 
+                id: "prod_default_2", 
                 name: "Stylish Glamorous Men Shirts", 
                 category: "mens", 
                 mrp: 1399,
@@ -798,7 +868,7 @@
                 images: ["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop&q=80"]
             },
             { 
-                id: 3, 
+                id: "prod_default_3", 
                 name: "Cargo pants", 
                 category: "mens", 
                 mrp: 1499,
@@ -814,7 +884,7 @@
                 images: ["https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=800&auto=format&fit=crop&q=80"]
             },
             { 
-                id: 4, 
+                id: "prod_default_4", 
                 name: "Gimco Light Grey Unisex Bomber Jacket", 
                 category: "mens", 
                 mrp: 1900,
@@ -831,29 +901,71 @@
             }
         ];
 
-        let banners = [];
-        let products = [];
+        // Load 0ms instant snapshot if available
+        let banners = safeGetStorage('senshoFastSnapBanners', fallbackBanners);
+        let products = safeGetStorage('senshoFastSnapProducts', fallbackProducts);
         let cart = safeGetStorage('senshoCart', []);
         let wishlist = safeGetStorage('senshoWishlist', []);
         let orders = safeGetStorage('senshoOrders', []);
         let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
 
-        // Render Shimmer Skeletons while waiting (Prevents Fake Products Flash)
-        function showInitialSkeletons() {
-            const grid = document.getElementById('productGrid');
-            if (!grid) return;
-            let skelHtml = '';
-            for (let i = 0; i < 4; i++) {
-                skelHtml += `
-                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden p-2 space-y-2">
-                        <div class="w-full aspect-[3/4] rounded-xl skeleton-box"></div>
-                        <div class="h-3 w-1/3 rounded skeleton-box"></div>
-                        <div class="h-4 w-3/4 rounded skeleton-box"></div>
-                        <div class="h-12 w-full rounded-xl skeleton-box"></div>
-                    </div>
-                `;
+        // GUARANTEE EVERY PRODUCT HAS A STRICT UNIQUE ID (Fixes Multi-Like Bug Forever)
+        function ensureUniqueProductIds(prodList) {
+            if (!Array.isArray(prodList)) return [];
+            const seenIds = new Set();
+            prodList.forEach((p, idx) => {
+                let candidateId = p.uid || p.id ? String(p.uid || p.id) : `sensho_item_${idx}_${(p.name || '').replace(/\s+/g, '_')}`;
+                if (seenIds.has(candidateId)) {
+                    candidateId = `${candidateId}_u${idx}`;
+                }
+                seenIds.add(candidateId);
+                p.id = candidateId;
+                p.uid = candidateId;
+            });
+            return prodList;
+        }
+        products = ensureUniqueProductIds(products);
+
+        // Extract Global Config Embedded inside Banners[0] (Syncs PIN, VIP Code, Categories & Order Statuses across ALL devices!)
+        function applyEmbeddedCloudSettings(bannerList) {
+            if (!Array.isArray(bannerList) || bannerList.length === 0) return;
+            const cfg = bannerList[0].sysConfig;
+            if (!cfg) return;
+            if (cfg.adminPin) {
+                adminPinCode = String(cfg.adminPin);
+                localStorage.setItem('senshoAdminPin', adminPinCode);
             }
-            grid.innerHTML = skelHtml;
+            if (cfg.vipCode) {
+                vipSecretPasscode = String(cfg.vipCode);
+                localStorage.setItem('senshoDynamicVipCode', vipSecretPasscode);
+            }
+            if (Array.isArray(cfg.categories) && cfg.categories.length > 0) {
+                categories = cfg.categories;
+                safeSetStorage('senshoCategories', categories);
+            }
+            if (cfg.orderStatusMap && typeof cfg.orderStatusMap === 'object') {
+                orders.forEach(o => {
+                    if (cfg.orderStatusMap[o.id]) {
+                        o.status = cfg.orderStatusMap[o.id];
+                    }
+                });
+                safeSetStorage('senshoOrders', orders);
+            }
+        }
+
+        function embedCloudSettingsIntoBanners() {
+            if (!Array.isArray(banners) || banners.length === 0) return;
+            const statusMap = {};
+            orders.forEach(o => {
+                if (o.id && o.status) statusMap[o.id] = o.status;
+            });
+            banners[0].sysConfig = {
+                adminPin: adminPinCode,
+                vipCode: vipSecretPasscode,
+                categories: categories,
+                orderStatusMap: statusMap,
+                updatedAt: Date.now()
+            };
         }
 
         function renderCategoryBar() {
@@ -905,8 +1017,8 @@
             }
         });
 
-        // Fast Image Compressor + Cloud Uploader (Makes images ~35KB for 1s sync)
-        function compressImageDataUrl(dataUrl, maxWidth = 800, maxHeight = 900, quality = 0.68) {
+        // Ultra-Fast Image Compressor (~25-35KB per photo for 0.5s Cloud Load)
+        function compressImageDataUrl(dataUrl, maxWidth = 720, maxHeight = 850, quality = 0.65) {
             return new Promise((resolve) => {
                 if (!dataUrl || !dataUrl.startsWith('data:image')) {
                     resolve(dataUrl);
@@ -933,7 +1045,7 @@
             });
         }
 
-        function compressImageFile(file, maxWidth = 800, maxHeight = 900, quality = 0.68) {
+        function compressImageFile(file, maxWidth = 720, maxHeight = 850, quality = 0.65) {
             return new Promise((resolve) => {
                 const reader = new FileReader();
                 reader.onload = async function(event) {
@@ -945,7 +1057,7 @@
         }
 
         async function uploadFileToPermanentCloud(file, isBanner = false) {
-            const compressedDataUrl = await compressImageFile(file, isBanner ? 1200 : 750, isBanner ? 520 : 900, 0.68);
+            const compressedDataUrl = await compressImageFile(file, isBanner ? 1100 : 700, isBanner ? 480 : 850, 0.65);
             try {
                 const base64Clean = compressedDataUrl.split(',')[1];
                 const formData = new FormData();
@@ -962,18 +1074,17 @@
             return compressedDataUrl;
         }
 
-        // Automatically shrink existing heavy Base64 images in products/banners so Cloud loads in 1-2s
         async function optimizeAllExistingImages() {
             for (let i = 0; i < banners.length; i++) {
-                if (banners[i].customImg && banners[i].customImg.startsWith('data:image') && banners[i].customImg.length > 90000) {
-                    banners[i].customImg = await compressImageDataUrl(banners[i].customImg, 1200, 520, 0.65);
+                if (banners[i].customImg && banners[i].customImg.startsWith('data:image') && banners[i].customImg.length > 75000) {
+                    banners[i].customImg = await compressImageDataUrl(banners[i].customImg, 1100, 480, 0.62);
                 }
             }
             for (let i = 0; i < products.length; i++) {
                 if (products[i].images && Array.isArray(products[i].images)) {
                     for (let j = 0; j < products[i].images.length; j++) {
-                        if (products[i].images[j] && products[i].images[j].startsWith('data:image') && products[i].images[j].length > 70000) {
-                            products[i].images[j] = await compressImageDataUrl(products[i].images[j], 700, 850, 0.65);
+                        if (products[i].images[j] && products[i].images[j].startsWith('data:image') && products[i].images[j].length > 55000) {
+                            products[i].images[j] = await compressImageDataUrl(products[i].images[j], 680, 820, 0.62);
                         }
                     }
                 }
@@ -1026,12 +1137,18 @@
         }
         setInterval(autoSlideBanner, 3200);
 
-        // WISHLIST LOGIC
+        // STRICT SINGLE-PRODUCT WISHLIST LOGIC (Uses Unique Product ID)
+        function isProductInWishlist(p) {
+            if (!p) return false;
+            return wishlist.some(item => String(item.uid || item.id) === String(p.uid || p.id));
+        }
+
         function toggleWishlist(index, event) {
             if(event) event.stopPropagation();
             const p = products[index];
             if(!p) return;
-            const existIndex = wishlist.findIndex(item => item.name === p.name);
+            const targetId = String(p.uid || p.id);
+            const existIndex = wishlist.findIndex(item => String(item.uid || item.id) === targetId);
             if(existIndex >= 0) {
                 wishlist.splice(existIndex, 1);
             } else {
@@ -1040,18 +1157,19 @@
             safeSetStorage('senshoWishlist', wishlist);
             updateWishlistBadges();
             renderProducts();
-            if(activeProductForDetail && activeProductForDetail.name === p.name) {
+            if(activeProductForDetail && String(activeProductForDetail.uid || activeProductForDetail.id) === targetId) {
                 updateModalLikeState();
             }
         }
 
         function toggleWishlistFromModal() {
             if(!activeProductForDetail) return;
-            const idx = products.findIndex(p => p.name === activeProductForDetail.name);
+            const targetId = String(activeProductForDetail.uid || activeProductForDetail.id);
+            const idx = products.findIndex(p => String(p.uid || p.id) === targetId);
             if(idx >= 0) {
                 toggleWishlist(idx);
             } else {
-                const existIndex = wishlist.findIndex(item => item.name === activeProductForDetail.name);
+                const existIndex = wishlist.findIndex(item => String(item.uid || item.id) === targetId);
                 if(existIndex >= 0) wishlist.splice(existIndex, 1);
                 else wishlist.push(activeProductForDetail);
                 safeSetStorage('senshoWishlist', wishlist);
@@ -1063,12 +1181,14 @@
 
         function updateModalLikeState() {
             if(!activeProductForDetail) return;
-            const isLiked = wishlist.some(item => item.name === activeProductForDetail.name);
+            const isLiked = isProductInWishlist(activeProductForDetail);
             const icon = document.getElementById('modalLikeIcon');
             const btn = document.getElementById('modalLikeBtn');
             if(icon && btn) {
-                icon.className = isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart";
-                btn.className = isLiked ? "w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-sm text-rose-600" : "w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-sm text-slate-600 hover:text-rose-600";
+                icon.className = isLiked ? "fa-solid fa-heart text-base text-rose-600" : "fa-regular fa-heart text-base";
+                btn.className = isLiked 
+                    ? "flex flex-col items-center justify-center w-12 h-12 rounded-xl border-2 border-rose-300 bg-rose-50 text-rose-600 transition shadow-sm"
+                    : "flex flex-col items-center justify-center w-12 h-12 rounded-xl border border-slate-200 bg-slate-50 hover:bg-rose-50 text-slate-600 transition shadow-sm";
             }
         }
 
@@ -1089,7 +1209,8 @@
                 let html = '';
                 wishlist.forEach((item, index) => {
                     let coverImg = (item.images && item.images[0]) ? item.images[0] : item.img;
-                    let originalProdIndex = products.findIndex(p => p.name === item.name);
+                    let originalProdIndex = products.findIndex(p => String(p.uid || p.id) === String(item.uid || item.id));
+                    if (originalProdIndex < 0) originalProdIndex = products.findIndex(p => p.name === item.name);
                     let displayPrice = isVIPVerified ? item.vip : item.normal;
                     html += `
                         <div class="flex items-center gap-2.5 bg-slate-50 border p-2.5 rounded-xl cursor-pointer hover:bg-slate-100 transition" onclick="closeWishlistModal(); openProductDetailModal(${originalProdIndex >= 0 ? originalProdIndex : 0})">
@@ -1111,33 +1232,51 @@
             document.getElementById('wishlistModal').classList.add('hidden');
         }
 
-        function shareProduct(index, event) {
+        // MEESHO-STYLE SHARE PRODUCT WITH ACTUAL IMAGE FILE + DEEP LINK
+        async function shareProduct(index, event) {
             if(event) event.stopPropagation();
             const p = products[index];
             if(!p) return;
-            const deepLinkUrl = `${window.location.origin}${window.location.pathname}?product=${encodeURIComponent(p.name)}`;
-            const shareText = `🔥 *SENSHO WHOLESALE DEAL* 🔥\n*${p.name}*\nNormal Price: ₹${p.normal} | *VIP Price: ₹${p.vip}*\n\n👉 *Direct Product Link:* ${deepLinkUrl}`;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: p.name,
-                    text: shareText,
-                    url: deepLinkUrl,
-                }).catch(() => {});
-            } else {
-                window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
+            const prodIdParam = encodeURIComponent(p.uid || p.id || p.name);
+            const deepLinkUrl = `${window.location.origin}${window.location.pathname}?product=${prodIdParam}`;
+            const coverImg = (p.images && p.images[0]) ? p.images[0] : "";
+            const shareText = `🔥 *SENSHO WHOLESALE DEAL* 🔥\n🛍️ *${p.name}*\n💰 Normal Price: ₹${p.normal} | 👑 *VIP Price: ₹${p.vip}*\n\n👇 *Is Link Par Tap Karke Direct Product Dekhein:*\n${deepLinkUrl}`;
+
+            // Try sharing actual image file + text via Web Share API Level 2 (Meesho App Style)
+            if (navigator.share && coverImg) {
+                try {
+                    const response = await fetch(coverImg);
+                    const blob = await response.blob();
+                    const file = new File([blob], "sensho-product.jpg", { type: blob.type || "image/jpeg" });
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            files: [file],
+                            title: p.name,
+                            text: shareText
+                        });
+                        return;
+                    }
+                } catch (imgErr) {}
+
+                try {
+                    await navigator.share({
+                        title: p.name,
+                        text: shareText,
+                        url: deepLinkUrl
+                    });
+                    return;
+                } catch (err) {}
             }
+
+            // Fallback to WhatsApp Direct Share with Image URL & Link
+            const waText = shareText + (coverImg.startsWith('http') ? `\n\n📸 *Product Photo:* ${coverImg}` : '');
+            window.open(`https://wa.me/?text=${encodeURIComponent(waText)}`, '_blank');
         }
 
         function shareProductFromModal() {
             if(!activeProductForDetail) return;
-            const idx = products.findIndex(p => p.name === activeProductForDetail.name);
+            const idx = products.findIndex(p => String(p.uid || p.id) === String(activeProductForDetail.uid || activeProductForDetail.id));
             if(idx >= 0) shareProduct(idx);
-            else {
-                const deepLinkUrl = `${window.location.origin}${window.location.pathname}?product=${encodeURIComponent(activeProductForDetail.name)}`;
-                const shareText = `🔥 *SENSHO WHOLESALE DEAL* 🔥\n*${activeProductForDetail.name}*\nNormal Price: ₹${activeProductForDetail.normal} | *VIP Price: ₹${activeProductForDetail.vip}*\n\n👉 *Direct Product Link:* ${deepLinkUrl}`;
-                window.open(`https://wa.me/?text=${encodeURIComponent(shareText)}`, '_blank');
-            }
         }
 
         function sortProductsList() {
@@ -1146,8 +1285,6 @@
                 products.sort((a, b) => Number(a.normal) - Number(b.normal));
             } else if(sortBy === 'high-low') {
                 products.sort((a, b) => Number(b.normal) - Number(a.normal));
-            } else {
-                products.sort((a, b) => Number(a.id || 0) - Number(b.id || 0));
             }
             renderProducts();
         }
@@ -1159,7 +1296,7 @@
             products.forEach((p, idx) => {
                 const coverImg = (p.images && p.images.length > 0) ? p.images[0] : (p.img || "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80");
                 const mrpVal = p.mrp || Math.round(p.normal * 1.5);
-                const isLiked = wishlist.some(item => item.name === p.name);
+                const isLiked = isProductInWishlist(p);
                 const isOutOfStock = p.inStock === false;
 
                 html += `
@@ -1240,6 +1377,7 @@
 
             const mrpVal = p.mrp || Math.round(p.normal * 1.5);
 
+            document.getElementById('modalTopHeaderTitle').innerText = p.name;
             document.getElementById('detailTitle').innerText = p.name;
             document.getElementById('detailBadge').innerText = p.inStock === false ? "Out of Stock" : (p.tag || "Best Seller");
             document.getElementById('detailMrpPrice').innerText = `₹${mrpVal}`;
@@ -1417,14 +1555,16 @@
             const pincode = document.getElementById('custPincode').value.trim();
             const city = document.getElementById('custCity').value.trim();
             const fullAddress = document.getElementById('custFullAddress').value.trim();
+            const fullAddrStr = `${fullName} (${phone}), ${fullAddress}, ${city} - ${pincode}`;
 
             if (pendingCheckoutType === "direct") {
                 const p = activeProductForDetail;
                 const price = isVIPVerified ? p.vip : p.normal;
                 const tierType = isVIPVerified ? "VIP Wholesale Rate" : "Normal Member Rate";
                 const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
+                const prodImg = (p.images && p.images[0]) ? p.images[0] : "";
 
-                recordOrder(itemSummary, price, `[${tierType}] Customer: ${fullName}, ${city} - ${pincode}`);
+                recordOrder(itemSummary, price, fullAddrStr, prodImg);
 
                 let msg = `*NEW VERIFIED ORDER - SENSHO FASHION HUB*%0A%0A` +
                           `*Product:* ${encodeURIComponent(p.name)}%0A` +
@@ -1444,8 +1584,9 @@
                 let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
                 let summaryStr = cart.map(i => `${i.name} (${i.qty}x)`).join(', ');
                 const tierType = isVIPVerified ? "VIP Wholesale" : "Normal Member";
+                const firstCartImg = (cart[0] && cart[0].img) ? cart[0].img : "";
 
-                recordOrder(summaryStr, totalPrice, `[${tierType} Cart] Customer: ${fullName}, ${city} - ${pincode}`);
+                recordOrder(summaryStr, totalPrice, fullAddrStr, firstCartImg);
 
                 let msg = `*NEW CART ORDER - SENSHO FASHION HUB*%0A%0A` +
                           `*Total Amount:* ₹${totalPrice} (${tierType})%0A` +
@@ -1604,24 +1745,45 @@
             document.getElementById('cartTotalPrice').innerText = `₹${totalPrice}`;
         }
 
+        // ============================================================================
+        // MEESHO-STYLE INTERACTIVE ORDER TRACKING, CANCEL & RETURN SYSTEM
+        // ============================================================================
+        function getStatusBadgeStyle(status) {
+            switch(status) {
+                case 'Shipped': return 'bg-blue-100 text-blue-800 border border-blue-300';
+                case 'Out for Delivery': return 'bg-amber-100 text-amber-800 border border-amber-300';
+                case 'Order Delivered': return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+                case 'Order Cancelled': return 'bg-rose-100 text-rose-700 border border-rose-300';
+                case 'Return Requested': return 'bg-purple-100 text-purple-800 border border-purple-300';
+                default: return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+            }
+        }
+
         function openMyOrders() {
+            backToOrdersList();
             let container = document.getElementById('customerOrdersList');
             if(!container) return;
             if(orders.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-center py-6 text-xs">No orders placed yet.</p>`;
+                container.innerHTML = `<p class="text-slate-400 text-center py-8 text-xs">Aapne abhi tak koi order place nahi kiya hai.</p>`;
             } else {
                 let html = '';
-                orders.forEach(o => {
+                orders.forEach((o, idx) => {
+                    const currentStatus = o.status || "Order Confirmed";
+                    const fallbackImg = (products[0] && products[0].images && products[0].images[0]) ? products[0].images[0] : "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80";
+                    const imgUrl = o.img || fallbackImg;
                     html += `
-                        <div class="bg-slate-50 border p-3 rounded-xl space-y-1">
-                            <div class="flex justify-between text-[11px] font-bold text-blue-600">
-                                <span>Order ID: ${o.id}</span>
-                                <span class="text-slate-500">${o.date}</span>
-                            </div>
-                            <p class="text-xs font-bold text-slate-900">${o.summary}</p>
-                            <div class="flex justify-between items-center text-xs pt-1 border-t">
-                                <span class="text-emerald-600 font-extrabold text-[11px]">${o.type || "Confirmed"}</span>
-                                <span class="font-black text-slate-900">₹${o.total}</span>
+                        <div onclick="openOrderTrackingDetail(${idx})" class="bg-slate-50 hover:bg-blue-50/50 border border-slate-200 p-3 rounded-2xl flex items-center gap-3 cursor-pointer transition shadow-sm">
+                            <img src="${imgUrl}" class="w-14 h-16 object-cover rounded-xl border bg-white shrink-0">
+                            <div class="flex-1 min-w-0">
+                                <div class="flex justify-between items-center text-[10px] font-bold text-slate-400">
+                                    <span class="text-blue-600 font-black">${o.id}</span>
+                                    <span>${o.date}</span>
+                                </div>
+                                <p class="text-xs font-black text-slate-900 truncate mt-0.5">${o.summary}</p>
+                                <div class="flex justify-between items-center mt-1.5">
+                                    <span class="text-[10px] font-black px-2 py-0.5 rounded-full ${getStatusBadgeStyle(currentStatus)}">${currentStatus}</span>
+                                    <span class="font-black text-xs text-slate-900">₹${o.total} <i class="fa-solid fa-chevron-right text-[10px] text-slate-400 ml-1"></i></span>
+                                </div>
                             </div>
                         </div>
                     `;
@@ -1631,20 +1793,135 @@
             document.getElementById('myOrdersModal').classList.remove('hidden');
         }
 
+        function backToOrdersList() {
+            document.getElementById('ordersListView').classList.remove('hidden');
+            document.getElementById('orderTrackingDetailView').classList.add('hidden');
+        }
+
+        function openOrderTrackingDetail(idx) {
+            const o = orders[idx];
+            if (!o) return;
+            activeOrderIndexForTracking = idx;
+            const status = o.status || "Order Confirmed";
+            const fallbackImg = (products[0] && products[0].images && products[0].images[0]) ? products[0].images[0] : "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80";
+
+            document.getElementById('trackOrderImg').src = o.img || fallbackImg;
+            document.getElementById('trackOrderId').innerText = o.id;
+            document.getElementById('trackOrderDate').innerText = o.date;
+            document.getElementById('trackOrderTitle').innerText = o.summary;
+            document.getElementById('trackOrderPrice').innerText = `₹${o.total}`;
+            document.getElementById('trackOrderAddress').innerText = o.address || o.type || "Direct Factory Wholesale Dispatch";
+
+            const badge = document.getElementById('trackCurrentBadge');
+            badge.innerText = status;
+            badge.className = `inline-block mt-1 text-[10px] font-black px-2.5 py-0.5 rounded-full ${getStatusBadgeStyle(status)}`;
+
+            // Render 4-Step Meesho Timeline
+            const steps = [
+                { key: "Order Confirmed", title: "Order Confirmed", sub: "Aapka order factory hub me confirm ho gaya hai", icon: "fa-clipboard-check" },
+                { key: "Shipped", title: "Order Shipped", sub: "Quality check ke baad parcel courier ko de diya gaya hai", icon: "fa-box" },
+                { key: "Out for Delivery", title: "Out for Delivery", sub: "Delivery partner aapke address par aa raha hai", icon: "fa-motorcycle" },
+                { key: "Order Delivered", title: "Order Delivered", sub: "Order successfully deliver ho chuka hai", icon: "fa-circle-check" }
+            ];
+
+            const statusOrder = ["Order Confirmed", "Shipped", "Out for Delivery", "Order Delivered"];
+            let activeStepIdx = statusOrder.indexOf(status);
+            if (activeStepIdx === -1) activeStepIdx = 0;
+
+            let timelineHtml = '';
+            if (status === "Order Cancelled" || status === "Return Requested") {
+                const isCancel = status === "Order Cancelled";
+                timelineHtml = `
+                    <div class="p-3 rounded-xl ${isCancel ? 'bg-rose-50 border border-rose-200 text-rose-800' : 'bg-purple-50 border border-purple-200 text-purple-800'} flex items-center gap-3">
+                        <i class="fa-solid ${isCancel ? 'fa-circle-xmark text-rose-600' : 'fa-rotate-left text-purple-600'} text-xl"></i>
+                        <div>
+                            <h5 class="text-xs font-black">${status}</h5>
+                            <p class="text-[11px]">${isCancel ? 'Ye order aapke dwara cancel kar diya gaya hai.' : 'Aapki 7-Days Easy Return request register ho gayi hai.'}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                steps.forEach((st, i) => {
+                    const isCompleted = i <= activeStepIdx;
+                    const isCurrent = i === activeStepIdx;
+                    timelineHtml += `
+                        <div class="flex items-start gap-3 relative">
+                            ${i < steps.length - 1 ? `<div class="absolute left-3.5 top-7 bottom-[-16px] w-0.5 ${i < activeStepIdx ? 'bg-emerald-500' : 'bg-slate-200'}"></div>` : ''}
+                            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs shrink-0 z-10 ${isCompleted ? 'bg-emerald-500 text-white shadow' : 'bg-slate-200 text-slate-400'} ${isCurrent ? 'ring-4 ring-emerald-100' : ''}">
+                                <i class="fa-solid ${st.icon}"></i>
+                            </div>
+                            <div class="pb-1">
+                                <h5 class="text-xs font-black ${isCompleted ? 'text-slate-900' : 'text-slate-400'}">${st.title}</h5>
+                                <p class="text-[10px] ${isCompleted ? 'text-slate-600' : 'text-slate-400'}">${st.sub}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('trackingStepsTimeline').innerHTML = timelineHtml;
+
+            const cancelBtn = document.getElementById('btnCancelOrder');
+            const returnBtn = document.getElementById('btnReturnOrder');
+            if (status === "Order Cancelled" || status === "Return Requested") {
+                cancelBtn.classList.add('opacity-40', 'pointer-events-none');
+                returnBtn.classList.add('opacity-40', 'pointer-events-none');
+            } else if (status === "Order Delivered") {
+                cancelBtn.classList.add('opacity-40', 'pointer-events-none');
+                returnBtn.classList.remove('opacity-40', 'pointer-events-none');
+            } else {
+                cancelBtn.classList.remove('opacity-40', 'pointer-events-none');
+                returnBtn.classList.remove('opacity-40', 'pointer-events-none');
+            }
+
+            document.getElementById('ordersListView').classList.add('hidden');
+            document.getElementById('orderTrackingDetailView').classList.remove('hidden');
+        }
+
+        function triggerCancelOrder() {
+            if (activeOrderIndexForTracking === null || !orders[activeOrderIndexForTracking]) return;
+            const o = orders[activeOrderIndexForTracking];
+            if (o.status === "Order Delivered") {
+                alert("Delivered order ko cancel nahi kiya ja sakta. Aap Return option use kar sakte hain.");
+                return;
+            }
+            if (confirm(`⚠️ Kya aap sach mein Order (${o.id}) ko CANCEL karna chahte hain?`)) {
+                o.status = "Order Cancelled";
+                safeSetStorage('senshoOrders', orders);
+                openOrderTrackingDetail(activeOrderIndexForTracking);
+                let msg = `*ORDER CANCELLATION REQUEST - SENSHO*%0A*Order ID:* ${o.id}%0A*Item:* ${encodeURIComponent(o.summary)}%0A*Amount:* ₹${o.total}%0A%0AMujhe mera ye order cancel karna hai.`;
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            }
+        }
+
+        function triggerReturnOrder() {
+            if (activeOrderIndexForTracking === null || !orders[activeOrderIndexForTracking]) return;
+            const o = orders[activeOrderIndexForTracking];
+            const reason = prompt("🔄 Return / Exchange ka kaaran batayein (e.g. Size issue, Defective item, Change color):", "Size Exchange / Return");
+            if (reason && reason.trim() !== "") {
+                o.status = "Return Requested";
+                safeSetStorage('senshoOrders', orders);
+                openOrderTrackingDetail(activeOrderIndexForTracking);
+                let msg = `*7-DAYS EASY RETURN REQUEST - SENSHO*%0A*Order ID:* ${o.id}%0A*Item:* ${encodeURIComponent(o.summary)}%0A*Amount:* ₹${o.total}%0A*Reason:* ${encodeURIComponent(reason)}%0A%0APlease meri return/exchange pickup process karein.`;
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            }
+        }
+
         function closeMyOrders() {
             document.getElementById('myOrdersModal').classList.add('hidden');
         }
 
-        function recordOrder(orderSummary, totalAmt, orderType = "WhatsApp Direct") {
+        function recordOrder(orderSummary, totalAmt, addressStr = "", prodImg = "") {
             let orderId = "SNS-" + Math.floor(100000 + Math.random() * 900000);
-            let orderDate = new Date().toLocaleString();
+            let orderDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 
             let newOrder = {
                 id: orderId,
                 date: orderDate,
                 summary: orderSummary,
                 total: totalAmt,
-                type: orderType
+                address: addressStr,
+                img: prodImg,
+                status: "Order Confirmed"
             };
 
             orders.unshift(newOrder);
@@ -1661,7 +1938,9 @@
             }
         }
 
-        // ADMIN PORTAL FUNCTIONS
+        // ============================================================================
+        // ADMIN PORTAL & 2-FACTOR GLOBAL PIN CHANGE
+        // ============================================================================
         function openAdminLogin() {
             document.getElementById('adminModal').classList.remove('hidden');
             document.getElementById('adminLoginScreen').classList.remove('hidden');
@@ -1671,26 +1950,43 @@
         function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
         
         function verifyAdminPin() {
-            let pin = document.getElementById('adminPin').value;
+            let pin = document.getElementById('adminPin').value.trim();
             if(pin === adminPinCode) {
                 document.getElementById('adminLoginScreen').classList.add('hidden');
                 document.getElementById('adminDashboardScreen').classList.remove('hidden');
                 loadAdminDashboardData();
             } else {
-                alert("Incorrect PIN! Access denied.");
+                alert("❌ Incorrect Admin PIN! Access denied.");
             }
         }
 
-        function updateAdminPin() {
-            let newPin = document.getElementById('newAdminPin').value;
-            if(newPin && newPin.length >= 4) {
-                adminPinCode = newPin;
-                localStorage.setItem('senshoAdminPin', newPin);
-                alert("Admin PIN updated successfully!");
-                document.getElementById('newAdminPin').value = '';
-            } else {
-                alert("PIN must be at least 4 digits long.");
+        async function updateAdminPinGlobally() {
+            const p1 = (document.getElementById('masterPass1').value || '').trim().toLowerCase();
+            const p2 = (document.getElementById('masterPass2').value || '').trim().toLowerCase();
+            const newPin = (document.getElementById('newAdminPin').value || '').trim();
+
+            if (p1 !== REQUIRED_PASS_1) {
+                alert("❌ Secret Password 1 galat hai! Sahi password dalein.");
+                return;
             }
+            if (p2 !== REQUIRED_PASS_2) {
+                alert("❌ Secret Password 2 galat hai! Sahi password dalein.");
+                return;
+            }
+            if (!newPin || newPin.length < 4) {
+                alert("⚠️ Naya PIN kam se kam 4 digits ya letters ka hona chahiye!");
+                return;
+            }
+
+            adminPinCode = newPin;
+            localStorage.setItem('senshoAdminPin', newPin);
+            document.getElementById('masterPass1').value = '';
+            document.getElementById('masterPass2').value = '';
+            document.getElementById('newAdminPin').value = '';
+
+            // Embed in Banners & Sync Globally to All Devices immediately
+            embedCloudSettingsIntoBanners();
+            await saveAdminChanges();
         }
 
         function updateVipSecretCode() {
@@ -1698,10 +1994,18 @@
             if(code.length >= 3) {
                 vipSecretPasscode = code;
                 localStorage.setItem('senshoDynamicVipCode', code);
-                alert("✅ Naya Customer VIP Passcode Save Ho Gaya: " + code);
+                embedCloudSettingsIntoBanners();
+                alert("✅ Naya Customer VIP Passcode Set Ho Gaya: " + code + " (Neeche Save & Sync dabayein taaki sabhi devices par update ho)");
             } else {
                 alert("VIP Passcode kam se kam 3 letters ka hona chahiye.");
             }
+        }
+
+        function updateOrderStatusFromAdmin(orderIdx, newStatus) {
+            if (!orders[orderIdx]) return;
+            orders[orderIdx].status = newStatus;
+            safeSetStorage('senshoOrders', orders);
+            embedCloudSettingsIntoBanners();
         }
 
         function addCustomCategory() {
@@ -1717,6 +2021,7 @@
             categories.push({ id: id, label: label, icon: "fa-tag", color: "text-amber-300" });
             inp.value = '';
             safeSetStorage('senshoCategories', categories);
+            embedCloudSettingsIntoBanners();
             renderCategoryBar();
             loadAdminDashboardData();
         }
@@ -1730,6 +2035,7 @@
             if (confirm(`⚠️ Kya aap '${categories[idx].label}' category hatana chahte hain?`)) {
                 categories.splice(idx, 1);
                 safeSetStorage('senshoCategories', categories);
+                embedCloudSettingsIntoBanners();
                 renderCategoryBar();
                 loadAdminDashboardData();
             }
@@ -1763,6 +2069,7 @@
                 if(reviewsEl) p.reviews = reviewsEl.value;
                 if(descEl) p.desc = descEl.value;
             });
+            ensureUniqueProductIds(products);
         }
 
         function deleteBannerSlide(idx) {
@@ -1803,8 +2110,10 @@
 
         function addNewProduct() {
             captureAdminFormValues();
+            const uniqueNewId = "prod_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
             products.unshift({ 
-                id: Date.now(), 
+                id: uniqueNewId,
+                uid: uniqueNewId,
                 name: "New Sensho Wholesale Apparel", 
                 category: "mens", 
                 mrp: 1499, 
@@ -1873,6 +2182,26 @@
 
             const countSpan = document.getElementById('adminTotalProductsCount');
             if(countSpan) countSpan.innerText = products.length;
+
+            // Render Admin Orders Status Manager
+            const ordersEditor = document.getElementById('adminOrdersEditorList');
+            if (ordersEditor) {
+                if (orders.length === 0) {
+                    ordersEditor.innerHTML = `<p class="text-[11px] text-slate-400">Abhi koi customer order nahi hai.</p>`;
+                } else {
+                    const statuses = ["Order Confirmed", "Shipped", "Out for Delivery", "Order Delivered", "Order Cancelled", "Return Requested"];
+                    ordersEditor.innerHTML = orders.map((o, idx) => `
+                        <div class="bg-slate-50 border p-2.5 rounded-xl flex flex-wrap items-center justify-between gap-2 text-xs">
+                            <div class="min-w-0 flex-1">
+                                <span class="font-black text-blue-700">${o.id}</span> • <span class="font-bold text-slate-800">${o.summary}</span> (₹${o.total})
+                            </div>
+                            <select onchange="updateOrderStatusFromAdmin(${idx}, this.value)" class="border border-slate-300 rounded-lg px-2 py-1 text-[11px] font-bold bg-white">
+                                ${statuses.map(st => `<option value="${st}" ${(o.status || 'Order Confirmed') === st ? 'selected' : ''}>${st}</option>`).join('')}
+                            </select>
+                        </div>
+                    `).join('');
+                }
+            }
 
             // Render Categories in Admin
             const catEditor = document.getElementById('adminCategoryEditorList');
@@ -2008,13 +2337,16 @@
 
         async function saveAdminChanges() {
             const btn = document.getElementById('saveAdminBtn');
-            if(btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Optimizing & Syncing...`;
+            if(btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing Globally...`;
 
             try {
                 captureAdminFormValues();
                 await optimizeAllExistingImages();
+                embedCloudSettingsIntoBanners();
 
-                // Save in Unlimited IndexedDB for 0.01s instant reload
+                // Save in both 0ms Local Snapshot & Unlimited IndexedDB
+                safeSetStorage('senshoFastSnapProducts', products);
+                safeSetStorage('senshoFastSnapBanners', banners);
                 await saveToInstantDB('products', products);
                 await saveToInstantDB('banners', banners);
                 safeSetStorage('senshoCategories', categories);
@@ -2036,7 +2368,7 @@
 
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
                 closeAdminModal();
-                alert("🎉 SUCCESS! Saare products optimize hokar Instant DB aur Google Cloud par sync ho gaye hain!");
+                alert("🎉 SUCCESS! Products, Banners, Global Admin PIN aur Order Statuses 100% Cloud par sync ho gaye hain!");
             } catch(err) {
                 console.error("Save error:", err);
                 if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
@@ -2085,25 +2417,24 @@
                 const res = await fetch(`${GOOGLE_SCRIPT_URL}?t=${Date.now()}`, { cache: "no-store" });
                 const cloudData = await res.json();
                 if (cloudData) {
-                    if (cloudData.products && Array.isArray(cloudData.products) && cloudData.products.length > 0) {
-                        products = cloudData.products;
-                        await saveToInstantDB('products', products);
-                    }
                     if (cloudData.banners && Array.isArray(cloudData.banners) && cloudData.banners.length > 0) {
                         banners = cloudData.banners;
+                        applyEmbeddedCloudSettings(banners);
+                        safeSetStorage('senshoFastSnapBanners', banners);
                         await saveToInstantDB('banners', banners);
                     }
+                    if (cloudData.products && Array.isArray(cloudData.products) && cloudData.products.length > 0) {
+                        products = ensureUniqueProductIds(cloudData.products);
+                        safeSetStorage('senshoFastSnapProducts', products);
+                        await saveToInstantDB('products', products);
+                    }
+                    renderCategoryBar();
                     renderBannerSlider();
                     renderProducts();
                     checkUrlParamsForProduct();
                 }
             } catch (err) {
-                if (products.length === 0) {
-                    products = fallbackProducts;
-                    banners = fallbackBanners;
-                    renderBannerSlider();
-                    renderProducts();
-                }
+                console.log("Instant cache active:", err);
             }
         }
 
@@ -2111,9 +2442,13 @@
         function checkUrlParamsForProduct() {
             if (deepLinkOpened || !products.length) return;
             const urlParams = new URLSearchParams(window.location.search);
-            const sharedProdName = urlParams.get('product');
-            if(sharedProdName) {
-                const foundIdx = products.findIndex(p => p.name.toLowerCase() === decodeURIComponent(sharedProdName).toLowerCase());
+            const sharedProdParam = urlParams.get('product');
+            if(sharedProdParam) {
+                const decoded = decodeURIComponent(sharedProdParam).toLowerCase();
+                let foundIdx = products.findIndex(p => String(p.uid || p.id).toLowerCase() === decoded);
+                if (foundIdx < 0) {
+                    foundIdx = products.findIndex(p => (p.name || '').toLowerCase() === decoded);
+                }
                 if(foundIdx >= 0) {
                     deepLinkOpened = true;
                     openProductDetailModal(foundIdx);
@@ -2121,36 +2456,36 @@
             }
         }
 
-        // INSTANT 0.01s STARTUP ENGINE
+        // 0.00s INSTANT STARTUP ENGINE
         window.onload = async function() {
-            renderCategoryBar();
-            updateCartBadge();
-            updateWishlistBadges();
+            // Render immediately from 0ms snapshot
+            updateUI();
+            checkUrlParamsForProduct();
 
-            // 1. Check Unlimited IndexedDB first (Loads in 0.01 seconds!)
+            // Check Unlimited IndexedDB in 5ms
             const cachedProds = await getFromInstantDB('products');
             const cachedBans = await getFromInstantDB('banners');
 
             if (cachedProds && cachedProds.length > 0) {
-                products = cachedProds;
-                banners = (cachedBans && cachedBans.length > 0) ? cachedBans : fallbackBanners;
+                products = ensureUniqueProductIds(cachedProds);
+                if (cachedBans && cachedBans.length > 0) {
+                    banners = cachedBans;
+                    applyEmbeddedCloudSettings(banners);
+                }
                 updateUI();
                 checkUrlParamsForProduct();
-            } else {
-                // Show sleek shimmer skeleton instead of fake dummy products
-                showInitialSkeletons();
             }
 
-            // 2. Sync fresh cloud updates in background
+            // Sync fresh updates in background
             await fetchCloudData();
 
-            // 3. Auto-poll every 12s for live updates
+            // Live background polling every 10s
             setInterval(() => {
                 const adminModal = document.getElementById('adminModal');
                 if (adminModal && adminModal.classList.contains('hidden')) {
                     fetchCloudData();
                 }
-            }, 12000);
+            }, 10000);
         };
     </script>
 </body>
