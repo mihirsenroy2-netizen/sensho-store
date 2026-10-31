@@ -927,6 +927,14 @@
         products = ensureUniqueProductIds(products);
 
         // Extract Global Config Embedded inside Banners[0] (Syncs PIN, VIP Code, Categories & Order Statuses across ALL devices!)
+      let myDeviceUserId = localStorage.getItem('senshoDeviceUserId');
+        if (!myDeviceUserId) {
+            myDeviceUserId = "USR-" + Date.now() + "-" + Math.floor(1000 + Math.random() * 9000);
+            localStorage.setItem('senshoDeviceUserId', myDeviceUserId);
+        }
+
+        let globalOrders = safeGetStorage('senshoGlobalAdminOrders', []);
+
         function applyEmbeddedCloudSettings(bannerList) {
             if (!Array.isArray(bannerList) || bannerList.length === 0) return;
             const cfg = bannerList[0].sysConfig;
@@ -943,14 +951,56 @@
                 categories = cfg.categories;
                 safeSetStorage('senshoCategories', categories);
             }
-            if (cfg.orderStatusMap && typeof cfg.orderStatusMap === 'object') {
-                orders.forEach(o => {
-                    if (cfg.orderStatusMap[o.id]) {
-                        o.status = cfg.orderStatusMap[o.id];
+            if (Array.isArray(cfg.globalOrders)) {
+                // Merge cloud global orders with local orders safely
+                cfg.globalOrders.forEach(cloudOrd => {
+                    const existingIdx = globalOrders.findIndex(go => go.id === cloudOrd.id);
+                    if (existingIdx >= 0) {
+                        // Update existing with cloud fields if newer or synced
+                        globalOrders[existingIdx] = { ...globalOrders[existingIdx], ...cloudOrd };
+                    } else {
+                        globalOrders.push(cloudOrd);
                     }
                 });
-                safeSetStorage('senshoOrders', orders);
+                safeSetStorage('senshoGlobalAdminOrders', globalOrders);
             }
+
+            const statusMap = cfg.orderStatusMap || {};
+            orders.forEach(myOrd => {
+                const cloudMatch = globalOrders.find(go => go.id === myOrd.id) || statusMap[myOrd.id];
+                if (cloudMatch) {
+                    if (cloudMatch.status) myOrd.status = cloudMatch.status;
+                    if (cloudMatch.eta !== undefined) myOrd.eta = cloudMatch.eta;
+                    if (cloudMatch.locationNote !== undefined) myOrd.locationNote = cloudCodeCheck(cloudMatch.locationNote);
+                }
+            });
+            safeSetStorage('senshoOrders', orders);
+        }
+
+        function cloudCodeCheck(val) {
+            return val !== undefined ? val : "";
+        }
+
+        function embedCloudSettingsIntoBanners() {
+            if (!Array.isArray(banners) || banners.length === 0) return;
+            const statusMap = {};
+            globalOrders.forEach(o => {
+                if (o.id) {
+                    statusMap[o.id] = {
+                        status: o.status || "Order Confirmed",
+                        eta: o.eta || "",
+                        locationNote: o.locationNote || ""
+                    };
+                }
+            });
+            banners[0].sysConfig = {
+                adminPin: adminPinCode,
+                vipCode: vipSecretPasscode,
+                categories: categories,
+                globalOrders: globalOrders.slice(0, 100),
+                orderStatusMap: statusMap,
+                updatedAt: Date.now()
+            };
         }
 
         function embedCloudSettingsIntoBanners() {
@@ -1548,7 +1598,7 @@
             document.getElementById('addressCheckoutModal').classList.add('hidden');
         }
 
-        function handleFinalOrderSubmission(e) {
+       function handleFinalOrderSubmission(e) {
             e.preventDefault();
             const fullName = document.getElementById('custFullName').value.trim();
             const phone = document.getElementById('custPhone').value.trim();
@@ -1564,7 +1614,7 @@
                 const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
                 const prodImg = (p.images && p.images[0]) ? p.images[0] : "";
 
-                recordOrder(itemSummary, price, fullAddrStr, prodImg);
+                recordOrder(itemSummary, price, fullAddrStr, prodImg, p.uid || p.id, fullName, phone, `${city} - ${pincode}`);
 
                 let msg = `*NEW VERIFIED ORDER - SENSHO FASHION HUB*%0A%0A` +
                           `*Product:* ${encodeURIComponent(p.name)}%0A` +
@@ -1586,7 +1636,7 @@
                 const tierType = isVIPVerified ? "VIP Wholesale" : "Normal Member";
                 const firstCartImg = (cart[0] && cart[0].img) ? cart[0].img : "";
 
-                recordOrder(summaryStr, totalPrice, fullAddrStr, firstCartImg);
+                recordOrder(summaryStr, totalPrice, fullAddrStr, firstCartImg, "", fullName, phone, `${city} - ${pincode}`);
 
                 let msg = `*NEW CART ORDER - SENSHO FASHION HUB*%0A%0A` +
                           `*Total Amount:* ₹${totalPrice} (${tierType})%0A` +
@@ -1759,31 +1809,71 @@
             }
         }
 
+        // Open Product Detail Modal when user clicks on an Ordered Product to Re-order
+        function openProductFromOrder(prodId, summaryText) {
+            closeMyOrders();
+            let idx = -1;
+            if (prodId) {
+                idx = products.findIndex(p => String(p.uid || p.id) === String(prodId));
+            }
+            if (idx < 0 && summaryText) {
+                const cleanName = summaryText.split('[')[0].split('(')[0].trim().toLowerCase();
+                idx = products.findIndex(p => (p.name || '').toLowerCase().includes(cleanName));
+            }
+            if (idx >= 0) {
+                openProductDetailModal(idx);
+            } else if (products.length > 0) {
+                openProductDetailModal(0);
+            }
+        }
+
+        function openProductFromTracking() {
+            if (activeOrderIndexForTracking === null || !orders[activeOrderIndexForTracking]) return;
+            const o = orders[activeOrderIndexForTracking];
+            openProductFromOrder(o.prodId, o.summary);
+        }
+
         function openMyOrders() {
             backToOrdersList();
             let container = document.getElementById('customerOrdersList');
             if(!container) return;
-            if(orders.length === 0) {
+
+            // PRIVACY FILTER: Sirf is user ke device se kiye gaye orders dikhao
+            const myPrivateOrders = orders.filter(o => !o.deviceUserId || o.deviceUserId === myDeviceUserId);
+
+            if(myPrivateOrders.length === 0) {
                 container.innerHTML = `<p class="text-slate-400 text-center py-8 text-xs">Aapne abhi tak koi order place nahi kiya hai.</p>`;
             } else {
                 let html = '';
-                orders.forEach((o, idx) => {
+                myPrivateOrders.forEach((o) => {
+                    const realIdx = orders.findIndex(item => item.id === o.id);
                     const currentStatus = o.status || "Order Confirmed";
                     const fallbackImg = (products[0] && products[0].images && products[0].images[0]) ? products[0].images[0] : "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80";
                     const imgUrl = o.img || fallbackImg;
+                    const safeSummary = (o.summary || '').replace(/'/g, "\\'");
+
                     html += `
-                        <div onclick="openOrderTrackingDetail(${idx})" class="bg-slate-50 hover:bg-blue-50/50 border border-slate-200 p-3 rounded-2xl flex items-center gap-3 cursor-pointer transition shadow-sm">
-                            <img src="${imgUrl}" class="w-14 h-16 object-cover rounded-xl border bg-white shrink-0">
-                            <div class="flex-1 min-w-0">
-                                <div class="flex justify-between items-center text-[10px] font-bold text-slate-400">
-                                    <span class="text-blue-600 font-black">${o.id}</span>
-                                    <span>${o.date}</span>
+                        <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl space-y-2.5 shadow-sm">
+                            <div onclick="openProductFromOrder('${o.prodId || ''}', '${safeSummary}')" class="flex items-center gap-3 cursor-pointer group" title="Tap to open product & buy again">
+                                <img src="${imgUrl}" class="w-14 h-16 object-cover rounded-xl border bg-white shrink-0 group-hover:scale-105 transition">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex justify-between items-center text-[10px] font-bold text-slate-400">
+                                        <span class="text-blue-600 font-black">${o.id}</span>
+                                        <span>${o.date}</span>
+                                    </div>
+                                    <p class="text-xs font-black text-slate-900 truncate mt-0.5 group-hover:text-blue-600 transition">${o.summary}</p>
+                                    <div class="flex justify-between items-center mt-1">
+                                        <span class="font-black text-xs text-slate-900">₹${o.total}</span>
+                                        <span class="text-[10px] font-bold text-blue-600 underline">Buy Again / View Product</span>
+                                    </div>
                                 </div>
-                                <p class="text-xs font-black text-slate-900 truncate mt-0.5">${o.summary}</p>
-                                <div class="flex justify-between items-center mt-1.5">
-                                    <span class="text-[10px] font-black px-2 py-0.5 rounded-full ${getStatusBadgeStyle(currentStatus)}">${currentStatus}</span>
-                                    <span class="font-black text-xs text-slate-900">₹${o.total} <i class="fa-solid fa-chevron-right text-[10px] text-slate-400 ml-1"></i></span>
-                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-200/80">
+                                <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full ${getStatusBadgeStyle(currentStatus)}">${currentStatus}</span>
+                                <button type="button" onclick="openOrderTrackingDetail(${realIdx})" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1 transition">
+                                    <i class="fa-solid fa-truck-fast"></i> Order Details & Track
+                                </button>
                             </div>
                         </div>
                     `;
@@ -1810,13 +1900,17 @@
             document.getElementById('trackOrderDate').innerText = o.date;
             document.getElementById('trackOrderTitle').innerText = o.summary;
             document.getElementById('trackOrderPrice').innerText = `₹${o.total}`;
-            document.getElementById('trackOrderAddress').innerText = o.address || o.type || "Direct Factory Wholesale Dispatch";
+            document.getElementById('trackOrderAddress').innerText = o.address || "Direct Factory Wholesale Dispatch";
+
+            const etaEl = document.getElementById('trackOrderEta');
+            const locEl = document.getElementById('trackOrderLocation');
+            if (etaEl) etaEl.innerText = o.eta && o.eta.trim() !== "" ? o.eta : "Within 4-6 Working Days";
+            if (locEl) locEl.innerText = o.locationNote && o.locationNote.trim() !== "" ? o.locationNote : (status === "Order Delivered" ? "Delivered to Customer Address" : "Sensho Factory Sorting Hub");
 
             const badge = document.getElementById('trackCurrentBadge');
             badge.innerText = status;
             badge.className = `inline-block mt-1 text-[10px] font-black px-2.5 py-0.5 rounded-full ${getStatusBadgeStyle(status)}`;
 
-            // Render 4-Step Meesho Timeline
             const steps = [
                 { key: "Order Confirmed", title: "Order Confirmed", sub: "Aapka order factory hub me confirm ho gaya hai", icon: "fa-clipboard-check" },
                 { key: "Shipped", title: "Order Shipped", sub: "Quality check ke baad parcel courier ko de diya gaya hai", icon: "fa-box" },
@@ -1887,6 +1981,7 @@
             if (confirm(`⚠️ Kya aap sach mein Order (${o.id}) ko CANCEL karna chahte hain?`)) {
                 o.status = "Order Cancelled";
                 safeSetStorage('senshoOrders', orders);
+                updateOrderFromAdmin(o.id, 'status', 'Order Cancelled');
                 openOrderTrackingDetail(activeOrderIndexForTracking);
                 let msg = `*ORDER CANCELLATION REQUEST - SENSHO*%0A*Order ID:* ${o.id}%0A*Item:* ${encodeURIComponent(o.summary)}%0A*Amount:* ₹${o.total}%0A%0AMujhe mera ye order cancel karna hai.`;
                 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
@@ -1900,6 +1995,7 @@
             if (reason && reason.trim() !== "") {
                 o.status = "Return Requested";
                 safeSetStorage('senshoOrders', orders);
+                updateOrderFromAdmin(o.id, 'status', 'Return Requested');
                 openOrderTrackingDetail(activeOrderIndexForTracking);
                 let msg = `*7-DAYS EASY RETURN REQUEST - SENSHO*%0A*Order ID:* ${o.id}%0A*Item:* ${encodeURIComponent(o.summary)}%0A*Amount:* ₹${o.total}%0A*Reason:* ${encodeURIComponent(reason)}%0A%0APlease meri return/exchange pickup process karein.`;
                 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
@@ -1910,22 +2006,33 @@
             document.getElementById('myOrdersModal').classList.add('hidden');
         }
 
-        function recordOrder(orderSummary, totalAmt, addressStr = "", prodImg = "") {
+        function recordOrder(orderSummary, totalAmt, addressStr = "", prodImg = "", prodId = "", custName = "", custPhone = "", custCityPin = "") {
             let orderId = "SNS-" + Math.floor(100000 + Math.random() * 900000);
             let orderDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 
             let newOrder = {
                 id: orderId,
+                deviceUserId: myDeviceUserId,
+                prodId: prodId,
+                custName: custName || "Customer",
+                custPhone: custPhone || "",
+                custCityPin: custCityPin || "",
                 date: orderDate,
                 summary: orderSummary,
                 total: totalAmt,
                 address: addressStr,
                 img: prodImg,
-                status: "Order Confirmed"
+                status: "Order Confirmed",
+                eta: "4-6 Working Days",
+                locationNote: "Sensho Factory Hub"
             };
 
             orders.unshift(newOrder);
             safeSetStorage('senshoOrders', orders);
+
+            globalOrders.unshift(newOrder);
+            safeSetStorage('senshoGlobalAdminOrders', globalOrders);
+            embedCloudSettingsIntoBanners();
             updateCartBadge();
 
             if (GOOGLE_SCRIPT_URL) {
@@ -1933,11 +2040,29 @@
                     method: "POST",
                     mode: "no-cors",
                     headers: { "Content-Type": "text/plain;charset=utf-8" },
-                    body: JSON.stringify(newOrder)
+                    body: JSON.stringify({
+                        action: "sync_all",
+                        products: products,
+                        banners: banners,
+                        latestOrder: newOrder
+                    })
                 }).catch(err => console.error("Sheet sync failed:", err));
             }
         }
 
+        function updateOrderFromAdmin(orderId, field, value) {
+            const gOrd = globalOrders.find(o => o.id === orderId);
+            if (gOrd) {
+                gOrd[field] = value;
+                safeSetStorage('senshoGlobalAdminOrders', globalOrders);
+            }
+            const localOrd = orders.find(o => o.id === orderId);
+            if (localOrd) {
+                localOrd[field] = value;
+                safeSetStorage('senshoOrders', orders);
+            }
+            embedCloudSettingsIntoBanners();
+        }
         // ============================================================================
         // ADMIN PORTAL & 2-FACTOR GLOBAL PIN CHANGE
         // ============================================================================
@@ -2184,20 +2309,41 @@
             if(countSpan) countSpan.innerText = products.length;
 
             // Render Admin Orders Status Manager
+           // Render Admin Orders Status Manager
             const ordersEditor = document.getElementById('adminOrdersEditorList');
             if (ordersEditor) {
-                if (orders.length === 0) {
-                    ordersEditor.innerHTML = `<p class="text-[11px] text-slate-400">Abhi koi customer order nahi hai.</p>`;
+                orders.forEach(lo => {
+                    if (!globalOrders.some(go => go.id === lo.id)) globalOrders.unshift(lo);
+                });
+
+                if (globalOrders.length === 0) {
+                    ordersEditor.innerHTML = `<p class="text-[11px] text-slate-400">Abhi koi customer order nahi aaya hai.</p>`;
                 } else {
                     const statuses = ["Order Confirmed", "Shipped", "Out for Delivery", "Order Delivered", "Order Cancelled", "Return Requested"];
-                    ordersEditor.innerHTML = orders.map((o, idx) => `
-                        <div class="bg-slate-50 border p-2.5 rounded-xl flex flex-wrap items-center justify-between gap-2 text-xs">
-                            <div class="min-w-0 flex-1">
-                                <span class="font-black text-blue-700">${o.id}</span> • <span class="font-bold text-slate-800">${o.summary}</span> (₹${o.total})
+                    ordersEditor.innerHTML = globalOrders.map((o) => `
+                        <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl space-y-2 text-xs">
+                            <div class="flex flex-wrap justify-between items-start gap-2 border-b pb-1.5">
+                                <div>
+                                    <span class="font-black text-blue-700">${o.id}</span> • 
+                                    <strong class="text-slate-900">${o.custName || 'Customer'}</strong> 
+                                    <span class="text-emerald-700 font-bold">(${o.custPhone || 'No Phone'})</span>
+                                    <p class="text-[11px] font-bold text-slate-800 mt-0.5">🛍️ ${o.summary} — <span class="text-blue-700 font-black">₹${o.total}</span></p>
+                                    <p class="text-[10px] text-slate-500">📍 ${o.address || o.custCityPin || ''}</p>
+                                </div>
+                                <select onchange="updateOrderFromAdmin('${o.id}', 'status', this.value)" class="border-2 border-blue-300 rounded-xl px-2.5 py-1 text-[11px] font-black bg-white text-slate-900">
+                                    ${statuses.map(st => `<option value="${st}" ${(o.status || 'Order Confirmed') === st ? 'selected' : ''}>${st}</option>`).join('')}
+                                </select>
                             </div>
-                            <select onchange="updateOrderStatusFromAdmin(${idx}, this.value)" class="border border-slate-300 rounded-lg px-2 py-1 text-[11px] font-bold bg-white">
-                                ${statuses.map(st => `<option value="${st}" ${(o.status || 'Order Confirmed') === st ? 'selected' : ''}>${st}</option>`).join('')}
-                            </select>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Kab Tak Deliver Hoga (Expected Date):</label>
+                                    <input type="text" value="${o.eta || '4-6 Working Days'}" oninput="updateOrderFromAdmin('${o.id}', 'eta', this.value)" placeholder="e.g. 5 Nov tak deliver hoga" class="w-full text-[11px] border rounded-lg px-2 py-1 font-bold bg-white">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Abhi Kaha Pahucha Hai (Current Location):</label>
+                                    <input type="text" value="${o.locationNote || 'Sensho Factory Hub'}" oninput="updateOrderFromAdmin('${o.id}', 'locationNote', this.value)" placeholder="e.g. Raipur Courier Hub pahucha" class="w-full text-[11px] border rounded-lg px-2 py-1 font-bold bg-white">
+                                </div>
+                            </div>
                         </div>
                     `).join('');
                 }
