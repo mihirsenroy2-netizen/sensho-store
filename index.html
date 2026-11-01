@@ -1698,11 +1698,22 @@
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function activateBigVipCode() {
-            let code = document.getElementById('bigVipCodeInput').value.trim().toUpperCase();
-            let currentValidCode = (localStorage.getItem('senshoDynamicVipCode') || "SENSHO299").trim().toUpperCase();
+      async function activateBigVipCode() {
+            let inputEl = document.getElementById('bigVipCodeInput');
+            let code = (inputEl ? inputEl.value : '').trim().toUpperCase();
+            if (!code) {
+                alert("⚠️ Please VIP Passcode enter karein!");
+                return;
+            }
 
-            if (code === currentValidCode || code === "SENSHOVIP299" || code === "SENSHOVIP") {
+            try {
+                await fetchCloudData();
+            } catch (e) {}
+
+            let cloudCode = (banners[0] && banners[0].sysConfig && banners[0].sysConfig.vipCode) ? String(banners[0].sysConfig.vipCode).trim().toUpperCase() : "";
+            let localCode = (localStorage.getItem('senshoDynamicVipCode') || vipSecretPasscode || "SENSHO299").trim().toUpperCase();
+
+            if (code === cloudCode || code === localCode || code === "SENSHO299" || code === "SENSHOVIP299" || code === "SENSHOVIP") {
                 let randomPart1 = Math.floor(1000 + Math.random() * 9000);
                 let randomPart2 = Math.floor(1000 + Math.random() * 9000);
                 let uniqueCardNum = `SNS-VIP-${randomPart1}-${randomPart2}`;
@@ -1713,7 +1724,7 @@
                 vipCardData = {
                     cardNumber: uniqueCardNum,
                     name: "Sensho Verified VIP",
-                    issuedDate: new Date().toLocaleDateString(),
+                    issuedDate: new Date().toLocaleDateString('en-IN'),
                     expiry: expiryStr,
                     expiryTimestamp: oneYearLater
                 };
@@ -1725,11 +1736,11 @@
                 closeBigVipAlertModal();
                 updateUI();
                 openVipCardModal();
+                alert("🎉 Congratulations! Aapka 1-Year Sensho VIP Pass Activate ho gaya hai!");
             } else {
                 alert("❌ Galat VIP Passcode! Payment ke baad WhatsApp helpline (+91 6261118847) se sahi passcode lein.");
             }
         }
-
         function openVipCardModal() {
             if (isVIPVerified && vipCardData) {
                 document.getElementById('vipCardDisplayNumber').innerText = vipCardData.cardNumber;
@@ -1798,18 +1809,18 @@
         // ============================================================================
         // MEESHO-STYLE INTERACTIVE ORDER TRACKING, CANCEL & RETURN SYSTEM
         // ============================================================================
-        function getStatusBadgeStyle(status) {
+       function getStatusBadgeStyle(status) {
             switch(status) {
                 case 'Shipped': return 'bg-blue-100 text-blue-800 border border-blue-300';
                 case 'Out for Delivery': return 'bg-amber-100 text-amber-800 border border-amber-300';
                 case 'Order Delivered': return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+                case 'Cancel Request Pending': return 'bg-orange-100 text-orange-800 border border-orange-300 animate-pulse';
                 case 'Order Cancelled': return 'bg-rose-100 text-rose-700 border border-rose-300';
                 case 'Return Requested': return 'bg-purple-100 text-purple-800 border border-purple-300';
                 default: return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
             }
         }
 
-        // Open Product Detail Modal when user clicks on an Ordered Product to Re-order
         function openProductFromOrder(prodId, summaryText) {
             closeMyOrders();
             let idx = -1;
@@ -1838,7 +1849,6 @@
             let container = document.getElementById('customerOrdersList');
             if(!container) return;
 
-            // PRIVACY FILTER: Sirf is user ke device se kiye gaye orders dikhao
             const myPrivateOrders = orders.filter(o => !o.deviceUserId || o.deviceUserId === myDeviceUserId);
 
             if(myPrivateOrders.length === 0) {
@@ -1859,7 +1869,7 @@
                                 <div class="flex-1 min-w-0">
                                     <div class="flex justify-between items-center text-[10px] font-bold text-slate-400">
                                         <span class="text-blue-600 font-black">${o.id}</span>
-                                        <span>${o.date}</span>
+                                        <span>${o.date || ''} ${o.time ? '• ' + o.time : ''}</span>
                                     </div>
                                     <p class="text-xs font-black text-slate-900 truncate mt-0.5 group-hover:text-blue-600 transition">${o.summary}</p>
                                     <div class="flex justify-between items-center mt-1">
@@ -1897,7 +1907,7 @@
 
             document.getElementById('trackOrderImg').src = o.img || fallbackImg;
             document.getElementById('trackOrderId').innerText = o.id;
-            document.getElementById('trackOrderDate').innerText = o.date;
+            document.getElementById('trackOrderDate').innerText = `${o.date || ''} ${o.time ? '• ' + o.time : ''}`;
             document.getElementById('trackOrderTitle').innerText = o.summary;
             document.getElementById('trackOrderPrice').innerText = `₹${o.total}`;
             document.getElementById('trackOrderAddress').innerText = o.address || "Direct Factory Wholesale Dispatch";
@@ -1923,14 +1933,24 @@
             if (activeStepIdx === -1) activeStepIdx = 0;
 
             let timelineHtml = '';
-            if (status === "Order Cancelled" || status === "Return Requested") {
+            if (status === "Cancel Request Pending") {
+                timelineHtml = `
+                    <div class="p-3.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 flex items-center gap-3">
+                        <i class="fa-solid fa-clock-rotate-left text-amber-600 text-xl animate-spin"></i>
+                        <div>
+                            <h5 class="text-xs font-black">Cancellation Request Pending (Not Confirmed Yet)</h5>
+                            <p class="text-[11px] mt-0.5">Aapki cancel request Admin ke paas bhej di gayi hai. Admin ke confirm karne ke baad hi order cancel hoga.</p>
+                        </div>
+                    </div>
+                `;
+            } else if (status === "Order Cancelled" || status === "Return Requested") {
                 const isCancel = status === "Order Cancelled";
                 timelineHtml = `
                     <div class="p-3 rounded-xl ${isCancel ? 'bg-rose-50 border border-rose-200 text-rose-800' : 'bg-purple-50 border border-purple-200 text-purple-800'} flex items-center gap-3">
                         <i class="fa-solid ${isCancel ? 'fa-circle-xmark text-rose-600' : 'fa-rotate-left text-purple-600'} text-xl"></i>
                         <div>
                             <h5 class="text-xs font-black">${status}</h5>
-                            <p class="text-[11px]">${isCancel ? 'Ye order aapke dwara cancel kar diya gaya hai.' : 'Aapki 7-Days Easy Return request register ho gayi hai.'}</p>
+                            <p class="text-[11px]">${isCancel ? 'Admin ne aapki request confirm kar di hai. Ye order cancel ho chuka hai.' : 'Aapki 7-Days Easy Return request register ho gayi hai.'}</p>
                         </div>
                     </div>
                 `;
@@ -1956,7 +1976,7 @@
 
             const cancelBtn = document.getElementById('btnCancelOrder');
             const returnBtn = document.getElementById('btnReturnOrder');
-            if (status === "Order Cancelled" || status === "Return Requested") {
+            if (status === "Cancel Request Pending" || status === "Order Cancelled" || status === "Return Requested") {
                 cancelBtn.classList.add('opacity-40', 'pointer-events-none');
                 returnBtn.classList.add('opacity-40', 'pointer-events-none');
             } else if (status === "Order Delivered") {
@@ -1978,12 +1998,30 @@
                 alert("Delivered order ko cancel nahi kiya ja sakta. Aap Return option use kar sakte hain.");
                 return;
             }
-            if (confirm(`⚠️ Kya aap sach mein Order (${o.id}) ko CANCEL karna chahte hain?`)) {
-                o.status = "Order Cancelled";
+            const reason = prompt("⚠️ Order Cancel karne ka kaaran likhein (Admin confirm karne ke baad hi cancel hoga):", "Booked by mistake / Change item");
+            if (reason !== null) {
+                o.status = "Cancel Request Pending";
+                o.cancelReason = reason.trim() || "Customer requested cancellation";
                 safeSetStorage('senshoOrders', orders);
-                updateOrderFromAdmin(o.id, 'status', 'Order Cancelled');
+                updateOrderFromAdmin(o.id, 'status', 'Cancel Request Pending');
+                updateOrderFromAdmin(o.id, 'cancelReason', o.cancelReason);
+
+                if (GOOGLE_SCRIPT_URL) {
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
+                        body: JSON.stringify({
+                            action: "sync_all",
+                            products: products,
+                            banners: banners
+                        })
+                    }).catch(() => {});
+                }
+
                 openOrderTrackingDetail(activeOrderIndexForTracking);
-                let msg = `*ORDER CANCELLATION REQUEST - SENSHO*%0A*Order ID:* ${o.id}%0A*Item:* ${encodeURIComponent(o.summary)}%0A*Amount:* ₹${o.total}%0A%0AMujhe mera ye order cancel karna hai.`;
+                alert("⏳ Aapki Cancel Request bhej di gayi hai! Abhi status 'Pending' hai. Admin ke confirm karne par order cancel hoga.");
+                let msg = `*ORDER CANCEL REQUEST (PENDING APPROVAL) - SENSHO*%0A*Order ID:* ${o.id}%0A*Customer:* ${encodeURIComponent(o.custName || '')} (${encodeURIComponent(o.custPhone || '')})%0A*Item:* ${encodeURIComponent(o.summary)}%0A*Amount:* ₹${o.total}%0A*Reason:* ${encodeURIComponent(o.cancelReason)}%0A%0APlease Admin Panel me meri cancel request confirm karein.`;
                 window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
             }
         }
@@ -2008,7 +2046,9 @@
 
         function recordOrder(orderSummary, totalAmt, addressStr = "", prodImg = "", prodId = "", custName = "", custPhone = "", custCityPin = "") {
             let orderId = "SNS-" + Math.floor(100000 + Math.random() * 900000);
-            let orderDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+            let now = new Date();
+            let orderDate = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+            let orderTime = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
 
             let newOrder = {
                 id: orderId,
@@ -2018,6 +2058,7 @@
                 custPhone: custPhone || "",
                 custCityPin: custCityPin || "",
                 date: orderDate,
+                time: orderTime,
                 summary: orderSummary,
                 total: totalAmt,
                 address: addressStr,
@@ -2062,6 +2103,20 @@
                 safeSetStorage('senshoOrders', orders);
             }
             embedCloudSettingsIntoBanners();
+        }
+
+        function handleAdminCancelDecision(orderId, decision) {
+            if (decision === 'approve') {
+                if (confirm(`✅ Kya aap Order (${orderId}) ki Cancel Request CONFIRM karna chahte hain?`)) {
+                    updateOrderFromAdmin(orderId, 'status', 'Order Cancelled');
+                    loadAdminDashboardData();
+                }
+            } else {
+                if (confirm(`❌ Kya aap Cancel Request REJECT karke order wapas 'Order Confirmed' rakhna chahte hain?`)) {
+                    updateOrderFromAdmin(orderId, 'status', 'Order Confirmed');
+                    loadAdminDashboardData();
+                }
+            }
         }
         // ============================================================================
         // ADMIN PORTAL & 2-FACTOR GLOBAL PIN CHANGE
@@ -2114,13 +2169,31 @@
             await saveAdminChanges();
         }
 
-        function updateVipSecretCode() {
+       async function updateVipSecretCode() {
             let code = document.getElementById('adminVipSecretCode').value.trim().toUpperCase();
             if(code.length >= 3) {
                 vipSecretPasscode = code;
                 localStorage.setItem('senshoDynamicVipCode', code);
                 embedCloudSettingsIntoBanners();
-                alert("✅ Naya Customer VIP Passcode Set Ho Gaya: " + code + " (Neeche Save & Sync dabayein taaki sabhi devices par update ho)");
+                safeSetStorage('senshoFastSnapBanners', banners);
+                await saveToInstantDB('banners', banners);
+
+                if (GOOGLE_SCRIPT_URL) {
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
+                        body: JSON.stringify({
+                            action: "sync_all",
+                            products: products,
+                            banners: banners
+                        })
+                    }).catch(() => {});
+                }
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(code).catch(() => {});
+                }
+                alert("✅ Naya VIP Passcode (" + code + ") Cloud par LIVE save ho gaya hai aur Copy bhi ho gaya hai! Ab aap ise customer ko WhatsApp par bhej sakte hain.");
             } else {
                 alert("VIP Passcode kam se kam 3 letters ka hona chahiye.");
             }
@@ -2310,30 +2383,73 @@
 
             // Render Admin Orders Status Manager
            // Render Admin Orders Status Manager
-            const ordersEditor = document.getElementById('adminOrdersEditorList');
+           const ordersEditor = document.getElementById('adminOrdersEditorList');
             if (ordersEditor) {
                 orders.forEach(lo => {
                     if (!globalOrders.some(go => go.id === lo.id)) globalOrders.unshift(lo);
                 });
 
+                const pendingCancels = globalOrders.filter(o => o.status === "Cancel Request Pending").length;
+                const activeOrdersCount = globalOrders.filter(o => o.status !== "Order Cancelled").length;
+
                 if (globalOrders.length === 0) {
                     ordersEditor.innerHTML = `<p class="text-[11px] text-slate-400">Abhi koi customer order nahi aaya hai.</p>`;
                 } else {
-                    const statuses = ["Order Confirmed", "Shipped", "Out for Delivery", "Order Delivered", "Order Cancelled", "Return Requested"];
-                    ordersEditor.innerHTML = globalOrders.map((o) => `
-                        <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl space-y-2 text-xs">
-                            <div class="flex flex-wrap justify-between items-start gap-2 border-b pb-1.5">
-                                <div>
-                                    <span class="font-black text-blue-700">${o.id}</span> • 
-                                    <strong class="text-slate-900">${o.custName || 'Customer'}</strong> 
-                                    <span class="text-emerald-700 font-bold">(${o.custPhone || 'No Phone'})</span>
-                                    <p class="text-[11px] font-bold text-slate-800 mt-0.5">🛍️ ${o.summary} — <span class="text-blue-700 font-black">₹${o.total}</span></p>
-                                    <p class="text-[10px] text-slate-500">📍 ${o.address || o.custCityPin || ''}</p>
-                                </div>
-                                <select onchange="updateOrderFromAdmin('${o.id}', 'status', this.value)" class="border-2 border-blue-300 rounded-xl px-2.5 py-1 text-[11px] font-black bg-white text-slate-900">
-                                    ${statuses.map(st => `<option value="${st}" ${(o.status || 'Order Confirmed') === st ? 'selected' : ''}>${st}</option>`).join('')}
-                                </select>
+                    const statuses = ["Order Confirmed", "Shipped", "Out for Delivery", "Order Delivered", "Cancel Request Pending", "Order Cancelled", "Return Requested"];
+                    
+                    let summaryHeaderHtml = `
+                        <div class="grid grid-cols-3 gap-2 mb-2.5 text-center">
+                            <div class="bg-blue-50 border border-blue-200 p-2 rounded-xl">
+                                <span class="text-[9px] font-bold text-blue-600 uppercase block">Total Orders</span>
+                                <span class="text-sm font-black text-blue-950">${globalOrders.length}</span>
                             </div>
+                            <div class="bg-emerald-50 border border-emerald-200 p-2 rounded-xl">
+                                <span class="text-[9px] font-bold text-emerald-600 uppercase block">Active Orders</span>
+                                <span class="text-sm font-black text-emerald-950">${activeOrdersCount}</span>
+                            </div>
+                            <div class="bg-amber-50 border border-amber-300 p-2 rounded-xl">
+                                <span class="text-[9px] font-bold text-amber-700 uppercase block">Pending Cancels</span>
+                                <span class="text-sm font-black text-rose-600">${pendingCancels}</span>
+                            </div>
+                        </div>
+                    `;
+
+                    ordersEditor.innerHTML = summaryHeaderHtml + globalOrders.map((o, idx) => {
+                        const isPendingCancel = o.status === "Cancel Request Pending";
+                        return `
+                        <div class="${isPendingCancel ? 'bg-amber-50/90 border-2 border-amber-400' : 'bg-slate-50 border border-slate-200'} p-3 rounded-2xl space-y-2 text-xs shadow-sm">
+                            <div class="flex flex-wrap justify-between items-start gap-2 border-b border-slate-200/80 pb-2">
+                                <div>
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span class="bg-blue-600 text-white text-[9px] font-black px-2 py-0.5 rounded">#${idx + 1}</span>
+                                        <span class="font-black text-blue-700">${o.id}</span>
+                                        <span class="text-[10px] font-extrabold text-slate-500 bg-white border px-1.5 py-0.2 rounded">📅 ${o.date || ''} ${o.time ? '⏰ ' + o.time : ''}</span>
+                                    </div>
+                                    <p class="mt-1 text-xs">
+                                        👤 <strong class="text-slate-900">${o.custName || 'Customer'}</strong> 
+                                        <a href="https://wa.me/91${(o.custPhone || '').replace(/\D/g,'')}" target="_blank" class="text-emerald-700 font-black hover:underline ml-1"><i class="fa-brands fa-whatsapp"></i> ${o.custPhone || 'No Phone'}</a>
+                                    </p>
+                                    <p class="text-[11px] font-bold text-slate-800 mt-0.5">🛍️ ${o.summary} — <span class="text-blue-700 font-black">₹${o.total}</span></p>
+                                    <p class="text-[10px] text-slate-600">📍 ${o.address || o.custCityPin || ''}</p>
+                                    ${o.cancelReason ? `<p class="text-[10px] font-bold text-rose-600 mt-0.5">⚠️ Cancel Reason: "${o.cancelReason}"</p>` : ''}
+                                </div>
+                                <div class="flex flex-col items-end gap-1.5">
+                                    <select onchange="updateOrderFromAdmin('${o.id}', 'status', this.value); loadAdminDashboardData();" class="border-2 border-blue-300 rounded-xl px-2.5 py-1 text-[11px] font-black bg-white text-slate-900">
+                                        ${statuses.map(st => `<option value="${st}" ${(o.status || 'Order Confirmed') === st ? 'selected' : ''}>${st}</option>`).join('')}
+                                    </select>
+                                </div>
+                            </div>
+
+                            ${isPendingCancel ? `
+                                <div class="bg-white border border-amber-300 p-2 rounded-xl flex items-center justify-between gap-2">
+                                    <span class="text-[10px] font-black text-amber-900"><i class="fa-solid fa-bell text-amber-500 mr-1"></i> Customer ne Cancel Request bheji hai:</span>
+                                    <div class="flex gap-1.5">
+                                        <button type="button" onclick="handleAdminCancelDecision('${o.id}', 'approve')" class="bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow">Confirm Cancel</button>
+                                        <button type="button" onclick="handleAdminCancelDecision('${o.id}', 'reject')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow">Reject (Keep Order)</button>
+                                    </div>
+                                </div>
+                            ` : ''}
+
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                                 <div>
                                     <label class="text-[9px] font-bold text-slate-500 block">Kab Tak Deliver Hoga (Expected Date):</label>
@@ -2345,7 +2461,7 @@
                                 </div>
                             </div>
                         </div>
-                    `).join('');
+                    `}).join('');
                 }
             }
 
