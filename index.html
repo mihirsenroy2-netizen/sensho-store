@@ -596,17 +596,99 @@
                         </div>
                     </div>
 
-                    <div class="bg-blue-50 border border-blue-200 p-3.5 rounded-2xl flex flex-col justify-between gap-2">
-                        <div>
-                            <h4 class="font-bold text-xs text-blue-950"><i class="fa-solid fa-crown mr-1 text-amber-500"></i> Customer VIP Passcode (Global)</h4>
-                            <p class="text-[10px] text-blue-700">Payment ke baad customer ko dene wala secret code set karein.</p>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <input type="text" id="adminVipSecretCode" class="text-xs border border-blue-300 rounded-lg px-2.5 py-1.5 font-black uppercase text-blue-900 bg-white w-full" placeholder="SET VIP CODE">
-                            <button type="button" onclick="updateVipSecretCode()" class="bg-blue-600 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg shrink-0">Save Code</button>
-                        </div>
-                    </div>
-                </div>
+                   <!-- ==========================================
+     SENSHO VIP MEMBERSHIP CODE GENERATOR
+========================================== -->
+
+<div class="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 rounded-xl p-5 shadow-sm">
+
+    <div class="flex items-center gap-3 mb-4">
+
+        <div class="bg-indigo-600 text-white rounded-xl p-3">
+           <i class="fa-solid fa-crown text-xl"></i>
+        </div>
+
+        <div>
+            <h4 class="text-lg font-bold text-indigo-900">
+                VIP Membership Code Generator
+            </h4>
+
+            <p class="text-sm text-gray-600">
+                Generate unique one-time VIP activation codes
+            </p>
+        </div>
+
+    </div>
+
+    <div class="bg-white rounded-lg border border-indigo-100 p-4">
+
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Number of VIP Codes
+        </label>
+
+        <input
+            type="number"
+            id="vipGenerateQuantity"
+            min="1"
+            max="100"
+            value="10"
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter quantity"
+        >
+
+        <button
+            type="button"
+            onclick="generateVipCodes()"
+            class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition"
+        >
+            <i class="fas fa-key mr-2"></i>
+            Generate VIP Codes
+        </button>
+
+    </div>
+
+    <div
+        id="vipGeneratedCodesSection"
+        class="hidden mt-5 bg-white border border-indigo-100 rounded-lg p-4"
+    >
+
+        <div class="flex justify-between items-center gap-2 mb-3">
+
+            <h5 class="font-bold text-gray-800">
+                Generated VIP Codes
+            </h5>
+
+            <button
+                type="button"
+                onclick="copyAllVipCodes()"
+                class="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-3 py-2 rounded-lg"
+            >
+                <i class="fas fa-copy mr-1"></i>
+                Copy All
+            </button>
+
+        </div>
+
+        <div
+            id="vipGeneratedCodesList"
+            class="space-y-2"
+        ></div>
+
+        <p class="text-xs text-gray-500 mt-3">
+            Each VIP code can be activated only once.
+            Keep generated codes secure.
+        </p>
+
+    </div>
+
+    <div
+        id="vipGeneratorMessage"
+        class="hidden mt-4 p-3 rounded-lg text-sm"
+    ></div>
+
+</div>
+
+<!-- END SENSHO VIP CODE GENERATOR -->
 
                 <!-- ADMIN LIVE ORDER STATUS CONTROLLER -->
                 <div class="border-t pt-3">
@@ -720,7 +802,7 @@
     <!-- JavaScript Application Logic -->
     <script>
         const WHATSAPP_NUMBER = "916261118847";
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyl76_eGhifisK-8TVYJv7i6XepU_WRwb16jL5sB1fa2JJTCV76itTgAvbUo9K_CrM/exec";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKE3YbH-pdES_DPWCaWCQAWi4WpgRG3IP4br8SBrRVulrLVDSo8raGl3inQDtn3gfG/exec";
         const IMGBB_API_KEY = "6d207e02198a847aa5a0a0330f625680";
 
         // Required 2-Factor Master Passwords for Global PIN Change
@@ -790,19 +872,9 @@
             }
         }
 
-        let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
-        let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
-        let vipCardData = safeGetStorage('senshoVIPCardData', null);
-
-        if (vipCardData && vipCardData.expiryTimestamp) {
-            if (Date.now() > vipCardData.expiryTimestamp) {
-                isVIPVerified = false;
-                localStorage.removeItem('senshoVIPVerified');
-                localStorage.removeItem('senshoVIPCardData');
-                vipCardData = null;
-            }
-        }
-
+  let vipSecretPasscode = "";
+let isVIPVerified = false;
+let vipCardData = null;
         let activeProductForDetail = null;
         let selectedProductSize = "M";
         let pendingCheckoutType = "direct";
@@ -1698,49 +1770,183 @@
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-      async function activateBigVipCode() {
-            let inputEl = document.getElementById('bigVipCodeInput');
-            let code = (inputEl ? inputEl.value : '').trim().toUpperCase();
-            if (!code) {
-                alert("⚠️ Please VIP Passcode enter karein!");
-                return;
-            }
+ // ==========================================
+// SENSHO VIP SYSTEM - COMPLETE HELPER FUNCTIONS
+// ==========================================
 
-            try {
-                await fetchCloudData();
-            } catch (e) {}
+// 1. VIP API CONNECTION
+function senshoVipApi(payload) {
+    return new Promise((resolve, reject) => {
 
-            let cloudCode = (banners[0] && banners[0].sysConfig && banners[0].sysConfig.vipCode) ? String(banners[0].sysConfig.vipCode).trim().toUpperCase() : "";
-            let localCode = (localStorage.getItem('senshoDynamicVipCode') || vipSecretPasscode || "SENSHO299").trim().toUpperCase();
+        if (typeof GOOGLE_SCRIPT_URL === "undefined" || !GOOGLE_SCRIPT_URL) {
+            reject(new Error("Google Apps Script URL is missing."));
+            return;
+        }
 
-            if (code === cloudCode || code === localCode || code === "SENSHO299" || code === "SENSHOVIP299" || code === "SENSHOVIP") {
-                let randomPart1 = Math.floor(1000 + Math.random() * 9000);
-                let randomPart2 = Math.floor(1000 + Math.random() * 9000);
-                let uniqueCardNum = `SNS-VIP-${randomPart1}-${randomPart2}`;
-                let oneYearLater = Date.now() + (365 * 24 * 60 * 60 * 1000);
-                let expiryDate = new Date(oneYearLater);
-                let expiryStr = expiryDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+        const callbackName =
+            "senshoVipCallback_" + Date.now() + "_" +
+            Math.random().toString(36).substring(2, 8);
 
-                vipCardData = {
-                    cardNumber: uniqueCardNum,
-                    name: "Sensho Verified VIP",
-                    issuedDate: new Date().toLocaleDateString('en-IN'),
-                    expiry: expiryStr,
-                    expiryTimestamp: oneYearLater
-                };
+        const script = document.createElement("script");
+        const params = new URLSearchParams();
 
-                isVIPVerified = true;
-                localStorage.setItem('senshoVIPVerified', 'true');
-                safeSetStorage('senshoVIPCardData', vipCardData);
+        Object.keys(payload).forEach(key => {
+            params.append(key, payload[key]);
+        });
 
-                closeBigVipAlertModal();
-                updateUI();
-                openVipCardModal();
-                alert("🎉 Congratulations! Aapka 1-Year Sensho VIP Pass Activate ho gaya hai!");
-            } else {
-                alert("❌ Galat VIP Passcode! Payment ke baad WhatsApp helpline (+91 6261118847) se sahi passcode lein.");
+        params.append("callback", callbackName);
+
+        let timeoutId;
+
+        function cleanup() {
+            if (timeoutId) clearTimeout(timeoutId);
+
+            delete window[callbackName];
+
+            if (script.parentNode) {
+                script.parentNode.removeChild(script);
             }
         }
+
+        window[callbackName] = function(result) {
+            cleanup();
+            resolve(result);
+        };
+
+        script.onerror = function() {
+            cleanup();
+            reject(new Error("VIP server connection failed."));
+        };
+
+        timeoutId = setTimeout(() => {
+            cleanup();
+            reject(new Error("VIP server request timed out."));
+        }, 15000);
+
+        script.src = GOOGLE_SCRIPT_URL + "?" + params.toString();
+
+        document.body.appendChild(script);
+    });
+}
+
+
+// 2. BROWSER DEVICE ID
+function getSenshoVipDeviceId() {
+
+    let deviceId = localStorage.getItem("senshoVIPDeviceId");
+
+    if (!deviceId) {
+
+        if (window.crypto && window.crypto.randomUUID) {
+            deviceId = window.crypto.randomUUID();
+        } else {
+            deviceId =
+                "SNS-" +
+                Date.now().toString(36) +
+                "-" +
+                Math.random().toString(36).substring(2, 15);
+        }
+
+        localStorage.setItem("senshoVIPDeviceId", deviceId);
+    }
+
+    return deviceId;
+}
+
+
+// 3. VIP DATE FORMAT
+function formatVipDate(dateValue) {
+
+    if (!dateValue) {
+        return "Not available";
+    }
+
+    let date;
+
+    if (typeof dateValue === "number") {
+        date = new Date(
+            dateValue < 1000000000000
+                ? dateValue * 1000
+                : dateValue
+        );
+    } else {
+        date = new Date(dateValue);
+    }
+
+    if (isNaN(date.getTime())) {
+        return "Not available";
+    }
+
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+}
+
+
+// 4. SAVE VIP MEMBERSHIP
+function saveVipMembership(result) {
+
+    const membership = result.membership || result;
+
+    vipCardData = membership;
+    isVIPVerified = true;
+
+    localStorage.setItem("senshoVIPVerified", "true");
+
+    localStorage.setItem(
+        "senshoVIPCardData",
+        JSON.stringify(membership)
+    );
+}
+
+
+// 5. RESTORE VIP MEMBERSHIP FROM SERVER
+async function restoreVipMembership() {
+
+    try {
+
+        const deviceId = getSenshoVipDeviceId();
+
+        const result = await senshoVipApi({
+            action: "vip_status",
+            deviceId: deviceId
+        });
+
+        if (
+            result &&
+            result.ok === true &&
+            (
+                result.cardNumber ||
+                (result.membership && result.membership.cardNumber)
+            )
+        ) {
+
+            saveVipMembership(result);
+
+            updateUI();
+
+            return true;
+        }
+
+        isVIPVerified = false;
+        vipCardData = null;
+
+        localStorage.removeItem("senshoVIPVerified");
+        localStorage.removeItem("senshoVIPCardData");
+
+        updateUI();
+
+        return false;
+
+    } catch (error) {
+
+        console.error("VIP Membership Restore Error:", error);
+
+        return false;
+    }
+}
         function openVipCardModal() {
             if (isVIPVerified && vipCardData) {
                 document.getElementById('vipCardDisplayNumber').innerText = vipCardData.cardNumber;
