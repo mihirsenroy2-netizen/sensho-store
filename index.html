@@ -982,41 +982,41 @@
                 updatedAt: Date.now()
             };
         }
+function updateModalImageView() {
+            const mainImg = document.getElementById('detailMainImage');
+            const thumbsList = document.getElementById('detailThumbnailsList');
+            const prevBtn = document.getElementById('modalPrevImgBtn');
+            const nextBtn = document.getElementById('modalNextImgBtn');
 
-        // AUTOMATIC BANNER SLIDER LOGIC (100% MULTI-BANNER FLEX FIX)
-        let currentSlide = 0;
-        function renderBannerSlider() {
-            const track = document.getElementById('sliderTrack');
-            const dots = document.getElementById('sliderDots');
-            if(!track || !dots) return;
+            if (mainImg && currentModalImagesList.length > 0) {
+                mainImg.src = currentModalImagesList[currentModalImageIndex];
+            }
 
-            const activeBanners = (Array.isArray(banners) && banners.length > 0) ? banners : fallbackBanners;
-            if (currentSlide >= activeBanners.length) currentSlide = 0;
+            if (prevBtn && nextBtn) {
+                if (currentModalImagesList.length > 1) {
+                    prevBtn.classList.remove('hidden');
+                    nextBtn.classList.remove('hidden');
+                } else {
+                    prevBtn.classList.add('hidden');
+                    nextBtn.classList.add('hidden');
+                }
+            }
 
-            track.style.display = "flex";
-            track.style.width = "100%";
-            track.style.height = "100%";
-            track.style.transition = "transform 0.45s cubic-bezier(0.4, 0, 0.2, 1)";
-
-            let trackHtml = '';
-            let dotsHtml = '';
-
-            activeBanners.forEach((b, idx) => {
-                const rawImg = b.customImg || b.img || b.url || "";
-                const imgSource = (rawImg && rawImg.length > 5) ? rawImg : fallbackBanners[idx % fallbackBanners.length].customImg;
-                trackHtml += `
-                    <div class="w-full h-full shrink-0 flex-none relative cursor-pointer overflow-hidden" style="flex: 0 0 100%; min-width: 100%; height: 100%;" onclick="openBigVipAlertModal()">
-                        <img src="${imgSource}" alt="${b.title || 'Banner'}" class="w-full h-full object-cover block">
-                    </div>
-                `;
-                dotsHtml += `<button type="button" onclick="event.stopPropagation(); goToSlide(${idx})" class="cursor-pointer ${idx === currentSlide ? 'w-5 bg-amber-400' : 'w-2 bg-white/60'} h-2 rounded-full transition-all shadow"></button>`;
-            });
-
-            track.innerHTML = trackHtml;
-            dots.innerHTML = dotsHtml;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            if (thumbsList) {
+                thumbsList.innerHTML = '';
+                currentModalImagesList.forEach((imgUrl, i) => {
+                    const thumbBtn = document.createElement('button');
+                    thumbBtn.type = "button";
+                    thumbBtn.className = `w-14 h-16 rounded-xl overflow-hidden border-2 transition shrink-0 ${i === currentModalImageIndex ? 'border-blue-600 shadow-md scale-105' : 'border-slate-200 opacity-70 hover:opacity-100'}`;
+                    thumbBtn.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover">`;
+                    thumbBtn.onclick = function() {
+                        currentModalImageIndex = i;
+                        updateModalImageView();
+                    };
+                    thumbsList.appendChild(thumbBtn);
+                });
+            }
         }
-
         function goToSlide(idx) {
             if (!banners || !banners.length) return;
             currentSlide = (idx + banners.length) % banners.length;
@@ -1591,24 +1591,38 @@
             window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        async function activateBigVipCode() {
+       async function activateBigVipCode() {
             let inputEl = document.getElementById('bigVipCodeInput');
             let code = (inputEl ? inputEl.value : '').trim().toUpperCase();
-            if (!code) { alert("⚠️ Please VIP Passcode enter karein!"); return; }
+            if (!code) {
+                alert("⚠️ Please VIP Passcode enter karein!");
+                return;
+            }
 
-            try { await fetchCloudData(); } catch (e) {}
+            // Sabse pehle Cloud se latest sync data fetch karo taaki doosre device ke generated codes bhi mil jayein
+            try {
+                await fetchCloudData();
+            } catch (e) {}
 
-            if (usedOneTimeVipCodes.includes(code)) {
+            let cloudUsedCodes = (banners[0] && banners[0].sysConfig && Array.isArray(banners[0].sysConfig.usedVipCodes)) ? banners[0].sysConfig.usedVipCodes : safeGetStorage('senshoUsedVipCodes', []);
+            if (cloudUsedCodes.includes(code)) {
                 alert("❌ Ye VIP Passcode pehle hi use kiya ja chuka hai! Ek code sirf 1 hi baar kaam karta hai.");
                 return;
             }
 
-            const isValidGenerated = generatedOneTimeVipCodes.includes(code);
-            const isValidSingle = (code === vipSecretPasscode.toUpperCase() || code === "SENSHO299" || code === "SENSHOVIP299" || code === "SENSHOVIP");
+            let cloudValidList = (banners[0] && banners[0].sysConfig && Array.isArray(banners[0].sysConfig.validVipCodes)) ? banners[0].sysConfig.validVipCodes : safeGetStorage('senshoValidVipCodesList', []);
+            let cloudSingleCode = (banners[0] && banners[0].sysConfig && banners[0].sysConfig.vipCode) ? String(banners[0].sysConfig.vipCode).trim().toUpperCase() : "";
+            let localCode = (localStorage.getItem('senshoDynamicVipCode') || vipSecretPasscode || "").trim().toUpperCase();
 
-            if (isValidGenerated || isValidSingle) {
-                usedOneTimeVipCodes.push(code);
+            const isValidGenerated = cloudValidList.includes(code) || generatedOneTimeVipCodes.includes(code);
+            const isValidMaster = (code === cloudSingleCode || code === localCode || code === "SENSHO299" || code === "SENSHOVIP299" || code === "SENSHOVIP");
+
+            if (isValidGenerated || isValidMaster) {
+                // Mark as used globally
+                if (!cloudUsedCodes.includes(code)) cloudUsedCodes.push(code);
+                usedOneTimeVipCodes = cloudUsedCodes;
                 safeSetStorage('senshoUsedVipCodes', usedOneTimeVipCodes);
+
                 generatedOneTimeVipCodes = generatedOneTimeVipCodes.filter(c => c !== code);
                 safeSetStorage('senshoValidVipCodesList', generatedOneTimeVipCodes);
 
@@ -1619,20 +1633,37 @@
                 let expiryDate = new Date(oneYearLater);
                 let expiryStr = expiryDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
 
-                vipCardData = { cardNumber: uniqueCardNum, name: "Sensho Verified VIP", issuedDate: new Date().toLocaleDateString('en-IN'), expiry: expiryStr, expiryTimestamp: oneYearLater };
+                vipCardData = {
+                    cardNumber: uniqueCardNum,
+                    name: "Sensho Verified VIP",
+                    issuedDate: new Date().toLocaleDateString('en-IN'),
+                    expiry: expiryStr,
+                    expiryTimestamp: oneYearLater
+                };
+
                 isVIPVerified = true;
                 localStorage.setItem('senshoVIPVerified', 'true');
                 safeSetStorage('senshoVIPCardData', vipCardData);
 
+                // Sync used state back to Cloud banner configuration
                 embedCloudSettingsIntoBanners();
+                if (banners[0] && banners[0].sysConfig) {
+                    banners[0].sysConfig.usedVipCodes = usedOneTimeVipCodes;
+                    banners[0].sysConfig.validVipCodes = generatedOneTimeVipCodes;
+                }
                 safeSetStorage('senshoFastSnapBanners', banners);
                 await saveToInstantDB('banners', banners);
 
                 if (GOOGLE_SCRIPT_URL) {
                     fetch(GOOGLE_SCRIPT_URL, {
-                        method: "POST", mode: "no-cors",
+                        method: "POST",
+                        mode: "no-cors",
                         headers: { "Content-Type": "text/plain;charset=utf-8" },
-                        body: JSON.stringify({ action: "sync_all", products: products, banners: banners })
+                        body: JSON.stringify({
+                            action: "sync_all",
+                            products: products,
+                            banners: banners
+                        })
                     }).catch(() => {});
                 }
 
@@ -1644,7 +1675,6 @@
                 alert("❌ Galat VIP Passcode! Payment ke baad WhatsApp helpline (+91 6261118847) se sahi passcode lein.");
             }
         }
-
         function openVipCardModal() {
             if (isVIPVerified && vipCardData) {
                 document.getElementById('vipCardDisplayNumber').innerText = vipCardData.cardNumber;
