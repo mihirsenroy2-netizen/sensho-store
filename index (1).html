@@ -1,0 +1,3027 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SENSHO - India's Trusted Online Fashion & Wholesale Store</title>
+    <!-- Preconnect for Ultra-Fast Cloud Sync -->
+    <link rel="preconnect" href="https://script.google.com">
+    <link rel="preconnect" href="https://script.googleusercontent.com">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .font-mono-card { font-family: 'Space Grotesk', monospace; }
+        .gradient-vip-card { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%); }
+        .gold-border { border: 2px solid rgba(251, 191, 36, 0.9); }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .banner-track { display: flex; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body id="mainBodyTheme" class="bg-slate-100 text-slate-800 antialiased selection:bg-blue-600 selection:text-white pb-24 md:pb-8">
+
+    <!-- Top Announcement Bar -->
+    <div id="topAnnouncementBar" class="bg-slate-900 text-blue-100 text-[11px] sm:text-xs py-1.5 px-3 text-center border-b border-slate-800">
+        <span class="inline-flex items-center gap-1.5 text-emerald-400 font-bold">
+            <i class="fa-solid fa-bolt text-amber-400 animate-pulse"></i> 
+            <span>100% Quality Checked Direct Factory Wholesale Hub</span>
+        </span>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header id="mainHeader" class="sticky top-0 z-40 bg-[#1e1b4b] text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3 flex flex-col gap-2">
+            
+            <div class="flex items-center justify-between gap-2">
+                <!-- Brand Logo (3 Clicks or Long Press 1.5s for Secret Admin Login) -->
+                <div id="brandLogoContainer" onclick="secretLogoClick()" class="flex items-center gap-2 cursor-pointer select-none shrink-0" title="Sensho Hub">
+                    <div id="logoBadgeIcon" class="bg-gradient-to-tr from-blue-600 to-amber-400 text-white p-2 rounded-xl font-black text-base sm:text-lg shadow">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl sm:text-2xl font-black tracking-wider leading-none text-white">SEN<span class="text-amber-400">SHO</span></span>
+                        <span class="text-[8px] text-blue-200 tracking-widest font-extrabold uppercase">Wholesale Hub</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Action Buttons -->
+                <div class="hidden md:flex items-center gap-2.5">
+                    <button type="button" onclick="openWishlistModal()" class="relative bg-slate-800 hover:bg-slate-700 text-rose-400 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-heart"></i> Wishlist <span id="wishlistBadgeDesktop" class="bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.2 rounded-full">0</span>
+                    </button>
+                    <button type="button" onclick="openHelpModal()" class="bg-blue-900/80 hover:bg-blue-800 text-blue-200 text-xs font-bold px-3 py-2 rounded-xl border border-blue-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-headset text-emerald-400"></i> Help
+                    </button>
+                    <button type="button" onclick="openMyOrders()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-box-open text-amber-400"></i> Orders
+                    </button>
+                    <button type="button" onclick="openVipCardModal()" id="navVipBtnDesktop" class="bg-amber-400 hover:bg-amber-500 text-slate-950 font-black text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow">
+                        <i class="fa-solid fa-crown text-slate-950"></i> <span>VIP Pass</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Header Right Actions -->
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="openWishlistModal()" class="relative md:hidden bg-slate-800 text-rose-400 p-2 rounded-xl border border-slate-700 flex items-center justify-center">
+                        <i class="fa-solid fa-heart text-base"></i>
+                        <span id="wishlistBadgeMobile" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">0</span>
+                    </button>
+                    <button type="button" onclick="openVipCardModal()" class="md:hidden bg-amber-400 text-slate-950 font-black text-[11px] px-2.5 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                        <i class="fa-solid fa-crown text-xs"></i> VIP
+                    </button>
+                    <button type="button" onclick="openCartDrawer()" class="relative bg-blue-600 hover:bg-blue-700 p-2 sm:p-2.5 rounded-xl text-white transition flex items-center justify-center shadow">
+                        <i class="fa-solid fa-cart-shopping text-base sm:text-lg"></i>
+                        <span id="cartBadge" class="absolute -top-1.5 -right-1.5 bg-amber-400 text-slate-950 text-[10px] font-black w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow">0</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Full Width Search Bar -->
+            <div class="w-full">
+                <div class="flex w-full bg-white rounded-xl overflow-hidden shadow-inner border border-slate-200 focus-within:ring-2 focus-within:ring-amber-400">
+                    <span class="flex items-center pl-3 text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-sm"></i>
+                    </span>
+                    <input type="text" id="searchInput" oninput="applyFiltersAndSearch()" placeholder="Search clothes, kurti, t-shirt, kids wear..." class="w-full px-3 py-2 sm:py-2.5 bg-transparent text-slate-900 text-xs sm:text-sm focus:outline-none placeholder-slate-400 font-medium">
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Circular Category Icons Bar -->
+        <div class="bg-white/10 backdrop-blur border-t border-white/10 px-3 py-2.5 overflow-x-auto no-scrollbar">
+            <div id="categoryNavContainer" class="flex space-x-4 sm:space-x-6 text-center whitespace-nowrap max-w-7xl mx-auto"></div>
+        </div>
+    </header>
+
+    <!-- TRUST BADGES STRIP -->
+    <div class="bg-white border-b border-slate-200 py-2 px-3 shadow-sm">
+        <div class="max-w-7xl mx-auto flex justify-around items-center text-[10px] sm:text-xs font-bold text-slate-700">
+            <span class="flex items-center gap-1 text-emerald-700"><i class="fa-solid fa-rotate-left"></i> 7 Days Easy Return</span>
+            <span class="flex items-center gap-1 text-blue-700"><i class="fa-solid fa-truck-fast"></i> Cash on Delivery</span>
+            <span class="flex items-center gap-1 text-amber-600"><i class="fa-solid fa-tags"></i> Lowest Factory Prices</span>
+        </div>
+    </div>
+
+    <!-- AUTOMATIC CLEAN BANNER SLIDER -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 mt-3 sm:mt-4">
+        <div class="relative overflow-hidden rounded-2xl sm:rounded-3xl shadow-lg bg-slate-900 aspect-[16/7] sm:aspect-[21/7]">
+            <div id="sliderTrack" class="banner-track h-full w-full"></div>
+            <div class="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20" id="sliderDots"></div>
+        </div>
+    </div>
+
+    <!-- Main Catalog Section -->
+    <main id="shop" class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 px-1 gap-2">
+            <div>
+                <h2 class="text-base sm:text-2xl font-black text-slate-900 tracking-tight flex items-center gap-1.5">
+                    <span>Trending Wholesale Collection</span>
+                    <i class="fa-solid fa-fire text-amber-500 text-sm"></i>
+                </h2>
+                <p class="text-slate-500 text-[10px] sm:text-xs" id="syncStatusSubtext">Instant Zero-Delay Engine Active</p>
+            </div>
+
+            <!-- Sorting Dropdown Bar -->
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                <select id="sortDropdown" onchange="sortProductsList()" class="bg-white border border-slate-200 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 shadow-sm focus:outline-none focus:border-blue-600 cursor-pointer">
+                    <option value="default">Sort by: Popular</option>
+                    <option value="low-high">Price: Low to High</option>
+                    <option value="high-low">Price: High to Low</option>
+                </select>
+
+                <div class="bg-white border border-slate-200 px-2.5 py-1.5 rounded-xl text-[10px] sm:text-xs font-bold text-slate-700 shadow-sm flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="headerPricingStatusBadge" class="text-blue-700 font-black">Normal View</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6" id="productGrid"></div>
+        
+        <div id="noProductsFoundState" class="hidden text-center py-10 px-4 bg-white rounded-3xl border border-slate-200 mt-4 shadow-sm">
+            <i class="fa-solid fa-magnifying-glass text-3xl text-slate-300 mb-2 block"></i>
+            <h3 class="text-sm font-bold text-slate-800 mb-1">Aapka manga hua item nahi mila</h3>
+            <p class="text-xs text-slate-500 max-w-xs mx-auto mb-3">WhatsApp par photo bhejkar factory wholesale rate par mangwa sakte hain!</p>
+            <button type="button" onclick="sendHelpWhatsApp('Custom Sourcing', 'Mujhe ek specific kapda chahiye jo catalog me nahi mila.')" class="bg-emerald-600 text-white font-bold px-4 py-2 rounded-xl text-xs inline-flex items-center gap-1.5">
+                <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp Custom Sourcing
+            </button>
+        </div>
+    </main>
+
+    <!-- Floating Circular WhatsApp Button -->
+    <button type="button" onclick="sendHelpWhatsApp('Direct Chat', 'Hello! Mujhe wholesale order ke regarding baat karni hai.')" class="fixed right-4 bottom-20 md:bottom-6 z-30 bg-emerald-500 text-white w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition hover:scale-105 border-2 border-white" title="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp text-2xl sm:text-3xl"></i>
+    </button>
+
+    <!-- Mobile Bottom App Bar -->
+    <div class="fixed bottom-0 left-0 right-0 z-30 bg-white border-t border-slate-200 py-1.5 px-2 flex justify-around items-center md:hidden shadow-2xl">
+        <button type="button" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="flex flex-col items-center text-blue-600">
+            <i class="fa-solid fa-house text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">Home</span>
+        </button>
+        <button type="button" onclick="openWishlistModal()" class="flex flex-col items-center text-slate-500 hover:text-rose-600 relative">
+            <i class="fa-solid fa-heart text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">Wishlist</span>
+        </button>
+        <button type="button" onclick="sendHelpWhatsApp('Direct Order Helpline', 'Hello Sensho Team! Mujhe direct order place karna hai.')" class="flex flex-col items-center justify-center -mt-4 bg-emerald-500 text-white w-11 h-11 rounded-full shadow-lg border-2 border-white">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+        </button>
+        <button type="button" onclick="openMyOrders()" class="flex flex-col items-center text-slate-500 hover:text-blue-600">
+            <i class="fa-solid fa-box-open text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">Orders</span>
+        </button>
+        <button type="button" onclick="openCartDrawer()" class="flex flex-col items-center text-slate-500 hover:text-blue-600 relative">
+            <i class="fa-solid fa-cart-shopping text-sm"></i>
+            <span class="text-[9px] font-bold mt-0.5">Cart</span>
+        </button>
+    </div>
+
+    <!-- WISHLIST MODAL -->
+    <div id="wishlistModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-6 relative shadow-2xl max-h-[85vh] overflow-y-auto">
+            <button type="button" onclick="closeWishlistModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-heart text-rose-500"></i> My Liked Products (Wishlist)
+            </h3>
+            <p class="text-xs text-slate-500 mb-4">Aapke pasand kiye hue sabhi items yahan save hain. Tap karke details dekhein.</p>
+            <div id="wishlistItemsContainer" class="space-y-2.5"></div>
+        </div>
+    </div>
+
+    <!-- MY ORDERS MODAL (MEESHO STYLE LIST + LIVE TRACKING VIEW) -->
+    <div id="myOrdersModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-4 sm:p-6 relative shadow-2xl max-h-[88vh] overflow-y-auto">
+            <button type="button" onclick="closeMyOrders()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+            
+            <!-- Orders List View -->
+            <div id="ordersListView">
+                <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
+                    <i class="fa-solid fa-box-open text-blue-600"></i> My Orders
+                </h3>
+                <p class="text-xs text-slate-500 mb-4">Kisi bhi order par tap karke Live Tracking, Cancel ya Return dekhein.</p>
+                <div id="customerOrdersList" class="space-y-2.5"></div>
+            </div>
+
+            <!-- Single Order Detailed Meesho Tracking View -->
+            <div id="orderTrackingDetailView" class="hidden space-y-4">
+                <button type="button" onclick="backToOrdersList()" class="text-xs font-black text-blue-600 flex items-center gap-1.5 hover:underline">
+                    <i class="fa-solid fa-arrow-left"></i> Back to My Orders
+                </button>
+
+                <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl flex gap-3 items-center">
+                    <img id="trackOrderImg" src="" class="w-16 h-20 object-cover rounded-xl border bg-white shrink-0">
+                    <div class="flex-1 min-w-0">
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] font-black text-blue-600 uppercase" id="trackOrderId">Order #SNS</span>
+                            <span class="text-[10px] text-slate-400 font-semibold" id="trackOrderDate">Date</span>
+                        </div>
+                        <h4 class="text-xs sm:text-sm font-black text-slate-900 truncate mt-0.5" id="trackOrderTitle">Product Name</h4>
+                        <p class="text-sm font-black text-slate-900 mt-1" id="trackOrderPrice">₹0</p>
+                        <span id="trackCurrentBadge" class="inline-block mt-1 text-[10px] font-black px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Order Confirmed</span>
+                    </div>
+                </div>
+
+                <!-- 4-Step Meesho Order Status Timeline -->
+                <div class="bg-white border border-slate-200 p-4 rounded-2xl">
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-wider mb-3">Live Delivery Status</h4>
+                    <div id="trackingStepsTimeline" class="space-y-4 relative pl-2"></div>
+                </div>
+
+                <!-- Delivery Address Info -->
+                <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl text-xs">
+                    <span class="text-[10px] font-black text-slate-400 uppercase block mb-0.5">Customer & Delivery Details</span>
+                    <p class="font-bold text-slate-700" id="trackOrderAddress">Address details</p>
+                </div>
+
+                <!-- Order Cancel & Return Action Buttons -->
+                <div id="trackOrderActionBtns" class="grid grid-cols-2 gap-2.5 pt-1">
+                    <button type="button" id="btnCancelOrder" onclick="triggerCancelOrder()" class="bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-ban"></i> Cancel Order
+                    </button>
+                    <button type="button" id="btnReturnOrder" onclick="triggerReturnOrder()" class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-rotate-left"></i> Return Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL MODAL (SEPARATED TOP HEADER BAR FOR CLOSE VS LIKE/SHARE) -->
+    <div id="productDetailModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl sm:rounded-3xl max-w-4xl w-full relative shadow-2xl max-h-[92vh] overflow-y-auto flex flex-col">
+            
+            <!-- Dedicated Sticky Top Bar (Prevents accidental Like click when closing) -->
+            <div class="sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-slate-200 px-4 py-2.5 flex items-center justify-between">
+                <button type="button" onclick="closeProductDetailModal()" class="flex items-center gap-1.5 text-slate-700 hover:text-slate-950 font-black text-xs py-1 px-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 transition">
+                    <i class="fa-solid fa-arrow-left"></i> Back
+                </button>
+                <span class="text-xs font-extrabold text-slate-500 truncate max-w-[180px]" id="modalTopHeaderTitle">Product Details</span>
+                <button type="button" onclick="closeProductDetailModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-rose-100 text-slate-600 hover:text-rose-600 flex items-center justify-center text-base font-bold transition">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div class="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start">
+                <div class="md:col-span-6 flex flex-col-reverse sm:flex-row gap-2.5">
+                    <div class="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto max-h-[380px] no-scrollbar shrink-0" id="detailThumbnailsList"></div>
+                    <div class="flex-1 bg-slate-100 rounded-xl overflow-hidden border border-slate-200 relative aspect-[3/4]" id="modalImageContainer">
+                        <img id="detailMainImage" src="" alt="Product Image" class="w-full h-full object-cover">
+                        <span id="detailBadge" class="absolute top-2.5 left-2.5 bg-blue-600 text-white text-[9px] font-black px-2.5 py-0.5 rounded-full uppercase tracking-wider shadow"></span>
+
+                        <!-- Left / Right Image Navigation Arrows inside Modal -->
+                        <button type="button" id="modalPrevImgBtn" onclick="changeModalImage(-1)" class="hidden absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center text-xs z-10">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button type="button" id="modalNextImgBtn" onclick="changeModalImage(1)" class="hidden absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/50 hover:bg-black/70 text-white rounded-full flex items-center justify-center text-xs z-10">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="md:col-span-6 space-y-3.5">
+                    <!-- Title + Separated Like & Share Buttons Row (Meesho Layout) -->
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex-1">
+                            <h1 class="text-base sm:text-xl font-black text-slate-900 leading-snug" id="detailTitle">Product Title</h1>
+                            <div class="flex items-center gap-2 mt-1.5">
+                                <span class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+                                    <span id="detailRatingBadge">4.2</span> <i class="fa-solid fa-star text-[8px]"></i>
+                                </span>
+                                <span class="text-[11px] text-slate-400 font-semibold" id="detailReviewCount">1,420 Ratings, 380 Reviews</span>
+                            </div>
+                        </div>
+
+                        <!-- Well-Separated Like & Share Action Pills -->
+                        <div class="flex items-center gap-2 shrink-0">
+                            <button type="button" id="modalLikeBtn" onclick="toggleWishlistFromModal()" class="flex flex-col items-center justify-center w-12 h-12 rounded-xl border border-slate-200 bg-slate-50 hover:bg-rose-50 text-slate-600 transition shadow-sm">
+                                <i class="fa-regular fa-heart text-base" id="modalLikeIcon"></i>
+                                <span class="text-[9px] font-bold mt-0.5">Wishlist</span>
+                            </button>
+                            <button type="button" onclick="shareProductFromModal()" class="flex flex-col items-center justify-center w-12 h-12 rounded-xl border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-600 hover:text-blue-600 transition shadow-sm">
+                                <i class="fa-solid fa-share-nodes text-base"></i>
+                                <span class="text-[9px] font-bold mt-0.5">Share</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border-2 border-blue-200 rounded-2xl p-3 shadow-sm">
+                        <div class="flex items-center gap-2 mb-1.5 pb-1.5 border-b border-blue-100">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">Normal Retail:</span>
+                            <span class="text-xs font-bold text-slate-400 line-through" id="detailMrpPrice">₹1,499</span>
+                            <span class="text-[10px] font-black text-rose-600 bg-rose-50 border border-rose-200 px-1.5 py-0.2 rounded" id="detailMrpDiscount">Save ₹899</span>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-2">
+                            <div class="flex items-center gap-3">
+                                <div>
+                                    <span class="text-[9px] font-black text-slate-500 uppercase block">Normal Member:</span>
+                                    <span class="text-base font-black text-slate-800" id="detailNormalPrice">₹1,000</span>
+                                </div>
+                                <div class="h-7 w-[1.5px] bg-blue-200"></div>
+                                <div>
+                                    <span class="text-[9px] font-black text-blue-700 uppercase flex items-center gap-1">
+                                        <i class="fa-solid fa-crown text-amber-500"></i> VIP Member:
+                                    </span>
+                                    <span class="text-xl font-black text-[#1e1b4b]" id="detailVipPrice">₹600</span>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-1 rounded-lg shadow-sm" id="detailVipSavingsBadge">
+                                Saves ₹400
+                            </span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="text-[11px] font-black text-slate-800 uppercase block mb-1">Select Size</label>
+                        <div class="flex flex-wrap gap-2" id="sizeSelectorContainer">
+                            <button type="button" onclick="selectSize('S', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">S</button>
+                            <button type="button" onclick="selectSize('M', this)" class="size-btn active px-3 py-1.5 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs">M</button>
+                            <button type="button" onclick="selectSize('L', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">L</button>
+                            <button type="button" onclick="selectSize('XL', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">XL</button>
+                            <button type="button" onclick="selectSize('XXL', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">XXL</button>
+                            <button type="button" onclick="selectSize('Free Size', this)" class="size-btn px-3 py-1.5 border rounded-lg font-bold text-xs">Free Size</button>
+                        </div>
+                    </div>
+
+                    <div class="border-t pt-2.5 space-y-2 text-xs text-slate-600">
+                        <div class="grid grid-cols-2 gap-2 bg-slate-50 p-2.5 rounded-xl border">
+                            <div><span class="text-slate-400">Fabric:</span> <strong class="text-slate-800 block text-[11px]" id="detailFabric">100% Pure Cotton</strong></div>
+                            <div><span class="text-slate-400">Fit / Shape:</span> <strong class="text-slate-800 block text-[11px]" id="detailFit">Regular Fit</strong></div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider block mb-0.5">Product Description:</span>
+                            <p class="text-[11px] text-slate-700 leading-relaxed bg-slate-50 p-2.5 rounded-xl border" id="detailDesc">Loading details...</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2 pt-1" id="detailActionButtonsContainer">
+                        <button type="button" onclick="detailAddToCart()" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-300 font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                        </button>
+                        <button type="button" onclick="openDirectBuyAddressModal()" class="bg-blue-600 hover:bg-blue-700 text-white font-black text-xs py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 shadow-md">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Buy Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- DELIVERY ADDRESS CHECKOUT MODAL -->
+    <div id="addressCheckoutModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
+            <button type="button" onclick="closeAddressModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="flex items-center gap-2.5 mb-3">
+                <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-black text-slate-900">Delivery Address Details</h3>
+                    <p class="text-[11px] text-slate-500">Order confirm karne ke liye delivery address bharein</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-50 border p-2.5 rounded-xl mb-3 text-xs flex justify-between items-center">
+                <span class="font-bold text-slate-700 truncate max-w-[200px]" id="checkoutPreviewItem">Product</span>
+                <span class="font-black text-blue-700" id="checkoutPreviewPrice">₹0</span>
+            </div>
+
+            <form onsubmit="handleFinalOrderSubmission(event)" class="space-y-2.5">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Full Name</label>
+                    <input type="text" id="custFullName" required placeholder="Aapka Poora Naam" class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-bold focus:outline-none focus:border-blue-600">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Mobile Number (Calling & WhatsApp)</label>
+                    <input type="tel" id="custPhone" required placeholder="10 Digits Mobile Number" class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-bold focus:outline-none focus:border-blue-600">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Pincode</label>
+                        <input type="number" id="custPincode" required placeholder="6 Digits Pincode" class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-bold focus:outline-none focus:border-blue-600">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">City / Town</label>
+                        <input type="text" id="custCity" required placeholder="City / District" class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-bold focus:outline-none focus:border-blue-600">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-600 uppercase block mb-1">Full Delivery Address & Landmark</label>
+                    <textarea id="custFullAddress" required rows="2" placeholder="House No, Ward, Street, Landmark..." class="w-full text-xs border border-slate-300 rounded-xl p-2.5 font-medium focus:outline-none focus:border-blue-600"></textarea>
+                </div>
+
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 rounded-2xl shadow-lg transition flex items-center justify-center gap-2 text-xs sm:text-sm mt-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Confirm & Send Order on WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- CUSTOMER CARE MODAL -->
+    <div id="helpModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 relative shadow-2xl">
+            <button type="button" onclick="closeHelpModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-black text-slate-900">Sensho Help Support</h3>
+                    <p class="text-xs text-slate-500">Problem select karke WhatsApp par solution lein</p>
+                </div>
+            </div>
+
+            <div class="space-y-2">
+                <button type="button" onclick="sendHelpWhatsApp('Order Tracking', 'Mujhe mera order status aur delivery tracking check karwana hai.')" class="w-full text-left p-3 bg-slate-50 hover:bg-blue-50 border rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-truck-ramp-box text-blue-600 text-base"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-900 block">Order Status & Delivery</span>
+                            <span class="text-[10px] text-slate-500">Tracking code aur arrival date</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+
+                <button type="button" onclick="sendHelpWhatsApp('VIP Membership', 'Maine ₹299 pay kiya hai, mujhe mera VIP Passcode aur Card chahiye.')" class="w-full text-left p-3 bg-slate-50 hover:bg-blue-50 border rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-crown text-amber-500 text-base"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-900 block">VIP Membership Issue</span>
+                            <span class="text-[10px] text-slate-500">VIP Passcode activation help</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+
+                <button type="button" onclick="sendHelpWhatsApp('Bulk Wholesale', 'Mujhe bulk wholesale quantity me kapde purchase karne hain.')" class="w-full text-left p-3 bg-slate-50 hover:bg-blue-50 border rounded-2xl flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fa-solid fa-boxes-packing text-emerald-600 text-base"></i>
+                        <div>
+                            <span class="text-xs font-bold text-slate-900 block">Bulk Wholesale Inquiry</span>
+                            <span class="text-[10px] text-slate-500">Shopkeepers aur bulk buyers</span>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIP PROMO MODAL -->
+    <div id="bigVipAlertModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-5 sm:p-7 relative shadow-2xl border-4 border-blue-600 text-center">
+            <button type="button" onclick="closeBigVipAlertModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="w-14 h-14 bg-gradient-to-tr from-blue-700 to-indigo-800 text-amber-400 rounded-2xl flex items-center justify-center mx-auto mb-2 text-2xl shadow-xl border border-amber-300">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+
+            <h2 class="text-lg sm:text-xl font-black text-slate-950 mb-1">
+                VIP Member Banein Aur Flat 40% Bachayein!
+            </h2>
+
+            <div class="my-2 py-1.5 bg-rose-50 border border-rose-200 rounded-xl">
+                <span class="text-[9px] font-black text-rose-500 uppercase tracking-widest block">Yearly Membership Fee</span>
+                <span class="text-2xl font-black text-rose-600 tracking-tight">ONLY ₹299</span>
+                <span class="text-[10px] font-bold text-slate-500 block">Pure 1 Saal (365 Din) Ki Validity</span>
+            </div>
+
+            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3 my-3">
+                <div class="flex items-center justify-center gap-2 text-xs font-bold text-blue-900 mb-2">
+                    <i class="fa-solid fa-qrcode text-base"></i> Scan QR & Pay ₹299 Instantly
+                </div>
+                <div class="w-36 h-36 bg-white mx-auto p-1.5 rounded-xl border shadow-sm mb-1.5 flex items-center justify-center">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=6261118847@ibl%26pn=Sensho%20Fashion%26am=299%26cu=INR" alt="UPI QR" class="w-full h-full object-contain">
+                </div>
+                <span class="text-[10px] font-black text-slate-600 block">UPI ID: <strong class="text-blue-700">6261118847@ibl</strong></span>
+                <span class="text-[9px] text-slate-400">Payment karne ke baad screenshot WhatsApp helpline par bhejein</span>
+            </div>
+
+            <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-2.5 text-left mb-3">
+                <label class="text-[9px] font-bold text-blue-950 uppercase block mb-1">Enter Secret VIP Passcode:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="bigVipCodeInput" placeholder="ENTER PASSCODE" class="w-full text-xs border border-blue-300 rounded-lg px-2.5 py-1.5 font-black uppercase tracking-widest focus:outline-none focus:border-blue-600 bg-white">
+                    <button type="button" onclick="activateBigVipCode()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-black px-4 py-1.5 rounded-lg transition shadow">
+                        Activate
+                    </button>
+                </div>
+            </div>
+
+            <div class="space-y-1.5">
+                <button type="button" onclick="directContactVipWhatsApp()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-2.5 rounded-xl shadow transition flex items-center justify-center gap-2 text-xs">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Send ₹299 Payment Screenshot on WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DIGITAL VIP CARD MODAL -->
+    <div id="vipCardModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-5 relative shadow-2xl">
+            <button type="button" onclick="closeVipCardModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-xl"><i class="fa-solid fa-xmark"></i></button>
+
+            <h3 class="text-lg font-black text-slate-900 mb-1 flex items-center gap-2">
+                <i class="fa-solid fa-id-card text-blue-600"></i> Sensho 1-Year VIP Card
+            </h3>
+            <p class="text-xs text-slate-500 mb-3">Aapka verified digital wholesale discount pass.</p>
+
+            <div class="gradient-vip-card gold-border text-white p-5 rounded-2xl shadow-2xl relative overflow-hidden mb-3">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="text-[9px] uppercase tracking-widest text-blue-200 font-extrabold block">Official Wholesale Pass</span>
+                        <h4 class="text-lg font-black tracking-wider text-amber-300">SENSHO VIP</h4>
+                    </div>
+                    <span class="bg-amber-400 text-slate-950 text-[9px] font-black px-2 py-0.5 rounded-full uppercase flex items-center gap-1 shadow">
+                        <i class="fa-solid fa-shield-halved"></i> 1-Year Active
+                    </span>
+                </div>
+
+                <div class="mb-4">
+                    <span class="text-[8px] uppercase tracking-widest text-slate-300 block mb-0.5">Unique VIP Card Number</span>
+                    <p class="text-lg font-mono-card font-bold tracking-widest text-white drop-shadow-md" id="vipCardDisplayNumber">
+                        SNS-VIP-••••-••••
+                    </p>
+                </div>
+
+                <div class="flex justify-between items-end border-t border-blue-500/40 pt-2.5 text-[11px]">
+                    <div>
+                        <span class="text-[8px] uppercase tracking-widest text-slate-300 block">Status</span>
+                        <span class="font-bold text-white">Verified Member</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-[8px] uppercase tracking-widest text-slate-300 block">Valid Until</span>
+                        <span class="font-bold text-amber-300" id="vipCardDisplayExpiry">1 Year</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" onclick="closeVipCardModal()" class="w-full bg-[#1e1b4b] text-white font-bold py-2.5 rounded-xl transition text-xs">
+                Done & Continue Shopping
+            </button>
+        </div>
+    </div>
+
+    <!-- MASTER ADMIN PANEL -->
+    <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-4 sm:p-6 relative shadow-2xl max-h-[94vh] overflow-y-auto">
+            <button type="button" onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 text-xl"><i class="fa-solid fa-xmark"></i></button>
+
+            <div id="adminLoginScreen">
+                <h3 class="text-lg font-black text-slate-900 mb-1">Sensho Master Admin Portal</h3>
+                <p class="text-xs text-slate-500 mb-4">Enter PIN to access master store management.</p>
+                <input type="password" id="adminPin" onkeydown="if(event.key==='Enter') verifyAdminPin()" placeholder="Enter Secret PIN" class="w-full text-xs border border-slate-300 rounded-xl px-4 py-2.5 mb-3 focus:outline-none focus:border-blue-600 font-bold tracking-widest">
+                <button type="button" onclick="verifyAdminPin()" class="w-full bg-[#1e1b4b] text-white font-bold py-2.5 rounded-xl transition text-xs">Unlock Dashboard</button>
+            </div>
+
+            <div id="adminDashboardScreen" class="hidden space-y-5">
+                <!-- 2-FACTOR GLOBAL PIN & VIP PASSCODE -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl space-y-2">
+                        <div>
+                            <h4 class="font-bold text-xs text-slate-900"><i class="fa-solid fa-shield-halved mr-1 text-blue-600"></i> Global Admin PIN (2-Step Security)</h4>
+                            <p class="text-[10px] text-slate-500">Sabhi devices par PIN badalne ke liye dono secret passwords dalein.</p>
+                        </div>
+                        <input type="password" id="masterPass1" placeholder="Secret Password 1" class="w-full text-xs border rounded-lg px-2.5 py-1.5 font-bold bg-white">
+                        <input type="password" id="masterPass2" placeholder="Secret Password 2" class="w-full text-xs border rounded-lg px-2.5 py-1.5 font-bold bg-white">
+                        <div class="flex items-center gap-2">
+                            <input type="password" id="newAdminPin" placeholder="New PIN (4+ digits)" class="text-xs border rounded-lg px-2.5 py-1.5 flex-1 font-bold bg-white">
+                            <button type="button" onclick="updateAdminPinGlobally()" class="bg-[#1e1b4b] hover:bg-blue-900 text-white text-[11px] font-bold px-3.5 py-1.5 rounded-lg shrink-0 shadow">Update All Devices</button>
+                        </div>
+                    </div>
+
+                   <!-- ==========================================
+     SENSHO VIP MEMBERSHIP CODE GENERATOR
+========================================== -->
+
+<div class="bg-gradient-to-br from-indigo-50 to-blue-50 border border-indigo-200 rounded-xl p-5 shadow-sm">
+
+    <div class="flex items-center gap-3 mb-4">
+
+        <div class="bg-indigo-600 text-white rounded-xl p-3">
+           <i class="fa-solid fa-crown text-xl"></i>
+        </div>
+
+        <div>
+            <h4 class="text-lg font-bold text-indigo-900">
+                VIP Membership Code Generator
+            </h4>
+
+            <p class="text-sm text-gray-600">
+                Generate unique one-time VIP activation codes
+            </p>
+        </div>
+
+    </div>
+
+    <div class="bg-white rounded-lg border border-indigo-100 p-4">
+
+        <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Number of VIP Codes
+        </label>
+
+        <input
+            type="number"
+            id="vipGenerateQuantity"
+            min="1"
+            max="100"
+            value="10"
+            class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter quantity"
+        >
+
+        <button
+            type="button"
+            onclick="generateVipCodes()"
+            class="w-full mt-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg transition"
+        >
+            <i class="fas fa-key mr-2"></i>
+            Generate VIP Codes
+        </button>
+
+    </div>
+
+    <div
+        id="vipGeneratedCodesSection"
+        class="hidden mt-5 bg-white border border-indigo-100 rounded-lg p-4"
+    >
+
+        <div class="flex justify-between items-center gap-2 mb-3">
+
+            <h5 class="font-bold text-gray-800">
+                Generated VIP Codes
+            </h5>
+
+            <button
+                type="button"
+                onclick="copyAllVipCodes()"
+                class="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-3 py-2 rounded-lg"
+            >
+                <i class="fas fa-copy mr-1"></i>
+                Copy All
+            </button>
+
+        </div>
+
+        <div
+            id="vipGeneratedCodesList"
+            class="space-y-2"
+        ></div>
+
+        <p class="text-xs text-gray-500 mt-3">
+            Each VIP code can be activated only once.
+            Keep generated codes secure.
+        </p>
+
+    </div>
+
+    <div
+        id="vipGeneratorMessage"
+        class="hidden mt-4 p-3 rounded-lg text-sm"
+    ></div>
+
+</div>
+
+<!-- END SENSHO VIP CODE GENERATOR -->
+
+                <!-- ADMIN LIVE ORDER STATUS CONTROLLER -->
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-truck-fast text-emerald-600"></i> Customer Orders Status Manager
+                            </h3>
+                            <p class="text-[10px] text-slate-500">Orders ka status (Confirmed, Shipped, Out for Delivery, Delivered) set karein</p>
+                        </div>
+                    </div>
+                    <div id="adminOrdersEditorList" class="space-y-2 max-h-48 overflow-y-auto p-1"></div>
+                </div>
+
+                <!-- CUSTOM CATEGORY MANAGER -->
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-layer-group text-blue-600"></i> Category Bar Manager
+                            </h3>
+                            <p class="text-[10px] text-slate-500">Nayi category add ya delete karein</p>
+                        </div>
+                        <div class="flex gap-1.5">
+                            <input type="text" id="newCatNameInput" placeholder="Category Name" class="text-xs border rounded-lg px-2 py-1 font-bold w-28 sm:w-36">
+                            <button type="button" onclick="addCustomCategory()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg shadow">
+                                + Add
+                            </button>
+                        </div>
+                    </div>
+                    <div id="adminCategoryEditorList" class="flex flex-wrap gap-2 p-1"></div>
+                </div>
+
+                <!-- BANNER SLIDER MANAGER -->
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                <i class="fa-regular fa-images text-pink-600"></i> Banner Slider Manager
+                            </h3>
+                            <p class="text-[10px] text-slate-500">Slide 1, 2, 3 ke liye direct gallery se banner photo upload karein</p>
+                        </div>
+                        <button type="button" onclick="addNewBannerSlide()" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-plus"></i> Add Slide
+                        </button>
+                    </div>
+                    <div id="adminBannerEditorList" class="space-y-2.5 max-h-60 overflow-y-auto p-1"></div>
+                </div>
+
+                <!-- PRODUCT MASTER MANAGER -->
+                <div class="border-t pt-3">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <h3 class="text-sm font-black text-slate-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-sliders text-pink-600"></i> Products Master Manager (<span id="adminTotalProductsCount">0</span>)
+                            </h3>
+                            <p class="text-[10px] text-slate-500">Upto 10 Photos gallery, Fabric, Fit, Ratings aur Wholesale Prices</p>
+                        </div>
+                        <button type="button" onclick="addNewProduct()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-plus"></i> Add New Product
+                        </button>
+                    </div>
+                    <div id="adminProductEditorList" class="space-y-3.5 max-h-[460px] overflow-y-auto p-1"></div>
+                </div>
+
+                <!-- Save Changes Button -->
+                <div class="pt-3 border-t flex justify-between items-center sticky bottom-0 bg-white py-2 shadow-lg z-20">
+                    <span class="text-[10px] text-emerald-600 font-extrabold hidden sm:inline"><i class="fa-solid fa-bolt"></i> Instant 0.01s Cache + Global Sync</span>
+                    <button type="button" id="saveAdminBtn" onclick="saveAdminChanges()" class="w-full sm:w-auto bg-pink-600 hover:bg-pink-700 text-white font-black px-6 py-2.5 rounded-xl text-xs shadow-xl flex items-center justify-center gap-1.5 cursor-pointer">
+                        <i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex justify-end">
+        <div class="bg-white w-full max-w-sm h-full flex flex-col shadow-2xl">
+            <div class="p-4 bg-[#1e1b4b] text-white flex justify-between items-center">
+                <h3 class="font-black text-base flex items-center gap-2"><i class="fa-solid fa-bag-shopping text-amber-400"></i> Sensho Cart</h3>
+                <button type="button" onclick="closeCartDrawer()" class="text-slate-300 hover:text-white text-lg p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="p-4 flex-1 overflow-y-auto space-y-3" id="cartItemsContainer">
+                <p class="text-slate-400 text-center py-12 text-xs">Your cart is empty.</p>
+            </div>
+            <div class="p-4 border-t border-slate-200 bg-slate-50 space-y-2.5">
+                <div class="flex justify-between text-sm font-black">
+                    <span>Final Amount:</span>
+                    <span class="text-blue-600" id="cartTotalPrice">₹0</span>
+                </div>
+                <button type="button" onclick="openCartAddressModal()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition flex items-center justify-center gap-2 text-xs">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Proceed to Order with Address
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer with Secret Admin Lock Trigger -->
+    <footer class="bg-slate-900 text-slate-400 text-center py-8 text-[11px] border-t border-slate-800 mt-10">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-black text-white text-base tracking-wider">SENSHO FASHION HUB</p>
+            <p>Direct Wholesale Sourcing • Customer Helpline: <strong class="text-amber-400">+91 6261118847</strong></p>
+            <p class="text-slate-500">
+                &copy; 2026 Sensho. All rights reserved. 
+                <span onclick="openAdminLogin()" class="cursor-pointer text-slate-700 hover:text-slate-400 ml-1" title="Admin Portal">🔒</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const WHATSAPP_NUMBER = "916261118847";
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyIge25wtcp2jZWHjoB3ZafHzzKICrOF2sdRk-9u3lGdiEHnrMWgM6n8MIIjLnfP3Y0/exec";
+        const IMGBB_API_KEY = "6d207e02198a847aa5a0a0330f625680";
+
+        // Required 2-Factor Master Passwords for Global PIN Change
+        const REQUIRED_PASS_1 = "born to rule the world";
+        const REQUIRED_PASS_2 = "kill every emotions $ distraction";
+
+        // ============================================================================
+        // DUAL-ENGINE: UNLIMITED INDEXED-DB + 0ms LOCAL SNAPSHOT
+        // ============================================================================
+        const DB_NAME = "SenshoUltraFastDB";
+        const STORE_NAME = "store_cache";
+
+        function openSenshoDB() {
+            return new Promise((resolve, reject) => {
+                const req = indexedDB.open(DB_NAME, 1);
+                req.onupgradeneeded = (e) => {
+                    const db = e.target.result;
+                    if (!db.objectStoreNames.contains(STORE_NAME)) {
+                        db.createObjectStore(STORE_NAME);
+                    }
+                };
+                req.onsuccess = (e) => resolve(e.target.result);
+                req.onerror = (e) => reject(e.target.error);
+            });
+        }
+
+        async function saveToInstantDB(key, val) {
+            try {
+                const db = await openSenshoDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(STORE_NAME, "readwrite");
+                    tx.objectStore(STORE_NAME).put(val, key);
+                    tx.oncomplete = () => resolve(true);
+                    tx.onerror = () => resolve(false);
+                });
+            } catch (e) {
+                return false;
+            }
+        }
+
+        async function getFromInstantDB(key) {
+            try {
+                const db = await openSenshoDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(STORE_NAME, "readonly");
+                    const req = tx.objectStore(STORE_NAME).get(key);
+                    req.onsuccess = () => resolve(req.result || null);
+                    req.onerror = () => resolve(null);
+                });
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function safeSetStorage(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (err) {}
+        }
+
+        function safeGetStorage(key, fallback) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : fallback;
+            } catch (err) {
+                return fallback;
+            }
+        }
+
+        let isVIPVerified = false;
+        let vipCardData = null;
+        // Remove obsolete shared-passcode cache from older versions.
+        try { localStorage.removeItem("senshoDynamicVipCode"); } catch (e) {}
+        let activeProductForDetail = null;
+        let selectedProductSize = "M";
+        let pendingCheckoutType = "direct";
+        let currentActiveCategory = "all";
+        let activeOrderIndexForTracking = null;
+
+        const defaultCategories = [
+            { id: "all", label: "All Items", icon: "fa-border-all", color: "text-blue-200" },
+            { id: "mens", label: "Men", icon: "fa-shirt", color: "text-blue-200" },
+            { id: "womens", label: "Women", icon: "fa-person-dress", color: "text-pink-300" },
+            { id: "boys", label: "Boys", icon: "fa-child", color: "text-blue-200" },
+            { id: "girls", label: "Girls", icon: "fa-child-dress", color: "text-pink-300" },
+            { id: "kids", label: "Baby & Kids", icon: "fa-baby", color: "text-amber-300" }
+        ];
+
+        let categories = safeGetStorage('senshoCategories', defaultCategories);
+        if (!Array.isArray(categories) || categories.length === 0) categories = defaultCategories;
+
+        const fallbackBanners = [
+            {
+                id: 1,
+                title: "Sensho VIP 1-Year Membership @ 299",
+                customImg: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1600&auto=format&fit=crop&q=80"
+            },
+            {
+                id: 2,
+                title: "Sensho Mega Wholesale Dhamaka Up to 80% Off",
+                customImg: "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=1600&auto=format&fit=crop&q=80"
+            }
+        ];
+
+        const fallbackProducts = [
+            { 
+                id: "prod_default_1", 
+                name: "Soft Cotton Baby Romper & Sleepsuit", 
+                category: "kids", 
+                mrp: 1199,
+                normal: 799, 
+                vip: 449, 
+                tag: "BABY & KIDS",
+                fabric: "100% Super Soft Cotton",
+                fit: "Comfort Baby Fit",
+                desc: "High quality breathable baby romper with skin-friendly cotton fabric.",
+                rating: "4.8",
+                reviews: "1,240 Ratings, 310 Reviews",
+                inStock: true,
+                images: ["https://images.unsplash.com/photo-1519689680058-324335c77eba?w=800&auto=format&fit=crop&q=80"]
+            },
+            { 
+                id: "prod_default_2", 
+                name: "Stylish Glamorous Men Shirts", 
+                category: "mens", 
+                mrp: 1399,
+                normal: 999, 
+                vip: 399, 
+                tag: "NEW",
+                fabric: "Premium Cotton Blend",
+                fit: "Regular Slim Fit",
+                desc: "Casual checked partywear and office shirt with durable buttons.",
+                rating: "4.4",
+                reviews: "2,190 Ratings, 420 Reviews",
+                inStock: true,
+                images: ["https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=800&auto=format&fit=crop&q=80"]
+            },
+            { 
+                id: "prod_default_3", 
+                name: "Cargo pants", 
+                category: "mens", 
+                mrp: 1499,
+                normal: 999, 
+                vip: 599, 
+                tag: "NEW",
+                fabric: "Heavy Cotton Twill",
+                fit: "Relaxed Cargo Fit",
+                desc: "Trendy multi-pocket street style cargo pants for everyday comfort.",
+                rating: "4.5",
+                reviews: "1,880 Ratings, 390 Reviews",
+                inStock: true,
+                images: ["https://images.unsplash.com/photo-1517445312882-bc9910d016b7?w=800&auto=format&fit=crop&q=80"]
+            },
+            { 
+                id: "prod_default_4", 
+                name: "Gimco Light Grey Unisex Bomber Jacket", 
+                category: "mens", 
+                mrp: 1900,
+                normal: 1299, 
+                vip: 799, 
+                tag: "NEW ARRIVAL",
+                fabric: "Water Resistant Polyester",
+                fit: "Regular Bomber Fit",
+                desc: "Lightweight stylish grey jacket with smooth zipper and side pockets.",
+                rating: "4.6",
+                reviews: "3,110 Ratings, 540 Reviews",
+                inStock: true,
+                images: ["https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&auto=format&fit=crop&q=80"]
+            }
+        ];
+
+        // Load 0ms instant snapshot if available
+        let banners = safeGetStorage('senshoFastSnapBanners', fallbackBanners);
+        let products = safeGetStorage('senshoFastSnapProducts', fallbackProducts);
+        let cart = safeGetStorage('senshoCart', []);
+        let wishlist = safeGetStorage('senshoWishlist', []);
+        let orders = safeGetStorage('senshoOrders', []);
+        let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
+
+        // GUARANTEE EVERY PRODUCT HAS A STRICT UNIQUE ID (Fixes Multi-Like Bug Forever)
+        function ensureUniqueProductIds(prodList) {
+            if (!Array.isArray(prodList)) return [];
+            const seenIds = new Set();
+            prodList.forEach((p, idx) => {
+                let candidateId = p.uid || p.id ? String(p.uid || p.id) : `sensho_item_${idx}_${(p.name || '').replace(/\s+/g, '_')}`;
+                if (seenIds.has(candidateId)) {
+                    candidateId = `${candidateId}_u${idx}`;
+                }
+                seenIds.add(candidateId);
+                p.id = candidateId;
+                p.uid = candidateId;
+            });
+            return prodList;
+        }
+        products = ensureUniqueProductIds(products);
+
+        // Extract Global Config Embedded inside Banners[0] (Syncs PIN, VIP Code, Categories & Order Statuses across ALL devices!)
+      let myDeviceUserId = localStorage.getItem('senshoDeviceUserId');
+        if (!myDeviceUserId) {
+            myDeviceUserId = "USR-" + Date.now() + "-" + Math.floor(1000 + Math.random() * 9000);
+            localStorage.setItem('senshoDeviceUserId', myDeviceUserId);
+        }
+
+        let globalOrders = safeGetStorage('senshoGlobalAdminOrders', []);
+
+        function applyEmbeddedCloudSettings(bannerList) {
+            if (!Array.isArray(bannerList) || bannerList.length === 0) return;
+            const cfg = bannerList[0].sysConfig;
+            if (!cfg) return;
+            if (cfg.adminPin) {
+                adminPinCode = String(cfg.adminPin);
+                localStorage.setItem('senshoAdminPin', adminPinCode);
+            }
+            if (Array.isArray(cfg.categories) && cfg.categories.length > 0) {
+                categories = cfg.categories;
+                safeSetStorage('senshoCategories', categories);
+            }
+            if (Array.isArray(cfg.globalOrders)) {
+                // Merge cloud global orders with local orders safely
+                cfg.globalOrders.forEach(cloudOrd => {
+                    const existingIdx = globalOrders.findIndex(go => go.id === cloudOrd.id);
+                    if (existingIdx >= 0) {
+                        // Update existing with cloud fields if newer or synced
+                        globalOrders[existingIdx] = { ...globalOrders[existingIdx], ...cloudOrd };
+                    } else {
+                        globalOrders.push(cloudOrd);
+                    }
+                });
+                safeSetStorage('senshoGlobalAdminOrders', globalOrders);
+            }
+
+            const statusMap = cfg.orderStatusMap || {};
+            orders.forEach(myOrd => {
+                const cloudMatch = globalOrders.find(go => go.id === myOrd.id) || statusMap[myOrd.id];
+                if (cloudMatch) {
+                    if (cloudMatch.status) myOrd.status = cloudMatch.status;
+                    if (cloudMatch.eta !== undefined) myOrd.eta = cloudMatch.eta;
+                    if (cloudMatch.locationNote !== undefined) myOrd.locationNote = cloudCodeCheck(cloudMatch.locationNote);
+                }
+            });
+            safeSetStorage('senshoOrders', orders);
+        }
+
+        function cloudCodeCheck(val) {
+            return val !== undefined ? val : "";
+        }
+
+        function embedCloudSettingsIntoBanners() {
+            if (!Array.isArray(banners) || banners.length === 0) return;
+            const statusMap = {};
+            globalOrders.forEach(o => {
+                if (o.id) {
+                    statusMap[o.id] = {
+                        status: o.status || "Order Confirmed",
+                        eta: o.eta || "",
+                        locationNote: o.locationNote || ""
+                    };
+                }
+            });
+            banners[0].sysConfig = {
+                adminPin: adminPinCode,
+                categories: categories,
+                globalOrders: globalOrders.slice(0, 100),
+                orderStatusMap: statusMap,
+                updatedAt: Date.now()
+            };
+        }
+
+        function embedCloudSettingsIntoBanners() {
+            if (!Array.isArray(banners) || banners.length === 0) return;
+            const statusMap = {};
+            orders.forEach(o => {
+                if (o.id && o.status) statusMap[o.id] = o.status;
+            });
+            banners[0].sysConfig = {
+                adminPin: adminPinCode,
+                categories: categories,
+                orderStatusMap: statusMap,
+                updatedAt: Date.now()
+            };
+        }
+
+        function renderCategoryBar() {
+            const nav = document.getElementById('categoryNavContainer');
+            if (!nav) return;
+            let html = '';
+            categories.forEach(c => {
+                const isActive = currentActiveCategory === c.id;
+                html += `
+                    <button type="button" onclick="filterCategory('${c.id}', this)" class="cat-btn flex flex-col items-center gap-1 group shrink-0">
+                        <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full ${isActive ? 'bg-amber-400 text-slate-950 ring-2 ring-white font-black' : 'bg-indigo-900 ' + (c.color || 'text-blue-200')} flex items-center justify-center text-base shadow group-hover:bg-amber-400 group-hover:text-slate-950 transition">
+                            <i class="fa-solid ${c.icon || 'fa-tag'}"></i>
+                        </div>
+                        <span class="cat-label text-[10px] ${isActive ? 'font-extrabold text-amber-300' : 'font-bold text-blue-100'}">${c.label}</span>
+                    </button>
+                `;
+            });
+            nav.innerHTML = html;
+        }
+
+        let logoClicks = 0;
+        function secretLogoClick() {
+            logoClicks++;
+            setTimeout(() => { logoClicks = 0; }, 1000);
+            if(logoClicks >= 3) {
+                logoClicks = 0;
+                openAdminLogin();
+            }
+        }
+
+        let touchTimer = null;
+        const logoEl = document.getElementById('brandLogoContainer');
+        if (logoEl) {
+            logoEl.addEventListener('touchstart', function() {
+                touchTimer = setTimeout(function() {
+                    openAdminLogin();
+                }, 1500);
+            }, { passive: true });
+
+            logoEl.addEventListener('touchend', function() {
+                if (touchTimer) clearTimeout(touchTimer);
+            });
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if(e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
+                e.preventDefault();
+                openAdminLogin();
+            }
+        });
+
+        // Ultra-Fast Image Compressor (~25-35KB per photo for 0.5s Cloud Load)
+        function compressImageDataUrl(dataUrl, maxWidth = 720, maxHeight = 850, quality = 0.65) {
+            return new Promise((resolve) => {
+                if (!dataUrl || !dataUrl.startsWith('data:image')) {
+                    resolve(dataUrl);
+                    return;
+                }
+                const img = new Image();
+                img.onload = function() {
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > h) {
+                        if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
+                    } else {
+                        if (h > maxHeight) { w = Math.round((w * maxHeight) / h); h = maxHeight; }
+                    }
+                    const canvas = document.createElement('canvas');
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = () => resolve(dataUrl);
+                img.src = dataUrl;
+            });
+        }
+
+        function compressImageFile(file, maxWidth = 720, maxHeight = 850, quality = 0.65) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = async function(event) {
+                    const compressed = await compressImageDataUrl(event.target.result, maxWidth, maxHeight, quality);
+                    resolve(compressed);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function uploadFileToPermanentCloud(file, isBanner = false) {
+            const compressedDataUrl = await compressImageFile(file, isBanner ? 1100 : 700, isBanner ? 480 : 850, 0.65);
+            try {
+                const base64Clean = compressedDataUrl.split(',')[1];
+                const formData = new FormData();
+                formData.append("image", base64Clean);
+                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await res.json();
+                if(data && data.data && data.data.url) {
+                    return data.data.url;
+                }
+            } catch(e) {}
+            return compressedDataUrl;
+        }
+
+        async function optimizeAllExistingImages() {
+            for (let i = 0; i < banners.length; i++) {
+                if (banners[i].customImg && banners[i].customImg.startsWith('data:image') && banners[i].customImg.length > 75000) {
+                    banners[i].customImg = await compressImageDataUrl(banners[i].customImg, 1100, 480, 0.62);
+                }
+            }
+            for (let i = 0; i < products.length; i++) {
+                if (products[i].images && Array.isArray(products[i].images)) {
+                    for (let j = 0; j < products[i].images.length; j++) {
+                        if (products[i].images[j] && products[i].images[j].startsWith('data:image') && products[i].images[j].length > 55000) {
+                            products[i].images[j] = await compressImageDataUrl(products[i].images[j], 680, 820, 0.62);
+                        }
+                    }
+                }
+            }
+        }
+
+        // AUTOMATIC BANNER SLIDER LOGIC
+        let currentSlide = 0;
+        function renderBannerSlider() {
+            const track = document.getElementById('sliderTrack');
+            const dots = document.getElementById('sliderDots');
+            if(!track || !dots || !banners.length) return;
+            if (currentSlide >= banners.length) currentSlide = 0;
+            let trackHtml = '';
+            let dotsHtml = '';
+
+            banners.forEach((b, idx) => {
+                const imgSource = b.customImg && b.customImg.length > 5 ? b.customImg : fallbackBanners[0].customImg;
+                trackHtml += `
+                    <div class="min-w-full h-full relative cursor-pointer" onclick="openBigVipAlertModal()">
+                        <img src="${imgSource}" alt="${b.title || 'Banner'}" class="w-full h-full object-cover">
+                    </div>
+                `;
+                dotsHtml += `<span onclick="goToSlide(${idx})" class="cursor-pointer ${idx === currentSlide ? 'w-4 bg-amber-400' : 'w-1.5 bg-white/40'} h-1.5 rounded-full transition-all"></span>`;
+            });
+
+            track.innerHTML = trackHtml;
+            dots.innerHTML = dotsHtml;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        function goToSlide(idx) {
+            currentSlide = idx;
+            renderBannerSlider();
+        }
+
+        function autoSlideBanner() {
+            if (!banners.length) return;
+            currentSlide = (currentSlide + 1) % banners.length;
+            const track = document.getElementById('sliderTrack');
+            if (track) {
+                track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+            const dots = document.getElementById('sliderDots');
+            if (dots) {
+                Array.from(dots.children).forEach((dot, idx) => {
+                    dot.className = `cursor-pointer ${idx === currentSlide ? "w-4 bg-amber-400" : "w-1.5 bg-white/40"} h-1.5 rounded-full transition-all`;
+                });
+            }
+        }
+        setInterval(autoSlideBanner, 3200);
+
+        // STRICT SINGLE-PRODUCT WISHLIST LOGIC (Uses Unique Product ID)
+        function isProductInWishlist(p) {
+            if (!p) return false;
+            return wishlist.some(item => String(item.uid || item.id) === String(p.uid || p.id));
+        }
+
+        function toggleWishlist(index, event) {
+            if(event) event.stopPropagation();
+            const p = products[index];
+            if(!p) return;
+            const targetId = String(p.uid || p.id);
+            const existIndex = wishlist.findIndex(item => String(item.uid || item.id) === targetId);
+            if(existIndex >= 0) {
+                wishlist.splice(existIndex, 1);
+            } else {
+                wishlist.push(p);
+            }
+            safeSetStorage('senshoWishlist', wishlist);
+            updateWishlistBadges();
+            renderProducts();
+            if(activeProductForDetail && String(activeProductForDetail.uid || activeProductForDetail.id) === targetId) {
+                updateModalLikeState();
+            }
+        }
+
+        function toggleWishlistFromModal() {
+            if(!activeProductForDetail) return;
+            const targetId = String(activeProductForDetail.uid || activeProductForDetail.id);
+            const idx = products.findIndex(p => String(p.uid || p.id) === targetId);
+            if(idx >= 0) {
+                toggleWishlist(idx);
+            } else {
+                const existIndex = wishlist.findIndex(item => String(item.uid || item.id) === targetId);
+                if(existIndex >= 0) wishlist.splice(existIndex, 1);
+                else wishlist.push(activeProductForDetail);
+                safeSetStorage('senshoWishlist', wishlist);
+                updateWishlistBadges();
+                updateModalLikeState();
+                renderProducts();
+            }
+        }
+
+        function updateModalLikeState() {
+            if(!activeProductForDetail) return;
+            const isLiked = isProductInWishlist(activeProductForDetail);
+            const icon = document.getElementById('modalLikeIcon');
+            const btn = document.getElementById('modalLikeBtn');
+            if(icon && btn) {
+                icon.className = isLiked ? "fa-solid fa-heart text-base text-rose-600" : "fa-regular fa-heart text-base";
+                btn.className = isLiked 
+                    ? "flex flex-col items-center justify-center w-12 h-12 rounded-xl border-2 border-rose-300 bg-rose-50 text-rose-600 transition shadow-sm"
+                    : "flex flex-col items-center justify-center w-12 h-12 rounded-xl border border-slate-200 bg-slate-50 hover:bg-rose-50 text-slate-600 transition shadow-sm";
+            }
+        }
+
+        function updateWishlistBadges() {
+            const count = wishlist.length;
+            const dBadge = document.getElementById('wishlistBadgeDesktop');
+            const mBadge = document.getElementById('wishlistBadgeMobile');
+            if(dBadge) dBadge.innerText = count;
+            if(mBadge) mBadge.innerText = count;
+        }
+
+        function openWishlistModal() {
+            let container = document.getElementById('wishlistItemsContainer');
+            if(!container) return;
+            if(wishlist.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-center py-8 text-xs">Aapne abhi tak koi product wishlist mein save nahi kiya hai.</p>`;
+            } else {
+                let html = '';
+                wishlist.forEach((item, index) => {
+                    let coverImg = (item.images && item.images[0]) ? item.images[0] : item.img;
+                    let originalProdIndex = products.findIndex(p => String(p.uid || p.id) === String(item.uid || item.id));
+                    if (originalProdIndex < 0) originalProdIndex = products.findIndex(p => p.name === item.name);
+                    let displayPrice = isVIPVerified ? item.vip : item.normal;
+                    html += `
+                        <div class="flex items-center gap-2.5 bg-slate-50 border p-2.5 rounded-xl cursor-pointer hover:bg-slate-100 transition" onclick="closeWishlistModal(); openProductDetailModal(${originalProdIndex >= 0 ? originalProdIndex : 0})">
+                            <img src="${coverImg}" class="w-12 h-14 object-cover rounded-lg border">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-xs text-slate-900 line-clamp-1">${item.name}</h4>
+                                <p class="text-[11px] text-blue-700 font-extrabold mt-0.5">₹${displayPrice} <span class="text-[9px] text-slate-400 line-through ml-1">₹${item.mrp || ''}</span></p>
+                            </div>
+                            <button type="button" onclick="event.stopPropagation(); wishlist.splice(${index},1);safeSetStorage('senshoWishlist', wishlist);updateWishlistBadges();openWishlistModal();renderProducts();" class="text-slate-400 hover:text-rose-600 p-1.5"><i class="fa-solid fa-trash text-xs"></i></button>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('wishlistModal').classList.remove('hidden');
+        }
+
+        function closeWishlistModal() {
+            document.getElementById('wishlistModal').classList.add('hidden');
+        }
+
+        // MEESHO-STYLE SHARE PRODUCT WITH ACTUAL IMAGE FILE + DEEP LINK
+        async function shareProduct(index, event) {
+            if(event) event.stopPropagation();
+            const p = products[index];
+            if(!p) return;
+            const prodIdParam = encodeURIComponent(p.uid || p.id || p.name);
+            const deepLinkUrl = `${window.location.origin}${window.location.pathname}?product=${prodIdParam}`;
+            const coverImg = (p.images && p.images[0]) ? p.images[0] : "";
+            const shareText = `🔥 *SENSHO WHOLESALE DEAL* 🔥\n🛍️ *${p.name}*\n💰 Normal Price: ₹${p.normal} | 👑 *VIP Price: ₹${p.vip}*\n\n👇 *Is Link Par Tap Karke Direct Product Dekhein:*\n${deepLinkUrl}`;
+
+            // Try sharing actual image file + text via Web Share API Level 2 (Meesho App Style)
+            if (navigator.share && coverImg) {
+                try {
+                    const response = await fetch(coverImg);
+                    const blob = await response.blob();
+                    const file = new File([blob], "sensho-product.jpg", { type: blob.type || "image/jpeg" });
+                    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                        await navigator.share({
+                            files: [file],
+                            title: p.name,
+                            text: shareText
+                        });
+                        return;
+                    }
+                } catch (imgErr) {}
+
+                try {
+                    await navigator.share({
+                        title: p.name,
+                        text: shareText,
+                        url: deepLinkUrl
+                    });
+                    return;
+                } catch (err) {}
+            }
+
+            // Fallback to WhatsApp Direct Share with Image URL & Link
+            const waText = shareText + (coverImg.startsWith('http') ? `\n\n📸 *Product Photo:* ${coverImg}` : '');
+            window.open(`https://wa.me/?text=${encodeURIComponent(waText)}`, '_blank');
+        }
+
+        function shareProductFromModal() {
+            if(!activeProductForDetail) return;
+            const idx = products.findIndex(p => String(p.uid || p.id) === String(activeProductForDetail.uid || activeProductForDetail.id));
+            if(idx >= 0) shareProduct(idx);
+        }
+
+        function sortProductsList() {
+            const sortBy = document.getElementById('sortDropdown').value;
+            if(sortBy === 'low-high') {
+                products.sort((a, b) => Number(a.normal) - Number(b.normal));
+            } else if(sortBy === 'high-low') {
+                products.sort((a, b) => Number(b.normal) - Number(a.normal));
+            }
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            if(!grid || !products.length) return;
+            let html = '';
+            products.forEach((p, idx) => {
+                const coverImg = (p.images && p.images.length > 0) ? p.images[0] : (p.img || "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80");
+                const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+                const isLiked = isProductInWishlist(p);
+                const isOutOfStock = p.inStock === false;
+
+                html += `
+                    <div class="product-card bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition flex flex-col justify-between group cursor-pointer" data-category="${p.category}" data-title="${(p.name || '').toLowerCase()}">
+                        <div onclick="openProductDetailModal(${idx})">
+                            <div class="relative bg-slate-100 overflow-hidden w-full aspect-[3/4]">
+                                <img src="${coverImg}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ${isOutOfStock ? 'opacity-60 grayscale' : ''}">
+                                <span class="absolute top-2 left-2 ${isOutOfStock ? 'bg-rose-600' : 'bg-blue-600'} text-white text-[8px] sm:text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow">${isOutOfStock ? 'Out of Stock' : (p.tag || "Best Seller")}</span>
+                                
+                                <div class="absolute top-2 right-2 flex flex-col gap-1.5 z-10">
+                                    <button type="button" onclick="toggleWishlist(${idx}, event)" class="w-7 h-7 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-xs ${isLiked ? 'text-rose-600' : 'text-slate-600 hover:text-rose-600'}">
+                                        <i class="${isLiked ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+                                    </button>
+                                    <button type="button" onclick="shareProduct(${idx}, event)" class="w-7 h-7 bg-white/90 backdrop-blur rounded-full flex items-center justify-center shadow text-xs text-slate-600 hover:text-blue-600">
+                                        <i class="fa-solid fa-share-nodes"></i>
+                                    </button>
+                                </div>
+
+                                ${p.images && p.images.length > 1 ? `<span class="absolute bottom-2 right-2 bg-slate-900/80 backdrop-blur text-white text-[9px] font-bold px-1.5 py-0.5 rounded"><i class="fa-solid fa-images mr-0.5"></i>${p.images.length}</span>` : ''}
+                            </div>
+                            <div class="p-2 sm:p-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[9px] text-slate-400 font-extrabold uppercase">${(p.category || 'FASHION').toUpperCase()}</span>
+                                    <span class="bg-emerald-600 text-white text-[9px] font-black px-1.5 py-0.2 rounded flex items-center gap-0.5">${p.rating || '4.3'} <i class="fa-solid fa-star text-[7px]"></i></span>
+                                </div>
+                                <h3 class="font-bold text-slate-900 text-xs sm:text-sm mt-0.5 mb-1.5 line-clamp-1">${p.name}</h3>
+                                
+                                <div class="bg-gradient-to-br from-blue-50/80 to-indigo-50/80 border border-blue-200/90 rounded-xl p-2 shadow-inner">
+                                    <div class="flex items-center justify-between pb-1 mb-1 border-b border-blue-100 text-[9px]">
+                                        <span class="text-slate-400">MRP:</span>
+                                        <div class="flex items-center gap-1">
+                                            <span class="text-slate-400 line-through">₹${mrpVal}</span>
+                                            <span class="bg-rose-100 text-rose-700 font-black px-1 rounded text-[8px]">Save ₹${mrpVal - p.vip}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center justify-between gap-1">
+                                        <div>
+                                            <span class="text-[8px] font-black ${!isVIPVerified ? 'text-blue-900' : 'text-slate-500'} uppercase block">Normal:</span>
+                                            <span class="text-xs sm:text-sm font-black text-slate-800">₹${p.normal}</span>
+                                        </div>
+
+                                        <div class="h-5 w-[1.5px] bg-blue-300"></div>
+
+                                        <div class="text-right">
+                                            <span class="text-[8px] font-black text-blue-700 uppercase flex items-center justify-end gap-0.5">
+                                                <i class="fa-solid fa-crown text-amber-500"></i> VIP:
+                                            </span>
+                                            <span class="text-sm sm:text-base font-black text-[#1e1b4b]">₹${p.vip}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-2 pt-0 grid grid-cols-2 gap-1.5">
+                            <button type="button" onclick="event.stopPropagation(); openProductDetailModal(${idx});" class="bg-blue-50 text-blue-700 font-bold text-[10px] sm:text-xs py-2 rounded-lg border border-blue-200 flex items-center justify-center">
+                                Details
+                            </button>
+                            <button type="button" onclick="event.stopPropagation(); ${isOutOfStock ? "alert('Ye item abhi Out of Stock hai!')" : `quickDirectBuy(${idx})`};" class="${isOutOfStock ? 'bg-slate-400' : 'bg-blue-600 hover:bg-blue-700'} text-white font-bold text-[10px] sm:text-xs py-2 rounded-lg flex items-center justify-center gap-1 shadow">
+                                ${isOutOfStock ? 'Sold Out' : 'Buy Now'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+            applyFiltersAndSearch();
+        }
+
+        let currentModalImageIndex = 0;
+        let currentModalImagesList = [];
+
+        function openProductDetailModal(index) {
+            const p = products[index];
+            if (!p) return;
+            activeProductForDetail = p;
+            selectedProductSize = "M";
+
+            const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+
+            document.getElementById('modalTopHeaderTitle').innerText = p.name;
+            document.getElementById('detailTitle').innerText = p.name;
+            document.getElementById('detailBadge').innerText = p.inStock === false ? "Out of Stock" : (p.tag || "Best Seller");
+            document.getElementById('detailMrpPrice').innerText = `₹${mrpVal}`;
+            document.getElementById('detailMrpDiscount').innerText = `Save ₹${mrpVal - p.vip}`;
+            document.getElementById('detailNormalPrice').innerText = `₹${p.normal}`;
+            document.getElementById('detailVipPrice').innerText = `₹${p.vip}`;
+            document.getElementById('detailVipSavingsBadge').innerText = `VIP Saves ₹${p.normal - p.vip}`;
+            
+            document.getElementById('detailRatingBadge').innerText = p.rating || "4.2";
+            document.getElementById('detailReviewCount').innerText = p.reviews || "1,420 Ratings, 380 Reviews";
+
+            document.getElementById('detailFabric').innerText = p.fabric || "Premium Cotton";
+            document.getElementById('detailFit').innerText = p.fit || "Regular Fit";
+            document.getElementById('detailDesc').innerText = p.desc || "Premium quality wholesale product directly sourced from factory.";
+
+            currentModalImagesList = (p.images && p.images.length) ? p.images : ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"];
+            currentModalImageIndex = 0;
+
+            updateModalImageView();
+            updateModalLikeState();
+            document.getElementById('productDetailModal').classList.remove('hidden');
+        }
+
+        function changeModalImage(step) {
+            if (currentModalImagesList.length <= 1) return;
+            currentModalImageIndex = (currentModalImageIndex + step + currentModalImagesList.length) % currentModalImagesList.length;
+            updateModalImageView();
+        }
+
+        function updateModalImageView() {
+            const mainImg = document.getElementById('detailMainImage');
+            const thumbsList = document.getElementById('detailThumbnailsList');
+            const prevBtn = document.getElementById('modalPrevImgBtn');
+            const nextBtn = document.getElementById('modalNextImgBtn');
+
+            if (mainImg && currentModalImagesList.length > 0) {
+                mainImg.src = currentModalImagesList[currentModalImageIndex];
+            }
+
+            if (prevBtn && nextBtn) {
+                if (currentModalImagesList.length > 1) {
+                    prevBtn.classList.remove('hidden');
+                    nextBtn.classList.remove('hidden');
+                } else {
+                    prevBtn.classList.add('hidden');
+                    nextBtn.classList.add('hidden');
+                }
+            }
+
+            if (thumbsList) {
+                thumbsList.innerHTML = '';
+                currentModalImagesList.forEach((imgUrl, i) => {
+                    const thumbBtn = document.createElement('button');
+                    thumbBtn.type = "button";
+                    thumbBtn.className = `w-12 sm:w-14 h-16 rounded-lg overflow-hidden border-2 transition shrink-0 ${i === currentModalImageIndex ? 'border-blue-600 shadow' : 'border-slate-200'}`;
+                    thumbBtn.innerHTML = `<img src="${imgUrl}" class="w-full h-full object-cover">`;
+                    thumbBtn.onclick = function() {
+                        currentModalImageIndex = i;
+                        updateModalImageView();
+                    };
+                    thumbsList.appendChild(thumbBtn);
+                });
+            }
+        }
+
+        let modalTouchStartX = 0;
+        document.addEventListener("DOMContentLoaded", () => {
+            const imgContainer = document.getElementById('modalImageContainer');
+            if(imgContainer) {
+                imgContainer.addEventListener('touchstart', (e) => {
+                    modalTouchStartX = e.touches[0].clientX;
+                }, { passive: true });
+                imgContainer.addEventListener('touchend', (e) => {
+                    let diffX = e.changedTouches[0].clientX - modalTouchStartX;
+                    if(Math.abs(diffX) > 40) {
+                        if(diffX > 0 && currentModalImageIndex > 0) {
+                            currentModalImageIndex--;
+                        } else if(diffX < 0 && currentModalImageIndex < currentModalImagesList.length - 1) {
+                            currentModalImageIndex++;
+                        }
+                        updateModalImageView();
+                    }
+                }, { passive: true });
+            }
+        });
+
+        function closeProductDetailModal() {
+            document.getElementById('productDetailModal').classList.add('hidden');
+        }
+
+        function selectSize(size, el) {
+            selectedProductSize = size;
+            document.querySelectorAll('.size-btn').forEach(b => {
+                b.className = "size-btn px-3 py-1.5 border rounded-lg font-bold text-xs";
+            });
+            el.className = "size-btn active px-3 py-1.5 border-2 border-blue-600 bg-blue-50 text-blue-700 rounded-lg font-bold text-xs";
+        }
+
+        function detailAddToCart() {
+            if (!activeProductForDetail) return;
+            if (activeProductForDetail.inStock === false) {
+                alert("Sorry! Ye product abhi Out of Stock hai.");
+                return;
+            }
+            const p = activeProductForDetail;
+            const price = isVIPVerified ? p.vip : p.normal;
+            const mainImg = (currentModalImagesList.length > 0) ? currentModalImagesList[currentModalImageIndex] : "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80";
+            const tierType = isVIPVerified ? "VIP Wholesale" : "Normal Member";
+            const itemKey = `${p.name} (${tierType}, Size: ${selectedProductSize})`;
+
+            let existing = cart.find(item => item.name === itemKey);
+            if(existing) { 
+                existing.qty += 1; 
+            } else { 
+                cart.push({ 
+                    name: itemKey, 
+                    price: price, 
+                    normalPrice: p.normal, 
+                    vipPrice: p.vip, 
+                    qty: 1, 
+                    img: mainImg,
+                    isVipTier: isVIPVerified
+                }); 
+            }
+            safeSetStorage('senshoCart', cart);
+            updateCartBadge();
+            closeProductDetailModal();
+            openCartDrawer();
+        }
+
+        function quickDirectBuy(index) {
+            const p = products[index];
+            if (!p) return;
+            activeProductForDetail = p;
+            selectedProductSize = "M";
+            openDirectBuyAddressModal();
+        }
+
+        function openDirectBuyAddressModal() {
+            if (!activeProductForDetail) return;
+            if (activeProductForDetail.inStock === false) {
+                alert("Sorry! Ye product abhi Out of Stock hai.");
+                return;
+            }
+            pendingCheckoutType = "direct";
+            const p = activeProductForDetail;
+            const price = isVIPVerified ? p.vip : p.normal;
+            const tierLabel = isVIPVerified ? "(VIP Wholesale Rate)" : "(Normal Member Rate)";
+            
+            document.getElementById('checkoutPreviewItem').innerText = `${p.name} [Size: ${selectedProductSize}] ${tierLabel}`;
+            document.getElementById('checkoutPreviewPrice').innerText = `₹${price}`;
+
+            closeProductDetailModal();
+            document.getElementById('addressCheckoutModal').classList.remove('hidden');
+        }
+
+        function openCartAddressModal() {
+            if(cart.length === 0) { alert("Cart is empty!"); return; }
+            pendingCheckoutType = "cart";
+            let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            document.getElementById('checkoutPreviewItem').innerText = `${cart.length} Items in Cart`;
+            document.getElementById('checkoutPreviewPrice').innerText = `₹${totalPrice}`;
+            closeCartDrawer();
+            document.getElementById('addressCheckoutModal').classList.remove('hidden');
+        }
+
+        function closeAddressModal() {
+            document.getElementById('addressCheckoutModal').classList.add('hidden');
+        }
+
+       function handleFinalOrderSubmission(e) {
+            e.preventDefault();
+            const fullName = document.getElementById('custFullName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const pincode = document.getElementById('custPincode').value.trim();
+            const city = document.getElementById('custCity').value.trim();
+            const fullAddress = document.getElementById('custFullAddress').value.trim();
+            const fullAddrStr = `${fullName} (${phone}), ${fullAddress}, ${city} - ${pincode}`;
+
+            if (pendingCheckoutType === "direct") {
+                const p = activeProductForDetail;
+                const price = isVIPVerified ? p.vip : p.normal;
+                const tierType = isVIPVerified ? "VIP Wholesale Rate" : "Normal Member Rate";
+                const itemSummary = `${p.name} [Size: ${selectedProductSize}] (1x)`;
+                const prodImg = (p.images && p.images[0]) ? p.images[0] : "";
+
+                recordOrder(itemSummary, price, fullAddrStr, prodImg, p.uid || p.id, fullName, phone, `${city} - ${pincode}`);
+
+                let msg = `*NEW VERIFIED ORDER - SENSHO FASHION HUB*%0A%0A` +
+                          `*Product:* ${encodeURIComponent(p.name)}%0A` +
+                          `*Size:* ${selectedProductSize}%0A` +
+                          `*Price:* ₹${price} (${tierType})%0A` +
+                          `*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A` +
+                          `*--- DELIVERY ADDRESS ---*%0A` +
+                          `*Name:* ${encodeURIComponent(fullName)}%0A` +
+                          `*Phone:* ${encodeURIComponent(phone)}%0A` +
+                          `*Pincode:* ${encodeURIComponent(pincode)}%0A` +
+                          `*City:* ${encodeURIComponent(city)}%0A` +
+                          `*Address:* ${encodeURIComponent(fullAddress)}%0A%0A` +
+                          `Please confirm order dispatch & share tracking code.`;
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            } else {
+                let totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                let summaryStr = cart.map(i => `${i.name} (${i.qty}x)`).join(', ');
+                const tierType = isVIPVerified ? "VIP Wholesale" : "Normal Member";
+                const firstCartImg = (cart[0] && cart[0].img) ? cart[0].img : "";
+
+                recordOrder(summaryStr, totalPrice, fullAddrStr, firstCartImg, "", fullName, phone, `${city} - ${pincode}`);
+
+                let msg = `*NEW CART ORDER - SENSHO FASHION HUB*%0A%0A` +
+                          `*Total Amount:* ₹${totalPrice} (${tierType})%0A` +
+                          `*VIP Card:* ${isVIPVerified && vipCardData ? vipCardData.cardNumber : "None"}%0A%0A` +
+                          `*Items Ordered:*%0A`;
+                cart.forEach(i => { msg += `- ${encodeURIComponent(i.name)} (${i.qty}x) - ₹${i.price * i.qty}%0A`; });
+                msg += `%0A*--- DELIVERY ADDRESS ---*%0A` +
+                       `*Name:* ${encodeURIComponent(fullName)}%0A` +
+                       `*Phone:* ${encodeURIComponent(phone)}%0A` +
+                       `*Pincode:* ${encodeURIComponent(pincode)}%0A` +
+                       `*City:* ${encodeURIComponent(city)}%0A` +
+                       `*Address:* ${encodeURIComponent(fullAddress)}%0A%0A` +
+                       `Please confirm order dispatch & share tracking code.`;
+
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+                cart = [];
+                localStorage.removeItem('senshoCart');
+                updateCartBadge();
+            }
+            closeAddressModal();
+        }
+
+        function updateUI() {
+            const badge = document.getElementById('headerPricingStatusBadge');
+            const navBtnTextDesktop = document.getElementById('navVipBtnDesktop');
+
+            if (isVIPVerified && vipCardData) {
+                if(navBtnTextDesktop) navBtnTextDesktop.innerHTML = `<i class="fa-solid fa-crown text-slate-950"></i> <span>My VIP Card</span>`;
+                if(badge) {
+                    badge.innerText = `VIP Active (${vipCardData.cardNumber})`;
+                    badge.className = "text-amber-600 font-bold";
+                }
+            } else {
+                if(navBtnTextDesktop) navBtnTextDesktop.innerHTML = `<i class="fa-solid fa-crown text-slate-950"></i> <span>VIP Pass</span>`;
+                if(badge) {
+                    badge.innerText = "Normal Member View (VIP ₹299)";
+                    badge.className = "text-blue-700 font-bold";
+                }
+            }
+            renderCategoryBar();
+            if (banners.length) renderBannerSlider();
+            if (products.length) renderProducts();
+            updateCartBadge();
+            updateWishlistBadges();
+        }
+
+        function openHelpModal() { document.getElementById('helpModal').classList.remove('hidden'); }
+        function closeHelpModal() { document.getElementById('helpModal').classList.add('hidden'); }
+        function sendHelpWhatsApp(category, queryText) {
+            let msg = `*SENSHO CUSTOMER HELPLINE*%0A*Category:* ${encodeURIComponent(category)}%0A*Problem Details:* ${encodeURIComponent(queryText)}%0A%0APlease assist me with this issue.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            closeHelpModal();
+        }
+
+        function openBigVipAlertModal() { document.getElementById('bigVipAlertModal').classList.remove('hidden'); }
+        function closeBigVipAlertModal() { document.getElementById('bigVipAlertModal').classList.add('hidden'); }
+        function directContactVipWhatsApp() {
+            let msg = `*VIP 1-YEAR PASS REQUEST - SENSHO*%0AHello Sensho Team! Mujhe *ONLY ₹299* wala 1-Year VIP Membership Pass purchase karna hai. Maine QR code scan karke ₹299 pay kiya hai, please mera VIP Passcode share karein.`;
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+ // ==========================================
+// SENSHO VIP MEMBERSHIP SYSTEM
+// ==========================================
+
+// JSONP API used for public activation/status and the admin code generator.
+// The callback prefix must match the allow-list in Code.gs.
+function senshoVipApi(payload) {
+    return new Promise((resolve, reject) => {
+        if (!GOOGLE_SCRIPT_URL) {
+            reject(new Error("Google Apps Script URL is missing."));
+            return;
+        }
+
+        const callbackName = "senshoVipCallback_" + Date.now() + "_" +
+            Math.random().toString(36).substring(2, 10);
+        const script = document.createElement("script");
+        const params = new URLSearchParams();
+
+        Object.entries(payload || {}).forEach(([key, value]) => {
+            if (value !== undefined && value !== null) params.append(key, String(value));
+        });
+        params.append("callback", callbackName);
+
+        let timeoutId;
+        let settled = false;
+
+        function cleanup() {
+            if (timeoutId) clearTimeout(timeoutId);
+            try { delete window[callbackName]; } catch (e) { window[callbackName] = undefined; }
+            if (script.parentNode) script.parentNode.removeChild(script);
+        }
+
+        window[callbackName] = function(result) {
+            if (settled) return;
+            settled = true;
+            cleanup();
+            resolve(result);
+        };
+
+        script.onerror = function() {
+            if (settled) return;
+            settled = true;
+            cleanup();
+            reject(new Error("VIP server connection failed. Please try again."));
+        };
+
+        timeoutId = setTimeout(() => {
+            if (settled) return;
+            settled = true;
+            cleanup();
+            reject(new Error("VIP server request timed out. Please check deployment and try again."));
+        }, 20000);
+
+        script.src = GOOGLE_SCRIPT_URL + "?" + params.toString();
+        document.body.appendChild(script);
+    });
+}
+
+// Browser-scoped identifier. This is not a hardware ID.
+function getSenshoVipDeviceId() {
+    let deviceId = localStorage.getItem("senshoVIPDeviceId");
+    if (!deviceId) {
+        deviceId = (window.crypto && window.crypto.randomUUID)
+            ? window.crypto.randomUUID()
+            : "SNS-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 15);
+        localStorage.setItem("senshoVIPDeviceId", deviceId);
+    }
+    return deviceId;
+}
+
+function formatVipDate(dateValue) {
+    if (!dateValue) return "Not available";
+    const date = new Date(dateValue);
+    if (Number.isNaN(date.getTime())) return "Not available";
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit", month: "long", year: "numeric"
+    });
+}
+
+function saveVipMembership(result) {
+    const membership = result && result.membership ? result.membership : result;
+    if (!membership || !membership.cardNumber) {
+        throw new Error("VIP server response is missing the card number.");
+    }
+
+    // Normalize both legacy and current date property names.
+    membership.expiry = membership.expiresAt || membership.expiry || "";
+    membership.expiresAt = membership.expiresAt || membership.expiry || "";
+    vipCardData = membership;
+    isVIPVerified = true;
+
+    localStorage.setItem("senshoVIPVerified", "true");
+    localStorage.setItem("senshoVIPCardData", JSON.stringify(membership));
+}
+
+async function restoreVipMembership() {
+    try {
+        const result = await senshoVipApi({
+            action: "vip_status",
+            deviceId: getSenshoVipDeviceId()
+        });
+
+        if (result && result.ok === true && result.cardNumber) {
+            saveVipMembership(result);
+            updateUI();
+            return true;
+        }
+
+        // Only clear the local membership after a definite server response.
+        if (result && result.ok === false) {
+            isVIPVerified = false;
+            vipCardData = null;
+            localStorage.removeItem("senshoVIPVerified");
+            localStorage.removeItem("senshoVIPCardData");
+            updateUI();
+        }
+        return false;
+    } catch (error) {
+        // Keep cached state on temporary network failure; server remains authoritative.
+        console.error("VIP Membership Restore Error:", error);
+        return false;
+    }
+}
+
+async function activateBigVipCode() {
+    const inputEl = document.getElementById("bigVipCodeInput");
+    const code = inputEl ? inputEl.value.trim().toUpperCase() : "";
+    if (!code) {
+        alert("Please enter your VIP activation code.");
+        return;
+    }
+
+    const button = inputEl ? inputEl.parentElement.querySelector("button") : null;
+    const oldButtonText = button ? button.innerHTML : "";
+    if (button) {
+        button.disabled = true;
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+    }
+
+    try {
+        const result = await senshoVipApi({
+            action: "vip_activate",
+            code: code,
+            deviceId: getSenshoVipDeviceId()
+        });
+
+        if (!result || result.ok !== true || !result.cardNumber) {
+            alert((result && result.message) || "VIP activation failed. Please verify your code.");
+            return;
+        }
+
+        saveVipMembership(result);
+        updateUI();
+        closeBigVipAlertModal();
+        alert(
+            "Congratulations! Your Sensho VIP Membership is active.\n\n" +
+            "Card Number: " + vipCardData.cardNumber +
+            "\nValid Until: " + formatVipDate(vipCardData.expiresAt)
+        );
+    } catch (error) {
+        console.error("VIP activation error:", error);
+        alert(error.message || "Unable to activate VIP membership right now.");
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = oldButtonText;
+        }
+    }
+}
+
+// Admin-only generator. The admin key is requested at runtime and is never
+// written into the website source or localStorage. See security note in setup.
+async function generateVipCodes() {
+    const quantityInput = document.getElementById("vipGenerateQuantity");
+    const messageEl = document.getElementById("vipGeneratorMessage");
+    const section = document.getElementById("vipGeneratedCodesSection");
+    const list = document.getElementById("vipGeneratedCodesList");
+    const count = Math.floor(Number(quantityInput ? quantityInput.value : 0));
+
+    const showMessage = (message, isError) => {
+        if (!messageEl) return;
+        messageEl.textContent = message;
+        messageEl.className = "mt-4 p-3 rounded-lg text-sm " +
+            (isError ? "bg-rose-50 text-rose-700 border border-rose-200" :
+                       "bg-emerald-50 text-emerald-700 border border-emerald-200");
+    };
+
+    if (!Number.isInteger(count) || count < 1 || count > 100) {
+        showMessage("Please enter a quantity from 1 to 100.", true);
+        return;
+    }
+
+    const adminKey = window.prompt("Enter your VIP Generator Admin Key:");
+    if (!adminKey) {
+        showMessage("Generation cancelled. Admin key was not entered.", true);
+        return;
+    }
+
+    const button = document.querySelector('[onclick="generateVipCodes()"]');
+    const oldText = button ? button.innerHTML : "";
+    if (button) {
+        button.disabled = true;
+        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Generating...';
+    }
+    if (messageEl) messageEl.className = "hidden";
+
+    try {
+        const result = await senshoVipApi({
+            action: "vip_generate",
+            count: count,
+            adminKey: adminKey
+        });
+
+        if (!result || result.ok !== true || !Array.isArray(result.codes)) {
+            throw new Error((result && result.message) || "VIP codes could not be generated.");
+        }
+
+        window.senshoGeneratedVipCodes = result.codes.slice();
+        if (list) {
+            list.innerHTML = "";
+            result.codes.forEach((code, index) => {
+                const row = document.createElement("div");
+                row.className = "flex items-center justify-between gap-2 border rounded-lg px-3 py-2 bg-slate-50";
+                const codeText = document.createElement("span");
+                codeText.className = "font-mono font-bold text-sm text-slate-800 break-all";
+                codeText.textContent = code;
+                const copyBtn = document.createElement("button");
+                copyBtn.type = "button";
+                copyBtn.className = "shrink-0 text-indigo-700 font-bold text-xs px-2 py-1";
+                copyBtn.textContent = "Copy";
+                copyBtn.addEventListener("click", async () => {
+                    try {
+                        await navigator.clipboard.writeText(code);
+                        copyBtn.textContent = "Copied";
+                    } catch (e) {
+                        showMessage("Clipboard access unavailable. Select and copy the code manually.", true);
+                    }
+                });
+                row.append(codeText, copyBtn);
+                list.appendChild(row);
+            });
+        }
+        if (section) section.classList.remove("hidden");
+        showMessage(result.message || (result.codes.length + " VIP codes generated successfully."), false);
+    } catch (error) {
+        console.error("VIP code generation error:", error);
+        showMessage(error.message || "Unable to generate VIP codes.", true);
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = oldText;
+        }
+    }
+}
+
+async function copyAllVipCodes() {
+    const codes = Array.isArray(window.senshoGeneratedVipCodes)
+        ? window.senshoGeneratedVipCodes : [];
+    const messageEl = document.getElementById("vipGeneratorMessage");
+    if (!codes.length) {
+        if (messageEl) {
+            messageEl.textContent = "Generate VIP codes first.";
+            messageEl.className = "mt-4 p-3 rounded-lg text-sm bg-rose-50 text-rose-700 border border-rose-200";
+        }
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(codes.join("\n"));
+        if (messageEl) {
+            messageEl.textContent = codes.length + " VIP codes copied successfully.";
+            messageEl.className = "mt-4 p-3 rounded-lg text-sm bg-emerald-50 text-emerald-700 border border-emerald-200";
+        }
+    } catch (error) {
+        if (messageEl) {
+            messageEl.textContent = "Clipboard access unavailable. Please copy the codes individually.";
+            messageEl.className = "mt-4 p-3 rounded-lg text-sm bg-rose-50 text-rose-700 border border-rose-200";
+        }
+    }
+}
+
+        function openVipCardModal() {
+            if (isVIPVerified && vipCardData) {
+                document.getElementById('vipCardDisplayNumber').innerText = vipCardData.cardNumber;
+                document.getElementById('vipCardDisplayExpiry').innerText = formatVipDate(vipCardData.expiresAt || vipCardData.expiry);
+                document.getElementById('vipCardModal').classList.remove('hidden');
+            } else {
+                openBigVipAlertModal();
+            }
+        }
+
+        function closeVipCardModal() { document.getElementById('vipCardModal').classList.add('hidden'); }
+        function updateCartBadge() {
+            let total = cart.reduce((sum, item) => sum + item.qty, 0);
+            const badge = document.getElementById('cartBadge');
+            if(badge) badge.innerText = total;
+        }
+
+        function openCartDrawer() { updateCartModal(); document.getElementById('cartDrawer').classList.remove('hidden'); }
+        function closeCartDrawer() { document.getElementById('cartDrawer').classList.add('hidden'); }
+
+        function changeCartQty(index, delta) {
+            if (!cart[index]) return;
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) {
+                cart.splice(index, 1);
+            }
+            safeSetStorage('senshoCart', cart);
+            updateCartBadge();
+            updateCartModal();
+        }
+
+        function updateCartModal() {
+            let container = document.getElementById('cartItemsContainer');
+            let totalPrice = 0;
+            if(!container) return;
+            if(cart.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-center py-10 text-xs">Your cart is empty.</p>`;
+                document.getElementById('cartTotalPrice').innerText = "₹0";
+                return;
+            }
+            let html = '';
+            cart.forEach((item, index) => {
+                let currentItemPrice = isVIPVerified ? item.vipPrice : item.normalPrice;
+                item.price = currentItemPrice;
+                totalPrice += (currentItemPrice * item.qty);
+                html += `
+                    <div class="flex items-center gap-2.5 bg-slate-50 border p-2.5 rounded-xl">
+                        <img src="${item.img}" class="w-12 h-14 object-cover rounded-lg border">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-xs text-slate-900 line-clamp-1">${item.name}</h4>
+                            <p class="text-[11px] text-blue-700 font-extrabold mt-0.5">₹${currentItemPrice} x ${item.qty} = ₹${currentItemPrice * item.qty}</p>
+                            <div class="flex items-center gap-2 mt-1">
+                                <button type="button" onclick="changeCartQty(${index}, -1)" class="w-5 h-5 rounded bg-slate-200 text-slate-800 font-black text-xs flex items-center justify-center">-</button>
+                                <span class="text-xs font-bold">${item.qty}</span>
+                                <button type="button" onclick="changeCartQty(${index}, 1)" class="w-5 h-5 rounded bg-blue-600 text-white font-black text-xs flex items-center justify-center">+</button>
+                            </div>
+                        </div>
+                        <button type="button" onclick="cart.splice(${index},1);safeSetStorage('senshoCart', cart);updateCartBadge();updateCartModal();" class="text-slate-400 hover:text-rose-600 p-1.5"><i class="fa-solid fa-trash text-xs"></i></button>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+            document.getElementById('cartTotalPrice').innerText = `₹${totalPrice}`;
+        }
+
+        // ============================================================================
+        // MEESHO-STYLE INTERACTIVE ORDER TRACKING, CANCEL & RETURN SYSTEM
+        // ============================================================================
+     function getStatusBadgeStyle(status) {
+            switch(status) {
+                case 'Shipped': return 'bg-blue-100 text-blue-800 border border-blue-300';
+                case 'Out for Delivery': return 'bg-amber-100 text-amber-800 border border-amber-300';
+                case 'Order Delivered': return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+                case 'Cancel Request Pending': return 'bg-orange-100 text-orange-800 border border-orange-300 animate-pulse';
+                case 'Order Cancelled': return 'bg-rose-100 text-rose-700 border border-rose-300';
+                case 'Return Requested': return 'bg-purple-100 text-purple-800 border border-purple-300';
+                default: return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+            }
+        }
+
+        function openProductFromOrder(prodId, summaryText) {
+            closeMyOrders();
+            let idx = -1;
+            if (prodId) {
+                idx = products.findIndex(p => String(p.uid || p.id) === String(prodId));
+            }
+            if (idx < 0 && summaryText) {
+                const cleanName = summaryText.split('[')[0].split('(')[0].trim().toLowerCase();
+                idx = products.findIndex(p => (p.name || '').toLowerCase().includes(cleanName));
+            }
+            if (idx >= 0) {
+                openProductDetailModal(idx);
+            } else if (products.length > 0) {
+                openProductDetailModal(0);
+            }
+        }
+
+        function openProductFromTracking() {
+            if (activeOrderIndexForTracking === null || !orders[activeOrderIndexForTracking]) return;
+            const o = orders[activeOrderIndexForTracking];
+            openProductFromOrder(o.prodId, o.summary);
+        }
+
+        function openMyOrders() {
+            backToOrdersList();
+            let container = document.getElementById('customerOrdersList');
+            if(!container) return;
+
+            const myPrivateOrders = orders.filter(o => !o.deviceUserId || o.deviceUserId === myDeviceUserId);
+
+            if(myPrivateOrders.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-center py-8 text-xs">Aapne abhi tak koi order place nahi kiya hai.</p>`;
+            } else {
+                let html = '';
+                myPrivateOrders.forEach((o) => {
+                    const realIdx = orders.findIndex(item => item.id === o.id);
+                    const currentStatus = o.status || "Order Confirmed";
+                    const fallbackImg = (products[0] && products[0].images && products[0].images[0]) ? products[0].images[0] : "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80";
+                    const imgUrl = o.img || fallbackImg;
+                    const safeSummary = (o.summary || '').replace(/'/g, "\\'");
+
+                    html += `
+                        <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl space-y-2.5 shadow-sm">
+                            <div onclick="openProductFromOrder('${o.prodId || ''}', '${safeSummary}')" class="flex items-center gap-3 cursor-pointer group" title="Tap to open product & buy again">
+                                <img src="${imgUrl}" class="w-14 h-16 object-cover rounded-xl border bg-white shrink-0 group-hover:scale-105 transition">
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex justify-between items-center text-[10px] font-bold text-slate-400">
+                                        <span class="text-blue-600 font-black">${o.id}</span>
+                                        <span>${o.date || ''} ${o.time ? '• ' + o.time : ''}</span>
+                                    </div>
+                                    <p class="text-xs font-black text-slate-900 truncate mt-0.5 group-hover:text-blue-600 transition">${o.summary}</p>
+                                    <div class="flex justify-between items-center mt-1">
+                                        <span class="font-black text-xs text-slate-900">₹${o.total}</span>
+                                        <span class="text-[10px] font-bold text-blue-600 underline">Buy Again / View Product</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-200/80">
+                                <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full ${getStatusBadgeStyle(currentStatus)}">${currentStatus}</span>
+                                <button type="button" onclick="openOrderTrackingDetail(${realIdx})" class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-3 py-1.5 rounded-xl shadow-sm flex items-center gap-1 transition">
+                                    <i class="fa-solid fa-truck-fast"></i> Order Details & Track
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = html;
+            }
+            document.getElementById('myOrdersModal').classList.remove('hidden');
+        }
+
+        function backToOrdersList() {
+            document.getElementById('ordersListView').classList.remove('hidden');
+            document.getElementById('orderTrackingDetailView').classList.add('hidden');
+        }
+
+        function openOrderTrackingDetail(idx) {
+            const o = orders[idx];
+            if (!o) return;
+            activeOrderIndexForTracking = idx;
+            const status = o.status || "Order Confirmed";
+            const fallbackImg = (products[0] && products[0].images && products[0].images[0]) ? products[0].images[0] : "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400&auto=format&fit=crop&q=80";
+
+            document.getElementById('trackOrderImg').src = o.img || fallbackImg;
+            document.getElementById('trackOrderId').innerText = o.id;
+            document.getElementById('trackOrderDate').innerText = `${o.date || ''} ${o.time ? '• ' + o.time : ''}`;
+            document.getElementById('trackOrderTitle').innerText = o.summary;
+            document.getElementById('trackOrderPrice').innerText = `₹${o.total}`;
+            document.getElementById('trackOrderAddress').innerText = o.address || "Direct Factory Wholesale Dispatch";
+
+            const etaEl = document.getElementById('trackOrderEta');
+            const locEl = document.getElementById('trackOrderLocation');
+            if (etaEl) etaEl.innerText = o.eta && o.eta.trim() !== "" ? o.eta : "Within 4-6 Working Days";
+            if (locEl) locEl.innerText = o.locationNote && o.locationNote.trim() !== "" ? o.locationNote : (status === "Order Delivered" ? "Delivered to Customer Address" : "Sensho Factory Sorting Hub");
+
+            const badge = document.getElementById('trackCurrentBadge');
+            badge.innerText = status;
+            badge.className = `inline-block mt-1 text-[10px] font-black px-2.5 py-0.5 rounded-full ${getStatusBadgeStyle(status)}`;
+
+            const steps = [
+                { key: "Order Confirmed", title: "Order Confirmed", sub: "Aapka order factory hub me confirm ho gaya hai", icon: "fa-clipboard-check" },
+                { key: "Shipped", title: "Order Shipped", sub: "Quality check ke baad parcel courier ko de diya gaya hai", icon: "fa-box" },
+                { key: "Out for Delivery", title: "Out for Delivery", sub: "Delivery partner aapke address par aa raha hai", icon: "fa-motorcycle" },
+                { key: "Order Delivered", title: "Order Delivered", sub: "Order successfully deliver ho chuka hai", icon: "fa-circle-check" }
+            ];
+
+            const statusOrder = ["Order Confirmed", "Shipped", "Out for Delivery", "Order Delivered"];
+            let activeStepIdx = statusOrder.indexOf(status);
+            if (activeStepIdx === -1) activeStepIdx = 0;
+
+            let timelineHtml = '';
+            if (status === "Cancel Request Pending") {
+                timelineHtml = `
+                    <div class="p-3.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-amber-900 flex items-center gap-3">
+                        <i class="fa-solid fa-clock-rotate-left text-amber-600 text-xl animate-spin"></i>
+                        <div>
+                            <h5 class="text-xs font-black">Cancellation Request Pending (Not Confirmed Yet)</h5>
+                            <p class="text-[11px] mt-0.5">Aapki cancel request Admin ke paas bhej di gayi hai. Admin ke confirm karne ke baad hi order cancel hoga.</p>
+                        </div>
+                    </div>
+                `;
+            } else if (status === "Order Cancelled" || status === "Return Requested") {
+                const isCancel = status === "Order Cancelled";
+                timelineHtml = `
+                    <div class="p-3 rounded-xl ${isCancel ? 'bg-rose-50 border border-rose-200 text-rose-800' : 'bg-purple-50 border border-purple-200 text-purple-800'} flex items-center gap-3">
+                        <i class="fa-solid ${isCancel ? 'fa-circle-xmark text-rose-600' : 'fa-rotate-left text-purple-600'} text-xl"></i>
+                        <div>
+                            <h5 class="text-xs font-black">${status}</h5>
+                            <p class="text-[11px]">${isCancel ? 'Admin ne aapki request confirm kar di hai. Ye order cancel ho chuka hai.' : 'Aapki 7-Days Easy Return request register ho gayi hai.'}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                steps.forEach((st, i) => {
+                    const isCompleted = i <= activeStepIdx;
+                    const isCurrent = i === activeStepIdx;
+                    timelineHtml += `
+                        <div class="flex items-start gap-3 relative">
+                            ${i < steps.length - 1 ? `<div class="absolute left-3.5 top-7 bottom-[-16px] w-0.5 ${i < activeStepIdx ? 'bg-emerald-500' : 'bg-slate-200'}"></div>` : ''}
+                            <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs shrink-0 z-10 ${isCompleted ? 'bg-emerald-500 text-white shadow' : 'bg-slate-200 text-slate-400'} ${isCurrent ? 'ring-4 ring-emerald-100' : ''}">
+                                <i class="fa-solid ${st.icon}"></i>
+                            </div>
+                            <div class="pb-1">
+                                <h5 class="text-xs font-black ${isCompleted ? 'text-slate-900' : 'text-slate-400'}">${st.title}</h5>
+                                <p class="text-[10px] ${isCompleted ? 'text-slate-600' : 'text-slate-400'}">${st.sub}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('trackingStepsTimeline').innerHTML = timelineHtml;
+
+            const cancelBtn = document.getElementById('btnCancelOrder');
+            const returnBtn = document.getElementById('btnReturnOrder');
+            if (status === "Cancel Request Pending" || status === "Order Cancelled" || status === "Return Requested") {
+                cancelBtn.classList.add('opacity-40', 'pointer-events-none');
+                returnBtn.classList.add('opacity-40', 'pointer-events-none');
+            } else if (status === "Order Delivered") {
+                cancelBtn.classList.add('opacity-40', 'pointer-events-none');
+                returnBtn.classList.remove('opacity-40', 'pointer-events-none');
+            } else {
+                cancelBtn.classList.remove('opacity-40', 'pointer-events-none');
+                returnBtn.classList.remove('opacity-40', 'pointer-events-none');
+            }
+
+            document.getElementById('ordersListView').classList.add('hidden');
+            document.getElementById('orderTrackingDetailView').classList.remove('hidden');
+        }
+
+        function triggerCancelOrder() {
+            if (activeOrderIndexForTracking === null || !orders[activeOrderIndexForTracking]) return;
+            const o = orders[activeOrderIndexForTracking];
+            if (o.status === "Order Delivered") {
+                alert("Delivered order ko cancel nahi kiya ja sakta. Aap Return option use kar sakte hain.");
+                return;
+            }
+            const reason = prompt("⚠️ Order Cancel karne ka kaaran likhein (Admin confirm karne ke baad hi cancel hoga):", "Booked by mistake / Change item");
+            if (reason !== null) {
+                o.status = "Cancel Request Pending";
+                o.cancelReason = reason.trim() || "Customer requested cancellation";
+                safeSetStorage('senshoOrders', orders);
+                updateOrderFromAdmin(o.id, 'status', 'Cancel Request Pending');
+                updateOrderFromAdmin(o.id, 'cancelReason', o.cancelReason);
+
+                if (GOOGLE_SCRIPT_URL) {
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
+                        body: JSON.stringify({
+                            action: "sync_all",
+                            products: products,
+                            banners: banners
+                        })
+                    }).catch(() => {});
+                }
+
+                openOrderTrackingDetail(activeOrderIndexForTracking);
+                alert("⏳ Aapki Cancel Request bhej di gayi hai! Abhi status 'Pending' hai. Admin ke confirm karne par order cancel hoga.");
+                let msg = `*ORDER CANCEL REQUEST (PENDING APPROVAL) - SENSHO*%0A*Order ID:* ${o.id}%0A*Customer:* ${encodeURIComponent(o.custName || '')} (${encodeURIComponent(o.custPhone || '')})%0A*Item:* ${encodeURIComponent(o.summary)}%0A*Amount:* ₹${o.total}%0A*Reason:* ${encodeURIComponent(o.cancelReason)}%0A%0APlease Admin Panel me meri cancel request confirm karein.`;
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            }
+        }
+
+        function triggerReturnOrder() {
+            if (activeOrderIndexForTracking === null || !orders[activeOrderIndexForTracking]) return;
+            const o = orders[activeOrderIndexForTracking];
+            const reason = prompt("🔄 Return / Exchange ka kaaran batayein (e.g. Size issue, Defective item, Change color):", "Size Exchange / Return");
+            if (reason && reason.trim() !== "") {
+                o.status = "Return Requested";
+                safeSetStorage('senshoOrders', orders);
+                updateOrderFromAdmin(o.id, 'status', 'Return Requested');
+                openOrderTrackingDetail(activeOrderIndexForTracking);
+                let msg = `*7-DAYS EASY RETURN REQUEST - SENSHO*%0A*Order ID:* ${o.id}%0A*Item:* ${encodeURIComponent(o.summary)}%0A*Amount:* ₹${o.total}%0A*Reason:* ${encodeURIComponent(reason)}%0A%0APlease meri return/exchange pickup process karein.`;
+                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+            }
+        }
+
+        function closeMyOrders() {
+            document.getElementById('myOrdersModal').classList.add('hidden');
+        }
+
+        function recordOrder(orderSummary, totalAmt, addressStr = "", prodImg = "", prodId = "", custName = "", custPhone = "", custCityPin = "") {
+            let orderId = "SNS-" + Math.floor(100000 + Math.random() * 900000);
+            let now = new Date();
+            let orderDate = now.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+            let orderTime = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+            let newOrder = {
+                id: orderId,
+                deviceUserId: myDeviceUserId,
+                prodId: prodId,
+                custName: custName || "Customer",
+                custPhone: custPhone || "",
+                custCityPin: custCityPin || "",
+                date: orderDate,
+                time: orderTime,
+                summary: orderSummary,
+                total: totalAmt,
+                address: addressStr,
+                img: prodImg,
+                status: "Order Confirmed",
+                eta: "4-6 Working Days",
+                locationNote: "Sensho Factory Hub"
+            };
+
+            orders.unshift(newOrder);
+            safeSetStorage('senshoOrders', orders);
+
+            globalOrders.unshift(newOrder);
+            safeSetStorage('senshoGlobalAdminOrders', globalOrders);
+            embedCloudSettingsIntoBanners();
+            updateCartBadge();
+
+            if (GOOGLE_SCRIPT_URL) {
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify({
+                        action: "sync_all",
+                        products: products,
+                        banners: banners,
+                        latestOrder: newOrder
+                    })
+                }).catch(err => console.error("Sheet sync failed:", err));
+            }
+        }
+
+        function updateOrderFromAdmin(orderId, field, value) {
+            const gOrd = globalOrders.find(o => o.id === orderId);
+            if (gOrd) {
+                gOrd[field] = value;
+                safeSetStorage('senshoGlobalAdminOrders', globalOrders);
+            }
+            const localOrd = orders.find(o => o.id === orderId);
+            if (localOrd) {
+                localOrd[field] = value;
+                safeSetStorage('senshoOrders', orders);
+            }
+            embedCloudSettingsIntoBanners();
+        }
+
+        function handleAdminCancelDecision(orderId, decision) {
+            if (decision === 'approve') {
+                if (confirm(`✅ Kya aap Order (${orderId}) ki Cancel Request CONFIRM karna chahte hain?`)) {
+                    updateOrderFromAdmin(orderId, 'status', 'Order Cancelled');
+                    loadAdminDashboardData();
+                }
+            } else {
+                if (confirm(`❌ Kya aap Cancel Request REJECT karke order wapas 'Order Confirmed' rakhna chahte hain?`)) {
+                    updateOrderFromAdmin(orderId, 'status', 'Order Confirmed');
+                    loadAdminDashboardData();
+                }
+            }
+        }
+        // ============================================================================
+        // ADMIN PORTAL & 2-FACTOR GLOBAL PIN CHANGE
+        // ============================================================================
+        function openAdminLogin() {
+            document.getElementById('adminModal').classList.remove('hidden');
+            document.getElementById('adminLoginScreen').classList.remove('hidden');
+            document.getElementById('adminDashboardScreen').classList.add('hidden');
+            document.getElementById('adminPin').value = '';
+        }
+        function closeAdminModal() { document.getElementById('adminModal').classList.add('hidden'); }
+        
+        function verifyAdminPin() {
+            let pin = document.getElementById('adminPin').value.trim();
+            if(pin === adminPinCode) {
+                document.getElementById('adminLoginScreen').classList.add('hidden');
+                document.getElementById('adminDashboardScreen').classList.remove('hidden');
+                loadAdminDashboardData();
+            } else {
+                alert("❌ Incorrect Admin PIN! Access denied.");
+            }
+        }
+
+        async function updateAdminPinGlobally() {
+            const p1 = (document.getElementById('masterPass1').value || '').trim().toLowerCase();
+            const p2 = (document.getElementById('masterPass2').value || '').trim().toLowerCase();
+            const newPin = (document.getElementById('newAdminPin').value || '').trim();
+
+            if (p1 !== REQUIRED_PASS_1) {
+                alert("❌ Secret Password 1 galat hai! Sahi password dalein.");
+                return;
+            }
+            if (p2 !== REQUIRED_PASS_2) {
+                alert("❌ Secret Password 2 galat hai! Sahi password dalein.");
+                return;
+            }
+            if (!newPin || newPin.length < 4) {
+                alert("⚠️ Naya PIN kam se kam 4 digits ya letters ka hona chahiye!");
+                return;
+            }
+
+            adminPinCode = newPin;
+            localStorage.setItem('senshoAdminPin', newPin);
+            document.getElementById('masterPass1').value = '';
+            document.getElementById('masterPass2').value = '';
+            document.getElementById('newAdminPin').value = '';
+
+            // Embed in Banners & Sync Globally to All Devices immediately
+            embedCloudSettingsIntoBanners();
+            await saveAdminChanges();
+        }
+
+        function updateOrderStatusFromAdmin(orderIdx, newStatus) {
+            if (!orders[orderIdx]) return;
+            orders[orderIdx].status = newStatus;
+            safeSetStorage('senshoOrders', orders);
+            embedCloudSettingsIntoBanners();
+        }
+
+        function addCustomCategory() {
+            captureAdminFormValues();
+            const inp = document.getElementById('newCatNameInput');
+            if (!inp || !inp.value.trim()) return;
+            const label = inp.value.trim();
+            const id = label.toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (!id || categories.some(c => c.id === id)) {
+                alert("Ye category pehle se maujood hai!");
+                return;
+            }
+            categories.push({ id: id, label: label, icon: "fa-tag", color: "text-amber-300" });
+            inp.value = '';
+            safeSetStorage('senshoCategories', categories);
+            embedCloudSettingsIntoBanners();
+            renderCategoryBar();
+            loadAdminDashboardData();
+        }
+
+        function deleteCustomCategory(idx) {
+            captureAdminFormValues();
+            if (categories[idx].id === 'all') {
+                alert("'All Items' category delete nahi ki ja sakti!");
+                return;
+            }
+            if (confirm(`⚠️ Kya aap '${categories[idx].label}' category hatana chahte hain?`)) {
+                categories.splice(idx, 1);
+                safeSetStorage('senshoCategories', categories);
+                embedCloudSettingsIntoBanners();
+                renderCategoryBar();
+                loadAdminDashboardData();
+            }
+        }
+
+        function captureAdminFormValues() {
+            products.forEach((p, idx) => {
+                const nameEl = document.getElementById(`p-name-${idx}`);
+                const catEl = document.getElementById(`p-cat-${idx}`);
+                const tagEl = document.getElementById(`p-tag-${idx}`);
+                const mrpEl = document.getElementById(`p-mrp-${idx}`);
+                const normEl = document.getElementById(`p-normal-${idx}`);
+                const vipEl = document.getElementById(`p-vip-${idx}`);
+                const fabricEl = document.getElementById(`p-fabric-${idx}`);
+                const fitEl = document.getElementById(`p-fit-${idx}`);
+                const stockEl = document.getElementById(`p-stock-${idx}`);
+                const ratingEl = document.getElementById(`p-rating-${idx}`);
+                const reviewsEl = document.getElementById(`p-reviews-${idx}`);
+                const descEl = document.getElementById(`p-desc-${idx}`);
+
+                if(nameEl) p.name = nameEl.value;
+                if(catEl) p.category = catEl.value;
+                if(tagEl) p.tag = tagEl.value;
+                if(mrpEl && mrpEl.value !== "") p.mrp = Number(mrpEl.value);
+                if(normEl && normEl.value !== "") p.normal = Number(normEl.value);
+                if(vipEl && vipEl.value !== "") p.vip = Number(vipEl.value);
+                if(fabricEl) p.fabric = fabricEl.value;
+                if(fitEl) p.fit = fitEl.value;
+                if(stockEl) p.inStock = stockEl.value === "true";
+                if(ratingEl) p.rating = ratingEl.value;
+                if(reviewsEl) p.reviews = reviewsEl.value;
+                if(descEl) p.desc = descEl.value;
+            });
+            ensureUniqueProductIds(products);
+        }
+
+        function deleteBannerSlide(idx) {
+            captureAdminFormValues();
+            if (banners.length <= 1) {
+                alert("Kam se kam 1 banner slide hona zaroori hai!");
+                return;
+            }
+            if (confirm("⚠️ Kya aap sach mein is banner slide ko delete karna chahte hain?")) {
+                banners.splice(idx, 1);
+                loadAdminDashboardData();
+            }
+        }
+
+        async function handleBannerUpload(e, index) {
+            captureAdminFormValues();
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const uploadStatusText = document.getElementById(`banner-upload-status-${index}`);
+            if(uploadStatusText) uploadStatusText.innerText = "⏳ Optimizing & Uploading...";
+
+            const cloudUrl = await uploadFileToPermanentCloud(file, true);
+            banners[index].customImg = cloudUrl;
+            if(uploadStatusText) uploadStatusText.innerText = "✅ Ready!";
+            loadAdminDashboardData();
+        }
+
+        function addNewBannerSlide() {
+            captureAdminFormValues();
+            banners.push({
+                id: Date.now(),
+                title: "Banner Slide " + (banners.length + 1),
+                customImg: fallbackBanners[0].customImg
+            });
+            loadAdminDashboardData();
+        }
+
+        function addNewProduct() {
+            captureAdminFormValues();
+            const uniqueNewId = "prod_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+            products.unshift({ 
+                id: uniqueNewId,
+                uid: uniqueNewId,
+                name: "New Sensho Wholesale Apparel", 
+                category: "mens", 
+                mrp: 1499, 
+                normal: 999, 
+                vip: 599, 
+                tag: "New Arrival", 
+                fabric: "100% Pure Cotton", 
+                fit: "Regular Comfort Fit", 
+                desc: "High quality factory-made clothing directly from wholesale hub.", 
+                rating: "4.5",
+                reviews: "1,420 Ratings, 380 Reviews",
+                inStock: true, 
+                images: ["https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=800&auto=format&fit=crop&q=80"] 
+            });
+            loadAdminDashboardData();
+        }
+
+        function deleteProduct(idx) {
+            captureAdminFormValues();
+            if (products.length <= 1) {
+                alert("Kam se kam 1 product hona zaroori hai!");
+                return;
+            }
+            if (confirm("⚠️ Kya aap sach mein is product ko catalog se delete karna chahte hain?")) {
+                products.splice(idx, 1);
+                loadAdminDashboardData();
+            }
+        }
+
+        async function appendSingleImage(e, productIdx) {
+            captureAdminFormValues();
+            const file = e.target.files[0];
+            if (!file) return;
+
+            if(!products[productIdx].images) {
+                products[productIdx].images = [];
+            }
+            if(products[productIdx].images.length >= 10) {
+                alert("Maximum 10 photos allowed for this product.");
+                return;
+            }
+
+            const statusSpan = document.getElementById(`prod-img-status-${productIdx}`);
+            if(statusSpan) statusSpan.innerText = "⏳ Uploading...";
+
+            const cloudUrl = await uploadFileToPermanentCloud(file, false);
+            products[productIdx].images.push(cloudUrl);
+            loadAdminDashboardData();
+        }
+
+        function removeImageFromProduct(productIdx, imgIdx) {
+            captureAdminFormValues();
+            if(products[productIdx].images.length <= 1) {
+                alert("Kam se kam 1 photo hona zaroori hai!");
+                return;
+            }
+            if (confirm("⚠️ Kya aap is photo ko gallery se hatana chahte hain?")) {
+                products[productIdx].images.splice(imgIdx, 1);
+                loadAdminDashboardData();
+            }
+        }
+
+        function loadAdminDashboardData() {
+            const countSpan = document.getElementById('adminTotalProductsCount');
+            if(countSpan) countSpan.innerText = products.length;
+
+            // Render Admin Orders Status Manager
+           // Render Admin Orders Status Manager
+           const ordersEditor = document.getElementById('adminOrdersEditorList');
+            if (ordersEditor) {
+                orders.forEach(lo => {
+                    if (!globalOrders.some(go => go.id === lo.id)) globalOrders.unshift(lo);
+                });
+
+                const pendingCancels = globalOrders.filter(o => o.status === "Cancel Request Pending").length;
+                const activeOrdersCount = globalOrders.filter(o => o.status !== "Order Cancelled").length;
+
+                if (globalOrders.length === 0) {
+                    ordersEditor.innerHTML = `<p class="text-[11px] text-slate-400">Abhi koi customer order nahi aaya hai.</p>`;
+                } else {
+                    const statuses = ["Order Confirmed", "Shipped", "Out for Delivery", "Order Delivered", "Cancel Request Pending", "Order Cancelled", "Return Requested"];
+                    
+                    let summaryHeaderHtml = `
+                        <div class="grid grid-cols-3 gap-2 mb-2.5 text-center">
+                            <div class="bg-blue-50 border border-blue-200 p-2 rounded-xl">
+                                <span class="text-[9px] font-bold text-blue-600 uppercase block">Total Orders</span>
+                                <span class="text-sm font-black text-blue-950">${globalOrders.length}</span>
+                            </div>
+                            <div class="bg-emerald-50 border border-emerald-200 p-2 rounded-xl">
+                                <span class="text-[9px] font-bold text-emerald-600 uppercase block">Active Orders</span>
+                                <span class="text-sm font-black text-emerald-950">${activeOrdersCount}</span>
+                            </div>
+                            <div class="bg-amber-50 border border-amber-300 p-2 rounded-xl">
+                                <span class="text-[9px] font-bold text-amber-700 uppercase block">Pending Cancels</span>
+                                <span class="text-sm font-black text-rose-600">${pendingCancels}</span>
+                            </div>
+                        </div>
+                    `;
+
+                    ordersEditor.innerHTML = summaryHeaderHtml + globalOrders.map((o, idx) => {
+                        const isPendingCancel = o.status === "Cancel Request Pending";
+                        return `
+                        <div class="${isPendingCancel ? 'bg-amber-50/90 border-2 border-amber-400' : 'bg-slate-50 border border-slate-200'} p-3 rounded-2xl space-y-2 text-xs shadow-sm">
+                            <div class="flex flex-wrap justify-between items-start gap-2 border-b border-slate-200/80 pb-2">
+                                <div>
+                                    <div class="flex items-center gap-1.5 flex-wrap">
+                                        <span class="bg-blue-600 text-white text-[9px] font-black px-2 py-0.5 rounded">#${idx + 1}</span>
+                                        <span class="font-black text-blue-700">${o.id}</span>
+                                        <span class="text-[10px] font-extrabold text-slate-500 bg-white border px-1.5 py-0.2 rounded">📅 ${o.date || ''} ${o.time ? '⏰ ' + o.time : ''}</span>
+                                    </div>
+                                    <p class="mt-1 text-xs">
+                                        👤 <strong class="text-slate-900">${o.custName || 'Customer'}</strong> 
+                                        <a href="https://wa.me/91${(o.custPhone || '').replace(/\D/g,'')}" target="_blank" class="text-emerald-700 font-black hover:underline ml-1"><i class="fa-brands fa-whatsapp"></i> ${o.custPhone || 'No Phone'}</a>
+                                    </p>
+                                    <p class="text-[11px] font-bold text-slate-800 mt-0.5">🛍️ ${o.summary} — <span class="text-blue-700 font-black">₹${o.total}</span></p>
+                                    <p class="text-[10px] text-slate-600">📍 ${o.address || o.custCityPin || ''}</p>
+                                    ${o.cancelReason ? `<p class="text-[10px] font-bold text-rose-600 mt-0.5">⚠️ Cancel Reason: "${o.cancelReason}"</p>` : ''}
+                                </div>
+                                <div class="flex flex-col items-end gap-1.5">
+                                    <select onchange="updateOrderFromAdmin('${o.id}', 'status', this.value); loadAdminDashboardData();" class="border-2 border-blue-300 rounded-xl px-2.5 py-1 text-[11px] font-black bg-white text-slate-900">
+                                        ${statuses.map(st => `<option value="${st}" ${(o.status || 'Order Confirmed') === st ? 'selected' : ''}>${st}</option>`).join('')}
+                                    </select>
+                                </div>
+                            </div>
+
+                            ${isPendingCancel ? `
+                                <div class="bg-white border border-amber-300 p-2 rounded-xl flex items-center justify-between gap-2">
+                                    <span class="text-[10px] font-black text-amber-900"><i class="fa-solid fa-bell text-amber-500 mr-1"></i> Customer ne Cancel Request bheji hai:</span>
+                                    <div class="flex gap-1.5">
+                                        <button type="button" onclick="handleAdminCancelDecision('${o.id}', 'approve')" class="bg-rose-600 hover:bg-rose-700 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow">Confirm Cancel</button>
+                                        <button type="button" onclick="handleAdminCancelDecision('${o.id}', 'reject')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-[10px] font-black px-2.5 py-1 rounded-lg shadow">Reject (Keep Order)</button>
+                                    </div>
+                                </div>
+                            ` : ''}
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Kab Tak Deliver Hoga (Expected Date):</label>
+                                    <input type="text" value="${o.eta || '4-6 Working Days'}" oninput="updateOrderFromAdmin('${o.id}', 'eta', this.value)" placeholder="e.g. 5 Nov tak deliver hoga" class="w-full text-[11px] border rounded-lg px-2 py-1 font-bold bg-white">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Abhi Kaha Pahucha Hai (Current Location):</label>
+                                    <input type="text" value="${o.locationNote || 'Sensho Factory Hub'}" oninput="updateOrderFromAdmin('${o.id}', 'locationNote', this.value)" placeholder="e.g. Raipur Courier Hub pahucha" class="w-full text-[11px] border rounded-lg px-2 py-1 font-bold bg-white">
+                                </div>
+                            </div>
+                        </div>
+                    `}).join('');
+                }
+            }
+
+            // Render Categories in Admin
+            const catEditor = document.getElementById('adminCategoryEditorList');
+            if (catEditor) {
+                catEditor.innerHTML = categories.map((c, i) => `
+                    <span class="bg-slate-100 border border-slate-300 text-slate-800 text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+                        ${c.label}
+                        ${c.id !== 'all' ? `<button type="button" onclick="deleteCustomCategory(${i})" class="text-rose-600 hover:text-rose-800 font-black">✕</button>` : ''}
+                    </span>
+                `).join('');
+            }
+
+            let bannerContainer = document.getElementById('adminBannerEditorList');
+            if(bannerContainer) {
+                let bannerHtml = '';
+                banners.forEach((b, idx) => {
+                    bannerHtml += `
+                        <div class="bg-slate-50 border border-slate-200 p-3 rounded-2xl flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div class="w-20 h-12 bg-slate-200 rounded-xl overflow-hidden shrink-0 border flex items-center justify-center">
+                                    ${b.customImg ? `<img src="${b.customImg}" class="w-full h-full object-cover">` : `<span class="text-[9px] font-bold text-slate-400">Default BG</span>`}
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-slate-900 block truncate">Slide #${idx+1} Banner</span>
+                                    <span id="banner-upload-status-${idx}" class="text-[10px] text-blue-600 font-bold block"></span>
+                                    <input type="file" accept="image/*" onchange="handleBannerUpload(event, ${idx})" class="text-xs file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:font-bold file:bg-blue-100 file:text-blue-700 cursor-pointer">
+                                </div>
+                            </div>
+                            <button type="button" onclick="deleteBannerSlide(${idx})" class="text-rose-600 text-xs font-bold hover:underline">Delete</button>
+                        </div>
+                    `;
+                });
+                bannerContainer.innerHTML = bannerHtml;
+            }
+
+            let container = document.getElementById('adminProductEditorList');
+            if(container) {
+                let prodHtml = '';
+                products.forEach((p, idx) => {
+                    const currentImages = (p.images && Array.isArray(p.images)) ? p.images : [];
+                    const mrpVal = p.mrp || Math.round(p.normal * 1.5);
+                    const catOptionsHtml = categories.filter(c => c.id !== 'all').map(c => 
+                        `<option value="${c.id}" ${p.category === c.id ? 'selected' : ''}>${c.label}</option>`
+                    ).join('');
+
+                    prodHtml += `
+                        <div class="bg-slate-50 border border-slate-200 p-3.5 rounded-2xl space-y-2.5">
+                            <div class="flex justify-between items-center border-b pb-1.5">
+                                <span class="text-xs font-black text-slate-900">Product #${idx+1}: ${p.name}</span>
+                                <button type="button" onclick="deleteProduct(${idx})" class="text-rose-600 text-[11px] font-bold hover:underline"><i class="fa-solid fa-trash-can mr-1"></i>Delete Product</button>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Product Name</label>
+                                    <input type="text" id="p-name-${idx}" value="${p.name}" class="text-xs border rounded-lg p-1.5 font-bold w-full bg-white">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Category</label>
+                                    <select id="p-cat-${idx}" class="text-xs border rounded-lg p-1.5 font-bold bg-white w-full">
+                                        ${catOptionsHtml}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Tag Badge</label>
+                                    <input type="text" id="p-tag-${idx}" value="${p.tag || "Best Seller"}" class="text-xs border rounded-lg p-1.5 font-bold w-full bg-white">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Fabric Material</label>
+                                    <input type="text" id="p-fabric-${idx}" value="${p.fabric || '100% Pure Cotton'}" class="text-xs border rounded-lg p-1.5 font-bold w-full bg-white">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Fit / Shape</label>
+                                    <input type="text" id="p-fit-${idx}" value="${p.fit || 'Regular Fit'}" class="text-xs border rounded-lg p-1.5 font-bold w-full bg-white">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-bold text-slate-500 block">Stock Availability</label>
+                                    <select id="p-stock-${idx}" class="text-xs border rounded-lg p-1.5 font-bold bg-white w-full">
+                                        <option value="true" ${p.inStock !== false ? 'selected' : ''}>In Stock (Available)</option>
+                                        <option value="false" ${p.inStock === false ? 'selected' : ''}>Out of Stock</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-2 bg-amber-50/70 p-2 rounded-xl border border-amber-200">
+                                <div>
+                                    <label class="text-[9px] font-black text-amber-800 block">Star Rating (e.g. 4.5)</label>
+                                    <input type="text" id="p-rating-${idx}" value="${p.rating || '4.2'}" class="w-full text-xs border rounded p-1 font-bold text-amber-900 bg-white">
+                                </div>
+                                <div>
+                                    <label class="text-[9px] font-black text-amber-800 block">Reviews Count Text</label>
+                                    <input type="text" id="p-reviews-${idx}" value="${p.reviews || '1,420 Ratings, 380 Reviews'}" class="w-full text-xs border rounded p-1 font-medium bg-white">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 bg-blue-50/70 p-2 rounded-xl">
+                                <div><label class="text-[9px] font-bold text-slate-500 block">MRP (₹)</label><input type="number" id="p-mrp-${idx}" value="${mrpVal}" class="w-full text-xs border rounded p-1 font-bold bg-white"></div>
+                                <div><label class="text-[9px] font-bold text-slate-800 block">Normal (₹)</label><input type="number" id="p-normal-${idx}" value="${p.normal}" class="w-full text-xs border rounded p-1 font-bold bg-white"></div>
+                                <div><label class="text-[9px] font-bold text-blue-700 block">VIP (₹)</label><input type="number" id="p-vip-${idx}" value="${p.vip}" class="w-full text-xs border rounded p-1 font-bold text-blue-900 bg-white"></div>
+                            </div>
+
+                            <div>
+                                <label class="text-[10px] font-bold text-slate-600 block mb-0.5">Description:</label>
+                                <textarea id="p-desc-${idx}" rows="2" class="w-full text-xs border rounded-lg p-1.5 font-medium bg-white">${p.desc || ''}</textarea>
+                            </div>
+
+                            <!-- Gallery Upload (Upto 10 Photos) -->
+                            <div class="bg-white p-2.5 rounded-xl border space-y-1.5">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-bold text-slate-700">Gallery Photos (${currentImages.length}/10) <strong id="prod-img-status-${idx}" class="text-blue-600 ml-1"></strong></span>
+                                    <label class="bg-blue-100 text-blue-900 font-bold text-[9px] px-2.5 py-1 rounded-md cursor-pointer hover:bg-blue-200">
+                                        + Add Photo (Max 10)
+                                        <input type="file" accept="image/*" onchange="appendSingleImage(event, ${idx})" class="hidden">
+                                    </label>
+                                </div>
+                                <div class="flex gap-2 overflow-x-auto pt-1 no-scrollbar">
+                                    ${currentImages.map((img, imgIdx) => `
+                                        <div class="relative w-12 h-14 shrink-0 rounded-lg overflow-hidden border">
+                                            <img src="${img}" class="w-full h-full object-cover">
+                                            <button type="button" onclick="removeImageFromProduct(${idx}, ${imgIdx})" class="absolute top-0 right-0 bg-rose-600 text-white rounded-full w-3.5 h-3.5 text-[8px] flex items-center justify-center shadow">✕</button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = prodHtml;
+            }
+        }
+
+        async function saveAdminChanges() {
+            const btn = document.getElementById('saveAdminBtn');
+            if(btn) btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Syncing Globally...`;
+
+            try {
+                captureAdminFormValues();
+                await optimizeAllExistingImages();
+                embedCloudSettingsIntoBanners();
+
+                // Save in both 0ms Local Snapshot & Unlimited IndexedDB
+                safeSetStorage('senshoFastSnapProducts', products);
+                safeSetStorage('senshoFastSnapBanners', banners);
+                await saveToInstantDB('products', products);
+                await saveToInstantDB('banners', banners);
+                safeSetStorage('senshoCategories', categories);
+
+                updateUI();
+
+                if (GOOGLE_SCRIPT_URL) {
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
+                        body: JSON.stringify({
+                            action: "sync_all",
+                            products: products,
+                            banners: banners
+                        })
+                    });
+                }
+
+                if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
+                closeAdminModal();
+                alert("🎉 SUCCESS! Products, Banners, Global Admin PIN aur Order Statuses 100% Cloud par sync ho gaye hain!");
+            } catch(err) {
+                console.error("Save error:", err);
+                if(btn) btn.innerHTML = `<i class="fa-solid fa-floppy-disk"></i> Save & Sync to Mobile + PC Live`;
+                closeAdminModal();
+            }
+        }
+
+        function filterCategory(cat, btn) {
+            currentActiveCategory = cat;
+            renderCategoryBar();
+            applyFiltersAndSearch();
+        }
+
+        function applyFiltersAndSearch() {
+            const searchEl = document.getElementById('searchInput');
+            const val = searchEl ? searchEl.value.toLowerCase().trim() : '';
+            let matchedCount = 0;
+
+            document.querySelectorAll('.product-card').forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                const cardTitle = card.getAttribute('data-title') || '';
+                const catMatch = (currentActiveCategory === 'all' || cardCat === currentActiveCategory);
+                const searchMatch = (!val || cardTitle.includes(val));
+
+                if (catMatch && searchMatch) {
+                    card.style.display = 'flex';
+                    matchedCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const emptyState = document.getElementById('noProductsFoundState');
+            if(emptyState) {
+                if(matchedCount === 0 && products.length > 0) {
+                    emptyState.classList.remove('hidden');
+                } else {
+                    emptyState.classList.add('hidden');
+                }
+            }
+        }
+
+        async function fetchCloudData() {
+            if (!GOOGLE_SCRIPT_URL) return;
+            try {
+                const res = await fetch(`${GOOGLE_SCRIPT_URL}?t=${Date.now()}`, { cache: "no-store" });
+                const cloudData = await res.json();
+                if (cloudData) {
+                    if (cloudData.banners && Array.isArray(cloudData.banners) && cloudData.banners.length > 0) {
+                        banners = cloudData.banners;
+                        applyEmbeddedCloudSettings(banners);
+                        safeSetStorage('senshoFastSnapBanners', banners);
+                        await saveToInstantDB('banners', banners);
+                    }
+                    if (cloudData.products && Array.isArray(cloudData.products) && cloudData.products.length > 0) {
+                        products = ensureUniqueProductIds(cloudData.products);
+                        safeSetStorage('senshoFastSnapProducts', products);
+                        await saveToInstantDB('products', products);
+                    }
+                    renderCategoryBar();
+                    renderBannerSlider();
+                    renderProducts();
+                    checkUrlParamsForProduct();
+                }
+            } catch (err) {
+                console.log("Instant cache active:", err);
+            }
+        }
+
+        let deepLinkOpened = false;
+        function checkUrlParamsForProduct() {
+            if (deepLinkOpened || !products.length) return;
+            const urlParams = new URLSearchParams(window.location.search);
+            const sharedProdParam = urlParams.get('product');
+            if(sharedProdParam) {
+                const decoded = decodeURIComponent(sharedProdParam).toLowerCase();
+                let foundIdx = products.findIndex(p => String(p.uid || p.id).toLowerCase() === decoded);
+                if (foundIdx < 0) {
+                    foundIdx = products.findIndex(p => (p.name || '').toLowerCase() === decoded);
+                }
+                if(foundIdx >= 0) {
+                    deepLinkOpened = true;
+                    openProductDetailModal(foundIdx);
+                }
+            }
+        }
+
+        // 0.00s INSTANT STARTUP ENGINE
+        window.onload = async function() {
+            // Render immediately from 0ms snapshot
+            updateUI();
+            checkUrlParamsForProduct();
+
+            // Check Unlimited IndexedDB in 5ms
+            const cachedProds = await getFromInstantDB('products');
+            const cachedBans = await getFromInstantDB('banners');
+
+            if (cachedProds && cachedProds.length > 0) {
+                products = ensureUniqueProductIds(cachedProds);
+                if (cachedBans && cachedBans.length > 0) {
+                    banners = cachedBans;
+                    applyEmbeddedCloudSettings(banners);
+                }
+                updateUI();
+                checkUrlParamsForProduct();
+            }
+
+            // Sync fresh updates, then verify VIP membership with the server.
+            await fetchCloudData();
+            await restoreVipMembership();
+
+            // Live background polling every 10s
+            setInterval(() => {
+                const adminModal = document.getElementById('adminModal');
+                if (adminModal && adminModal.classList.contains('hidden')) {
+                    fetchCloudData();
+                }
+            }, 10000);
+        };
+    </script>
+</body>
+</html>
