@@ -1957,26 +1957,29 @@ async function generateVipCodes() {
         return;
     }
 
-    const adminKey = window.prompt("Enter your VIP Generator Admin Key:");
-    if (!adminKey) {
-        showMessage("Generation cancelled. Admin key was not entered.", true);
-        return;
-    }
+  const adminKey = window.prompt("Enter Sensho VIP Admin Password:");
 
-    const button = document.querySelector('[onclick="generateVipCodes()"]');
-    const oldText = button ? button.innerHTML : "";
-    if (button) {
-        button.disabled = true;
-        button.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Generating...';
-    }
-    if (messageEl) messageEl.className = "hidden";
+if (!adminKey) {
+    showMessage("Generation cancelled. Admin key was not entered.", true);
+    return;
+}
 
-    try {
-        const result = await senshoVipApi({
-            action: "vip_generate",
-            count: count,
-            adminKey: adminKey
-        });
+const button = document.querySelector('[onclick="generateVipCodes()"]');
+const oldText = button ? button.innerHTML : "";
+
+if (button) {
+    button.disabled = true;
+    button.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Generating...';
+}
+
+if (messageEl) messageEl.className = "hidden";
+
+try {
+    const result = await senshoVipApi({
+        action: "vip_generate",
+        count: count,
+        adminKey: adminKey
+    });
 
         if (!result || result.ok !== true || !Array.isArray(result.codes)) {
             throw new Error((result && result.message) || "VIP codes could not be generated.");
