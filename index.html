@@ -907,9 +907,19 @@
             }
         }
 
-  let vipSecretPasscode = "";
-let isVIPVerified = false;
-let vipCardData = null;
+ let vipSecretPasscode = localStorage.getItem('senshoDynamicVipCode') || "SENSHO299";
+        let isVIPVerified = localStorage.getItem('senshoVIPVerified') === 'true';
+        let vipCardData = safeGetStorage('senshoVIPCardData', null);
+        let generatedOneTimeVipCodes = safeGetStorage('senshoValidVipCodesList', []);
+        let usedOneTimeVipCodes = safeGetStorage('senshoUsedVipCodes', []);
+
+        if (vipCardData && vipCardData.expiryTimestamp && Date.now() > vipCardData.expiryTimestamp) {
+            isVIPVerified = false;
+            localStorage.removeItem('senshoVIPVerified');
+            localStorage.removeItem('senshoVIPCardData');
+            vipCardData = null;
+        }
+
         let activeProductForDetail = null;
         let selectedProductSize = "M";
         let pendingCheckoutType = "direct";
@@ -1008,7 +1018,6 @@ let vipCardData = null;
             }
         ];
 
-        // Load 0ms instant snapshot if available
         let banners = safeGetStorage('senshoFastSnapBanners', fallbackBanners);
         let products = safeGetStorage('senshoFastSnapProducts', fallbackProducts);
         let cart = safeGetStorage('senshoCart', []);
@@ -1016,7 +1025,6 @@ let vipCardData = null;
         let orders = safeGetStorage('senshoOrders', []);
         let adminPinCode = localStorage.getItem('senshoAdminPin') || "6261";
 
-        // GUARANTEE EVERY PRODUCT HAS A STRICT UNIQUE ID (Fixes Multi-Like Bug Forever)
         function ensureUniqueProductIds(prodList) {
             if (!Array.isArray(prodList)) return [];
             const seenIds = new Set();
@@ -1033,8 +1041,7 @@ let vipCardData = null;
         }
         products = ensureUniqueProductIds(products);
 
-        // Extract Global Config Embedded inside Banners[0] (Syncs PIN, VIP Code, Categories & Order Statuses across ALL devices!)
-      let myDeviceUserId = localStorage.getItem('senshoDeviceUserId');
+        let myDeviceUserId = localStorage.getItem('senshoDeviceUserId');
         if (!myDeviceUserId) {
             myDeviceUserId = "USR-" + Date.now() + "-" + Math.floor(1000 + Math.random() * 9000);
             localStorage.setItem('senshoDeviceUserId', myDeviceUserId);
@@ -1054,16 +1061,22 @@ let vipCardData = null;
                 vipSecretPasscode = String(cfg.vipCode);
                 localStorage.setItem('senshoDynamicVipCode', vipSecretPasscode);
             }
+            if (Array.isArray(cfg.validVipCodes)) {
+                generatedOneTimeVipCodes = Array.from(new Set([...generatedOneTimeVipCodes, ...cfg.validVipCodes]));
+                safeSetStorage('senshoValidVipCodesList', generatedOneTimeVipCodes);
+            }
+            if (Array.isArray(cfg.usedVipCodes)) {
+                usedOneTimeVipCodes = Array.from(new Set([...usedOneTimeVipCodes, ...cfg.usedVipCodes]));
+                safeSetStorage('senshoUsedVipCodes', usedOneTimeVipCodes);
+            }
             if (Array.isArray(cfg.categories) && cfg.categories.length > 0) {
                 categories = cfg.categories;
                 safeSetStorage('senshoCategories', categories);
             }
             if (Array.isArray(cfg.globalOrders)) {
-                // Merge cloud global orders with local orders safely
                 cfg.globalOrders.forEach(cloudOrd => {
                     const existingIdx = globalOrders.findIndex(go => go.id === cloudOrd.id);
                     if (existingIdx >= 0) {
-                        // Update existing with cloud fields if newer or synced
                         globalOrders[existingIdx] = { ...globalOrders[existingIdx], ...cloudOrd };
                     } else {
                         globalOrders.push(cloudOrd);
@@ -1103,23 +1116,10 @@ let vipCardData = null;
             banners[0].sysConfig = {
                 adminPin: adminPinCode,
                 vipCode: vipSecretPasscode,
+                validVipCodes: generatedOneTimeVipCodes.slice(0, 100),
+                usedVipCodes: usedOneTimeVipCodes.slice(0, 200),
                 categories: categories,
                 globalOrders: globalOrders.slice(0, 100),
-                orderStatusMap: statusMap,
-                updatedAt: Date.now()
-            };
-        }
-
-        function embedCloudSettingsIntoBanners() {
-            if (!Array.isArray(banners) || banners.length === 0) return;
-            const statusMap = {};
-            orders.forEach(o => {
-                if (o.id && o.status) statusMap[o.id] = o.status;
-            });
-            banners[0].sysConfig = {
-                adminPin: adminPinCode,
-                vipCode: vipSecretPasscode,
-                categories: categories,
                 orderStatusMap: statusMap,
                 updatedAt: Date.now()
             };
@@ -1136,163 +1136,7 @@ let vipCardData = null;
                         <div class="cat-icon w-11 h-11 sm:w-12 sm:h-12 rounded-full ${isActive ? 'bg-amber-400 text-slate-950 ring-2 ring-white font-black' : 'bg-indigo-900 ' + (c.color || 'text-blue-200')} flex items-center justify-center text-base shadow group-hover:bg-amber-400 group-hover:text-slate-950 transition">
                             <i class="fa-solid ${c.icon || 'fa-tag'}"></i>
                         </div>
-                        <span class="cat-label text-[10px] ${isActive ? 'font-extrabold text-amber-300' : 'font-bold text-blue-100'}">${c.label}</span>
-                    </button>
-                `;
-            });
-            nav.innerHTML = html;
-        }
-
-        let logoClicks = 0;
-        function secretLogoClick() {
-            logoClicks++;
-            setTimeout(() => { logoClicks = 0; }, 1000);
-            if(logoClicks >= 3) {
-                logoClicks = 0;
-                openAdminLogin();
-            }
-        }
-
-        let touchTimer = null;
-        const logoEl = document.getElementById('brandLogoContainer');
-        if (logoEl) {
-            logoEl.addEventListener('touchstart', function() {
-                touchTimer = setTimeout(function() {
-                    openAdminLogin();
-                }, 1500);
-            }, { passive: true });
-
-            logoEl.addEventListener('touchend', function() {
-                if (touchTimer) clearTimeout(touchTimer);
-            });
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if(e.ctrlKey && e.shiftKey && e.key.toUpperCase() === 'A') {
-                e.preventDefault();
-                openAdminLogin();
-            }
-        });
-
-        // Ultra-Fast Image Compressor (~25-35KB per photo for 0.5s Cloud Load)
-        function compressImageDataUrl(dataUrl, maxWidth = 720, maxHeight = 850, quality = 0.65) {
-            return new Promise((resolve) => {
-                if (!dataUrl || !dataUrl.startsWith('data:image')) {
-                    resolve(dataUrl);
-                    return;
-                }
-                const img = new Image();
-                img.onload = function() {
-                    let w = img.width;
-                    let h = img.height;
-                    if (w > h) {
-                        if (w > maxWidth) { h = Math.round((h * maxWidth) / w); w = maxWidth; }
-                    } else {
-                        if (h > maxHeight) { w = Math.round((w * maxHeight) / h); h = maxHeight; }
-                    }
-                    const canvas = document.createElement('canvas');
-                    canvas.width = w;
-                    canvas.height = h;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, w, h);
-                    resolve(canvas.toDataURL('image/jpeg', quality));
-                };
-                img.onerror = () => resolve(dataUrl);
-                img.src = dataUrl;
-            });
-        }
-
-        function compressImageFile(file, maxWidth = 720, maxHeight = 850, quality = 0.65) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = async function(event) {
-                    const compressed = await compressImageDataUrl(event.target.result, maxWidth, maxHeight, quality);
-                    resolve(compressed);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-
-        async function uploadFileToPermanentCloud(file, isBanner = false) {
-            const compressedDataUrl = await compressImageFile(file, isBanner ? 1100 : 700, isBanner ? 480 : 850, 0.65);
-            try {
-                const base64Clean = compressedDataUrl.split(',')[1];
-                const formData = new FormData();
-                formData.append("image", base64Clean);
-                const res = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-                    method: "POST",
-                    body: formData
-                });
-                const data = await res.json();
-                if(data && data.data && data.data.url) {
-                    return data.data.url;
-                }
-            } catch(e) {}
-            return compressedDataUrl;
-        }
-
-        async function optimizeAllExistingImages() {
-            for (let i = 0; i < banners.length; i++) {
-                if (banners[i].customImg && banners[i].customImg.startsWith('data:image') && banners[i].customImg.length > 75000) {
-                    banners[i].customImg = await compressImageDataUrl(banners[i].customImg, 1100, 480, 0.62);
-                }
-            }
-            for (let i = 0; i < products.length; i++) {
-                if (products[i].images && Array.isArray(products[i].images)) {
-                    for (let j = 0; j < products[i].images.length; j++) {
-                        if (products[i].images[j] && products[i].images[j].startsWith('data:image') && products[i].images[j].length > 55000) {
-                            products[i].images[j] = await compressImageDataUrl(products[i].images[j], 680, 820, 0.62);
-                        }
-                    }
-                }
-            }
-        }
-
-        // AUTOMATIC BANNER SLIDER LOGIC
-        let currentSlide = 0;
-        function renderBannerSlider() {
-            const track = document.getElementById('sliderTrack');
-            const dots = document.getElementById('sliderDots');
-            if(!track || !dots || !banners.length) return;
-            if (currentSlide >= banners.length) currentSlide = 0;
-            let trackHtml = '';
-            let dotsHtml = '';
-
-            banners.forEach((b, idx) => {
-                const imgSource = b.customImg && b.customImg.length > 5 ? b.customImg : fallbackBanners[0].customImg;
-                trackHtml += `
-                    <div class="min-w-full h-full relative cursor-pointer" onclick="openBigVipAlertModal()">
-                        <img src="${imgSource}" alt="${b.title || 'Banner'}" class="w-full h-full object-cover">
-                    </div>
-                `;
-                dotsHtml += `<span onclick="goToSlide(${idx})" class="cursor-pointer ${idx === currentSlide ? 'w-4 bg-amber-400' : 'w-1.5 bg-white/40'} h-1.5 rounded-full transition-all"></span>`;
-            });
-
-            track.innerHTML = trackHtml;
-            dots.innerHTML = dotsHtml;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        function goToSlide(idx) {
-            currentSlide = idx;
-            renderBannerSlider();
-        }
-
-        function autoSlideBanner() {
-            if (!banners.length) return;
-            currentSlide = (currentSlide + 1) % banners.length;
-            const track = document.getElementById('sliderTrack');
-            if (track) {
-                track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            }
-            const dots = document.getElementById('sliderDots');
-            if (dots) {
-                Array.from(dots.children).forEach((dot, idx) => {
-                    dot.className = `cursor-pointer ${idx === currentSlide ? "w-4 bg-amber-400" : "w-1.5 bg-white/40"} h-1.5 rounded-full transition-all`;
-                });
-            }
-        }
-        setInterval(autoSlideBanner, 3200);
+                        <span class="cat-label text-[10px] ${isActive ? 'font-extrabold text-
 
         // STRICT SINGLE-PRODUCT WISHLIST LOGIC (Uses Unique Product ID)
         function isProductInWishlist(p) {
@@ -1805,183 +1649,209 @@ let vipCardData = null;
             window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
- // ==========================================
-// SENSHO VIP SYSTEM - COMPLETE HELPER FUNCTIONS
 // ==========================================
-
-// 1. VIP API CONNECTION
-function senshoVipApi(payload) {
-    return new Promise((resolve, reject) => {
-
-        if (typeof GOOGLE_SCRIPT_URL === "undefined" || !GOOGLE_SCRIPT_URL) {
-            reject(new Error("Google Apps Script URL is missing."));
-            return;
+        // SENSHO VIP SYSTEM - COMPLETE HELPER & GENERATOR FUNCTIONS
+        // ==========================================
+        function senshoVipApi(payload) {
+            return new Promise((resolve, reject) => {
+                if (typeof GOOGLE_SCRIPT_URL === "undefined" || !GOOGLE_SCRIPT_URL) {
+                    reject(new Error("Google Apps Script URL is missing."));
+                    return;
+                }
+                const callbackName = "senshoVipCallback_" + Date.now() + "_" + Math.random().toString(36).substring(2, 8);
+                const script = document.createElement("script");
+                const params = new URLSearchParams();
+                Object.keys(payload).forEach(key => params.append(key, payload[key]));
+                params.append("callback", callbackName);
+                let timeoutId;
+                function cleanup() {
+                    if (timeoutId) clearTimeout(timeoutId);
+                    delete window[callbackName];
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                }
+                window[callbackName] = function(result) { cleanup(); resolve(result); };
+                script.onerror = function() { cleanup(); reject(new Error("VIP server connection failed.")); };
+                timeoutId = setTimeout(() => { cleanup(); reject(new Error("VIP server request timed out.")); }, 12000);
+                script.src = GOOGLE_SCRIPT_URL + "?" + params.toString();
+                document.body.appendChild(script);
+            });
         }
 
-        const callbackName =
-            "senshoVipCallback_" + Date.now() + "_" +
-            Math.random().toString(36).substring(2, 8);
+        function getSenshoVipDeviceId() {
+            let deviceId = localStorage.getItem("senshoVIPDeviceId");
+            if (!deviceId) {
+                deviceId = (window.crypto && window.crypto.randomUUID) ? window.crypto.randomUUID() : "SNS-" + Date.now().toString(36) + "-" + Math.random().toString(36).substring(2, 15);
+                localStorage.setItem("senshoVIPDeviceId", deviceId);
+            }
+            return deviceId;
+        }
 
-        const script = document.createElement("script");
-        const params = new URLSearchParams();
+        function renderGeneratedVipCodesList() {
+            const sectionEl = document.getElementById('vipGeneratedCodesSection');
+            const listEl = document.getElementById('vipGeneratedCodesList');
+            if (!sectionEl || !listEl) return;
 
-        Object.keys(payload).forEach(key => {
-            params.append(key, payload[key]);
-        });
+            const availableCodes = generatedOneTimeVipCodes.filter(c => !usedOneTimeVipCodes.includes(c));
+            if (availableCodes.length === 0) {
+                sectionEl.classList.add('hidden');
+                listEl.innerHTML = '';
+                return;
+            }
 
-        params.append("callback", callbackName);
+            sectionEl.classList.remove('hidden');
+            listEl.innerHTML = availableCodes.map((code, i) => `
+                <div class="flex items-center justify-between bg-indigo-50/70 border border-indigo-200 px-3 py-2 rounded-lg text-xs">
+                    <span class="font-mono-card font-black text-indigo-950 tracking-wider">${i + 1}. ${code}</span>
+                    <div class="flex items-center gap-1.5">
+                        <button type="button" onclick="copySingleVipCode('${code}')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[10px] px-2.5 py-1 rounded">Copy</button>
+                        <button type="button" onclick="sendSingleVipCodeWhatsApp('${code}')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] px-2.5 py-1 rounded"><i class="fa-brands fa-whatsapp"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-        let timeoutId;
+        async function generateVipCodes() {
+            const qtyInput = document.getElementById('vipGenerateQuantity');
+            const msgBox = document.getElementById('vipGeneratorMessage');
+            let qty = parseInt(qtyInput ? qtyInput.value : 10, 10);
+            if (isNaN(qty) || qty < 1) qty = 10;
+            if (qty > 100) qty = 100;
 
-        function cleanup() {
-            if (timeoutId) clearTimeout(timeoutId);
+            const newBatch = [];
+            for (let i = 0; i < qty; i++) {
+                const randPart = Math.floor(100000 + Math.random() * 900000);
+                const code = `SNS-VIP-${randPart}`;
+                if (!generatedOneTimeVipCodes.includes(code) && !usedOneTimeVipCodes.includes(code)) {
+                    generatedOneTimeVipCodes.unshift(code);
+                    newBatch.push(code);
+                }
+            }
 
-            delete window[callbackName];
+            safeSetStorage('senshoValidVipCodesList', generatedOneTimeVipCodes);
+            if (newBatch.length > 0) {
+                vipSecretPasscode = newBatch[0];
+                localStorage.setItem('senshoDynamicVipCode', vipSecretPasscode);
+            }
 
-            if (script.parentNode) {
-                script.parentNode.removeChild(script);
+            embedCloudSettingsIntoBanners();
+            safeSetStorage('senshoFastSnapBanners', banners);
+            await saveToInstantDB('banners', banners);
+
+            renderGeneratedVipCodesList();
+
+            if (msgBox) {
+                msgBox.className = "mt-4 p-3 rounded-lg text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300";
+                msgBox.innerText = `✅ ${newBatch.length} Unique One-Time VIP Codes generate ho gaye hain aur Cloud par save ho gaye hain!`;
+                msgBox.classList.remove('hidden');
+            }
+
+            if (GOOGLE_SCRIPT_URL) {
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify({
+                        action: "sync_all",
+                        products: products,
+                        banners: banners
+                    })
+                }).catch(() => {});
             }
         }
 
-        window[callbackName] = function(result) {
-            cleanup();
-            resolve(result);
-        };
-
-        script.onerror = function() {
-            cleanup();
-            reject(new Error("VIP server connection failed."));
-        };
-
-        timeoutId = setTimeout(() => {
-            cleanup();
-            reject(new Error("VIP server request timed out."));
-        }, 15000);
-
-        script.src = GOOGLE_SCRIPT_URL + "?" + params.toString();
-
-        document.body.appendChild(script);
-    });
-}
-
-
-// 2. BROWSER DEVICE ID
-function getSenshoVipDeviceId() {
-
-    let deviceId = localStorage.getItem("senshoVIPDeviceId");
-
-    if (!deviceId) {
-
-        if (window.crypto && window.crypto.randomUUID) {
-            deviceId = window.crypto.randomUUID();
-        } else {
-            deviceId =
-                "SNS-" +
-                Date.now().toString(36) +
-                "-" +
-                Math.random().toString(36).substring(2, 15);
+        function copySingleVipCode(code) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(code).catch(() => {});
+            }
+            alert(`✅ VIP Code (${code}) copy ho gaya! Customer ko WhatsApp par paste karke bhej dein.`);
         }
 
-        localStorage.setItem("senshoVIPDeviceId", deviceId);
-    }
-
-    return deviceId;
-}
-
-
-// 3. VIP DATE FORMAT
-function formatVipDate(dateValue) {
-
-    if (!dateValue) {
-        return "Not available";
-    }
-
-    let date;
-
-    if (typeof dateValue === "number") {
-        date = new Date(
-            dateValue < 1000000000000
-                ? dateValue * 1000
-                : dateValue
-        );
-    } else {
-        date = new Date(dateValue);
-    }
-
-    if (isNaN(date.getTime())) {
-        return "Not available";
-    }
-
-    return date.toLocaleDateString("en-IN", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-    });
-}
-
-
-// 4. SAVE VIP MEMBERSHIP
-function saveVipMembership(result) {
-
-    const membership = result.membership || result;
-
-    vipCardData = membership;
-    isVIPVerified = true;
-
-    localStorage.setItem("senshoVIPVerified", "true");
-
-    localStorage.setItem(
-        "senshoVIPCardData",
-        JSON.stringify(membership)
-    );
-}
-
-
-// 5. RESTORE VIP MEMBERSHIP FROM SERVER
-async function restoreVipMembership() {
-
-    try {
-
-        const deviceId = getSenshoVipDeviceId();
-
-        const result = await senshoVipApi({
-            action: "vip_status",
-            deviceId: deviceId
-        });
-
-        if (
-            result &&
-            result.ok === true &&
-            (
-                result.cardNumber ||
-                (result.membership && result.membership.cardNumber)
-            )
-        ) {
-
-            saveVipMembership(result);
-
-            updateUI();
-
-            return true;
+        function copyAllVipCodes() {
+            const availableCodes = generatedOneTimeVipCodes.filter(c => !usedOneTimeVipCodes.includes(c));
+            if (availableCodes.length === 0) return;
+            const textToCopy = availableCodes.join('\n');
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(textToCopy).catch(() => {});
+            }
+            alert(`✅ Saare ${availableCodes.length} VIP Codes copy ho gaye hain!`);
         }
 
-        isVIPVerified = false;
-        vipCardData = null;
+        function sendSingleVipCodeWhatsApp(code) {
+            const msg = `👑 *SENSHO 1-YEAR VIP PASSCODE* 👑\n\nAapka One-Time Activation Code hai:\n👉 *${code}*\n\nWebsite par 'VIP Pass' me jaakar is code ko enter karein. (Ye code sirf 1 baar hi kaam karega).`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+        }
 
-        localStorage.removeItem("senshoVIPVerified");
-        localStorage.removeItem("senshoVIPCardData");
+        async function activateBigVipCode() {
+            let inputEl = document.getElementById('bigVipCodeInput');
+            let code = (inputEl ? inputEl.value : '').trim().toUpperCase();
+            if (!code) {
+                alert("⚠️ Please VIP Passcode enter karein!");
+                return;
+            }
 
-        updateUI();
+            try {
+                await fetchCloudData();
+            } catch (e) {}
 
-        return false;
+            if (usedOneTimeVipCodes.includes(code)) {
+                alert("❌ Ye VIP Passcode pehle hi use kiya ja chuka hai! Ek code sirf 1 hi baar kaam karta hai.");
+                return;
+            }
 
-    } catch (error) {
+            const isValidGenerated = generatedOneTimeVipCodes.includes(code);
+            const isValidSingle = (code === vipSecretPasscode.toUpperCase());
 
-        console.error("VIP Membership Restore Error:", error);
+            if (isValidGenerated || isValidSingle) {
+                usedOneTimeVipCodes.push(code);
+                safeSetStorage('senshoUsedVipCodes', usedOneTimeVipCodes);
 
-        return false;
-    }
-}
+                generatedOneTimeVipCodes = generatedOneTimeVipCodes.filter(c => c !== code);
+                safeSetStorage('senshoValidVipCodesList', generatedOneTimeVipCodes);
+
+                let randomPart1 = Math.floor(1000 + Math.random() * 9000);
+                let randomPart2 = Math.floor(1000 + Math.random() * 9000);
+                let uniqueCardNum = `SNS-VIP-${randomPart1}-${randomPart2}`;
+                let oneYearLater = Date.now() + (365 * 24 * 60 * 60 * 1000);
+                let expiryDate = new Date(oneYearLater);
+                let expiryStr = expiryDate.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+
+                vipCardData = {
+                    cardNumber: uniqueCardNum,
+                    name: "Sensho Verified VIP",
+                    issuedDate: new Date().toLocaleDateString('en-IN'),
+                    expiry: expiryStr,
+                    expiryTimestamp: oneYearLater
+                };
+
+                isVIPVerified = true;
+                localStorage.setItem('senshoVIPVerified', 'true');
+                safeSetStorage('senshoVIPCardData', vipCardData);
+
+                embedCloudSettingsIntoBanners();
+                safeSetStorage('senshoFastSnapBanners', banners);
+                await saveToInstantDB('banners', banners);
+
+                if (GOOGLE_SCRIPT_URL) {
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: "POST",
+                        mode: "no-cors",
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
+                        body: JSON.stringify({
+                            action: "sync_all",
+                            products: products,
+                            banners: banners
+                        })
+                    }).catch(() => {});
+                }
+
+                closeBigVipAlertModal();
+                updateUI();
+                openVipCardModal();
+                alert("🎉 Congratulations! Aapka 1-Year Sensho VIP Pass Activate ho gaya hai!");
+            } else {
+                alert("❌ Galat VIP Passcode! Payment ke baad WhatsApp helpline (+91 6261118847) se sahi passcode lein.");
+            }
+        }
         function openVipCardModal() {
             if (isVIPVerified && vipCardData) {
                 document.getElementById('vipCardDisplayNumber').innerText = vipCardData.cardNumber;
